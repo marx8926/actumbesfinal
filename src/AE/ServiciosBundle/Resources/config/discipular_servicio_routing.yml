@@ -1,0 +1,83 @@
+_lista_cursos:
+  pattern: /_lista_cursos/{tipo}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getCursosOption }
+  
+_tabla_cursos:
+  pattern: /_tabla_cursos
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaCurso }
+
+_option_personal:
+  pattern: /_option_personal/{tipo}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getDocentesOption }
+
+_tabla_miembros_no_personal:
+  pattern: /_tabla_miembros_no_personal
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaMiembrosNoPersonal }
+  
+_tabla_personal:
+  pattern: /_tabla_personal
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaPersonal }
+  
+_option_local:
+  pattern: /_option_local/{tipo}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getLocalOption }
+  
+_tabla_asignacion:
+  pattern: /_tabla_asignacion
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaAsignacion }
+  
+_tabla_miembros_no_estudiante:
+  pattern: /_tabla_miembros_no_estudiante
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaMiembrosNoEstudiante }
+  
+_tabla_estudiante:
+  pattern: /_tabla_estudiante
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaEstudiante }
+  
+_tabla_asignacion_matricula:
+  pattern: /_tabla_asignacion_matricula/{curso}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaAsignacionMatricula }
+  
+_tabla_reporte_asignacion:
+  pattern: /_tabla_reporte_asignacion/{idAsignacion}/{tipodato}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaReporteAsignacion }
+  
+_tabla_reporte_asistencia_redes:
+  pattern: /_tabla_reporte_asistencia_redes/{idCurso}/{idRed}/{dia}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaReporteAsistenciaRedes }
+  
+_tabla_estudiante_asignacion:
+  pattern: /_tabla_estudiante_asignacion/{idAsignacion}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaEstudiantePorAsignacion }
+  
+_tabla_estudiantes_activo:
+  pattern: /_tabla_estudiantes_activo/{activo}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaEstudianteActivo }
+  
+_tabla_clase_asistencia:
+  pattern: /_tabla_clase_asistencia/{idclase}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaClaseAsistencia }
+  
+_tabla_asignacion_clases:
+  pattern: /_tabla_asignacion_clases/{idasignacion}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaClaseAsignacion }
+
+_tabla_vision:
+  pattern: /_tabla_vision/{idred}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaVision }
+  
+_tabla_informe_discipular:
+  pattern: /_tabla_informe_discipular/{idcelula}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaInformeDiscipular }
+  
+_option_celula_red:
+  pattern: /_option_celula_red/{idred}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getCelulaSelect }
+  
+_tabla_reporte_semanal_indeli:
+  pattern: /_tabla_reporte_semanal_indeli/{desde}/{hasta}/{tipo}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:getTablaReporteSemanalIndeli }
+  
+_tabla_resumen_reporte_semanal_indeli:
+  pattern: /_tabla_resumen_reporte_semanal_indeli/{desde}/{hasta}
+  defaults: {_controller: AEServiciosBundle:DiscipularServicio:gerTablaResumenReporteSemanalIndeli }

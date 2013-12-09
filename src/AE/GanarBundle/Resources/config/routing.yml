@@ -1,0 +1,107 @@
+ae_ganar_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: AEGanarBundle:Default:index }
+    
+ganar_persona:
+  pattern: /nuevo
+  defaults: {_controller: AEGanarBundle:Registrar:persona}
+  
+ganar_addpersona:
+  pattern: /regnuevo
+  defaults: {_controller: AEGanarBundle:Registrar:addpersona}
+  requirements:
+    _method: POST
+    
+ganar_busqueda:
+  pattern: /ganarbusqueda
+  defaults: {_controller: AEGanarBundle:Busqueda:busqueda}
+  
+  
+ganar_actualizarmiembro:
+  pattern: /ganaractualizarmiembro
+  defaults: {_controller: AEGanarBundle:Modificar:actualizarmiembro}
+  requirements:
+    _method: POST
+
+ganar_vistamiembro:
+  pattern: /ganarvista/{id}
+  defaults: {_controller: AEGanarBundle:Busqueda:vista}
+    
+ganar_modificar:
+  pattern: /ganarmodificar/{id}
+  defaults: {_controller: AEGanarBundle:Modificar:modificar}
+  
+ganar_modificar_actualizar:
+  pattern: /ganarmodificaractualizar
+  defaults: {_controller: AEGanarBundle:Modificar:modificaractualizar}
+  requirements:
+    _method: POST
+  
+ganar_asignar_red:
+  pattern: /ganarasignar
+  defaults: {_controller: AEGanarBundle:Default:asignar}
+  
+ganar_asignar_red_actualizar:
+  pattern: /ganarasignarupdate/
+  defaults: {_controller: AEGanarBundle:Default:asignarupdate}
+  requirements:
+    _method: POST
+
+ganar_eliminar_miembro:
+  pattern: /eliminarmiembro/{id}
+  defaults: {_controller: AEGanarBundle:Modificar:eliminarmiembro}
+  
+ganar_informe_ganar_fechas:
+  pattern: /informe_ganar_fechas
+  defaults: {_controller: AEGanarBundle:Informe:InformeGanarFechas}
+  
+ganar_informe_semanal:
+  pattern: /informe_semanal
+  defaults: {_controller: AEGanarBundle:Informe:InformeSemanal}
+  
+  
+ganar_test:
+  pattern: /test_tiempo
+  pattern: /test_tiempo
+  defaults: {_controller: AEGanarBundle:Default:test}
+  
+ganar_informe_convertidos:
+  pattern: /informe_convertidos
+  defaults: {_controller: AEGanarBundle:Informe:InformeConvertidos}
+  
+ganar_informe_por_lider:
+  pattern: /informe_por_lider12
+  defaults: {_controller: AEGanarBundle:Informe:InformeLider}
+  
+ganar_informe_por_lider12:
+  pattern: /informe_por_lider144
+  defaults: {_controller: AEGanarBundle:Informe:InformeLider12}
+  
+ganar_informe_por_lider144:
+  pattern: /informe_por_lider1728
+  defaults: {_controller: AEGanarBundle:Informe:InformeLider144}
+  
+ganar_informe_por_lider_1728:
+  pattern: /informe_por_lider20736
+  defaults: {_controller: AEGanarBundle:Informe:InformeLider1728}
+  
+ganar_modificar_ganador:
+  pattern: /modificar_ganador
+  defaults: {_controller: AEGanarBundle:Modificar:modificarganador}
+  
+ganar_modificar_ganador_up:
+  pattern: /modificar_ganador_up
+  defaults: {_controller: AEGanarBundle:Modificar:modificarganadorup}
+  requirements:
+    _method: POST
+    
+ganar_informe_semanal_ganar:
+  pattern: /informe_semanal_ganar
+  defaults: {_controller: AEGanarBundle:Informe:InformeSemanalGanar}
+  
+  
+servicio_administrar_doze_red:
+  pattern: /administrar_doze_red/{red}
+  defaults: {_controller: AEGanarBundle:Servicios:administrar_doze_red}
+  #requirements:
+    #_method: POST

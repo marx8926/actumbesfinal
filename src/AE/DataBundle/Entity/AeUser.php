@@ -134,6 +134,16 @@ class AeUser
      */
     private $credentialsExpireAt;
 
+    /**
+     * @var \Persona
+     *
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_persona", referencedColumnName="id")
+     * })
+     */
+    private $idPersona;
+
 
 
     /**
@@ -512,5 +522,28 @@ class AeUser
     public function getCredentialsExpireAt()
     {
         return $this->credentialsExpireAt;
+    }
+
+    /**
+     * Set idPersona
+     *
+     * @param \AE\DataBundle\Entity\Persona $idPersona
+     * @return AeUser
+     */
+    public function setIdPersona(\AE\DataBundle\Entity\Persona $idPersona = null)
+    {
+        $this->idPersona = $idPersona;
+    
+        return $this;
+    }
+
+    /**
+     * Get idPersona
+     *
+     * @return \AE\DataBundle\Entity\Persona 
+     */
+    public function getIdPersona()
+    {
+        return $this->idPersona;
     }
 }

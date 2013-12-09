@@ -1,0 +1,611 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+        <link href="{{asset('css/bootstrap.css')}}" media="screen" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" media="screen" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" media="screen" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/DT_bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('js/jquery-addresspicker/demos/themes/base/jquery.ui.all.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('js/jquery-addresspicker/demos/demo.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+            
+{% block content %}
+
+   
+    <div class="span9" id="registro_form">
+
+        <h4>{{id}}</h4>
+        
+        <form class="form-horizontal"  method="POST" action="{{path('ganar_modificar_actualizar')}}" id="myForm">
+            
+            <fieldset>
+                
+             {% if (is_granted('ROLE_ADMIN')) %}
+
+                <legend>Usuario</legend>
+
+                <div class="control-group">
+                    <label class="control-label" >Usuario   </label>
+                    <div class="controls">
+                        <input type="text" id="inputUsuario" name="inputUsuario" placeholder="Usuario" class="input-xxlarge" patter="[a-zA-Z0-9]+" />
+                    </div>
+                </div>
+        
+                <div class="control-group">     
+                    <label class="control-label" >Email</label>      
+                    <div class="controls">
+                        <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="input-xxlarge" pattern="|^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+$|" title="mail@ejemplo.com" value="{{email}}"/>      
+                    </div>      
+                </div>
+       
+                <div class="control-group">     
+                    <label class="control-label" >Contraseña Actual</label>      
+                    <div class="controls">
+                        <input type="password" id="inputPassword" name="inputPassword" placeholder="Contraseña" class="input-xxlarge">      
+                    </div>
+                </div>
+          
+                 <div class="control-group">     
+                    <label class="control-label" >Nueva contraseña</label>      
+                    <div class="controls">
+                        <input type="password" id="inputPasswordN" name="inputPasswordN" placeholder="Contraseña" class="input-xxlarge">
+                    </div>
+                </div>
+                
+             {% else %}
+
+                            <div class="control-group">
+                    <label class="control-label" >   </label>
+                    <div class="controls">
+                        <input type="hidden" id="inputUsuario" name="inputUsuario" placeholder="Usuario" class="input-xxlarge" patter="[a-zA-Z0-9]+" />
+                    </div>
+                </div>
+        
+                <div class="control-group">     
+                    <label class="control-label" >Email</label>      
+                    <div class="controls">
+                        <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="input-xxlarge" pattern="|^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+$|" title="mail@ejemplo.com" value="{{email}}"/>      
+                    </div>      
+                </div>
+       
+                <div class="control-group">     
+                    <label class="control-label" ></label>      
+                    <div class="controls">
+                        <input type="hidden" id="inputPassword" name="inputPassword" placeholder="Contraseña" class="input-xxlarge">      
+                    </div>
+                </div>
+          
+                 <div class="control-group">     
+                    <label class="control-label" >Nueva contraseña</label>      
+                    <div class="controls">
+                        <input type="hidden" id="inputPasswordN" name="inputPasswordN" placeholder="Contraseña" class="input-xxlarge">
+                    </div>
+                </div>
+             {% endif %}
+            </fieldset>
+                 
+            <fieldset>
+                <legend>Datos Personales</legend>
+
+                <div class="control-group"> </div>
+        
+                <div class="control-group" >
+                    <label class="control-label"> Nombres (*) </label>
+                    <div class="controls">
+                        <input type="text" id="inputNombres" name="inputNombres" placeholder="Nombres" class="input-xxlarge" pattern="|^[a-zA-Z ñÑáéíóúüç]+$|" value="{{nombre}}" required />
+                    </div>
+                </div>
+        
+                <div class="control-group" >
+                    <label class="control-label">Apellidos (*)</label>
+                    <div class="controls">
+                        <input type="text" id="inputApellidos" name="inputApellidos" placeholder="Apellidos" class="input-xxlarge" pattern="|^[a-zA-Z ñÑáéíóúüç]+$|" value="{{apellidos}}" required />
+                    </div>
+                </div>
+                
+                <div class="control-group ">
+                    <label class="control-label" for="select02"> Estado Civil (*)</label>
+                    <div class="controls">
+                        <select id="select_Civil" name="select_Civil" required >
+                            <option value="0">Solter@</option>
+                            <option value="1">Casad@</option>                    
+                            <option value="2">Conviviente</option>
+                            <option value="3">Viud@</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class= "control-label" for="select01"> Sexo (*)</label>
+                    <div  class="controls">
+                        <select name="select_Sexo" id="select_Sexo"  required >
+                            <option value="1">Masculino</option>
+                            <option value="2">Femenino</option>
+                        </select>
+                    </div>
+                </div>
+        
+                 <div class="control-group">
+                    <label class="control-label" >DNI (*)</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" placeholder="DNI" id="inputDni" name="inputDni" pattern="[0-9]{8}" value="{{dni}}" required />
+                        <p class="help-block">8 digitos</p>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" >Ocupación (*)</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" placeholder="Ocupación" id="inputOcupacion" name="inputOcupacion" value="{{ocupacion}}" required />
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" >Fecha nacimiento (*)</label>
+                    <div class="controls">
+                        <input type= "text" class="datepick" id="inputFechaNacimiento" name="inputFechaNacimiento" value="{{fecha_nacimiento}}"/>
+                        <p class="help-block">Día/Mes/Año</p>  
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" >Edad (*)</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" placeholder="Edad" id="inputEdad" name="inputEdad" value="{{edad}}" required />
+                    </div>
+                </div>
+        
+                <div class="control-group">
+                    <label class="control-label" >Telefono</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" placeholder="Telefono" id="inputTelefono" name="inputTelefono" pattern="[0-9]{9}" value="{{telefono}}"/>
+                    </div>
+                </div>
+        
+                <div class="control-group">
+                    <label class="control-label" >Celular</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" placeholder="Celular" id="inputCelular" name="inputCelular" value="{{celular}}"/>
+                    </div>
+                </div>
+
+            </fieldset>
+            
+            <fieldset>
+                <legend>Ubicación</legend>
+        
+                <div class="control-group">
+                    <label class="control-label">Dirección (*)</label>
+                    <div class="controls">
+                        <input type="text" class="input-xxlarge" id="inputDireccion" name="inputDireccion" value="{{direccion}}" required >
+                    </div>
+                </div>
+        
+                <div class="control-group">
+                    <label class="control-label">Referencia</label>
+                    <div class="controls" >
+                        <input type="text" class="input-xxlarge" id="inputReferencia" name="inputReferencia" value="{{referencia}}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" > Departamento (*)</label>
+                    <div class="controls">
+                        <select name="departamento_lista" id="departamento_lista" required >
+                    
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="control-group">
+                    <label class="control-label" >Provincia (*)</label>
+                    <div class="controls">
+                        <select name="provincia_lista" id="provincia_lista" required>
+                   
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="control-group">
+                    <label class="control-label">Distrito (*)</label>
+                    <div class="controls">
+                        <select name="distrito_lista" id="distrito_lista" required>
+                    
+                        </select>
+                    </div>        
+                </div>
+        
+
+         <div class="control-group">
+            <label>Ubicación</label>
+            	<div id="map-ll">
+		        	<label style="display:none;">Dirección: </label> <input id="addresspicker_map" name="addresspicker_map" disabled="disabled" style="display: none;"/>   <br/>
+					<label style="display:none;">Latitud:</label> <input type ="hidden" id="lat" name="latitud" value="{{latitud}}">
+		            <label  style="display:none;">Longitud:</label> <input id="lng" type="hidden" name="longitud" value="{{longitud}}"> <br/>
+		        </div>
+            <div id="map"></div>
+         </div>
+        
+    </fieldset>
+    <fieldset>
+        <legend>Iglesia</legend>
+        <div class="control-group">
+            <label class="control-label" >Red</label>
+            <div class="controls">
+                <select id="red_lista" name="red_lista" >
+                   
+                </select>
+            </div>
+        </div>
+       
+        <div class="control-group">
+            <label class="control-label">Célula</label>
+            <div class="controls">
+                <select id="celula_lista" name="celula_lista">
+                   
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Fecha de Conversión (*)</label>
+            <div class="controls">
+                <input type= "text" class="datepick" id="inputFechaConversion" name="inputFechaConversion" value="{{conversion}}"/>
+                <p class="help-block">Día/Mes/Año</p>  
+            </div>
+        </div>
+        
+         <div class="control-group">
+            <label class="control-label">Dia de Visitas (*)</label>
+            <div class="controls">
+                <select id="dia_lista" name="dia_lista" >
+                    <option value="Lunes">Lunes</option>
+                    <option value="Martes">Martes</option>
+                    <option value="Miercoles">Miercoles</option>
+                    <option value="Jueves">Jueves </option>
+                    <option value="Viernes">Viernes </option>
+                    <option value="Sabado">Sabado</option>
+                    <option value="Domingo">Domingo</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-group" >
+            <label class="control-label">Hora de Visitas (*)</label>
+            <div class="controls">
+                <input type="time" id="inputHora" name="inputHora" value="{{hora}}" required >                       
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Lugar (*)</label>
+            <div class="controls">
+                <select id="lugar" name="lugar" required>
+                   
+                </select>
+            </div>
+        </div>
+    </fieldset>
+            
+    <fieldset>
+        
+        <legend>Redes Sociales</legend>        
+        
+        <div class="control-group">
+            <label class="control-label">Facebook</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" id="inputFacebook" name="inputFacebook">
+                
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Twitter</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" id="inputTwitter" name="inputTwitter">
+                
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Webpage</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" id="inputWebpage" name="inputWebpage">
+                
+            </div>
+        </div>
+            
+    </fieldset>
+            
+            <fieldset>
+                <legend>Descripción</legend>
+                
+                <div class="control-group">
+                    <label class="control-label">Descripción</label>
+                    <div class="controls">
+                        <textarea rows="5" id="inputDescripcion" name="inputDescripcion" class="input-xxlarge" >{{peticion}} </textarea>
+                    <p class="help-block">Pedido de oración u otro detalle</p>
+                    </div>
+                </div>          
+            
+            </fieldset>
+         
+              
+              <div class="control-group">
+                  <label></label>
+                  <div class="controls">
+                      <input class="btn btn-small btn-primary" type="submit" id="login" name="login" value="Registrar" />
+                  </div>
+              </div>
+              
+        </form>
+        
+
+</div>
+
+{% endblock %}
+                
+      {%block javascript %}
+           
+                <script src="{{asset('js/jquery.js')}}"></script>
+				<script src="{{asset('js/less.js')}}"></script>
+				<script src="{{asset('js/bootstrap.js')}}"></script>
+				<script src="{{asset('js/bootstrap.min.js')}}"></script>
+				<script src="{{asset('js/jquery.peity.js')}}"></script>
+				<script src="{{asset('js/jquery.fancybox.js')}}"></script>
+				<script src="{{asset('js/jquery.flot.js')}}"></script>
+				<script src="{{asset('js/jquery.color.js')}}"></script>
+				<script src="{{asset('js/jquery.flot.resize.js')}}"></script>
+				<script src="{{asset('js/custom.js')}}"></script>            
+			    <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+			    <script src="{{asset('js/jquery-addresspicker/lib/jquery-ui-1.8.7.min.js')}}" > </script>
+			    <script src="{{asset('js/jquery-addresspicker/src/jquery.ui.addresspicker.js')}}"> </script>     
+			    <script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+			  	<script src="{{asset('js/jquery.inputmask.min.js')}}"></script>
+                                <script src="{{asset('js/ganar.js')}}"></script>
+  	
+            <script type="text/javascript">
+                 
+                    var ubiqeo = 0;
+                 
+                     $(document).ready(function(){
+                         
+                      //recuperar los datos
+                        var codigo = {{id}};
+                
+                        $("#dia_lista").val('{{dia}}');
+                          
+                      initRed('{{path('servicio_red_sin')}}');
+
+                        initLugar('{{path('servicio_lugar')}}');
+                        
+                        initDepartamentos('{{path('servicio_region')}}');
+   
+                        //carga datos de usuario
+                                   
+                        var url = '{{path('servicio_usuario_id',{'id':'cod'}) }}';
+                        var ruta = url.replace('cod',codigo);
+                        $.ajax(
+                            {   url : ruta,
+                                dataType:"json",
+                                type: "POST",
+                                async: false,
+                            }
+                        ).done(user);
+    
+             
+                        init();
+                 
+                      
+    
+                        //red social
+                        url = '{{path( 'servicio_red_social', {'id':'cod'} )}}';
+                        ruta = url.replace('cod',codigo);
+                        $.ajax(
+                            {   url : ruta,
+                                dataType:"json",
+                                type: "POST",
+                                async: false,
+                            }
+                        ).done(sociales);
+    
+                        var x =$("login");
+                        x.click();
+    
+                         $("#myForm").submit(function(event){
+                             event.preventDefault();
+                             
+                            //get the url for the form
+                        var url=$("#myForm").attr("action");
+                     
+                        //start send the post request
+                        $.post(url,{
+                            formName:$("#myForm").serialize(),
+                            ubi: {{id_ubicacion}},
+                            id : {{id}},
+                            other:"attributes"
+                        },function(data){
+                        //the response is in the data variable
+               
+                        if(data.responseCode==200 ){           
+                      
+                            alert('Registro Completado');
+                             window.close();             
+                        }
+                        else if(data.responseCode==400){//bad request
+                            alert('Error bad request');
+                        }
+                        else{                        
+                            if(data.responseCode==500)
+                            {
+                                alert('Error bad request');
+                            }
+                            else alert("An unexpeded error occured.");
+                            }
+                        }
+                    );
+                    return false;});
+                    
+                    $(function() {
+                    var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
+                        elements: {
+                        map:      "#map",
+                        lat:      "#lat",
+                        lng:      "#lng"
+                        }
+                    });
+                    var gmarker = addresspickerMap.addresspicker( "marker");
+                    gmarker.setVisible(true);
+                    addresspickerMap.addresspicker( "updatePosition");
+		
+                    });
+            
+                    nombres();
+            });
+            
+
+            //recuperar los datos
+             function user(dato)
+             {
+                  if(dato!==false)
+                  {
+                      $("#inputUsuario").val(dato.nombre);  
+                  }
+             }
+             function init()
+            {
+                 if({{estado_civil}} ==0)
+                 {  
+                         $("#estado").val('Solter@');  $("#estado").text('Solter@');
+                 }                     
+                 else {
+                         $('#estado').val('Casad@');  $('#estado').text('Casad@');
+                 }
+                 
+                  //sexo
+                  if({{sexo}}==1)
+                     {
+                         $('#sexo').val('Masculino'); $('#sexo').text('Masculino');
+                     }   
+                    else
+                     {
+                         $('#sexo').val('Femenino'); $('#sexo').text('Femenino');
+                     }   
+                     
+            }
+
+             function nombres()
+             {
+
+                      //lista de departamentos
+
+                   $('#departamento_lista').val({{departamento}});
+                   
+                   recarga_provincias();
+
+                   $('#provincia_lista').val({{provincia}});
+                   
+                  recarga_distritos();
+
+                   $('#distrito_lista').val({{distrito}});
+                   
+                   console.log({{distrito}});
+                   
+                   $('#red_lista').val('{{red}}');
+                     recargar_celula();
+                     
+                   $('#celula_lista').val({{celula}});
+                     
+                   $('#lugar').val({{lugar}});
+                      //mapa
+                    //  mapa(dato.longitud, dato.latitud);
+             }
+      
+             function sociales(dato)
+             {
+                for(var i=0;i<dato.length; i++)
+                {
+                    if(dato[0].tipo=='facebook'){
+                        $('#inputFacebook').val(dato[i].enlace);
+                    }
+                    else if(dato[0].tipo=='twitter')
+                    {
+                        $('#inputTwitter').val(datos[i].enlace);
+                    }
+                }
+             }
+    
+           
+       
+            function recargar_celula()
+            {
+                var nombre = $("#red_lista option:selected").val();  
+            
+                 var route = '{{path('servicio_celula',{'id': 'name'})}}';
+            
+                 var rutas = route.replace('name',nombre);
+         
+            
+                 $.ajax(
+                        {url : rutas,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(celula);           
+     
+            }
+ 
+            function departamentos(datos)
+            {
+                for(var i=0; i<datos.length ; i++)
+                {
+                    $('<option value='+datos[i].coddepartamento+'>'+datos[i].departamento+'</option>').appendTo('#departamento_lista');
+                } 
+                    
+               recarga_provincias();
+            }
+    
+            function recarga_provincias()
+            {
+                var id = $("#departamento_lista option:selected").val();              
+                var route = '{{path('servicio_provincia',{'id': 'nom'})}}';            
+                var rutas = route.replace('nom',id);         
+            
+                $.ajax(
+                        {   url : rutas,
+                            dataType:"json",
+                            type: "POST",
+                            async: false,
+                        }
+                    ).done(provincias);
+            }
+            
+            function provincias(dato)
+            {
+                $("#provincia_lista").empty();
+                for(var i=0;i<dato.length;i++)
+                {
+                    $('<option value='+dato[i].codprovincia+'>'+dato[i].provincia+'</option>').appendTo('#provincia_lista');
+                } 
+                recarga_distritos();
+            }
+                
+            function recarga_distritos()
+            {
+                var dep=$("#departamento_lista option:selected").val();
+                var prov = $("#provincia_lista option:selected").val();
+   
+                var route = '{{path('servicio_distrito',{'dep':'id1','prov':'id2'})}}';
+                    
+                var rutas = route.replace('id1', dep);                    
+                rutas = rutas.replace('id2', prov);
+                    
+                 $.ajax(
+                        {   url : rutas,
+                            dataType:"json",
+                            type: "POST",
+                            async: false,
+                        }
+                    ).done(distrito);
+            }
+           
+            </script>
+        
+      {% endblock %} 

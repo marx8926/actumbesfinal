@@ -1,0 +1,365 @@
+{% extends "::base.html.twig" %}
+
+{% block titulo %} Informe Ganar 1728 {% endblock %}
+
+{% block stylesheets %}
+        <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/DT_bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
+
+{% endblock %}                 
+
+{% block content %} 
+        <div class="row-fluid">
+<div class="span12" >
+	<h1>Informe de Nuevos Convertidos 20736</h1>
+        
+        <div class="control-group">
+            <label class="control-label" >Desde</label>
+            <div class="controls">
+                <input type="text" class="datepick rango" id="desde" name="desde" required>
+            </div>
+        </div>
+        
+        
+         <div class="control-group">
+            <label class="control-label" >Hasta</label>
+            <div class="controls">
+                <input type="text" class="datepick rango" id="hasta" name="hasta" required>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" >Red</label>
+            <div class="controls">
+                <select id="red_lista" name="red_lista" class="rango" >
+                   
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-group">
+                <label class="control-label" >Mis 12</label>
+                <div class="controls">
+                    <select id="doce_lista" name="doce_lista" >
+                        
+                    </select>
+                </div>           
+        </div>
+        
+        <div class="control-group">
+                <label class="control-label" >Mis 144</label>
+                <div class="controls">
+                    <select id="ciento_lista" name="ciento_lista" class="rango" >
+                   
+                    </select>
+                </div>           
+        </div>
+        
+         <div class="control-group">
+                <label class="control-label" >Mis 1728</label>
+                <div class="controls">
+                    <select id="mil_lista" name="mil_lista" class="rango" >
+                   
+                    </select>
+                </div>           
+        </div>
+        
+	<div class="box">
+		<div class="box-head tabs">
+            <h3 id="titulo_informe" name="titulo_informe">Informe Ganar </h3>	
+                </div>
+       
+
+        <div class="box-content box-nomargin">
+        	<form id='form' method='POST'>
+                
+                    <input id='content' type='hidden' name='content' >
+                    <input id='title' type='hidden' name='title' >
+                    <input id='pdfbutton' type='button' value='PDF' class="btn btn-info">
+                    <input id='excelbutton' type='button' value='Excel' class="btn btn-info">
+            
+            	<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped dataTable table-bordered"  id="persona" name="persona">
+            		<thead id='lol'>
+                		<tr>
+		                    <th>Nombres</th>
+		                    <th>Edad</th>
+		                    <th>DNI</th>
+		                    <th>Estado</th>
+		                    <th>Telefono</th>
+                                    <th>Visita</th>
+                                    <th>Direccion</th>
+                                    <th>Referencia</th>
+                                    <th>Conversión</th>
+                                    <th>Petición</th>
+                                    <th>Lugar</th>
+		                </tr>
+					</thead>
+					
+	
+    			</table>
+   			</form>
+    	</div>
+            
+	</div>
+   
+</div>    
+       </div>          
+{% endblock %}
+      
+ {%block javascript %}
+            
+            <script src="{{asset('js/jquery.js')}}"></script>
+			<script src="{{asset('js/less.js')}}"></script>
+			<script src="{{asset('js/bootstrap.min.js')}}"></script>
+			<script src="{{asset('js/jquery.uniform.min.js')}}"></script>
+			<script src="{{asset('js/bootstrap.js')}}"></script>
+			<script src="{{asset('js/chosen.jquery.min.js')}}"></script>
+			<script src="{{asset('js/jquery.fancybox.js')}}"></script>
+			<script src="{{asset('js/plupload/plupload.full.js')}}"></script>
+			<script src="{{asset('js/jquery.cleditor.min.js')}}"></script>
+			<script src="{{asset('js/jquery.inputmask.min.js')}}"></script>
+			<script src="{{asset('js/jquery.tagsinput.min.js')}}"></script>
+			<script src="{{asset('js/jquery.mousewheel.js')}}"></script>
+			<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+			<script src="{{asset('js/jquery.dataTables.bootstrap.js')}}"></script>
+			<script src="{{asset('js/jquery.textareaCounter.plugin.js')}}"></script>
+			<script src="{{asset('js/ui.spinner.js')}}"></script>
+			<script src="{{asset('js/custom.js')}}"></script>
+                        <script src="{{asset('js/tablasfeatures.js')}}"></script>
+                       	<script src="{{asset('js/functiongen.js')}}"></script>
+                        <script src="{{asset('js/ganar.js')}}"></script>
+                        <script src="{{asset('js/tiempo.js')}}"></script>
+                	<script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+
+
+			
+			<script src="https://www.google.com/jsapi"></script>
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->              
+            <script src="{{asset('js/DT_bootstrap.js')}}"> </script>
+            
+          
+ 
+ 
+    <script type="text/javascript">
+ 
+         var trselected; 
+	 var oTable;
+         
+        var values = [];
+                 
+   
+         
+        function recargar_celula()
+        {
+            
+        }
+        
+        function cambiar_doce()
+        {
+             var nombre = $("#red_lista option:selected").val();  
+            
+               var route = '{{path('servicio_administrar_doce_red',{'red': 'name'})}}';
+            
+               if(nombre!= '-1')
+               {
+                 var rutas = route.replace('name',nombre);
+               
+                 $.ajax(
+                        {url : rutas,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(doce); 
+
+               }      
+        }
+        function doce(data)
+        {
+            $('#doce_lista').empty();
+            $("<option value='-1'>Sin Lider</option>").appendTo('#doce_lista');
+
+            for(var i=0; i<data.length ; i++)   
+             {
+                  
+                $('<option value='+data[i].id+'>'+data[i].nombre+' '+data[i].apellidos+'</option>').appendTo('#doce_lista');
+                
+             }                         
+        }
+        function cambiar_ciento()
+        {
+              var net = $("#red_lista option:selected").val();
+               var nombre = $("#doce_lista option:selected").val();  
+               
+               if(nombre.length >0)
+               {
+               
+                    var route = '{{path('servicio_administrar_ciento_red',{'red': 'name','lider':':led'})}}';
+               
+                    route = route.replace('name',net);
+                    route = route.replace(':led',nombre);
+
+                    $.ajax(
+                        {url : route,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(ciento); 
+               }
+        }
+        function ciento(data)
+        {
+             $('#ciento_lista').empty();
+             
+             $("<option value='-1'>Sin Lider</option>").appendTo('#ciento_lista');
+
+              for(var i=0; i<data.length ; i++)   
+              { 
+                   
+                $('<option value='+data[i].id+'>'+data[i].nombre+' '+data[i].apellidos+'</option>').appendTo('#ciento_lista');
+           
+              } 
+        }
+        
+        function cambiar_miles()
+        {
+               var net = $("#red_lista option:selected").val();
+               var doc = $("#doce_lista option:selected").val(); 
+               var cien = $("#ciento_lista option:selected").val();
+               
+               if(cien.length >0)
+               {
+               
+                    var route = '{{path('servicio_administrar_mil_red',{'red': 'name','doce':':doce','lider':':led'})}}';
+               
+                    route = route.replace('name',net);
+                    route = route.replace(':doce',doc);
+                    route = route.replace(':led',cien);
+
+                    $.ajax(
+                        {url : route,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(miles); 
+               }
+        }
+        
+        function miles(data)
+        {
+             $('#mil_lista').empty();
+             
+             $("<option value='-1'>Sin Lider</option>").appendTo('#mil_lista');
+
+              for(var i=0; i<data.length ; i++)   
+              {                    
+                $('<option value='+data[i].id+'>'+data[i].nombre+' '+data[i].apellidos+'</option>').appendTo('#mil_lista');           
+              } 
+        }
+        
+        function cambiar_datos()
+        {
+            var net = $("#red_lista option:selected").val();
+            var doc = $("#doce_lista option:selected").val(); 
+            var cien = $("#ciento_lista option:selected").val();
+            var padre= $("#mil_lista option:selected").val();
+            
+            var date1 =  $("#desde").val().split('/');
+            var date2 =  $("#hasta").val().split('/');
+            var desde = date1[2] + '-' + date1[1] + '-' + date1[0];
+            var hasta = date2[2] + '-' + date2[1] + '-' + date2[0];
+               
+            var url = "{{path('servicio_nuevos_por_red_mil',{'red':'net','inicio':'ini','fin':':fini',
+'doce':'dozen','ciento':':ciento','padre':'father'})}}";
+                url = url.replace('net',net);
+                url = url.replace('ini',desde);
+                url = url.replace(':fini',hasta);
+              
+                
+                if(net!='-1' && doc!='-1' && cien!='-1' && padre!='-1' && padre.length>0)
+                {
+                   
+                    url = url.replace('dozen',doc);
+                    url = url.replace(':ciento',cien)
+                    url = url.replace('father',padre);
+            
+                    console.log(url);
+                    
+                     get_tabla(url);
+                }
+                else {
+                }
+        }
+        
+	$(document).ready(function() {
+            
+             FechaActualT('desde');
+             FechaActualT('hasta');
+            
+             var rede = '{{red}}' ;
+             
+             $("<option value='-1'>Sin Lider</option>").appendTo('#doce_lista');
+             $("<option value='-1'>Sin Lider</option>").appendTo('#ciento_lista');
+             $("<option value='-1'>Sin Lider</option>").appendTo('#mil_lista');
+
+             initRed('{{path('servicio_red_sin')}}');
+            
+             $('#red_lista').change(cambiar_doce);
+             $('#doce_lista').change(cambiar_ciento);
+             $('#ciento_lista').change(cambiar_miles);
+
+             $('.rango').change(cambiar_datos);
+	 });
+         
+         
+         function get_tabla(url)
+         {
+               /* Build the DataTable with third column using our custom sort functions */
+            oTable = $('#persona').dataTable( {
+                                    
+                "bProcessing": true,
+                "bServerSide": false,
+                "bDestroy": true,
+                "sAjaxSource": url,
+                "aoColumns": [
+                    { "mDataProp": "nombres" },
+                    { "mDataProp": "edad" },
+                    { "mDataProp": "dni" },
+                    { "mDataProp": "estado" },
+                    { "mDataProp": "telefono"},
+                    { "mDataProp": "visita"},
+                    { "mDataProp":"direccion"},
+                    { "mDataProp": "referencia"},
+                    { "mDataProp": "conversion"},
+                    { "mDataProp": "peticion"},
+                    { "mDataProp": "lugar"}
+                ],
+                "sScrollY": "200px",
+                "bPaginate": false,
+                "bScrollCollapse": true,
+		"aaSorting": [ [0,'desc']],//por consultar el tipo de orden
+		"aoColumnDefs": [
+                    { "sType": 'string-case', "aTargets": [ 2 ] }
+		],"sDom": 'T<"clear">lfrtip',
+                "oTableTools": {
+			"sRowSelect": "single",
+                        "fnRowSelected": function ( node ) {
+                            var s=$(node).children();
+                            alert("Selected Row : " + s[0]);
+                        }
+		},
+                "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+					"sPaginationType": "bootstrap",
+					"oLanguage": {
+						"sLengthMenu": "_MENU_ registros por página"
+					}
+            } );	
+         }
+      
+       </script>
+{%endblock %} 

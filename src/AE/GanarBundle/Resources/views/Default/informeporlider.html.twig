@@ -1,0 +1,265 @@
+{% extends "::base.html.twig" %}
+
+{% block titulo %} Informe Ganar por 12 Pastor@{% endblock %}
+
+{% block stylesheets %}
+        <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/DT_bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
+{% endblock %}                 
+
+{% block content %} 
+            <div class="row-fluid">
+<div class="span12" >
+	<h1>Informe de Nuevos Convertidos por 12</h1>
+        
+        
+        <div class="control-group">
+            <label class="control-label" >Red</label>
+            <div class="controls">
+                <select id="red_lista" name="red_lista" class="rango" >
+                   
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" >Desde</label>
+            <div class="controls">
+                <input type="text" class="datepick rango" id="desde" name="desde" required>
+            </div>
+        </div>
+        
+        
+         <div class="control-group">
+            <label class="control-label" >Hasta</label>
+            <div class="controls">
+                <input type="text" class="datepick rango" id="hasta" name="hasta" required>
+            </div>
+        </div>
+	<div class="box">
+		<div class="box-head tabs">
+            <h3 id="titulo_informe" name="titulo_informe">Informe Ganar </h3>	
+                </div>
+       
+
+        <div class="box-content box-nomargin">
+        	<form id='form' method='POST'>
+                
+                    <input id='content' type='hidden' name='content' >
+                    <input id='title' type='hidden' name='title' >
+                    <input id='pdfbutton' type='button' value='PDF' class="btn btn-info">
+                    <input id='excelbutton' type='button' value='Excel' class="btn btn-info">
+            
+            	<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped dataTable table-bordered"  id="persona" name="persona">
+            		<thead id='lol'>
+                		<tr>
+		                    <th>Nombres</th>
+		                    <th width="5%">Edad</th>
+		                    <th>DNI</th>
+		                    <th width="6%">Estado</th>
+		                    <th width="6%">Telefono</th>
+                                    <th>Visita</th>
+                                    <th>Direccion</th>
+                                    <th>Referencia</th>
+                                    <th width="8%">Conversión</th>
+                                    <th>Petición</th>
+                                    <th width="8%">Lugar</th>
+		                </tr>
+					</thead>
+					
+	
+    			</table>
+   			</form>
+    	</div>
+            
+	</div>
+    
+</div>    
+       </div>          
+{% endblock %}
+      
+ {%block javascript %}
+            
+            <script src="{{asset('js/jquery.js')}}"></script>
+			<script src="{{asset('js/less.js')}}"></script>
+			<script src="{{asset('js/bootstrap.min.js')}}"></script>
+			<script src="{{asset('js/jquery.uniform.min.js')}}"></script>
+			<script src="{{asset('js/bootstrap.js')}}"></script>
+			<script src="{{asset('js/chosen.jquery.min.js')}}"></script>
+			<script src="{{asset('js/jquery.fancybox.js')}}"></script>
+			<script src="{{asset('js/plupload/plupload.full.js')}}"></script>
+			<script src="{{asset('js/jquery.cleditor.min.js')}}"></script>
+			<script src="{{asset('js/jquery.inputmask.min.js')}}"></script>
+			<script src="{{asset('js/jquery.tagsinput.min.js')}}"></script>
+			<script src="{{asset('js/jquery.mousewheel.js')}}"></script>
+			<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+			<script src="{{asset('js/jquery.dataTables.bootstrap.js')}}"></script>
+			<script src="{{asset('js/jquery.textareaCounter.plugin.js')}}"></script>
+			<script src="{{asset('js/ui.spinner.js')}}"></script>
+			<script src="{{asset('js/custom.js')}}"></script>
+                        <script src="{{asset('js/tablasfeatures.js')}}"></script>
+                       	<script src="{{asset('js/functiongen.js')}}"></script>
+                        <script src="{{asset('js/ganar.js')}}"></script>
+                        <script src="{{asset('js/tiempo.js')}}"></script>
+                	<script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+		
+			<script src="https://www.google.com/jsapi"></script>
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->              
+            <script src="{{asset('js/DT_bootstrap.js')}}"> </script>
+            
+          
+ 
+ 
+    <script type="text/javascript">
+ 
+         var trselected; 
+	 var oTable;
+         
+        var values = [];
+         
+         function recargar_celula()
+         {
+             
+         }
+	$(document).ready(function() {
+            
+            FechaActualT('desde');
+            FechaActualT('hasta');
+            
+             var rede = '{{red}}' ;
+                                      
+             if(rede.length > 0)
+             {
+                 $("<option value='"+rede+"'>"+rede+"</option>").appendTo('#red_lista');
+             }
+             else
+             initRed('{{path('servicio_red_sin')}}');
+            
+        
+             $('#select').css({'display':'none'});
+             
+             
+            $(".rango").change(function(){
+                
+                var net = $('#red_lista option:selected').val();
+                var date1 =  $("#desde").val().split('/');
+                var date2 =  $("#hasta").val().split('/');
+                var desde = date1[2] + '-' + date1[1] + '-' + date1[0];
+                var hasta = date2[2] + '-' + date2[1] + '-' + date2[0];
+               
+                var url = "{{path('servicio_nuevos_por_red',{'red':'net','inicio':'ini','fini':':fin'})}}";
+                url = url.replace('net',net);
+                url = url.replace('ini',desde);
+                url = url.replace(':fin',hasta);
+                
+                if(net!='-1')
+                {
+                    var ruta = "{{path('servicio_red_encargado',{'id':'net'})}}";
+                    ruta = ruta.replace('net', net);
+                    
+                    $.ajax(
+                        {url : ruta,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(function(data){
+                                for(var i=0; i<data.length; i++)
+                                {
+                                    $('#titulo_informe').text('Informe Ganar: '+data[i].id+'-'+data[i].nombres)                                    
+                                }
+                        });
+                    
+                     get_tabla(url);
+                }
+                else $('#titulo_informe').text('Informe Ganar');
+            });
+
+
+            $("#pdfbutton").click(function(event) {
+                $("#persona th").css("width","auto");
+            	$("#content").val($("#persona").html());
+            	$("#title").val($("h3").html());
+            	//$("#content").val($("#lol").html() + $("tbody").html());
+                $("#form").attr("action", "{{asset('extensiones/exportpdf.php')}}");
+		 		$("#form").submit();
+            });
+
+            $("#excelbutton").click(function(event) {
+            	$("#content").val("<table>" + $("#persona").html() + "</table>");
+		$("#form").attr("action", "{{asset('extensiones/exportexcel.php')}}");
+		$("#form").submit();
+            });
+        
+            $('#persona tbody').click(function(event){
+                $(oTable.fnSettings().aoData).each(function(){
+                    $(this.nTr).removeClass('row_selected');
+                });
+                
+                $(event.target.parentNode).addClass('row_selected');
+                
+                trselected = $(event.target.parentNode);
+                
+                var tds = $(trselected).find('td');
+                
+                values = [];
+  
+                $.each(tds, function(index, item) {
+                    values.push(item.innerHTML); 
+                }); 
+                $('#select').css({'display':'block'});
+            });
+            
+	 });
+         
+         
+         function get_tabla(url)
+         {
+               /* Build the DataTable with third column using our custom sort functions */
+            oTable = $('#persona').dataTable( {
+                                    
+                "bProcessing": true,
+                "bServerSide": false,
+                "bDestroy": true,
+                "sAjaxSource": url,
+                "aoColumns": [
+                    { "mDataProp": "nombres" },
+                    { "mDataProp": "edad" },
+                    { "mDataProp": "dni" },
+                    { "mDataProp": "estado" },
+                    { "mDataProp": "telefono"},
+                    { "mDataProp": "visita"},
+                    { "mDataProp":"direccion"},
+                    { "mDataProp": "referencia"},
+                    { "mDataProp": "conversion"},
+                    { "mDataProp": "peticion"},
+                    { "mDataProp": "lugar"}
+                ],
+		"aaSorting": [ [0,'asc']],//por consultar el tipo de orden
+		"aoColumnDefs": [
+                    { "sType": 'string-case', "aTargets": [ 2 ] }
+		],
+                "sScrollY": "200px",
+                "bPaginate": false,
+                "bScrollCollapse": true,
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": {
+			"sRowSelect": "single",
+                        "fnRowSelected": function ( node ) {
+                            var s=$(node).children();
+                            alert("Selected Row : " + s[0]);
+                        }
+		},
+                "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+					"sPaginationType": "bootstrap",
+					"oLanguage": {
+						"sLengthMenu": "_MENU_ registros por página"
+					}
+            } );	
+         }
+      
+       </script>
+{%endblock %} 

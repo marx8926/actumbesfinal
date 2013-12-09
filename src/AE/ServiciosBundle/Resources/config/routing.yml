@@ -1,0 +1,203 @@
+ae_servicios_homepage:
+    pattern:  /ubicacelulas
+    defaults: { _controller: AEServiciosBundle:Default:index }
+ 
+  
+servicio_ubicacion_id:
+  pattern: /servicioubicacionid/{id}
+  defaults: {_controller: AEServiciosBundle:Default:ubicacionid}
+  requirements:
+    _method: POST
+  
+servicio_iglesia:
+  pattern: /servicioiglesia
+  defaults: {_controller: AEServiciosBundle:Default:iglesia}
+  
+servicio_iglesia_id:
+  pattern: /servicioiglesiaid/{id}
+  defaults: {_controller: AEServiciosBundle:Default:iglesiaid}
+  requirements:
+    _method: POST
+ 
+servicio_red_id:
+  pattern: /servicioredid/{id}
+  defaults: {_controller: AEServiciosBundle:Default:redid}
+  
+servicio_red_encargado:
+  pattern: /servicioreencargado/{id}
+  defaults: {_controller: AEServiciosBundle:Default:encargadoid}
+  requirements:
+    _method: POST
+  
+
+servicio_red_encargado_doce:
+  pattern: /servicioreencargado_doce/{red}/{id}
+  defaults: {_controller: AEServiciosBundle:Default:encargadoid_doce}
+  requirements:
+    _method: POST
+    
+    
+servicio_celula_id:
+  pattern: /serviciocelulaid/{red}/{id}
+  defaults: {_controller: AEServiciosBundle:Default:celulaid}
+  
+ 
+  
+servicio_persona_lista:
+  pattern: /listapersona
+  defaults: {_controller: AEServiciosBundle:Default:listapersona}
+  
+servicio_persona_asignar:
+  pattern: /asignarpersona
+  defaults: {_controller: AEServiciosBundle:Default:asignarpersona}
+  
+
+  
+servicio_miembro_id:
+  pattern: /miembro/{id}
+  defaults: {_controller: AEServiciosBundle:Default:miembro}
+  
+servicio_usuario:
+  pattern: /serviciousuario
+  defaults: {_controller: AEServiciosBundle:Default:usuario}
+  
+servicio_usuario_id:
+  pattern: /serviciousuarioid/{id}
+  defaults: {_controller: AEServiciosBundle:Default:usuarioid}
+  requirements:
+    _method: POST
+  
+servicio_red_social:
+  pattern: /servicioredsocial/{id}
+  defaults: {_controller: AEServiciosBundle:Default:redsocial}
+  requirements:
+    _method: POST
+  
+  
+servicio_miembro_all:
+  pattern: /serviciomiembro
+  defaults: {_controller: AEServiciosBundle:Default:miembroall}
+  
+servicio_miembro_red:
+  pattern: /serviciomiembrored/{red}
+  defaults: {_controller: AEServiciosBundle:Default:miembrored}
+  
+servicio_pastor_asoc:
+  pattern: /serviciopastorasoc
+  defaults: {_controller: AEServiciosBundle:Default:pastorasoc}
+  
+servicio_pastor_eje:
+  pattern: /serviciopastorejec
+  defaults: {_controller: AEServiciosBundle:Default:pastorejec}
+
+servicio_liderred:
+  pattern: /servicioliderred
+  defaults: {_controller: AEServiciosBundle:Default:lider_red}
+  
+servicio_lider_sin:
+  pattern: /servicioldersin/{red}
+  defaults: {_controller: AEServiciosBundle:Default:lider_sin}
+  
+servicio_misionero:
+  pattern: /serviciomisionero
+  defaults: {_controller: AEServiciosBundle:Default:misioneros}
+  
+  
+servicio_lista_usuario:
+  pattern: /servicio_lista_usuario
+  defaults: {_controller: AEServiciosBundle:Default:listausuario}
+#  requirements:
+#    _method: POST
+#servicio permisos
+
+servicio_permiso_id:
+  pattern: /serviciopermisoid/{id}
+  defaults: {_controller: AEServiciosBundle:Default:permisoid}
+  requirements:
+    _method: POST 
+
+
+servicio_lista_lideres:
+  pattern: /lista_lider
+  defaults: {_controller: AEServiciosBundle:Default:lista_lider}
+  requirements:
+   _method: POST
+  
+servicio_lista_pastor_asoc:
+  pattern: /lista_pastor_asoc
+  defaults: {_controller: AEServiciosBundle:Default:lista_pastor_asoc}
+  requirements:
+   _method: POST
+
+servicio_consolidador_id:
+  pattern: /consolidador/{id}
+  defaults: {_controller: AEServiciosBundle:Default:consolidador}
+  requirements:
+   _method: POST
+
+discipular_servicio_routing:
+    resource: "@AEServiciosBundle/Resources/config/discipular_servicio_routing.yml"
+    
+enviar_servicio_routing:
+    resource: "@AEServiciosBundle/Resources/config/enviar_servicio_routing.yml"
+    
+ganar_servicio_routing:
+    resource: "@AEServiciosBundle/Resources/config/ganar_servicio_routing.yml"
+    
+consolidar_servicio_routing:
+    resource: "@AEServiciosBundle/Resources/config/consolidar_servicio_routing.yml"
+    
+administrar_servicio_routing:
+    resource: "@AEServiciosBundle/Resources/config/administrar_servicio_routing.yml"
+
+
+servicio_consolida_id:
+  pattern: /consolida_id/{id}
+  defaults: {_controller: AEServiciosBundle:Default:consolida_id}
+  requirements:
+    _method: POST
+  
+servicio_leche_consolida:
+  pattern: /leche_consolida/{id}
+  defaults: {_controller: AEServiciosBundle:Default:leche_consolida}
+  requirements:
+    _method: POST
+    
+    
+servicio_lider_red_id:
+  pattern: /lider_red_id/{id}
+  defaults: {_controller: AEServiciosBundle:Default:lider_red_id}
+  requirements:
+    _method: POST
+ 
+servicio_enviar_clase_celula:
+  pattern: /clase_celula
+  defaults: {_controller: AEServiciosBundle:Default:clase_celula}
+    
+servicio_enviar_lista_celula:
+  pattern: /enviar_lista_celula/{id}
+  defaults: {_controller: AEServiciosBundle:Default:enviar_lista_celula}
+  requirements:
+    _method: POST
+    
+servicio_enviar_datos_tema_celula:
+  pattern: /enviar_datos_tema_celula/{id}
+  defaults: {_controller: AEServiciosBundle:Default:enviar_datos_tema_celula}
+  requirements:
+   _method: POST
+   
+servicio_enviar_asistencia_celula:
+ pattern: /enviar_asistencia_celula/{id}
+ defaults: {_controller: AEServiciosBundle:Default:enviar_asistencia_celula}
+ requirements:
+   _method: POST
+   
+servicio_persona_id:
+  pattern: /personaid/{id}
+  defaults: {_controller: AEServiciosBundle:Default:personaid}
+  requirements:
+    _method: POST
+    
+servicio_load_datos:
+  pattern: /load_datos/{nombre}
+  defaults: { _controller: AEServiciosBundle:Default:load_datos}

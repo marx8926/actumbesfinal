@@ -1,0 +1,511 @@
+{% extends "::base.html.twig" %}
+
+{% block titulo %}Registrar Usuario - {% endblock %}
+
+{% block stylesheets %}
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+ {% endblock %}
+           
+{% block content %}
+    <div class="span9" id="registro_form">
+    <h1>Registrar Nuevo</h1>
+    <br>
+        <form class="form-horizontal" action="{{path('ganar_addpersona')}}" method="POST" id="myForm">
+           <!--
+            <fieldset>
+            {% if (is_granted('ROLE_ADMIN')) %}
+                <legend>Usuario</legend>
+                <div class="control-group">
+                    <label class="control-label" >Usuario</label>
+                    <div class="controls">
+                        <input type="text" id="inputUsuario" name="inputUsuario" placeholder="Usuario" class="input-xxlarge" pattern="|^[a-zA-Z0-9]+$|" />
+                    </div>
+                </div>
+        
+                <div class="control-group">     
+                    <label class="control-label" >Email</label>      
+                    <div class="controls">
+                        <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="input-xxlarge" pattern="[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+" />      
+                    </div>      
+                </div>
+       
+                <div class="control-group">     
+                    <label class="control-label" >Contraseña</label>      
+                    <div class="controls">
+                        <input type="password" id="inputPassword" name="inputPassword" placeholder="Contraseña" class="input-xxlarge"/>      
+                    </div>
+                </div>
+                
+  
+            {% else %}
+                
+                <div >
+                
+                <div class="control-group">
+                    <label class="control-label" ></label>
+                    <div class="controls">
+                        <input type="hidden" id="inputUsuario" name="inputUsuario" placeholder="Usuario" class="input-xxlarge" pattern="|^[a-zA-Z0-9]+$|" />
+                    </div>
+                </div>
+        
+                <div class="control-group">     
+                    <label class="control-label" >Email</label>      
+                    <div class="controls">
+                        <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="input-xxlarge" pattern="[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+" />      
+                    </div>      
+                </div>
+       
+                <div class="control-group">     
+                    <label class="control-label" ></label>      
+                    <div class="controls">
+                        <input type="hidden" id="inputPassword" name="inputPassword" placeholder="Contraseña" class="input-xxlarge"/>      
+                    </div>
+                </div>
+                </div>
+           
+            {% endif %}
+                
+           </fieldset>
+            -->
+            <fieldset>
+                <legend>Datos Personales</legend>        
+                <div class="span9">
+                    <div class="control-group" >
+                        <label class="control-label"> Nombres (*) </label>
+                        <div class="controls">
+                            <input type="text" id="inputNombres" name="inputNombres" placeholder="Nombres" class="input-xxlarge" required="true" pattern="|^[a-zA-Z ñÑáéíóúüç]+$|" required />
+                        </div>
+                    </div>
+        
+                    <div class="control-group" >
+                        <label class="control-label">Apellidos (*)</label>
+                        <div class="controls">
+                            <input type="text" id="inputApellidos" name="inputApellidos" placeholder="Apellidos" class="input-xxlarge" pattern="|^[a-zA-Z ñÑáéíóúüç]+$|" required />
+                        </div>
+                    </div>
+                </div>
+                
+                  
+                <div class="span9">
+                    <div class="span3">
+                        <div class="control-group">
+                            <label class="control-label" >Fecha nacimiento (*)</label>
+                            <div class="controls">
+                                <input type= "text" class="datepick input-medium" id="inputFechaNacimiento" name="inputFechaNacimiento"/>
+                                <p class="help-block">Día/Mes/Año</p>  
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="span3">
+                        
+                        <div class="control-group">
+                            <label class="control-label" >Edad (*)</label>
+                            <div class="controls">
+                                <input type="number" min="0"  max="120" class="input-small" placeholder="Edad" id="inputEdad" name="inputEdad" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="span9">
+                    
+                    <div class="span3" >
+                        
+                         
+                        <div class="control-group ">
+                            <label class="control-label" for="select02"> Estado Civil (*)</label>
+                            <div class="controls">
+                                <select id="select_Civil" name="select_Civil" required class="input-medium">
+                                    <option value="0">Solter@</option>
+                                    <option value="1">Casad@</option>  
+                                    <option value="2">Conviviente</option>
+                                    <option value="3">Viud@</option>
+                                    <option value="4">Divorciado</option>
+                                    <option value="5">Madre Soltera</option>
+
+                                </select>
+                            </div>
+                        </div>
+                
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            <label class= "control-label" for="select01"> Sexo (*) </label>
+                            <div  class="controls">
+                                <select name="select_Sexo" id="select_Sexo" required class="input-medium">
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                     </div>
+                    
+                    
+                </div>
+               
+                
+               <div class="span9">
+                   <div class="span3">
+                        <div class="control-group">
+                            <label class="control-label" >DNI (*)</label>
+                            <div class="controls">
+                                <input type="text" class="input-medium" placeholder="DNI" id="inputDni" name="inputDni" pattern="[0-9]{8}" required />
+                                <p class="help-block">8 digitos</p>
+                            </div>
+                        </div>
+                   </div>
+                   <div class="span3">
+                       <div class="control-group">
+                        <label class="control-label" >Ocupación (*)</label>
+                        <div class="controls">
+                            <input type="text" class="input-medium" placeholder="Ocupación" id="inputOcupacion" name="inputOcupacion" required />
+                        </div>
+                       </div>
+                       
+                   </div>
+                </div>
+               
+              
+        
+                <div class="span9">
+                    
+                    <div class="span3">
+                        <div class="control-group">
+                            <label class="control-label" >Teléfono</label>
+                            <div class="controls">
+                                <input type="text" class="input-medium" placeholder="Telefono" id="inputTelefono" name="inputTelefono" pattern="[0-9]{9}"/>
+                                <p class="help-block">0codigonúmero</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="span3">
+                        <div class="control-group">
+                            <label class="control-label" >Celular</label>
+                            <div class="controls">
+                                <input type="text" class="input-medium" placeholder="Celular" id="inputCelular" name="inputCelular"  />
+                                <p class="help-block">9 digitos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+       
+                <div class="span9">
+                    
+                    <div class="span3">
+                        <div class="control-group">     
+                            <label class="control-label" >Email</label>      
+                            <div class="controls">
+                                <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="input-medium" pattern="[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+" />      
+                            </div>      
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+            
+            <fieldset>
+                <legend>Ubicación</legend>
+        
+                <div class="control-group">
+                    <label class="control-label">Dirección (*)</label>
+                    <div class="controls">
+                        <input type="text" class="input-xxlarge" id="inputDireccion" name="inputDireccion" required />
+                    </div>
+                </div>
+        
+                <div class="control-group">
+                    <label class="control-label">Referencia</label>
+                    <div class="controls" >
+                        <input type="text" class="input-xxlarge" id="inputReferencia" name="inputReferencia" />
+                    </div>
+                </div>
+                
+                <div class="span12">
+                    <div class="span3">
+                        <div class="control-group">
+                            <label class="control-label" >Departamento (*)</label>
+                            <div class="controls">
+                                <select name="departamento_lista" id="departamento_lista" required  class="input-medium">
+                    
+                                </select>
+                            </div>
+                        </div>  
+                    </div>
+        
+                    <div class="span3">
+                        <div class="control-group">
+                            <label class="control-label" >Provincia (*)</label>
+                            <div class="controls">
+                                <select name="provincia_lista" id="provincia_lista" required class="input-medium">
+                   
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="span3">
+        
+                        <div class="control-group">
+                            <label class="control-label">Distrito (*)</label>
+                            <div class="controls">
+                                <select name="distrito_lista" id="distrito_lista" required class="input-medium">
+                    
+                                </select>
+                            </div>        
+                        </div>
+                    </div>
+                </div>
+        
+    </fieldset>
+    <fieldset>
+        <legend>Iglesia</legend>
+        
+        <div class="span9">
+            
+            <div class="span3">
+                <div class="control-group">
+                    <label class="control-label" >Red</label>
+                    <div class="controls">
+                        <select id="red_lista" name="red_lista" class="input-medium" >
+                   
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="span3">
+               <div class="control-group">
+                <label class="control-label">Célula</label>
+                <div class="controls">
+                    <select id="celula_lista" name="celula_lista" class="input-medium">
+                   
+                    </select>
+                </div>
+               </div> 
+            </div>
+        </div>
+        {% if is_granted('ROLE_LIDER_RED') %}
+        <div class="span9">
+            <div class="span3">
+                <div class="control-group">
+                    <label class="control-label">Ganado por</label>
+                    <div class="controls">
+                         <select id="tip_red" name="tip_red" required class="input-medium">
+                                <option value="0">Lider de red</option>                                
+                                <option value="1">Pastor Ejecutivo</option>
+                                <option value="2">Misionero</option>
+                                <option value="3">Lider</option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="span3">
+                <div class="control-group">
+                    <label class="control-label">Ganador por:</label>
+                    <div class="controls">
+                        <select id="ids" name="ids" required class="input-medium" >
+                        
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+        </div>    
+      
+        {% endif %}
+        
+        <div class="span9">
+            <div class="span3">
+                <div class="control-group">
+                    <label class="control-label">Fecha Conversión (*)</label>
+                    <div class="controls">
+                        <input type= "text" class="datepick input-medium" id="inputFechaConversion"
+                        name="inputFechaConversion" required/>
+                        <p class="help-block">Día/Mes/Año</p>  
+                    </div>
+                </div>
+            </div>
+            
+            <div class="span3">
+                <div class="control-group">
+                    <label class="control-label">Lugar (*)</label>
+                    <div class="controls">
+                        <select id="lugar" name="lugar" required class="input-medium">
+                   
+                        </select>
+                    </div>
+                </div>
+           </div>
+           
+            
+       <div class="span9">
+           
+            
+            <div class="span3">
+        
+                <div class="control-group">
+                    <label class="control-label">Dia de Visitas (*)</label>
+                    <div class="controls">
+                        <select id="dia_lista" name="dia_lista" required class="input-medium" >
+                            <option value="Lunes">Lunes</option>
+                            <option value="Martes">Martes</option>
+                            <option value="Miercoles">Miercoles</option>
+                            <option value="Jueves">Jueves </option>
+                            <option value="Viernes">Viernes </option>
+                            <option value="Sabado">Sabado</option>
+                            <option value="Domingo">Domingo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+       
+           <div class="span3" >
+            <div class="control-group" >
+                <label class="control-label">Hora Visitas (*)</label>
+                <div class="controls">
+                    <input type="time" id="inputHora" name="inputHora" value="00:00:00" required class="input-medium">                       
+                </div>
+            </div>
+           </div>
+          
+           
+       </div>
+    </fieldset>
+            
+            
+   <fieldset>
+                <legend>Descripción</legend>
+                
+               <div class="control-group">
+                    <label class="control-label">Descripción</label>
+                    <div class="controls">
+                        <textarea rows="5" id="inputDescripcion" name="inputDescripcion" class="input-xxlarge" required> </textarea>
+                    <p class="help-block">Pedido de oración u otro detalle</p>
+                    </div>
+                </div>          
+            
+   </fieldset>
+
+   <div class="control-group">
+        <div class="controls">
+        	<input class="btn btn-primary" type="submit" id="login" name="login" value="Registrar" />
+        </div>
+   </div>
+              
+   </form>
+        
+
+</div>
+{% endblock %}
+
+        
+        
+  {%block javascript %}
+  	<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/less.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.min.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.peity.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.fancybox.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.flot.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.color.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.flot.resize.js"></script>
+	<script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>            
+         <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
+  	<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.inputmask.min.js"></script>
+        <script src="http://d19k46zntalu3t.cloudfront.net/js/ganar.js"></script>
+        <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+
+           
+            
+            <script type="text/javascript">
+                
+                ubigeos = null ;
+             $(document).ready(function(){
+                 
+                 
+                 ubigeos = getAjaxObject("https://s3.amazonaws.com/adminchurchs3/json/ubi.json");
+                 cargarUbigeo(ubigeos, "distrito_lista", "provincia_lista", "departamento_lista");
+                 
+                 redes = getAjaxObject('{{path('services_red')}}');
+                 lugares = getAjaxObject('{{path('services_lugar')}}');
+                 
+                 cargarSelect(redes, "red_lista", "int_red_id", "id");
+                 cargarSelect(lugares, "lugar", "int_lugar_id", "var_lugar_descripcion");
+
+                 
+                  var x =$("login");
+                    x.click();
+    
+                    $("#myForm").submit(function(event){                        
+                    event.preventDefault();                             
+                    //get the url for the form
+                    var url=$("#myForm").attr("action");                     
+                    //start send the post request 
+                    console.log($("#myForm").serialize());
+                    $.post(url,{
+                        formName:$("#myForm").serialize(),
+                        other:"attributes"
+                    },function(data){                      
+                    //the response is in the data variable
+                    if(data.responseCode===200 ){          
+                      
+                        alert('Registro Completado');
+                        location.reload();
+                    }
+                    else if(data.responseCode===400){//bad request
+                       alert('Error bad request');
+                        }
+                    else{                        
+                        if(data.responseCode===500)
+                        {
+                            alert('Error bad request');
+                        }
+                        else alert("An unexpeded error occured.");
+                        }
+                    }
+                    );
+                    return false;});
+                    
+                  //dibujar_mapa('map','lat','lng','addresspicker_map');
+            });
+            /** inicio ganador por */
+             function listas(entrada)
+                {
+                    var rede = $('#red_lista').val();
+
+                    console.log('lista redes '+rede+' '+entrada);
+                    if(rede!='-1')
+                    switch(entrada)
+                    {                        
+                        case 0: //lider de red
+                            
+                            ajaxListPost('{{path('_enviar_lista_lider_red_cell')}}','ids',rede);
+                            break;
+                        case 1: //pastor ejecutivo
+                            ajaxListPost('{{path('_enviar_lista_pastor_ejecutivo_cell')}}','ids',rede);
+                            break;
+                        case 2: //misioneros
+                            ajaxListPost('{{path('_enviar_lista_misionero_cell')}}','ids',rede);
+                            break;
+                            
+                        case 3: //lideres
+                            ajaxListPost('{{path('_enviar_lista_lideres_cell')}}','ids',rede);
+                            break;
+                    }        
+                            
+                }
+           
+     
+            </script>             
+     {%endblock%}
+            
+  

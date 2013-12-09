@@ -1,0 +1,128 @@
+servicio_red:
+  pattern: /serviciored
+  defaults: {_controller: AEServiciosBundle:GanarServicio:red}
+  requirements:
+    _method: POST 
+    
+servicio_red_sin:
+  pattern: /servicioredsin
+  defaults: {_controller: AEServiciosBundle:GanarServicio:redsin}
+  requirements:
+    _method: POST
+    
+servicio_region:
+  pattern: /servicioregion
+  defaults: {_controller: AEServiciosBundle:GanarServicio:region}
+  requirements:
+    _method: POST
+ 
+servicio_provincia:
+  pattern: /servicioprovincia/{id}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:provincia}
+  requirements:
+    _method: POST
+  
+servicio_distrito:
+  pattern: /serviciodistrito/{dep}/{prov}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:distrito}
+  requirements:
+    _method: POST
+    
+servicio_lugar:
+  pattern: /serviciolugar
+  defaults: {_controller: AEServiciosBundle:GanarServicio:lugar}
+  
+servicio_celula:
+  pattern: /serviciocelula/{id}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:celula}
+  requirements:
+    _method: POST
+    
+servicio_nuevo_convertido_all:
+  pattern: /lista_convertidos
+  defaults: {_controller: AEServiciosBundle:GanarServicio:listaconvertidos}
+  
+servicio_nuevo_convertido_all_ganador:
+  pattern: /lista_convertidos_ganador
+  defaults: {_controller: AEServiciosBundle:GanarServicio:listaconvertidos_ganador}
+  
+servicio_nuevo_convertido_all_ganador_red_tiempo:
+  pattern: /lista_convertidos_ganador_red/{red}/{inicio}/{fin}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:listaconvertidos_ganador_red}
+  
+servicio_nuevo_convertido_all_ganador_tiempo:
+  pattern: /lista_convertidos_ganador_tiempo/{inicio}/{fin}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:listaconvertidos_ganador_tiempo}
+  
+servicio_nuevo_convertido_all_ganador_red_tiempo_sin:
+  pattern: /lista_convertidos_ganador_red_sin/{red}/{inicio}/{fin}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:listaconvertidos_ganador_red_sin}
+  
+servicio_nuevo_convertido_all_ganador_tiempo_sin:
+  pattern: /lista_convertidos_ganador_tiempo_sin/{inicio}/{fin}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:listaconvertidos_ganador_tiempo_sin}
+  
+servicio_persona_id:
+  pattern: /persona/{id}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:persona}
+  requirements:
+   _method: POST
+   
+   
+servicio_ubigeo:
+  pattern: /servicioubigeo/{id}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:ubigeo}
+  
+servicio_nuevo_convertido_id:
+  pattern: /nuevoconvertido/{id}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:nuevoconvertido}
+  requirements:
+    _method: POST
+    
+servicio_lugar_id:
+  pattern: /serviciolugarid/{id}
+  defaults: {_controller: AEServiciosBundle:Default:lugarid}
+  
+servicio_tabla_ganar_fecha:
+  pattern: /servicio_tabla_ganar_fecha/{fecha1}/{fecha2}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:getTablaGanarFecha}
+  
+servicio_tabla_semanal:
+  pattern: /servicio_tabla_semanal/{tipo}/{nombre}/{fecha1}/{fecha2}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:getTablaGanarSemanal}
+  
+servicio_tabla_lugar_ganados:
+  pattern: /servicio_tabla_lugar_ganados/{nombre}/{fecha1}/{fecha2}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:getTablaLugarGanados}
+  
+  
+servicio_convertido_red_lugar:
+  pattern: /servicio_convertido_red_lugar/{fecha1}/{fecha2}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:convertido_Red_Lugar}
+  
+  
+servicio_red_tipo:
+  pattern: /servicio_red_tipo/{red}/{tipo}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:lideres_red_tipo}
+  requirements:
+    _method: POST
+   
+servicio_nuevos_por_red:
+  pattern: /servicio_nuevos_red/{red}/{inicio}/{fini}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:nuevos_red_lider}
+  
+servicio_nuevos_por_red_doce:
+  pattern: /servicio_nuevos_red_doce/{red}/{inicio}/{fin}/{doce}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:nuevos_red_lider_doce}
+  
+servicio_nuevos_por_red_ciento:
+  pattern: /servicio_nuevos_red_ciento/{red}/{inicio}/{fin}/{doce}/{padre}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:nuevos_red_lider_ciento}
+  
+servicio_nuevos_por_red_mil:
+  pattern: /servicio_nuevos_red_mil/{red}/{inicio}/{fin}/{doce}/{ciento}/{padre}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:nuevos_red_lider_mil}
+  
+servicio_informe_data_semanal:
+  pattern: /servicio_informe_data_semanal/{pastor}/{inicio}/{fin}
+  defaults: {_controller: AEServiciosBundle:GanarServicio:informe_semanal_data}

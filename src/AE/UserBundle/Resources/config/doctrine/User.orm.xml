@@ -9,6 +9,12 @@
         <id name="id" column="id" type="integer">  
             <generator strategy="AUTO" />  
         </id>  
+       
+        <many-to-one field="idPersona" target-entity="AE\DataBundle\Entity\Persona">
+            <join-columns>
+                <join-column name="id_persona" referenced-column-name="id"/>
+            </join-columns>
+        </many-to-one>
     
     </entity>  
   

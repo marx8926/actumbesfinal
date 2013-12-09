@@ -20,5 +20,10 @@
     <field name="roles" type="array" column="roles" nullable="false"/>
     <field name="credentialsExpired" type="boolean" column="credentials_expired" nullable="false"/>
     <field name="credentialsExpireAt" type="datetime" column="credentials_expire_at" nullable="true"/>
+    <many-to-one field="idPersona" target-entity="Persona">
+      <join-columns>
+        <join-column name="id_persona" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

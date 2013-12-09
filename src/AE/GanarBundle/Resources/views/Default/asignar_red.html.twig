@@ -1,0 +1,236 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{asset('css/bootstrap-responsive.css')}}">
+	<link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/DT_bootstrap.css')}}">  
+                 
+{% endblock %}                 
+
+{% block content %}
+
+<div class="span9" >
+	<div class="box">
+		<div class="box-content box-nomargin">
+    		<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped dataTable table-bordered"  id="persona" name="persona">
+		        <thead>
+		        	<tr>
+		            	<th>ID</th>
+						<th>Nombres</th>
+						<th>Apellidos</th>
+						<th>Edad</th>
+						<th>Red</th>
+		                <th>Célula</th>
+		                <th>Conversión</th>
+		            </tr>
+				</thead>
+				<tbody id="tablas1" name="tablas1" >
+	
+				</tbody>
+	
+    		</table>
+    	</div>
+        <form class="form-horizontal" action="{{path('ganar_asignar_red_actualizar')}}" method="POST" id="myForm">
+        	<fieldset> 
+            	<legend>Asignar a</legend>
+        		<div class="control-group">
+            		<label class="control-label" >Red</label>
+            		<div class="controls">
+                		<select id="red_lista" name="red_lista">
+                   
+                		</select>
+            		</div>
+        		</div>
+        		<div class="control-group">
+            		<label class="control-label">Célula</label>
+            		<div class="controls">
+                		<select id="celula_lista" name="celula_lista">
+              
+                		</select>
+            		</div>
+        		</div>
+        	</fieldset>
+        	<div class="control-group">
+            	<div class="controls">
+            		<button class="btn-success" id="asignar" name="asignar"> Asignar </button>
+            	</div>
+          	</div>
+        </form>
+	</div>
+ </div>    
+{% endblock %}               
+      
+{%block javascript %}
+	
+	<<script src="{{asset('js/jquery.js')}}"></script>
+			<script src="{{asset('js/less.js')}}"></script>
+			<script src="{{asset('js/bootstrap.min.js')}}"></script>
+			<script src="{{asset('js/jquery.uniform.min.js')}}"></script>
+			<script src="{{asset('js/bootstrap.js')}}"></script>
+			<script src="{{asset('js/bootstrap.timepicker.js')}}"></script>
+			<script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+			<script src="{{asset('js/chosen.jquery.min.js')}}"></script>
+			<script src="{{asset('js/jquery.fancybox.js')}}"></script>
+			<script src="{{asset('js/plupload/plupload.full.js')}}"></script>
+			<script src="{{asset('js/plupload/jquery.plupload.queue/jquery.plupload.queue.js')}}"></script>
+			<script src="{{asset('js/jquery.cleditor.min.js')}}"></script>
+			<script src="{{asset('js/jquery.inputmask.min.js')}}"></script>
+			<script src="{{asset('js/jquery.tagsinput.min.js')}}"></script>
+			<script src="{{asset('js/jquery.mousewheel.js')}}"></script>
+			<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+			<script src="{{asset('js/jquery.dataTables.bootstrap.js')}}"></script>
+			<script src="{{asset('js/jquery.textareaCounter.plugin.js')}}"></script>
+			<script src="{{asset('js/ui.spinner.js')}}"></script>
+			<script src="{{asset('js/custom.js')}}"></script>
+                        <script src="{{asset('js/ganar.js')}}"></script>
+                        <script src="{{asset('js/functiongen.js')}}"></script>
+                        <script src="{{asset('js/tablasfeatures.js')}}"></script>
+
+            <script src="http://www.google.com/jsapi"></script>
+
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->              
+            <script type="text/javascript" charset="utf-8" language="javascript" src="{{asset('js/DT_bootstrap.js')}}"> </script>
+            
+      
+	
+    <script type="text/javascript">
+     
+         var trselected; 
+	 var oTable;
+         
+        var values = [];
+         
+	$(document).ready(function() {
+            
+        
+              //init red
+                  initRed('{{path('servicio_red')}}');
+                          
+            $("#red_lista").change(recargar_celula);
+
+            
+        
+            $('#persona tbody').click(function(event){
+                $(oTable.fnSettings().aoData).each(function(){
+                    $(this.nTr).removeClass('row_selected');
+                });
+                
+                $(event.target.parentNode).addClass('row_selected');
+                
+                trselected = $(event.target.parentNode);
+                
+                var tds = $(trselected).find('td');
+                values = [];
+  
+                $.each(tds, function(index, item) {
+                    values.push(item.innerHTML); 
+                });               
+            });
+            
+           
+            
+   
+            /* Build the DataTable with third column using our custom sort functions */
+            oTable = $('#persona').dataTable( {
+                                    
+            	"bProcessing": true,
+                "bServerSide": false,
+                "bDestroy": true,
+                "sAjaxSource": '{{path('servicio_nuevo_convertido_all')}}',
+                "aoColumns": [
+                    { "mDataProp": "id" },
+                    { "mDataProp": "nombres" },
+                    { "mDataProp": "apellidos" },
+                    { "mDataProp": "edad" },
+                    { "mDataProp": "red" },
+                    { "mDataProp": "celula"},
+                    { "mDataProp": "conversion"}
+                ],
+		"aaSorting": [ [0,'asc'], [1,'asc'] ],
+		"aoColumnDefs": [
+                    { "sType": 'string-case', "aTargets": [ 2 ] }
+		],"sDom": 'T<"clear">lfrtip',
+                "oTableTools": {
+			"sRowSelect": "single",
+                        "fnRowSelected": function ( node ) {
+                            var s=$(node).children();
+                            alert("Selected Row : " + s[0]);
+                        }
+		},
+                "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+					"sPaginationType": "bootstrap",
+					"oLanguage": {
+						"sLengthMenu": "_MENU_ registros por página"
+					}
+            } );	
+   
+            
+            $("#myForm").submit(function(){
+            
+        
+                    var anSelected = fnGetSelected(oTable);
+                    //oTable.fnDeleteRow(anSelected[0]);
+                    if(anSelected.length !=0)
+                    {
+                        var tds = $(anSelected).find('td');
+                        var val = [];
+                        $.each(tds, function(index, item) {
+                        val.push(item.innerHTML); 
+  
+                          }); 
+                     
+                        //get the url for the form
+                        var url=$("#myForm").attr("action");
+                        
+                     
+                        //start send the post request
+                        $.post(url,{
+                            formName:$("#myForm").serialize(),
+                            id: val[0],
+                            other:"attributes"
+                        },function(data){
+                        //the response is in the data variable
+               
+                        if(data.responseCode==200 ){           
+                      
+                            alert('Registro Completado');
+                            var href="{{path('main')}}";
+             
+                            $(location).attr('href',href); 
+                        }
+                        else if(data.responseCode==400){//bad request
+                            alert('Error bad request');
+                            }
+                            else{                        
+                                if(data.responseCode==500)
+                                {
+                                    alert('Error bad request');
+                                }
+                                else alert("An unexpeded error occured.");
+                            }
+                        }
+                    );
+                    }
+                    return false;});
+	 });
+           
+            function recargar_celula()
+            {
+                var nombre = $("#red_lista option:selected").val();  
+            
+                 var route = '{{path('servicio_celula',{'id': 'name'})}}';
+            
+                 var rutas = route.replace('name',nombre);
+         
+                 $.ajax(
+                        {url : rutas,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(celula);     
+            }
+                   
+       </script>
+{% endblock %}

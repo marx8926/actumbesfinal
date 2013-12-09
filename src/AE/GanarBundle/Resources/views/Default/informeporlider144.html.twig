@@ -1,0 +1,444 @@
+{% extends "::base.html.twig" %}
+
+{% block titulo %} Informe Ganar 1728 {% endblock %}
+
+{% block stylesheets %}
+        <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/DT_bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
+
+{% endblock %}                 
+
+{% block content %} 
+        <div class="row-fluid">
+<div class="span12" >
+	<h1>Informe de Nuevos Convertidos 1728</h1>
+        
+        <div class="control-group">
+            <label class="control-label" >Desde</label>
+            <div class="controls">
+                <input type="text" class="datepick rango" id="desde" name="desde" required>
+            </div>
+        </div>
+        
+        
+         <div class="control-group">
+            <label class="control-label" >Hasta</label>
+            <div class="controls">
+                <input type="text" class="datepick rango" id="hasta" name="hasta" required>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" >Red</label>
+            <div class="controls">
+                <select id="red_lista" name="red_lista" class="rango" >
+                   
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-group">
+                <label class="control-label" >Mis 12</label>
+                <div class="controls">
+                    <select id="doce_lista" name="doce_lista" >
+                        
+                    </select>
+                </div>           
+        </div>
+        
+        <div class="control-group">
+                <label class="control-label" >Mis 144</label>
+                <div class="controls">
+                    <select id="ciento_lista" name="ciento_lista" class="rango" >
+                   
+                    </select>
+                </div>           
+        </div>
+        
+	<div class="box">
+		<div class="box-head tabs">
+            <h3 id="titulo_informe" name="titulo_informe">Informe Ganar </h3>	
+                </div>
+       
+
+        <div class="box-content box-nomargin">
+        	<form id='form' method='POST'>
+                
+                    <input id='content' type='hidden' name='content' >
+                    <input id='title' type='hidden' name='title' >
+                    <input id='pdfbutton' type='button' value='PDF' class="btn btn-info">
+                    <input id='excelbutton' type='button' value='Excel' class="btn btn-info">
+            
+            	<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped dataTable table-bordered"  id="persona" name="persona">
+            		<thead id='lol'>
+                		<tr>
+		                   <th>Nombres</th>
+		                    <th width="5%">Edad</th>
+		                    <th>DNI</th>
+		                    <th width="6%">Estado</th>
+		                    <th width="6%">Telefono</th>
+                                    <th>Visita</th>
+                                    <th>Direccion</th>
+                                    <th>Referencia</th>
+                                    <th width="8%">Conversión</th>
+                                    <th>Petición</th>
+                                    <th width="8%">Lugar</th>
+		                </tr>
+					</thead>
+					
+	
+    			</table>
+   			</form>
+    	</div>
+            
+	</div>
+    
+</div>    
+       </div>          
+{% endblock %}
+      
+ {%block javascript %}
+            
+            <script src="{{asset('js/jquery.js')}}"></script>
+			<script src="{{asset('js/less.js')}}"></script>
+			<script src="{{asset('js/bootstrap.min.js')}}"></script>
+			<script src="{{asset('js/jquery.uniform.min.js')}}"></script>
+			<script src="{{asset('js/bootstrap.js')}}"></script>
+			<script src="{{asset('js/chosen.jquery.min.js')}}"></script>
+			<script src="{{asset('js/jquery.fancybox.js')}}"></script>
+			<script src="{{asset('js/plupload/plupload.full.js')}}"></script>
+			<script src="{{asset('js/jquery.cleditor.min.js')}}"></script>
+			<script src="{{asset('js/jquery.inputmask.min.js')}}"></script>
+			<script src="{{asset('js/jquery.tagsinput.min.js')}}"></script>
+			<script src="{{asset('js/jquery.mousewheel.js')}}"></script>
+			<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+			<script src="{{asset('js/jquery.dataTables.bootstrap.js')}}"></script>
+			<script src="{{asset('js/jquery.textareaCounter.plugin.js')}}"></script>
+			<script src="{{asset('js/ui.spinner.js')}}"></script>
+			<script src="{{asset('js/custom.js')}}"></script>
+                        <script src="{{asset('js/tablasfeatures.js')}}"></script>
+                       	<script src="{{asset('js/functiongen.js')}}"></script>
+                        <script src="{{asset('js/ganar.js')}}"></script>
+                        <script src="{{asset('js/tiempo.js')}}"></script>
+                	<script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+
+
+			
+			<script src="https://www.google.com/jsapi"></script>
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->              
+            <script src="{{asset('js/DT_bootstrap.js')}}"> </script>
+   
+    <script type="text/javascript">
+ 
+         var trselected; 
+	 var oTable;
+         
+        var values = [];
+                 
+            function recargar_celula()
+            {
+                cambiar_red();
+            }
+                
+            function cambiar_red()
+            {
+                var nombre = $("#red_lista option:selected").val();  
+            
+               var route = '{{path('servicio_administrar_doce_red',{'red': 'name'})}}';
+            
+               if(nombre!= '-1')
+               {
+                 var rutas = route.replace('name',nombre);
+               
+                 $.ajax(
+                        {url : rutas,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(doces); 
+
+                    cambiar_doce();
+                    var name = $("#red_lista option:selected").val();  
+
+                   var route = '{{path('servicio_lider_sin',{'red': 'name'})}}';
+            
+                var rutas = route.replace('name',name);
+                               
+                get_tabla(rutas);
+               }
+            }
+            
+            function doces(data)
+            {
+               $('#doce_lista').empty();
+               
+               var doce = '{{doce}}';
+               
+               var cadena='';
+
+              $("<option value='-1'>Sin Lider</option>").appendTo('#doce_lista');
+
+               for(var i=0; i<data.length ; i++)   
+               { 
+                   
+                $('<option value='+data[i].id+'>'+data[i].nombre+' '+data[i].apellidos+'</option>').appendTo('#doce_lista');
+                
+                if(data[i].id==doce)
+                    cadena=data[i].nombre+' '+data[i].apellidos;
+               } 
+               
+                {% if (is_granted('ROLE_LIDER144'))%}
+                 
+                 if(doce.length>0)
+                 {
+                     
+                    $('#doce_lista').empty();
+                    
+                    $('<option value='+doce+'>'+cadena+'</option>').appendTo('#doce_lista');
+                 
+                 }
+               
+               {% endif %}
+            }
+            function cambiar_doce()
+            {
+               $('#abuelo').val($("#doce_lista option:selected").val());
+
+               var net = $("#red_lista option:selected").val();
+               var nombre = $("#doce_lista option:selected").val();  
+               
+               if(nombre.length >0)
+               {
+               
+                    var route = '{{path('servicio_administrar_ciento_red',{'red': 'name','lider':':led'})}}';
+               
+                    route = route.replace('name',net);
+                    route = route.replace(':led',nombre);
+
+                    $.ajax(
+                        {url : route,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(cientos); 
+               }
+            }
+            function cientos(data)
+            {
+                $('#ciento_lista').empty();
+                var ciento = '{{ciento}}';
+                var cadena='';
+               
+                $("<option value='-1'>Sin Lider</option>").appendTo('#ciento_lista');
+
+               for(var i=0; i<data.length ; i++)   
+               { 
+                   
+                $('<option value='+data[i].id+'>'+data[i].nombre+' '+data[i].apellidos+'</option>').appendTo('#ciento_lista');
+               
+               
+                                console.log(data[i].id);
+
+               if(data[i].id==ciento)
+                    cadena=data[i].nombre+' '+data[i].apellidos;
+               } 
+               
+               {% if (is_granted('ROLE_LIDER144'))%}
+
+                 /*
+                 if(ciento.length>0)
+                 {
+                    console.log(ciento+' '+cadena);
+
+                     
+                    $('#ciento_lista').empty();
+                    
+                    $('<option value='+ciento+'>'+cadena+'</option>').appendTo('#ciento_lista');
+                 
+                 }
+                 */
+               {% endif %}
+                 
+                 
+               cambiar_ciento();
+            }
+            
+            function cambiar_ciento()
+            {
+                 
+                 var nombre = $('#ciento_lista option:selected').val();
+                 
+                 $('#padre').val(nombre);
+                 $('#abuelo').val($('#doce_lista option:selected').val());
+                 $('#redid').val($("#red_lista option:selected").val());
+            
+              
+            }
+            
+            
+         function cargar_datos()
+         {
+             var net = $('#red_lista option:selected').val();
+                var date1 =  $("#desde").val().split('/');
+                var date2 =  $("#hasta").val().split('/');
+                var desde = date1[2] + '-' + date1[1] + '-' + date1[0];
+                var hasta = date2[2] + '-' + date2[1] + '-' + date2[0];
+                                var doce = $('#doce_lista option:selected').val();
+                var padre = $('#ciento_lista option:selected').val();
+                
+                
+                var url = "{{path('servicio_nuevos_por_red_ciento',{'red':'net','inicio':'ini','fin':':fini',
+'doce':'dozen','padre':'father'})}}";
+                url = url.replace('net',net);
+                url = url.replace('ini',desde);
+                url = url.replace(':fini',hasta);
+              
+                
+                if(net!='-1' && doce!='-1' && padre!='-1' && padre.length>0)
+                {
+                    var ruta = "{{path('servicio_persona_id',{'id':'idx'})}}";
+                    ruta =  ruta.replace('idx',padre);
+                    
+                    url = url.replace('dozen',doce);
+                    url = url.replace('father',padre);
+                    
+                    $.ajax(
+                        {url : ruta,
+                         dataType:"json",
+                        type: "POST",
+                        async: false,
+                        }
+                        ).done(function(data){
+                                for(var i=0; i<data.length; i++)
+                                {
+                                    $('#titulo_informe').text('Informe Ganar '+net+' 144: '+data[i].id+'-'+data[i].nombre+' '+data[i].apellidos);
+                                }
+                        });
+                    
+                     get_tabla(url);
+                }
+                else {
+                    $('#titulo_informe').text('Informe Ganar');
+                }
+         }
+         
+	$(document).ready(function() {
+            
+            
+             FechaActualT('desde');
+             FechaActualT('hasta');
+            
+             var rede = '{{red}}' ;
+             
+             $("<option value='-1'>Sin Lider</option>").appendTo('#doce_lista');
+             $("<option value='-1'>Sin Lider</option>").appendTo('#ciento_lista');
+
+
+                                      
+             if(rede.length > 0)
+             {
+                 $("<option value='"+rede+"'>"+rede+"</option>").appendTo('#red_lista');
+                 
+                cambiar_red();
+             }
+             else
+             initRed('{{path('servicio_red_sin')}}');
+            
+                    
+             $('#select').css({'display':'none'});
+             
+             
+             $('#doce_lista').change(cambiar_doce);
+             
+            $(".rango").change(cargar_datos);
+
+
+            $("#pdfbutton").click(function(event) {
+                $("#persona th").css("width","auto");
+            	$("#content").val($("#persona").html());
+            	$("#title").val($("h3").html());
+            	//$("#content").val($("#lol").html() + $("tbody").html());
+                $("#form").attr("action", "{{asset('extensiones/exportpdf.php')}}");
+		 		$("#form").submit();
+            });
+
+            $("#excelbutton").click(function(event) {
+            	$("#content").val("<table>" + $("#persona").html() + "</table>");
+		$("#form").attr("action", "{{asset('extensiones/exportexcel.php')}}");
+		$("#form").submit();
+            });
+        
+            $('#persona tbody').click(function(event){
+                $(oTable.fnSettings().aoData).each(function(){
+                    $(this.nTr).removeClass('row_selected');
+                });
+                
+                $(event.target.parentNode).addClass('row_selected');
+                
+                trselected = $(event.target.parentNode);
+                
+                var tds = $(trselected).find('td');
+                
+                values = [];
+  
+                $.each(tds, function(index, item) {
+                    values.push(item.innerHTML); 
+                }); 
+                $('#select').css({'display':'block'});
+            });
+            
+	 });
+         
+         
+         function get_tabla(url)
+         {
+               /* Build the DataTable with third column using our custom sort functions */
+            oTable = $('#persona').dataTable( {
+                                    
+                "bProcessing": true,
+                "bServerSide": false,
+                "bDestroy": true,
+                "sAjaxSource": url,
+                "aoColumns": [
+                    { "mDataProp": "nombres" },
+                    { "mDataProp": "edad" },
+                    { "mDataProp": "dni" },
+                    { "mDataProp": "estado" },
+                    { "mDataProp": "telefono"},
+                    { "mDataProp": "visita"},
+                    { "mDataProp":"direccion"},
+                    { "mDataProp": "referencia"},
+                    { "mDataProp": "conversion"},
+                    { "mDataProp": "peticion"},
+                    { "mDataProp": "lugar"}
+                ],
+		"aaSorting": [ [0,'asc']],//por consultar el tipo de orden
+		"aoColumnDefs": [
+                    { "sType": 'string-case', "aTargets": [ 2 ] }
+		],
+                "sScrollY": "200px",
+                "bPaginate": false,
+                "bScrollCollapse": true,
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": {
+			"sRowSelect": "single",
+                        "fnRowSelected": function ( node ) {
+                            var s=$(node).children();
+                            alert("Selected Row : " + s[0]);
+                        }
+		},
+                "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+					"sPaginationType": "bootstrap",
+					"oLanguage": {
+						"sLengthMenu": "_MENU_ registros por página"
+					}
+            } );	
+         }
+      
+       </script>
+{%endblock %} 

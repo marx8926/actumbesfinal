@@ -1,0 +1,59 @@
+_tabla_eventos:
+  pattern: /_tabla_eventos
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:getTablaEventos }
+  
+_tabla_personas_no_evento:
+  pattern: /_tabla_personas_no_evento/{idEvento}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:getTablaPersonasNoEvento }
+  
+_tabla_asistencia_evento:
+  pattern: /_tabla_asistencia_evento/{idEvento}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:getTablaAsistenciaEvento }
+  
+servicio_administrar_lista_redes_ubicacion:
+  pattern: /lista_redes_ubicacion
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:lista_redes_ubicacion}
+  
+servicio_administrar_mil_red:
+  pattern: /mil_red/{red}/{doce}/{lider}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:mil_red}
+  requirements:
+   _method: POST
+
+servicio_administrar_ciento_red:
+  pattern: /ciento_red/{red}/{lider}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:ciento_red}
+  requirements:
+   _method: POST
+     
+servicio_administrar_doce_red:
+  pattern: /servicio_doce_red/{red}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:doce_red}
+  requirements:
+    _method: POST
+  
+servicio_lista_pastores_ejecutivos:
+  pattern: /lista_pastores_ejecutivos
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:pastores_ejecutivos}
+  requirements:
+    _method: POST
+        
+servicio_adminasistencia_red:
+  pattern: /servicio_adminasistencia_red/{red}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:servicio_asistencia_red}
+
+servicio_administrar_miembro_sin_talla:
+  pattern: /servicio_administrar_miembro_sin_talla/{red}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:miembrosintalla}
+  
+servicio_administrar_informe_ropa_liderred:
+  pattern: /administrar_informe_ropa_liderred
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:informe_ropa_liderred}
+  
+servicio_administrar_informe_ropa:
+  pattern: /administrar_informe_ropa/{red}/{tipo}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:informe_ropa}
+  
+servicio_administrar_informe_ropa_miembros:
+  pattern: /administrar_informe_ropa_miembros/{red}
+  defaults: {_controller: AEServiciosBundle:AdministrarServicio:informe_ropa_miembros}

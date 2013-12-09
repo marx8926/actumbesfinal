@@ -1,0 +1,6 @@
+ae_services_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: AEServicesBundle:Default:index }
+    
+ganar_services_routing:
+    resource: "@AEServicesBundle/Resources/config/ganar_services_routing.yml"

@@ -1,3 +1,7 @@
+ae_services:
+    resource: "@AEServicesBundle/Resources/config/routing.yml"
+    prefix:   /services/
+
 ae_configurar:
     resource: "@AEConfigurarBundle/Resources/config/routing.yml"
     prefix:   /
@@ -9,4 +13,11 @@ ae_data:
 _user_bundle:
   resource: "@UserBundle/Resources/config/routing.yml"
   prefix: /
+  
+ae_ganar:
+    resource: "@AEGanarBundle/Resources/config/routing.yml"
+    prefix:   /ganar/
 
+ae_servicios:
+    resource: "@AEServiciosBundle/Resources/config/routing.yml"
+    prefix:   /

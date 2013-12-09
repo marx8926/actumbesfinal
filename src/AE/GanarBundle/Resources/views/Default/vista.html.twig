@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+	<meta charset="utf-8">
+        {% block stylesheets %}
+		<link rel="stylesheet" type="text/css" href="{{asset('css/perfil/style.css')}}">
+		
+        
+        {% endblock %}
+        
+         {%block javascripts %}    
+   
+    <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>            
+                 
+     {%endblock%}
+<title>Perfil</title>
+</head>
+<body>
+		<form id="form" class="form-perfil" method="post">
+			<input id='content' type='hidden' name='content' >
+            <input id='title' type='hidden' name='title' >
+			<div id="todo">
+				<div class="grupo">
+					<table cellpadding="0" cellspacing="0" border="0" id="persona" name="persona">
+                		<tr>
+		                    <th colspan="4" class="tit">Datos Personales {{id}}</th>
+		                </tr>
+		                <tr>
+		                	<th>Nombre:</th>
+		                	<td>{{nombre}}</td>
+		                	<th>Apellidos:</th>
+		                	<td>{{apellidos}}</td>
+		                </tr>
+		                <tr>
+		                	<th>Estado:</th>
+		                	<td id="estado"></td>
+		                	<th>Sexo:</th>
+		                	<td id="sexo"></td>
+		                </tr>
+                                <tr>
+		                	<th>DNI:</th>
+		                	<td>{{dni}}</td>
+		                	<th>Ocupación:</th>
+		                	<td>{{ocupacion}}</td>
+		                </tr>
+		                <tr>
+		                	<th>Edad:</th>
+		                	<td>{{edad}}</td>
+		                	<th>Nacimiento:</th>
+		                	<td>{{fecha_nacimiento}}</td>
+		                </tr>
+		                <tr>
+		                	<th>Teléfono:</th>
+		                	<td>{{telefono}}</td>
+		                	<th>Celular:</th>
+		                	<td>{{celular}}</td>
+		                </tr>
+		                <tr>
+		                	<th>Dirección:</th>
+		                	<td>{{direccion}}</td>
+		                	<th>Referencia:</th>
+		                	<td>{{referencia}}</td>
+		                </tr>
+		                <tr>
+		                	<th>Departamento:</th>
+		                	<td>{{departamento}}</td>
+							<th>Provincia:</th>
+							<td>{{provincia}}</td>
+						</tr>
+						<tr>
+							<th>Distrito:</th>
+							<td colspan="3">{{distrito}}</td>
+						</tr>
+						<tr>
+							<th>Email: </th>
+							<td>{{email}}</td>
+							<th>Web: </th>
+							<td>{{website}}</td>
+						</tr>
+    					<tr>
+    						<th colspan="4" class="tit">Datos de la Iglesia</th>
+    					</tr>
+    					<tr>
+    						<th>Red:</th>
+    						<td>{{red}}</td>
+    						<th>Célula:</th>
+    						<td>{{celula}}</td>
+    					</tr>
+    					<tr>
+    						<th>Consolidador:</th>
+    						<td>{{cons}}</td>
+							<th>Líder:</th>
+							<td>{{lider}}</td>
+						</tr>
+						<tr>
+							<th>Conversión:</th>
+							<td>{{conversion}}</td>
+							<th>Lugar:</th>
+							<td id="lugar" ></td>
+						</tr>
+                        <tr>
+                        	<th>Petición</th>
+                            <td colspan="3">{{peticion}}</td>
+                        </tr>
+						<tr class="map">
+							<th colspan="4" class="tit">Mapa</th>
+						</tr>
+						<tr>
+							<td id="ubicacionexacta" name="ubicacionexacta" colspan="4"></td>
+						</tr>
+    				</table>
+				</div>
+			</div>
+			</div>
+		</div>
+			<div class="botones">
+				<input class="submit" type="button" id="pdfbutton" name="imprimir" value="Imprimir" />
+				<input class="submit" type="button" id="salir" name="salir" value="Salir" onclick="window.close();" />
+			</div>
+		</form>
+</body>
+{%block javascript %}
+           
+<script src="{{asset('js/jquery.js')}}"></script>
+<script type="text/javascript">
+                
+            var latitud = 0;
+            var longitud = 0;
+            
+            $(document).ready(function(){
+
+            	$("#pdfbutton").click(function(event) {
+            		$("#persona th").css("width","auto");
+                	$("#content").val($("#persona").html());
+                	$("#title").val("{{nombre}}" + " " + "{{apellidos}}");
+                    $("#form").attr("action", "{{asset('extensiones/exportpdf.php')}}");
+    		 		$("#form").submit();
+                });
+                
+            //recuperar los datos
+                        var codigo = {{id}};
+                        init();
+         
+                        //nuevo convertido
+                        url = '{{path( 'servicio_nuevo_convertido_id', {'id':'cod'} )}}';
+                        ruta = url.replace('cod',codigo);
+                        $.ajax(
+                            {   url : ruta,
+                                dataType:"json",
+                                type: "POST",
+                                async: false,
+                            }
+                        ).done(convertido);
+                            
+                         //red social
+                         /*
+                        url = '{{path( 'servicio_red_social', {'id':'cod'} )}}';
+                        ruta = url.replace('cod',codigo);
+                        $.ajax(
+                            {   url : ruta,
+                                dataType:"json",
+                                type: "POST",
+                                async: false,
+                            }
+                        ).done(sociales);
+                        */
+                
+            });
+            
+            function init()
+            {
+                 if({{estado_civil}} ==0)
+                 {  
+                         $("#estado").html('Solter@'); //$("#estado").text('Solter@');
+                 }                     
+                 else {
+                         $('#estado').html('Casad@');  //$('#estado').text('Casad@');
+                 }
+                 
+                  //sexo
+                  if({{sexo}}==1)
+                     {
+                         $('#sexo').html('Masculino'); //$('#sexo').text('Masculino');
+                     }   
+                    else
+                     {
+                         $('#sexo').html('Femenino'); //$('#sexo').text('Femenino');
+                     }   
+                     
+                  mapa({{latitud}}, {{longitud}});
+            }
+
+            function convertido(dato)
+             {
+                 if(dato!=false)
+                 {
+                   
+                      
+                    var url = '{{path('servicio_lugar_id',{'id':'cod'}) }}';
+                    var ruta = url.replace('cod',dato.id_lugar);
+                    
+                       
+                    $.ajax(
+                            {   url : ruta,
+                                dataType:"json",
+                                type: "GET",
+                                async: false,
+                            }
+                        ).done(lugar);
+                                             
+                 }
+             }
+             function lugar(dato)
+             {
+                $('#lugar').html(dato[0].nombre);
+             }
+             
+             function mapa(latitud, longitud)
+             {
+                  var ruta ="https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=700x400&maptype=roadmap&markers=color:blue%7Clabel:S%7C"+latitud+','+longitud+"&sensor=false&key=AIzaSyCSLn3MOXmjCshXPj48FhUFg94X9ZgQZgA";
+                         
+                 var imagen = '<img src="'+ruta+'">'
+                 
+                 $(imagen).appendTo('#ubicacionexacta');
+             }
+            </script>
+            
+{% endblock %}
+</html>
