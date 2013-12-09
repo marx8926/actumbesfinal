@@ -16,6 +16,11 @@
     <field name="sexo" type="smallint" column="sexo" nullable="false"/>
     <field name="dni" type="string" column="dni" length="10" nullable="true"/>
     <field name="ocupacion" type="string" column="ocupacion" length="150" nullable="true"/>
+    <many-to-one field="red" target-entity="Red">
+      <join-columns>
+        <join-column name="red_id" referenced-column-name="int_red_id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="lugar" target-entity="Lugar">
       <join-columns>
         <join-column name="lugar_id" referenced-column-name="int_lugar_id"/>

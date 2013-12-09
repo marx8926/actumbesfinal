@@ -136,6 +136,16 @@ class Persona
      */
     private $lugar;
 
+    /**
+     * @var \Red
+     *
+     * @ORM\ManyToOne(targetEntity="Red")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="red_id", referencedColumnName="int_red_id")
+     * })
+     */
+    private $red;
+
 
 
     /**
@@ -491,5 +501,28 @@ class Persona
     public function getLugar()
     {
         return $this->lugar;
+    }
+
+    /**
+     * Set red
+     *
+     * @param \AE\DataBundle\Entity\Red $red
+     * @return Persona
+     */
+    public function setRed(\AE\DataBundle\Entity\Red $red = null)
+    {
+        $this->red = $red;
+    
+        return $this;
+    }
+
+    /**
+     * Get red
+     *
+     * @return \AE\DataBundle\Entity\Red 
+     */
+    public function getRed()
+    {
+        return $this->red;
     }
 }
