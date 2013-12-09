@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AE\DataBundle\AEDataBundle(),
             new AE\UserBundle\UserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new AE\ConfigurarBundle\AEConfigurarBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,3 +1,7 @@
+ae_configurar:
+    resource: "@AEConfigurarBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ae_data:
     resource: "@AEDataBundle/Resources/config/routing.yml"
     prefix:   /

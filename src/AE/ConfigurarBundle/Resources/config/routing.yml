@@ -1,0 +1,3 @@
+main:
+    pattern:  /main
+    defaults: { _controller: AEConfigurarBundle:Default:index }
