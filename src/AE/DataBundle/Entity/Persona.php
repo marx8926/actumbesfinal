@@ -107,6 +107,20 @@ class Persona
     private $ocupacion;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="activo", type="boolean", nullable=true)
+     */
+    private $activo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ganado_por", type="bigint", nullable=true)
+     */
+    private $ganadoPor;
+
+    /**
      * @var \Iglesia
      *
      * @ORM\ManyToOne(targetEntity="Iglesia")
@@ -432,6 +446,52 @@ class Persona
     public function getOcupacion()
     {
         return $this->ocupacion;
+    }
+
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return Persona
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Set ganadoPor
+     *
+     * @param integer $ganadoPor
+     * @return Persona
+     */
+    public function setGanadoPor($ganadoPor)
+    {
+        $this->ganadoPor = $ganadoPor;
+    
+        return $this;
+    }
+
+    /**
+     * Get ganadoPor
+     *
+     * @return integer 
+     */
+    public function getGanadoPor()
+    {
+        return $this->ganadoPor;
     }
 
     /**

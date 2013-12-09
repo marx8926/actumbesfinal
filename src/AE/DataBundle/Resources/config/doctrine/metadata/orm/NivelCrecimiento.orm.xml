@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="NivelCrecimiento" table="nivel_crecimiento">
+    <id name="intNivelcrecimientoId" type="bigint" column="int_nivelcrecimiento_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="intNivelcrecimientoEscala" type="integer" column="int_nivelcrecimiento_escala" nullable="true"/>
+    <field name="intNivelcrecimientoEstadoactual" type="integer" column="int_nivelcrecimiento_estadoactual" nullable="true"/>
+    <field name="creacion" type="date" column="creacion" nullable="true"/>
+    <many-to-one field="celula" target-entity="Celula">
+      <join-columns>
+        <join-column name="celula_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="red" target-entity="Red">
+      <join-columns>
+        <join-column name="red_id" referenced-column-name="int_red_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="persona" target-entity="Persona">
+      <join-columns>
+        <join-column name="persona_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

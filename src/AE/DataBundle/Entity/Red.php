@@ -30,13 +30,6 @@ class Red
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_ubigeo", type="integer", nullable=true)
-     */
-    private $idUbigeo;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="inicio", type="date", nullable=true)
@@ -49,6 +42,26 @@ class Red
      * @ORM\Column(name="activo", type="boolean", nullable=true)
      */
     private $activo;
+
+    /**
+     * @var \Persona
+     *
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lider", referencedColumnName="id")
+     * })
+     */
+    private $lider;
+
+    /**
+     * @var \Ubicacion
+     *
+     * @ORM\ManyToOne(targetEntity="Ubicacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_ubicacion", referencedColumnName="id")
+     * })
+     */
+    private $idUbicacion;
 
 
 
@@ -83,29 +96,6 @@ class Red
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set idUbigeo
-     *
-     * @param integer $idUbigeo
-     * @return Red
-     */
-    public function setIdUbigeo($idUbigeo)
-    {
-        $this->idUbigeo = $idUbigeo;
-    
-        return $this;
-    }
-
-    /**
-     * Get idUbigeo
-     *
-     * @return integer 
-     */
-    public function getIdUbigeo()
-    {
-        return $this->idUbigeo;
     }
 
     /**
@@ -152,5 +142,51 @@ class Red
     public function getActivo()
     {
         return $this->activo;
+    }
+
+    /**
+     * Set lider
+     *
+     * @param \AE\DataBundle\Entity\Persona $lider
+     * @return Red
+     */
+    public function setLider(\AE\DataBundle\Entity\Persona $lider = null)
+    {
+        $this->lider = $lider;
+    
+        return $this;
+    }
+
+    /**
+     * Get lider
+     *
+     * @return \AE\DataBundle\Entity\Persona 
+     */
+    public function getLider()
+    {
+        return $this->lider;
+    }
+
+    /**
+     * Set idUbicacion
+     *
+     * @param \AE\DataBundle\Entity\Ubicacion $idUbicacion
+     * @return Red
+     */
+    public function setIdUbicacion(\AE\DataBundle\Entity\Ubicacion $idUbicacion = null)
+    {
+        $this->idUbicacion = $idUbicacion;
+    
+        return $this;
+    }
+
+    /**
+     * Get idUbicacion
+     *
+     * @return \AE\DataBundle\Entity\Ubicacion 
+     */
+    public function getIdUbicacion()
+    {
+        return $this->idUbicacion;
     }
 }
