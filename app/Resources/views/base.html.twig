@@ -7,26 +7,26 @@
 <meta name="viewport" content="width=device-width">
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
-<link rel="stylesheet" href="{{asset('css/bootstrap-responsive.css')}}">
-<link rel="stylesheet" href="{{asset('css/jquery.fancybox.css')}}">
-<link rel="stylesheet" href="{{asset('css/style.css')}}">
+<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css">
+<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/jquery.fancybox.css">
+<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/style.css">
 {% endblock %}
 </head>
 <body>
 <div class="topbar">
 	<div class="container-fluid">
-		<a href="{{path('main')}}" class='company'><img alt="Administración Eclesiástica" src="{{asset('images/ac-logo-horizontal-3.png')}}"></a>
+		<a href="{{path('main')}}" class='company'><img alt="Administración Eclesiástica" src="http://d19k46zntalu3t.cloudfront.net/images/ac-logo-horizontal-3.png"></a>
 		<ul class='mini'>
 			<li>
 				<a href="#">
-					<img src="{{asset('img/icons/fugue/help.png')}}" alt="">
+					<img src="http://d19k46zntalu3t.cloudfront.net/img/icons/fugue/help.png" alt="">
 					Ayuda
 				</a>
 			</li>
 			<li>
 				<a href="{{path('_security_logout')}}">
-					<img src="{{asset('img/icons/fugue/control-power.png')}}" alt="">
+					<img src="http://d19k46zntalu3t.cloudfront.net/img/icons/fugue/control-power.png" alt="">
 					Cerrar Sesión
 				</a>
 			</li>
@@ -56,7 +56,7 @@
 			<li>
 				<a class='light toggle-collapsed'>
 					Ganar
-					<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+					<img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
 				</a>
 				<ul class='collapsed-nav closed'>
                                       {% if (is_granted('ROLE_USER')) %}
@@ -156,7 +156,7 @@
                         <li>
 				<a class='light toggle-collapsed'>
 					Consolidar
-					<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+					<img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
 				</a>
 				<ul class='collapsed-nav closed'>
 					
