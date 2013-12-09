@@ -11,7 +11,5 @@
     <field name="intUbigeoDependencia" type="integer" column="int_ubigeo_dependencia" nullable="true"/>
     <field name="floatUbigeoLatitud" type="float" column="float_ubigeo_latitud" nullable="true"/>
     <field name="floatUbigeoLongitud" type="float" column="float_ubigeo_longitud" nullable="true"/>
-    <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
-    <field name="updatedAt" type="datetime" column="updated_at" nullable="true"/>
   </entity>
 </doctrine-mapping>

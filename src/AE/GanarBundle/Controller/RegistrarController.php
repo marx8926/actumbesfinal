@@ -140,10 +140,7 @@ class RegistrarController extends Controller
             $fechaConv = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0];            
             
             $lugar = $datos['lugar'];
-            
-            $facebook = $datos['inputFacebook'];
-            $twitter = $datos['inputTwitter'];
-            $webpage = $datos['inputWebpage'];
+          
             
             $peticion = $datos['inputDescripcion'];            
             

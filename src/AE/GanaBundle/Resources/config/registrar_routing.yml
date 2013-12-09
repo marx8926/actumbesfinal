@@ -1,0 +1,12 @@
+
+ae_gana_persona:
+    pattern: /registrar_persona
+    defaults: { _controller: AEGanaBundle:Registrar:registrar_persona}
+    requirements:
+        _method: POST
+
+ae_gana_test:
+    pattern: /registrar_test
+    defaults: { _controller: AEGanaBundle:Registrar:test}
+    requirements:
+        _method: GET

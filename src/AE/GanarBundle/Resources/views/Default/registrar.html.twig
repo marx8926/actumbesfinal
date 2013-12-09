@@ -13,7 +13,7 @@
     <div class="span9" id="registro_form">
     <h1>Registrar Nuevo</h1>
     <br>
-        <form class="form-horizontal" action="{{path('ganar_addpersona')}}" method="POST" id="myForm">
+        <form class="form-horizontal" action="{{path('ae_gana_persona')}}" method="POST" id="form_persona" name="form_persona">
            <!--
             <fieldset>
             {% if (is_granted('ROLE_ADMIN')) %}
@@ -396,7 +396,7 @@
 
    <div class="control-group">
         <div class="controls">
-        	<input class="btn btn-primary" type="submit" id="login" name="login" value="Registrar" />
+        	<input class="btn btn-primary" type="button" id="btnGuardar" name="btnGuardar" value="Registrar" />
         </div>
    </div>
               
@@ -429,6 +429,35 @@
             <script type="text/javascript">
                 
                 ubigeos = null ;
+                
+                var PrepararDatosVisitante, SuccessFunction, root;
+
+                root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
+                root.SourceTServicio = "/recuperar_personas_inicio";
+
+                root.DatosEnviar = null;
+
+                root.count = 0;
+
+                root.SelectToDrop = null;
+
+                root.TipoForm = null;
+
+                PrepararDatos = function() {
+                    return root.DatosEnviar = {
+                            "formulario": $("#form_persona").serializeObject()
+                            
+                    };
+                };
+
+                SuccessFunction = function(data) {
+                    console.log(data);
+                    
+                };
+
+                
+
              $(document).ready(function(){
                  
                  
@@ -440,42 +469,15 @@
                  
                  cargarSelect(redes, "red_lista", "int_red_id", "id");
                  cargarSelect(lugares, "lugar", "int_lugar_id", "var_lugar_descripcion");
-
                  
-                  var x =$("login");
-                    x.click();
-    
-                    $("#myForm").submit(function(event){                        
-                    event.preventDefault();                             
-                    //get the url for the form
-                    var url=$("#myForm").attr("action");                     
-                    //start send the post request 
-                    console.log($("#myForm").serialize());
-                    $.post(url,{
-                        formName:$("#myForm").serialize(),
-                        other:"attributes"
-                    },function(data){                      
-                    //the response is in the data variable
-                    if(data.responseCode===200 ){          
-                      
-                        alert('Registro Completado');
-                        location.reload();
-                    }
-                    else if(data.responseCode===400){//bad request
-                       alert('Error bad request');
-                        }
-                    else{                        
-                        if(data.responseCode===500)
-                        {
-                            alert('Error bad request');
-                        }
-                        else alert("An unexpeded error occured.");
-                        }
-                    }
-                    );
-                    return false;});
-                    
-                  //dibujar_mapa('map','lat','lng','addresspicker_map');
+                 $("#btnGuardar").click(function(event) {
+                    event.preventDefault();
+                    PrepararDatos();
+                    console.log(root.DatosEnviar);
+                    return enviar('{{path('ae_gana_persona')}}', root.DatosEnviar, SuccessFunction, null);
+  
+                });
+
             });
             /** inicio ganador por */
              function listas(entrada)

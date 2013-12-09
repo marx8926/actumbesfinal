@@ -60,16 +60,6 @@ class Ubicacion
      */
     private $ubigeo;
 
-    /**
-     * @var \Persona
-     *
-     * @ORM\ManyToOne(targetEntity="Persona")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
-     * })
-     */
-    private $persona;
-
 
 
     /**
@@ -195,28 +185,5 @@ class Ubicacion
     public function getUbigeo()
     {
         return $this->ubigeo;
-    }
-
-    /**
-     * Set persona
-     *
-     * @param \AE\DataBundle\Entity\Persona $persona
-     * @return Ubicacion
-     */
-    public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
-    {
-        $this->persona = $persona;
-    
-        return $this;
-    }
-
-    /**
-     * Get persona
-     *
-     * @return \AE\DataBundle\Entity\Persona 
-     */
-    public function getPersona()
-    {
-        return $this->persona;
     }
 }

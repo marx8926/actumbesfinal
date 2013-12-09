@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new AE\GanarBundle\AEGanarBundle(),
             new AE\ServiciosBundle\AEServiciosBundle(),
             new AE\ServicesBundle\AEServicesBundle(),
+            new AE\GanaBundle\AEGanaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

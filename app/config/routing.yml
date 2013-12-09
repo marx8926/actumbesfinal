@@ -1,3 +1,7 @@
+ae_gana:
+    resource: "@AEGanaBundle/Resources/config/routing.yml"
+    prefix:   /gana/
+
 ae_services:
     resource: "@AEServicesBundle/Resources/config/routing.yml"
     prefix:   /services/

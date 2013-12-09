@@ -1,0 +1,6 @@
+ae_gana_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: AEGanaBundle:Default:index }
+    
+gana_registrar_routing:    
+    resource: "@AEGanaBundle/Resources/config/registrar_routing.yml"

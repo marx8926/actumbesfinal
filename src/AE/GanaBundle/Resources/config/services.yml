@@ -1,0 +1,7 @@
+parameters:
+#    ae_gana.example.class: AE\GanaBundle\Example
+
+services:
+#    ae_gana.example:
+#        class: %ae_gana.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

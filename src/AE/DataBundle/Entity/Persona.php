@@ -117,16 +117,6 @@ class Persona
     private $idIglesia;
 
     /**
-     * @var \Ubigeos
-     *
-     * @ORM\ManyToOne(targetEntity="Ubigeos")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_ubicacion", referencedColumnName="int_ubigeo_id")
-     * })
-     */
-    private $idUbicacion;
-
-    /**
      * @var \Lugar
      *
      * @ORM\ManyToOne(targetEntity="Lugar")
@@ -145,6 +135,16 @@ class Persona
      * })
      */
     private $red;
+
+    /**
+     * @var \Ubicacion
+     *
+     * @ORM\ManyToOne(targetEntity="Ubicacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_ubicacion", referencedColumnName="id")
+     * })
+     */
+    private $idUbicacion;
 
 
 
@@ -458,29 +458,6 @@ class Persona
     }
 
     /**
-     * Set idUbicacion
-     *
-     * @param \AE\DataBundle\Entity\Ubigeos $idUbicacion
-     * @return Persona
-     */
-    public function setIdUbicacion(\AE\DataBundle\Entity\Ubigeos $idUbicacion = null)
-    {
-        $this->idUbicacion = $idUbicacion;
-    
-        return $this;
-    }
-
-    /**
-     * Get idUbicacion
-     *
-     * @return \AE\DataBundle\Entity\Ubigeos 
-     */
-    public function getIdUbicacion()
-    {
-        return $this->idUbicacion;
-    }
-
-    /**
      * Set lugar
      *
      * @param \AE\DataBundle\Entity\Lugar $lugar
@@ -524,5 +501,28 @@ class Persona
     public function getRed()
     {
         return $this->red;
+    }
+
+    /**
+     * Set idUbicacion
+     *
+     * @param \AE\DataBundle\Entity\Ubicacion $idUbicacion
+     * @return Persona
+     */
+    public function setIdUbicacion(\AE\DataBundle\Entity\Ubicacion $idUbicacion = null)
+    {
+        $this->idUbicacion = $idUbicacion;
+    
+        return $this;
+    }
+
+    /**
+     * Get idUbicacion
+     *
+     * @return \AE\DataBundle\Entity\Ubicacion 
+     */
+    public function getIdUbicacion()
+    {
+        return $this->idUbicacion;
     }
 }
