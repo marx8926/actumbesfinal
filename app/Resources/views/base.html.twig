@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>{% block titulo %}{% endblock %}Admin Church</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+<link rel="stylesheet" href="{{asset('css/bootstrap-responsive.css')}}">
+<link rel="stylesheet" href="{{asset('css/jquery.fancybox.css')}}">
+<link rel="stylesheet" href="{{asset('css/style.css')}}">
+{% endblock %}
+</head>
+<body>
+<div class="topbar">
+	<div class="container-fluid">
+		<a href="{{path('main')}}" class='company'><img alt="Administración Eclesiástica" src="{{asset('images/ac-logo-horizontal-3.png')}}"></a>
+		<ul class='mini'>
+			<li>
+				<a href="#">
+					<img src="{{asset('img/icons/fugue/help.png')}}" alt="">
+					Ayuda
+				</a>
+			</li>
+			<li>
+				<a href="{{path('_security_logout')}}">
+					<img src="{{asset('img/icons/fugue/control-power.png')}}" alt="">
+					Cerrar Sesión
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="breadcrumbs">
+	<div class="container-fluid">
+		<ul class="bread pull-left">
+			<li>
+				<a href="{{path('main')}}"><i class="icon-home icon-white"></i></a>
+			</li>
+			
+		</ul>
+
+	</div>
+</div>
+<div class="main">
+	<div class="navi">
+            <ul class='main-nav'>
+			<li class='active'>
+				<a href="{{path('main')}}" class='light'>
+					<div class="ico"><i class="icon-home icon-white"></i></div>
+					Inicio
+				</a>
+			</li>
+			<li>
+				<a class='light toggle-collapsed'>
+					Ganar
+					<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+				</a>
+				<ul class='collapsed-nav closed'>
+                                      {% if (is_granted('ROLE_USER')) %}
+					<li>
+						<a href="{{path('ganar_persona')}}">
+							Registrar
+						</a>
+					</li>
+                                      {% endif %}  
+                                        {% if ( is_granted('ROLE_LIDER_RED') )%}
+                                        <li>
+						<a href="{{path('ganar_busqueda')}}">
+							Buscar
+						</a>
+					</li>
+                                        {% endif %}
+                                        {% if ( is_granted('ROLE_GANAR') )%}
+
+                                        <li>
+                                                <a href="{{path('ganar_modificar_ganador')}}">
+                                                    Modificar Ganador
+                                                </a>
+                                        </li>
+                                        
+					{% endif %}
+                                       
+					<li>
+						<a href="#" class='light toggle-collapsed'>
+							Informes
+							<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+						</a>
+						<ul class='collapsed-nav closed dentro'>
+							<!--
+                                                    
+                                                        <li>
+								<a href="{{path('ganar_informe_semanal')}}">
+									Informe Semanal
+								</a>
+							</li>
+							<li>
+								<a href="{{path('ganar_informe_ganar_fechas')}}">
+									Informe General
+								</a>
+							</li>
+                                                        <li>
+                                                            <a href="{{path('ganar_informe_convertidos')}}">
+                                                                Informe Convertidos
+                                                            </a>
+                                                        </li>
+                                                        -->
+                                                        
+                                                        {% if (is_granted('ROLE_LIDER_RED') ) %}
+
+                                                        <li>
+                                                            <a href="{{path('ganar_informe_por_lider')}}" >
+                                                             Informe de 12 del Pastor@
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+                                                        
+                                                        {% if (is_granted('ROLE_LIDER12'))%}
+                                                        <li>
+                                                            <a href="{{path('ganar_informe_por_lider12')}}">
+                                                             Informe de 144 del Pastor@
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+                                                        
+                                                        {% if(is_granted('ROLE_LIDER144')) %}
+                                                         <li>
+                                                            <a href="{{path('ganar_informe_por_lider144')}}">
+                                                             Informe de 1728 del Pastor@
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+                                                        
+                                                        {% if is_granted('ROLE_LIDER1728') %}
+                                                         <li>
+                                                            <a href="{{path('ganar_informe_por_lider_1728')}}">
+                                                             Informe de 20736 del Pastor@
+                                                            </a>
+                                                        </li>
+                                                        
+                                                        {% endif %}
+                                                        {% if(is_granted('ROLE_GANAR')) %}
+                                                        <li>
+                                                            <a href="{{path('ganar_informe_semanal_ganar')}}">
+                                                             Informe Semanal Ganar
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+						</ul>
+					</li>
+				
+                                        </ul>
+			</li>
+                        <li>
+				<a class='light toggle-collapsed'>
+					Consolidar
+					<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+				</a>
+				<ul class='collapsed-nav closed'>
+					
+                                     {% if is_granted('ROLE_LIDER_RED') %}
+					<!--
+                                        <li>
+						<a href="{{path('consolidar_registro')}}">
+							Registrar Consolidador
+						</a>
+					</li>
+					-->
+                                        <li>
+                                            <a href="{{path('consolidar_modificar')}}" >
+                                                Activar/Desactivar Consolidador
+                                            </a>
+                                        </li>
+                                    {% endif %}
+   
+                                    {% if is_granted('ROLE_CONSOLIDAR') or is_granted('ROLE_LIDER_RED') %}   
+                                        <li>
+                                            <a href="{{path('consolidar_busqueda')}}">
+                                                Búsqueda de Consolidadores
+                                            </a>
+                                        </li>
+                                   
+                                        
+					<li>
+						<a href="{{path('consolidar_asignar_consolidar')}}">
+							Asignar Consolidador
+						</a>
+					</li>
+                                    {% endif %}
+                                        
+                                    {% if is_granted('ROLE_CONSOLIDAR') or is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') %}
+                                        <li>
+                                            <a href="{{path('consolidar_lista_consolidados')}}">
+                                                Lista de Consolidados
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                        
+                                    {% if is_granted('ROLE_CONSOLIDAR') or is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR')%}
+                                        <li>
+                                            <a href="{{path('consolidar_lista_seguir')}}">
+                                                Actualización de Seguimiento
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                        
+                                    {% if is_granted('ROLE_CONSOLIDAR') or  is_granted('ROLE_LIDER_RED') %}    
+					<li>
+						<a href="{{path('consolidar_lista_consolidador')}}">
+							Seguimiento de Consolidador
+						</a>
+					</li>
+                                    {% endif %}    
+                                     
+                                    {% if is_granted('ROLE_LIDER_RED')%}
+					<li>
+						<a href="{{path('consolidar_descartar')}}">
+							Descartar
+						</a>
+					</li>
+                                     {% endif %}   
+                                     
+                                    {% if is_granted('ROLE_CONSOLIDAR') or is_granted('ROLE_LIDER_RED') %}    
+					<li>
+                                            <a href="{{path('consolidar_lista_descartar')}}">
+                                                Lista de descartados
+                                            </a>
+					</li>
+                                    {% endif %}
+                                        
+                                    {% if is_granted('ROLE_CONSOLIDAR')%}
+                                        <li>
+                                            <a href="{{path('consolidar_cambiar_consolidador')}}">
+                                                Cambiar consolidador
+                                            </a>
+                                        </li>
+                                     {% endif %}
+                                     {%if is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_LIDER_RED') %}
+                                        <li>
+                                            <a href="{{path('consolidar_contacto')}}">
+                                             Herramientas de Consolidación
+                                            </a>
+                                        </li>
+                                     {% endif %}
+                                        
+                                        <li>
+                                            <a href="#" class='light toggle-collapsed'>
+							Informes
+							<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+						</a>
+						<ul class='collapsed-nav closed dentro'>
+							
+                                                        <!--
+                                                        <li>
+								     
+                                                            <a href="{{path('consolidar_informe_no_consolidado')}}">
+                                                                Informe No Consolidados
+                                                            </a>
+							</li>
+							<li>
+                                                            <a href="{{path('consolidar_informe_herramientas')}}">
+                                                                Informe Herramientas
+                                                            </a>
+							</li>
+                                                        
+                                                        <li>
+                                                             <a href="{{path('consolidar_informe_leche_espiritual')}}">
+                                                                Informe Leche Espiritual
+                                                            </a>
+                                                        </li>
+                                                        
+                                                        <li>
+                                                            <a href="{{path('consolidar_informe_descartados')}}">
+                                                                Informe Descartados
+                                                                </a>
+                                                        </li>
+                                                        -->
+                                                       {% if is_granted('ROLE_CONSOLIDADOR')%}
+
+                                                        <li>
+                                                            <a href="{{path('consolidado_informe_detallado')}}">
+                                                            Informe Detallado
+                                                            </a>
+                                                        </li>
+                                                       {% endif %}                                           
+
+                                                        {% if is_granted('ROLE_CONSOLIDAR')%}
+                                                        <li>
+                                                            <a href="{{path('consolidado_informe_resumido')}}">
+                                                            Informe Resumido
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+						</ul>
+                                            
+                                       
+                                        </li>
+				</ul>
+			</li>
+            
+                        <li>
+				<a class='light toggle-collapsed'>
+					Discipular
+					<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+				</a>
+				<ul class='collapsed-nav closed'>
+					
+                                      {%  if is_granted('ROLE_DISCIPULAR') %}
+                                        <li>
+						<a href="{{path('discipular_administrar_personal')}}">
+							Administrar Personal
+						</a>
+					</li>
+                                                                            
+					<li>
+						<a href="{{path('discipular_administrar_estudiante')}}">
+							Administrar Estudiante
+						</a>
+					</li>
+                                        
+					<li>
+						<a href="{{path('discipular_crearcurso')}}">
+							Registrar Cursos
+						</a>
+					</li>
+                                       
+                                      {% endif %}
+                                        
+                                      {% if is_granted('ROLE_ESTUDIANTE') %}
+					<li>
+						<a href="{{path('discipular_curso')}}">
+							Cursos
+						</a>
+					</li>
+                                      {% endif %}
+                                       {%if is_granted('ROLE_DISCIPULAR')%}
+					<li>
+						<a href="{{path('discipular_administrar_local')}}">
+							Administrar Local
+						</a>
+					</li>
+                                      
+					<li>
+						<a href="{{path('discipular_asignar_curso')}}">
+							Asignar Personal
+						</a>
+					</li>
+                                        
+                                       {% endif %}
+
+                                       {% if is_granted('ROLE_LIDER_RED') %}
+                                        <li>
+                                            <a href="{{path('discipular_informe_vision')}}">
+                                                Informe Visión
+                                            </a>
+                                        
+                                        </li>                                        
+                                       {% endif %}
+                                        
+                                       {% if is_granted('ROLE_DISCIPULAR') %}
+                                        <li>
+                                            <a href="{{path('discipular_informe_semanal_indeli')}}">
+                                                Reporte Semanal
+                                            </a>
+                                        
+                                        </li>
+                                      {% endif %}
+
+                                       {% if is_granted('ROLE_LIDER_RED') %}
+                                         <li>
+                                            <a href="{{path('discipular_informe_asistenciaredes')}}">
+                                                Informe Discipular por Redes
+                                            </a>
+                                        
+                                        </li>
+                                        
+                                       {% endif %}
+				</ul>
+			</li>
+                        
+                        	<li>
+				<a class='light toggle-collapsed'>
+					Enviar
+					<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+				</a>
+				<ul class='collapsed-nav closed'>
+                                        {% if is_granted('ROLE_LIDER_RED') %}
+					<li>
+						<a href="{{path('enviar_celula')}}">
+							Crear Célula
+						</a>
+					</li>
+                                        {% endif %}
+                                        {% if is_granted('ROLE_LIDER_RED') %}
+					<li>
+						<a href="{{path('enviar_busqueda_celula')}}">
+							Lista Células 
+						</a>
+					</li>
+                                        
+                                        <li>
+                                            <a href="{{path('enviar_registro_discipulado')}}">
+                                              Registro Discipulado
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{path('enviar_discipulos_por_red')}}">
+                                            Discipulos por red
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if is_granted('ROLE_ENVIAR') %}
+                                        <li>
+                                            <a href="{{path('enviar_activar_vista')}}">
+                                                Reactivar Células
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if is_granted('ROLE_LIDER_RED') %}
+                                        <li>
+                                                <a href="{{path('enviar_lista_lideres')}}">
+                                                      Lideres
+                                                </a>
+                                        </li>
+                                        {% endif %}
+                                        
+                                        {% if is_granted('ROLE_ENVIAR')%}
+					<li>
+						<a href="{{path('enviar_temacelula')}}">
+							Registrar Tema de Célula
+						</a>
+					</li>
+                                        {% endif %}
+					<li>
+						<a href="{{path('enviar_lista_clases')}}">
+							Lista de Tema de Célula
+						</a>
+					</li>
+                                        {% if is_granted('ROLE_ENVIAR') %}
+                                        <li>
+                                            <a href="{{path('enviar_crear_class_cell')}}">
+                                                Distribuir Clases de Célula
+                                                </a>
+                                        </li>
+                                        
+                                        {% endif %}
+                                        {% if is_granted('ROLE_LIDERSIN') %}
+					<li>
+						<a href="{{path('enviar_asistencia')}}">
+							Registro de Asistencia
+						</a>
+					</li>
+                                        {% endif %}
+                                        
+                                        
+                                        {% if is_granted('ROLE_ENVIAR') %}
+					<li>
+						<a href="{{path('enviar_celulograma')}}">
+							Celulograma
+						</a>
+					</li>
+                                        
+                                        {% endif %}
+                                       
+					<li>
+						<a href="#" class='light toggle-collapsed'>
+							Informes
+							<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+						</a>
+						<ul class='collapsed-nav closed dentro'>
+							
+                                                        
+                                                        {% if (is_granted('ROLE_LIDER_RED') ) %}
+
+                                                        <li>
+                                                            <a href="{{path('enviar_informe_lider12')}}" >
+                                                             Informe Lideres 12
+                                                            </a>
+                                                        </li>
+                                                        
+                                                        <li>
+                                                            <a href="{{path('enviar_celulograma12')}}" >
+                                                             Celulograma Lider 12
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+                                                        
+                                                        {% if (is_granted('ROLE_LIDER12'))%}
+                                                        <li>
+                                                            <a href="{{path('enviar_informe_lider144')}}">
+                                                             Informe Lideres 144
+                                                            </a>
+                                                        </li>
+                                                        
+                                                         <li>
+                                                            <a href="{{path('enviar_celulograma144')}}" >
+                                                             Celulograma Lider 144
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+                                                        
+                                                        {% if(is_granted('ROLE_LIDER144')) %}
+                                                         <li>
+                                                            <a href="{{path('enviar_informe_lider1728')}}">
+                                                             Informe Lideres 1728
+                                                            </a>
+                                                        </li>
+                                                        
+                                                        <li>
+                                                            <a href="{{path('enviar_celulograma1728')}}" >
+                                                             Celulograma Lider 1728
+                                                            </a>
+                                                        </li>
+                                                        
+                                                        <li>
+                                                            <a href="{{path('enviar_celulograma20378')}}" >
+                                                             Celulograma Lider 20378
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+                                                        
+
+                                                {% if is_granted('ROLE_ENVIAR') %}
+
+                                                                                                                
+                                                    <li>
+                                                        <a href="{{path('enviar_informe_red')}}">
+                                                        Informe Semanal por Pastor
+                                                        </a>
+                                                    </li>
+                                        
+                                                    <li>
+                                                        <a href="{{path('enviar_informe_resumido')}}">
+                                                        Informe General de Enviar
+                                                        </a>
+                                                    </li>
+                                                    
+                                                {% endif %}
+						</ul>
+					</li>
+				
+
+				</ul>
+			</li>
+                        <li>
+                        <a class='light toggle-collapsed'>
+					Administrar
+					<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+				</a>
+                        <ul class='collapsed-nav closed'>
+                        
+                            {% if(is_granted('ROLE_USER'))%}
+                                        <li>
+                                            <a href="{{path('administrar_cambiar_usuario')}}">
+                                            Cambiar Usuario
+                                            </a>
+                                        </li>
+                            {% endif %}
+                                        
+                             {% if is_granted('ROLE_PASTOR_ASOCIADO')%}
+					<li>
+						<a href="{{path('administrar_red')}}">
+							Registrar Red
+						</a>
+					</li>
+                                       
+                                        <li>
+                                            <a href="{{path('administrar_lista_redes')}}">Lista de Redes</a>
+                                        </li>
+                                        
+                             {% endif %}
+                                        
+                                        {% if is_granted('ROLE_ADMIN') %}
+					<li>
+						<a href="{{path('administrar_mod_permisos')}}">
+							Permisos
+						</a>
+					</li>
+            				<ul class='collapsed-nav closed'>
+ 
+                                        <li>
+						<a href="{{path('administrar_lider12')}}">
+							Registrar 12
+						</a>
+					</li>
+                                        
+                                         <li>
+						<a href="{{path('administrar_lider144')}}">
+							Registrar 144
+						</a>
+					</li>
+                                        
+                                         <li>
+						<a href="{{path('administrar_lider1728')}}">
+							Registrar 1728
+						</a>
+					</li>
+                                        </ul>
+
+                                        {% endif %}
+
+                                        
+                                        {% if is_granted('ROLE_PASTOR_ASOCIADO')%}
+					<li>
+						<a href="{{path('administrar_lista_lider_red')}}">
+							Líderes de Red
+						</a>
+					</li>
+<!--
+					<li>
+						<a href="{{path('administrar_lista_pastor_asociado')}}">
+							Pastores Asociados
+						</a>
+					</li>
+-->
+					<li>
+						<a href="{{path('administrar_lista_pastor_ejecutivo')}}">
+							Pastores Ejecutivos
+						</a>
+					</li>
+<!--
+					<li>
+						<a href="{{path('administrar_lista_misionero')}}">
+							Misioneros
+						</a>
+					</li>
+-->
+                                        {% endif %}
+
+                                        
+                                         {% if is_granted('ROLE_LIDER_RED') %}
+					<li>
+						<a href="{{path('administrar_lista_miembros')}}">
+							Lista Miembros/Red
+						</a>
+					</li>
+                                        {% endif %}
+                                        
+                                        {%if is_granted('ROLE_ADMIN') %}
+                                             
+                                            <li>
+                                                <a href="{{path('administrar_lista_miembros_all')}}">
+                                                    Todos los miembros
+                                                </a>                                            
+                                            </li>
+                                      
+                                            <li>
+                                                <a href="{{path('administrar_lista_usuario')}}">Lista de Usuarios</a>
+                                            </li>
+                                        {% endif %}
+                             
+                                         {% if is_granted('ROLE_LIDER_RED')%}
+                                        <li>
+                                            <a href="{{path('administrar_asistencia_culto')}}">
+                                             Registrar Asistencia Culto
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{path('administrar_asistencia_lista')}}">
+                                               Informe Asistencia Culto 
+                                            </a>    
+                                        </li>
+                                        {% endif %}
+                                        
+                                        {% if is_granted('ROLE_LIDER_RED')%}
+                                        <li>
+                                            <a href="{{path('administrar_registro_ropa_vista')}}">Registro de ropa a miembros</a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{path('administrar_informe_ropa_red')}}" >
+                                             Datos personales de los 12
+                                            </a>
+                                        </li>
+					
+                                        <li>
+                                            <a href="{{path('administrar_informe_ropa_tipo')}}">
+                                            Datos personales de lideres de una red
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{path('administrar_informe_ropa')}}">
+                                            Datos personales de miembros de una red
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        
+                                        <li>
+						<a href="#" class='light toggle-collapsed'>
+							Eventos
+							<img src="{{ asset('img/toggle-subnav-down.png') }}" alt="">
+						</a>
+						<ul class='collapsed-nav closed dentro'>
+                                                     {% if is_granted('ROLE_ADMIN')%}
+							<li>
+								<a href="{{path('administrar_administrar_evento')}}">
+									Administrar Eventos
+								</a>
+							</li>
+                                                        
+                                                     {% endif %}
+                                                     {% if is_granted('ROLE_ADMIN') %}
+							<li>
+								<a href="{{path('administrar_ver_eventos')}}">
+									Asistencia Eventos
+								</a>
+							</li>
+                                                     {% endif %}
+						</ul>
+					</li>
+                        </ul>
+                        </li>
+              </ul>
+	</div>
+	<div class="container-fluid">
+		<div class="content">
+			{% block content %}
+			
+			{% endblock %}
+		</div>
+	</div>	
+</div>
+<div>
+	<footer>
+		<p align="center">&copy; 2013 por CLM Developers</p>
+		<p align="center">
+			<a href="http://www.w3.org/html/logo/" target="_blank">
+            	<img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-semantics.png" width="197" height="64" alt="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics" title="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics">
+            </a> 
+        </p>
+	</footer>
+</div>	
+{% block javascript %}
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/less.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/chosen.jquery.min.js')}}"></script>
+<script src="{{asset('js/jquery.peity.js')}}"></script>
+<script src="{{asset('js/jquery.fancybox.js')}}"></script>
+<script src="{{asset('js/jquery.flot.js')}}"></script>
+<script src="{{asset('js/jquery.color.js')}}"></script>
+<script src="{{asset('js/jquery.flot.resize.js')}}"></script>
+<script src="{{asset('js/custom.js')}}"></script>
+{% endblock %}
+</body>
+</html>
