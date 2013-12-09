@@ -13,6 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Celula
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="celula_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_creacion", type="date", nullable=false)
@@ -48,13 +58,6 @@ class Celula
     private $idUbicacion;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_red", type="integer", nullable=true)
-     */
-    private $idRed;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="activo", type="boolean", nullable=true)
@@ -78,16 +81,24 @@ class Celula
     /**
      * @var \Red
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Red")
+     * @ORM\ManyToOne(targetEntity="Red")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id", referencedColumnName="int_red_id")
+     *   @ORM\JoinColumn(name="id_red", referencedColumnName="int_red_id")
      * })
      */
-    private $id;
+    private $idRed;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set fechaCreacion
@@ -205,29 +216,6 @@ class Celula
     }
 
     /**
-     * Set idRed
-     *
-     * @param integer $idRed
-     * @return Celula
-     */
-    public function setIdRed($idRed)
-    {
-        $this->idRed = $idRed;
-    
-        return $this;
-    }
-
-    /**
-     * Get idRed
-     *
-     * @return integer 
-     */
-    public function getIdRed()
-    {
-        return $this->idRed;
-    }
-
-    /**
      * Set activo
      *
      * @param boolean $activo
@@ -297,25 +285,25 @@ class Celula
     }
 
     /**
-     * Set id
+     * Set idRed
      *
-     * @param \AE\DataBundle\Entity\Red $id
+     * @param \AE\DataBundle\Entity\Red $idRed
      * @return Celula
      */
-    public function setId(\AE\DataBundle\Entity\Red $id)
+    public function setIdRed(\AE\DataBundle\Entity\Red $idRed = null)
     {
-        $this->id = $id;
+        $this->idRed = $idRed;
     
         return $this;
     }
 
     /**
-     * Get id
+     * Get idRed
      *
      * @return \AE\DataBundle\Entity\Red 
      */
-    public function getId()
+    public function getIdRed()
     {
-        return $this->id;
+        return $this->idRed;
     }
 }

@@ -130,7 +130,7 @@ class RegistrarController extends Controller
             $longitud = $datos['longitud'];
    
             $red = $datos['red_lista'];
-            if(strcmp($red, '-1')!=0)
+            if(strcmp($red, '-1')!=0 )
              $celula = $datos['celula_lista'];
             
             $fechaConv_b = $datos['inputFechaConversion'];

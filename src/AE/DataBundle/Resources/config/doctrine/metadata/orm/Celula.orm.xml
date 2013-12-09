@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Celula" table="celula">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
     <field name="fechaCreacion" type="date" column="fecha_creacion" nullable="false"/>
     <field name="tipo" type="smallint" column="tipo" nullable="false"/>
     <field name="familia" type="string" column="familia" length="100" nullable="false"/>
     <field name="telefono" type="string" column="telefono" length="20" nullable="true"/>
     <field name="idUbicacion" type="bigint" column="id_ubicacion" nullable="false"/>
-    <field name="idRed" type="integer" column="id_red" nullable="true"/>
     <field name="activo" type="boolean" column="activo" nullable="true"/>
     <field name="dia" type="string" column="dia" length="25" nullable="true"/>
     <field name="hora" type="string" column="hora" length="10" nullable="true"/>
-    <one-to-one field="id" target-entity="Red">
+    <many-to-one field="idRed" target-entity="Red">
       <join-columns>
-        <join-column name="id" referenced-column-name="int_red_id"/>
+        <join-column name="id_red" referenced-column-name="int_red_id"/>
       </join-columns>
-    </one-to-one>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

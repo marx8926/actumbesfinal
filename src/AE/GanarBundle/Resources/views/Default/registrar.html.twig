@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block titulo %}Registrar Usuario - {% endblock %}
+{% block titulo %}Registrar Nuevo - {% endblock %}
 
 {% block stylesheets %}
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
@@ -396,7 +396,7 @@
 
    <div class="control-group">
         <div class="controls">
-        	<input class="btn btn-primary" type="button" id="btnGuardar" name="btnGuardar" value="Registrar" />
+        	<input class="btn btn-primary" type="submit" id="btnGuardar" name="btnGuardar" value="Registrar" />
         </div>
    </div>
               
@@ -470,7 +470,7 @@
                  cargarSelect(redes, "red_lista", "int_red_id", "id");
                  cargarSelect(lugares, "lugar", "int_lugar_id", "var_lugar_descripcion");
                  
-                 $("#btnGuardar").click(function(event) {
+                 $("#form_persona").submit(function(event) {
                     event.preventDefault();
                     PrepararDatos();
                     console.log(root.DatosEnviar);

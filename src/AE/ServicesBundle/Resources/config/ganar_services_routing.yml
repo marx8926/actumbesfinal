@@ -11,3 +11,7 @@ services_lugar:
     defaults: {_controller: AEServicesBundle:GanarServices:lista_lugar}
     requirements:
         _method: GET
+        
+services_celula:
+    pattern: /lista_celula/{red}
+    defaults: {_controller: AEServicesBundle:GanarServices:lista_celula}

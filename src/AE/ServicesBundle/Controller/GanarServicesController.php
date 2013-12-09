@@ -13,14 +13,22 @@ class GanarServicesController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         
-        $sql = "select * from red";
+        $sql = "select * from red where activo=true";
         
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute();
  
+        $result = [];
+        $item = array("int_red_id" => -1, "id"=>"sin red");
+        
+        array_push($result,$item);
         $redes = $smt->fetchAll();
         
-        $resultado= new JsonResponse($redes);
+        foreach ($redes as $value) {
+          array_push($result, $value);  
+        }
+        
+        $resultado= new JsonResponse($result);
         $resultado->setMaxAge(60);
         $resultado->setPublic();
        
@@ -39,6 +47,35 @@ class GanarServicesController extends Controller
         $redes = $smt->fetchAll();
         
         $resultado= new JsonResponse($redes);
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
+       
+        return $resultado;
+    }
+    
+    public function lista_celulaAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $celulas = $this->getDoctrine()
+        ->getRepository('AEDataBundle:Celula')
+        ->findBy(array('idRed' => $red, 'activo'=> true));
+        
+        $result = array();
+        $item = array("id" => -1, "value"=>"sin red");
+        
+        array_push($result,$item);
+        
+        foreach ($celulas as $key => $value) {
+            
+            $item = array('id' => $value->getId(), 'value' => $value->getId());
+            
+            $result[] = $item;
+        }
+        
+        
+
+        $resultado= new JsonResponse($result);
         $resultado->setMaxAge(60);
         $resultado->setPublic();
        
