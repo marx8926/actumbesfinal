@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Ubigeos" table="ubigeos">
+    <id name="intUbigeoId" type="integer" column="int_ubigeo_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="stringUbigeoDescripcion" type="string" column="string_ubigeo_descripcion" length="50" nullable="true"/>
+    <field name="intUbigeoDepartamento" type="integer" column="int_ubigeo_departamento" nullable="true"/>
+    <field name="intUbigeoProvincia" type="integer" column="int_ubigeo_provincia" nullable="true"/>
+    <field name="intUbigeoDistrito" type="integer" column="int_ubigeo_distrito" nullable="true"/>
+    <field name="intUbigeoDependencia" type="integer" column="int_ubigeo_dependencia" nullable="true"/>
+    <field name="floatUbigeoLatitud" type="float" column="float_ubigeo_latitud" nullable="true"/>
+    <field name="floatUbigeoLongitud" type="float" column="float_ubigeo_longitud" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="true"/>
+  </entity>
+</doctrine-mapping>

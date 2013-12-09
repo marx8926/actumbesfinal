@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Lugar" table="lugar">
+    <id name="intLugarId" type="integer" column="int_lugar_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="varLugarDescripcion" type="string" column="var_lugar_descripcion" length="100" nullable="true"/>
+    <field name="varLugarEstado" type="string" column="var_lugar_estado" length="1" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
+  </entity>
+</doctrine-mapping>

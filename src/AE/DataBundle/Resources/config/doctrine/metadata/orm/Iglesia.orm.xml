@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Iglesia" table="iglesia">
+    <id name="intIglesiaId" type="bigint" column="int_iglesia_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="datIglesiaFecregistro" type="time" column="dat_iglesia_fecregistro" nullable="true"/>
+    <field name="datIglesiaFecreacion" type="date" column="dat_iglesia_fecreacion" nullable="true"/>
+    <field name="varIglesiaTelefono" type="string" column="var_iglesia_telefono" nullable="true"/>
+    <field name="varIglesiaSiglas" type="string" column="var_iglesia_siglas" nullable="true"/>
+    <field name="varIglesiaNombre" type="string" column="var_iglesia_nombre" nullable="true"/>
+    <field name="varIglesiaDireccion" type="string" column="var_iglesia_direccion" nullable="true"/>
+    <field name="varIglesiaReferencia" type="string" column="var_iglesia_referencia" nullable="true"/>
+    <field name="douIglesiaLongitud" type="float" column="dou_iglesia_longitud" nullable="true"/>
+    <field name="douIglesiaLatitud" type="float" column="dou_iglesia_latitud" nullable="true"/>
+    <many-to-one field="ubigeo" target-entity="Ubigeos">
+      <join-columns>
+        <join-column name="ubigeo_id" referenced-column-name="int_ubigeo_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
