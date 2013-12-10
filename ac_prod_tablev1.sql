@@ -1,5 +1,5 @@
 ﻿--
--- PostgreSQL database dump
+-- actumbesQL database dump
 --
 
 -- Dumped from database version 9.3.1
@@ -15,7 +15,7 @@ SET client_min_messages = warning;
 
 --
 -- TOC entry 2112 (class 1262 OID 68201)
--- Name: AE_Final_dev; Type: DATABASE; Schema: -; Owner: postgres
+-- Name: AE_Final_dev; Type: DATABASE; Schema: -; Owner: actumbes
 --
 
 SET statement_timeout = 0;
@@ -30,7 +30,7 @@ SET client_min_messages = warning;
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+--CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
@@ -39,7 +39,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+--COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 SET search_path = public, pg_catalog;
@@ -50,7 +50,7 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 175 (class 1259 OID 68204)
--- Name: ae_user; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: ae_user; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE ae_user (
@@ -75,12 +75,12 @@ CREATE TABLE ae_user (
 );
 
 
-ALTER TABLE public.ae_user OWNER TO postgres;
+ALTER TABLE public.ae_user OWNER TO actumbes;
 
 --
 -- TOC entry 2116 (class 0 OID 0)
 -- Dependencies: 175
--- Name: COLUMN ae_user.roles; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN ae_user.roles; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN ae_user.roles IS '(DC2Type:array)';
@@ -88,7 +88,7 @@ COMMENT ON COLUMN ae_user.roles IS '(DC2Type:array)';
 
 --
 -- TOC entry 174 (class 1259 OID 68202)
--- Name: ae_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: ae_user_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE ae_user_id_seq
@@ -99,11 +99,11 @@ CREATE SEQUENCE ae_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.ae_user_id_seq OWNER TO postgres;
+ALTER TABLE public.ae_user_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 204 (class 1259 OID 68648)
--- Name: archivo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: archivo; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE archivo (
@@ -120,12 +120,12 @@ CREATE TABLE archivo (
 );
 
 
-ALTER TABLE public.archivo OWNER TO postgres;
+ALTER TABLE public.archivo OWNER TO actumbes;
 
 --
 -- TOC entry 2117 (class 0 OID 0)
 -- Dependencies: 204
--- Name: COLUMN archivo.peso; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN archivo.peso; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN archivo.peso IS 'tamaño del archivo en Bytes';
@@ -134,7 +134,7 @@ COMMENT ON COLUMN archivo.peso IS 'tamaño del archivo en Bytes';
 --
 -- TOC entry 2118 (class 0 OID 0)
 -- Dependencies: 204
--- Name: COLUMN archivo.tipo; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN archivo.tipo; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN archivo.tipo IS 'el tipo de archivo: PDF, EXCEL, WORD, CORELDRAW, etc.';
@@ -143,7 +143,7 @@ COMMENT ON COLUMN archivo.tipo IS 'el tipo de archivo: PDF, EXCEL, WORD, CORELDR
 --
 -- TOC entry 2119 (class 0 OID 0)
 -- Dependencies: 204
--- Name: COLUMN archivo.extension; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN archivo.extension; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN archivo.extension IS 'la extension que tiene el archivo: .pdf, .xls, .xlsx, .doc, .docx, etc';
@@ -152,7 +152,7 @@ COMMENT ON COLUMN archivo.extension IS 'la extension que tiene el archivo: .pdf,
 --
 -- TOC entry 2120 (class 0 OID 0)
 -- Dependencies: 204
--- Name: COLUMN archivo.id_leche_espiritual; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN archivo.id_leche_espiritual; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN archivo.id_leche_espiritual IS 'Identificador de la clase leche';
@@ -160,7 +160,7 @@ COMMENT ON COLUMN archivo.id_leche_espiritual IS 'Identificador de la clase lech
 
 --
 -- TOC entry 203 (class 1259 OID 68646)
--- Name: archivo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: archivo_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE archivo_id_seq
@@ -171,12 +171,12 @@ CREATE SEQUENCE archivo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.archivo_id_seq OWNER TO postgres;
+ALTER TABLE public.archivo_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2121 (class 0 OID 0)
 -- Dependencies: 203
--- Name: archivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: archivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE archivo_id_seq OWNED BY archivo.id;
@@ -184,7 +184,7 @@ ALTER SEQUENCE archivo_id_seq OWNED BY archivo.id;
 
 --
 -- TOC entry 192 (class 1259 OID 68537)
--- Name: celula; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: celula; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE celula (
@@ -201,12 +201,12 @@ CREATE TABLE celula (
 );
 
 
-ALTER TABLE public.celula OWNER TO postgres;
+ALTER TABLE public.celula OWNER TO actumbes;
 
 --
 -- TOC entry 2122 (class 0 OID 0)
 -- Dependencies: 192
--- Name: COLUMN celula.tipo; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN celula.tipo; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN celula.tipo IS 'Evangelica, Discipulado';
@@ -215,7 +215,7 @@ COMMENT ON COLUMN celula.tipo IS 'Evangelica, Discipulado';
 --
 -- TOC entry 2123 (class 0 OID 0)
 -- Dependencies: 192
--- Name: COLUMN celula.familia; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN celula.familia; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN celula.familia IS 'Nombre de la familia que acoge la célula';
@@ -224,7 +224,7 @@ COMMENT ON COLUMN celula.familia IS 'Nombre de la familia que acoge la célula';
 --
 -- TOC entry 2124 (class 0 OID 0)
 -- Dependencies: 192
--- Name: COLUMN celula.id_ubicacion; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN celula.id_ubicacion; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN celula.id_ubicacion IS 'Identificador de la Ubicación, en este caso es un entero autoincremental';
@@ -233,7 +233,7 @@ COMMENT ON COLUMN celula.id_ubicacion IS 'Identificador de la Ubicación, en est
 --
 -- TOC entry 2125 (class 0 OID 0)
 -- Dependencies: 192
--- Name: COLUMN celula.dia; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN celula.dia; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN celula.dia IS 'dia de dictado de célula';
@@ -241,7 +241,7 @@ COMMENT ON COLUMN celula.dia IS 'dia de dictado de célula';
 
 --
 -- TOC entry 191 (class 1259 OID 68535)
--- Name: celula_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: celula_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE celula_id_seq
@@ -252,12 +252,12 @@ CREATE SEQUENCE celula_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.celula_id_seq OWNER TO postgres;
+ALTER TABLE public.celula_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2126 (class 0 OID 0)
 -- Dependencies: 191
--- Name: celula_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: celula_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE celula_id_seq OWNED BY celula.id;
@@ -265,7 +265,7 @@ ALTER SEQUENCE celula_id_seq OWNED BY celula.id;
 
 --
 -- TOC entry 198 (class 1259 OID 68599)
--- Name: curso; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: curso; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE curso (
@@ -278,11 +278,11 @@ CREATE TABLE curso (
 );
 
 
-ALTER TABLE public.curso OWNER TO postgres;
+ALTER TABLE public.curso OWNER TO actumbes;
 
 --
 -- TOC entry 197 (class 1259 OID 68597)
--- Name: curso_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: curso_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE curso_id_seq
@@ -293,12 +293,12 @@ CREATE SEQUENCE curso_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.curso_id_seq OWNER TO postgres;
+ALTER TABLE public.curso_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2127 (class 0 OID 0)
 -- Dependencies: 197
--- Name: curso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: curso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE curso_id_seq OWNED BY curso.id;
@@ -376,7 +376,7 @@ ALTER SEQUENCE iglesia_ubigeo_id_seq OWNED BY iglesia.ubigeo_id;
 
 --
 -- TOC entry 194 (class 1259 OID 68574)
--- Name: leche_espiritual; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: leche_espiritual; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE leche_espiritual (
@@ -387,12 +387,12 @@ CREATE TABLE leche_espiritual (
 );
 
 
-ALTER TABLE public.leche_espiritual OWNER TO postgres;
+ALTER TABLE public.leche_espiritual OWNER TO actumbes;
 
 --
 -- TOC entry 2130 (class 0 OID 0)
 -- Dependencies: 194
--- Name: TABLE leche_espiritual; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE leche_espiritual; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON TABLE leche_espiritual IS 'Tabla enla que se almacenan las clase de leche espiritual';
@@ -401,7 +401,7 @@ COMMENT ON TABLE leche_espiritual IS 'Tabla enla que se almacenan las clase de l
 --
 -- TOC entry 2131 (class 0 OID 0)
 -- Dependencies: 194
--- Name: COLUMN leche_espiritual.id; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN leche_espiritual.id; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN leche_espiritual.id IS 'Identificador de la clase leche';
@@ -409,7 +409,7 @@ COMMENT ON COLUMN leche_espiritual.id IS 'Identificador de la clase leche';
 
 --
 -- TOC entry 193 (class 1259 OID 68572)
--- Name: leche_espiritual_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: leche_espiritual_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE leche_espiritual_id_seq
@@ -420,12 +420,12 @@ CREATE SEQUENCE leche_espiritual_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.leche_espiritual_id_seq OWNER TO postgres;
+ALTER TABLE public.leche_espiritual_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2132 (class 0 OID 0)
 -- Dependencies: 193
--- Name: leche_espiritual_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: leche_espiritual_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE leche_espiritual_id_seq OWNED BY leche_espiritual.id;
@@ -433,7 +433,7 @@ ALTER SEQUENCE leche_espiritual_id_seq OWNED BY leche_espiritual.id;
 
 --
 -- TOC entry 186 (class 1259 OID 68419)
--- Name: lugar; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: lugar; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE lugar (
@@ -443,11 +443,11 @@ CREATE TABLE lugar (
 );
 
 
-ALTER TABLE public.lugar OWNER TO postgres;
+ALTER TABLE public.lugar OWNER TO actumbes;
 
 --
 -- TOC entry 185 (class 1259 OID 68417)
--- Name: lugar_int_lugar_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: lugar_int_lugar_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE lugar_int_lugar_id_seq
@@ -458,12 +458,12 @@ CREATE SEQUENCE lugar_int_lugar_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lugar_int_lugar_id_seq OWNER TO postgres;
+ALTER TABLE public.lugar_int_lugar_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2133 (class 0 OID 0)
 -- Dependencies: 185
--- Name: lugar_int_lugar_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: lugar_int_lugar_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE lugar_int_lugar_id_seq OWNED BY lugar.int_lugar_id;
@@ -471,7 +471,7 @@ ALTER SEQUENCE lugar_int_lugar_id_seq OWNED BY lugar.int_lugar_id;
 
 --
 -- TOC entry 190 (class 1259 OID 68497)
--- Name: nivel_crecimiento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: nivel_crecimiento; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE nivel_crecimiento (
@@ -485,11 +485,11 @@ CREATE TABLE nivel_crecimiento (
 );
 
 
-ALTER TABLE public.nivel_crecimiento OWNER TO postgres;
+ALTER TABLE public.nivel_crecimiento OWNER TO actumbes;
 
 --
 -- TOC entry 189 (class 1259 OID 68495)
--- Name: nivel_crecimiento_int_nivelcrecimiento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: nivel_crecimiento_int_nivelcrecimiento_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE nivel_crecimiento_int_nivelcrecimiento_id_seq
@@ -500,12 +500,12 @@ CREATE SEQUENCE nivel_crecimiento_int_nivelcrecimiento_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.nivel_crecimiento_int_nivelcrecimiento_id_seq OWNER TO postgres;
+ALTER TABLE public.nivel_crecimiento_int_nivelcrecimiento_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2134 (class 0 OID 0)
 -- Dependencies: 189
--- Name: nivel_crecimiento_int_nivelcrecimiento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: nivel_crecimiento_int_nivelcrecimiento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE nivel_crecimiento_int_nivelcrecimiento_id_seq OWNED BY nivel_crecimiento.int_nivelcrecimiento_id;
@@ -759,7 +759,7 @@ ALTER SEQUENCE red_int_red_id_seq OWNED BY red.int_red_id;
 
 --
 -- TOC entry 200 (class 1259 OID 68620)
--- Name: tema_celula; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tema_celula; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE tema_celula (
@@ -772,11 +772,11 @@ CREATE TABLE tema_celula (
 );
 
 
-ALTER TABLE public.tema_celula OWNER TO postgres;
+ALTER TABLE public.tema_celula OWNER TO actumbes;
 
 --
 -- TOC entry 199 (class 1259 OID 68618)
--- Name: tema_celula_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: tema_celula_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE tema_celula_id_seq
@@ -787,12 +787,12 @@ CREATE SEQUENCE tema_celula_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tema_celula_id_seq OWNER TO postgres;
+ALTER TABLE public.tema_celula_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2153 (class 0 OID 0)
 -- Dependencies: 199
--- Name: tema_celula_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: tema_celula_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE tema_celula_id_seq OWNED BY tema_celula.id;
@@ -800,7 +800,7 @@ ALTER SEQUENCE tema_celula_id_seq OWNED BY tema_celula.id;
 
 --
 -- TOC entry 202 (class 1259 OID 68631)
--- Name: tema_curso; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tema_curso; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE tema_curso (
@@ -813,12 +813,12 @@ CREATE TABLE tema_curso (
 );
 
 
-ALTER TABLE public.tema_curso OWNER TO postgres;
+ALTER TABLE public.tema_curso OWNER TO actumbes;
 
 --
 -- TOC entry 2154 (class 0 OID 0)
 -- Dependencies: 202
--- Name: COLUMN tema_curso.tipo; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN tema_curso.tipo; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN tema_curso.tipo IS 'define si el tema es Sesion o es Extra.';
@@ -826,7 +826,7 @@ COMMENT ON COLUMN tema_curso.tipo IS 'define si el tema es Sesion o es Extra.';
 
 --
 -- TOC entry 201 (class 1259 OID 68629)
--- Name: tema_curso_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: tema_curso_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE tema_curso_id_seq
@@ -837,12 +837,12 @@ CREATE SEQUENCE tema_curso_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tema_curso_id_seq OWNER TO postgres;
+ALTER TABLE public.tema_curso_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2155 (class 0 OID 0)
 -- Dependencies: 201
--- Name: tema_curso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: tema_curso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE tema_curso_id_seq OWNED BY tema_curso.id;
@@ -850,7 +850,7 @@ ALTER SEQUENCE tema_curso_id_seq OWNED BY tema_curso.id;
 
 --
 -- TOC entry 196 (class 1259 OID 68586)
--- Name: tema_leche; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tema_leche; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE tema_leche (
@@ -860,12 +860,12 @@ CREATE TABLE tema_leche (
 );
 
 
-ALTER TABLE public.tema_leche OWNER TO postgres;
+ALTER TABLE public.tema_leche OWNER TO actumbes;
 
 --
 -- TOC entry 2156 (class 0 OID 0)
 -- Dependencies: 196
--- Name: COLUMN tema_leche.id_leche_espiritual; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN tema_leche.id_leche_espiritual; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN tema_leche.id_leche_espiritual IS 'Identificador de la clase leche';
@@ -873,7 +873,7 @@ COMMENT ON COLUMN tema_leche.id_leche_espiritual IS 'Identificador de la clase l
 
 --
 -- TOC entry 195 (class 1259 OID 68584)
--- Name: tema_leche_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: tema_leche_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE tema_leche_id_seq
@@ -884,12 +884,12 @@ CREATE SEQUENCE tema_leche_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tema_leche_id_seq OWNER TO postgres;
+ALTER TABLE public.tema_leche_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2157 (class 0 OID 0)
 -- Dependencies: 195
--- Name: tema_leche_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: tema_leche_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE tema_leche_id_seq OWNED BY tema_leche.id;
@@ -897,7 +897,7 @@ ALTER SEQUENCE tema_leche_id_seq OWNED BY tema_leche.id;
 
 --
 -- TOC entry 188 (class 1259 OID 68443)
--- Name: ubicacion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: ubicacion; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE ubicacion (
@@ -910,12 +910,12 @@ CREATE TABLE ubicacion (
 );
 
 
-ALTER TABLE public.ubicacion OWNER TO postgres;
+ALTER TABLE public.ubicacion OWNER TO actumbes;
 
 --
 -- TOC entry 2158 (class 0 OID 0)
 -- Dependencies: 188
--- Name: TABLE ubicacion; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE ubicacion; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON TABLE ubicacion IS 'Tabla en la que se almacena la ubicación de lapersona, iglesia, red, celula u otra entidad';
@@ -924,7 +924,7 @@ COMMENT ON TABLE ubicacion IS 'Tabla en la que se almacena la ubicación de lape
 --
 -- TOC entry 2159 (class 0 OID 0)
 -- Dependencies: 188
--- Name: COLUMN ubicacion.id; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN ubicacion.id; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN ubicacion.id IS 'Identificador de la Ubicación, en este caso es un entero autoincremental';
@@ -933,7 +933,7 @@ COMMENT ON COLUMN ubicacion.id IS 'Identificador de la Ubicación, en este caso 
 --
 -- TOC entry 2160 (class 0 OID 0)
 -- Dependencies: 188
--- Name: COLUMN ubicacion.direccion; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN ubicacion.direccion; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN ubicacion.direccion IS 'Direccion de la vivienda';
@@ -942,7 +942,7 @@ COMMENT ON COLUMN ubicacion.direccion IS 'Direccion de la vivienda';
 --
 -- TOC entry 2161 (class 0 OID 0)
 -- Dependencies: 188
--- Name: COLUMN ubicacion.latitud; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN ubicacion.latitud; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN ubicacion.latitud IS 'Latitud y Longitud.';
@@ -951,7 +951,7 @@ COMMENT ON COLUMN ubicacion.latitud IS 'Latitud y Longitud.';
 --
 -- TOC entry 2162 (class 0 OID 0)
 -- Dependencies: 188
--- Name: COLUMN ubicacion.referencia; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN ubicacion.referencia; Type: COMMENT; Schema: public; Owner: actumbes
 --
 
 COMMENT ON COLUMN ubicacion.referencia IS 'Una breve descripción del entorno cerda de la ubicación';
@@ -959,7 +959,7 @@ COMMENT ON COLUMN ubicacion.referencia IS 'Una breve descripción del entorno ce
 
 --
 -- TOC entry 187 (class 1259 OID 68441)
--- Name: ubicacion_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: ubicacion_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE ubicacion_id_seq
@@ -970,12 +970,12 @@ CREATE SEQUENCE ubicacion_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.ubicacion_id_seq OWNER TO postgres;
+ALTER TABLE public.ubicacion_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2163 (class 0 OID 0)
 -- Dependencies: 187
--- Name: ubicacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: ubicacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE ubicacion_id_seq OWNED BY ubicacion.id;
@@ -983,7 +983,7 @@ ALTER SEQUENCE ubicacion_id_seq OWNED BY ubicacion.id;
 
 --
 -- TOC entry 177 (class 1259 OID 68229)
--- Name: ubigeos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: ubigeos; Type: TABLE; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE TABLE ubigeos (
@@ -998,11 +998,11 @@ CREATE TABLE ubigeos (
 );
 
 
-ALTER TABLE public.ubigeos OWNER TO postgres;
+ALTER TABLE public.ubigeos OWNER TO actumbes;
 
 --
 -- TOC entry 176 (class 1259 OID 68227)
--- Name: ubigeos_int_ubigeo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: ubigeos_int_ubigeo_id_seq; Type: SEQUENCE; Schema: public; Owner: actumbes
 --
 
 CREATE SEQUENCE ubigeos_int_ubigeo_id_seq
@@ -1013,12 +1013,12 @@ CREATE SEQUENCE ubigeos_int_ubigeo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.ubigeos_int_ubigeo_id_seq OWNER TO postgres;
+ALTER TABLE public.ubigeos_int_ubigeo_id_seq OWNER TO actumbes;
 
 --
 -- TOC entry 2164 (class 0 OID 0)
 -- Dependencies: 176
--- Name: ubigeos_int_ubigeo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: ubigeos_int_ubigeo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: actumbes
 --
 
 ALTER SEQUENCE ubigeos_int_ubigeo_id_seq OWNED BY ubigeos.int_ubigeo_id;
@@ -1026,7 +1026,7 @@ ALTER SEQUENCE ubigeos_int_ubigeo_id_seq OWNED BY ubigeos.int_ubigeo_id;
 
 --
 -- TOC entry 1943 (class 2604 OID 68651)
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY archivo ALTER COLUMN id SET DEFAULT nextval('archivo_id_seq'::regclass);
@@ -1034,7 +1034,7 @@ ALTER TABLE ONLY archivo ALTER COLUMN id SET DEFAULT nextval('archivo_id_seq'::r
 
 --
 -- TOC entry 1932 (class 2604 OID 68540)
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY celula ALTER COLUMN id SET DEFAULT nextval('celula_id_seq'::regclass);
@@ -1042,7 +1042,7 @@ ALTER TABLE ONLY celula ALTER COLUMN id SET DEFAULT nextval('celula_id_seq'::reg
 
 --
 -- TOC entry 1938 (class 2604 OID 68602)
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY curso ALTER COLUMN id SET DEFAULT nextval('curso_id_seq'::regclass);
@@ -1050,7 +1050,7 @@ ALTER TABLE ONLY curso ALTER COLUMN id SET DEFAULT nextval('curso_id_seq'::regcl
 
 --
 -- TOC entry 1936 (class 2604 OID 68577)
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY leche_espiritual ALTER COLUMN id SET DEFAULT nextval('leche_espiritual_id_seq'::regclass);
@@ -1058,7 +1058,7 @@ ALTER TABLE ONLY leche_espiritual ALTER COLUMN id SET DEFAULT nextval('leche_esp
 
 --
 -- TOC entry 1929 (class 2604 OID 68422)
--- Name: int_lugar_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: int_lugar_id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY lugar ALTER COLUMN int_lugar_id SET DEFAULT nextval('lugar_int_lugar_id_seq'::regclass);
@@ -1066,7 +1066,7 @@ ALTER TABLE ONLY lugar ALTER COLUMN int_lugar_id SET DEFAULT nextval('lugar_int_
 
 --
 -- TOC entry 1931 (class 2604 OID 68500)
--- Name: int_nivelcrecimiento_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: int_nivelcrecimiento_id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY nivel_crecimiento ALTER COLUMN int_nivelcrecimiento_id SET DEFAULT nextval('nivel_crecimiento_int_nivelcrecimiento_id_seq'::regclass);
@@ -1082,7 +1082,7 @@ ALTER TABLE ONLY red ALTER COLUMN int_red_id SET DEFAULT nextval('red_int_red_id
 
 --
 -- TOC entry 1940 (class 2604 OID 68623)
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY tema_celula ALTER COLUMN id SET DEFAULT nextval('tema_celula_id_seq'::regclass);
@@ -1090,7 +1090,7 @@ ALTER TABLE ONLY tema_celula ALTER COLUMN id SET DEFAULT nextval('tema_celula_id
 
 --
 -- TOC entry 1941 (class 2604 OID 68634)
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY tema_curso ALTER COLUMN id SET DEFAULT nextval('tema_curso_id_seq'::regclass);
@@ -1098,7 +1098,7 @@ ALTER TABLE ONLY tema_curso ALTER COLUMN id SET DEFAULT nextval('tema_curso_id_s
 
 --
 -- TOC entry 1937 (class 2604 OID 68589)
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY tema_leche ALTER COLUMN id SET DEFAULT nextval('tema_leche_id_seq'::regclass);
@@ -1106,7 +1106,7 @@ ALTER TABLE ONLY tema_leche ALTER COLUMN id SET DEFAULT nextval('tema_leche_id_s
 
 --
 -- TOC entry 1930 (class 2604 OID 68446)
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY ubicacion ALTER COLUMN id SET DEFAULT nextval('ubicacion_id_seq'::regclass);
@@ -1114,7 +1114,7 @@ ALTER TABLE ONLY ubicacion ALTER COLUMN id SET DEFAULT nextval('ubicacion_id_seq
 
 --
 -- TOC entry 1945 (class 2606 OID 68216)
--- Name: ae_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: ae_user_pkey; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY ae_user
@@ -1132,7 +1132,7 @@ ALTER TABLE ONLY iglesia
 
 --
 -- TOC entry 1960 (class 2606 OID 68424)
--- Name: lugar_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: lugar_pkey; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY lugar
@@ -1141,7 +1141,7 @@ ALTER TABLE ONLY lugar
 
 --
 -- TOC entry 1966 (class 2606 OID 68502)
--- Name: nivel_crecimientos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: nivel_crecimientos_pkey; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY nivel_crecimiento
@@ -1150,7 +1150,7 @@ ALTER TABLE ONLY nivel_crecimiento
 
 --
 -- TOC entry 1985 (class 2606 OID 68656)
--- Name: pk_archivo; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_archivo; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY archivo
@@ -1159,7 +1159,7 @@ ALTER TABLE ONLY archivo
 
 --
 -- TOC entry 1969 (class 2606 OID 68545)
--- Name: pk_celula; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_celula; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY celula
@@ -1168,7 +1168,7 @@ ALTER TABLE ONLY celula
 
 --
 -- TOC entry 1976 (class 2606 OID 68608)
--- Name: pk_curso; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_curso; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY curso
@@ -1177,7 +1177,7 @@ ALTER TABLE ONLY curso
 
 --
 -- TOC entry 1971 (class 2606 OID 68582)
--- Name: pk_leche_espiritual; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_leche_espiritual; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY leche_espiritual
@@ -1204,7 +1204,7 @@ ALTER TABLE ONLY red
 
 --
 -- TOC entry 1978 (class 2606 OID 68628)
--- Name: pk_tema_celula; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_tema_celula; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY tema_celula
@@ -1213,7 +1213,7 @@ ALTER TABLE ONLY tema_celula
 
 --
 -- TOC entry 1980 (class 2606 OID 68640)
--- Name: pk_tema_curso; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_tema_curso; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY tema_curso
@@ -1222,7 +1222,7 @@ ALTER TABLE ONLY tema_curso
 
 --
 -- TOC entry 1973 (class 2606 OID 68591)
--- Name: pk_tema_leche; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_tema_leche; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY tema_leche
@@ -1231,7 +1231,7 @@ ALTER TABLE ONLY tema_leche
 
 --
 -- TOC entry 1963 (class 2606 OID 68451)
--- Name: pk_ubicación; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_ubicación; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY ubicacion
@@ -1240,7 +1240,7 @@ ALTER TABLE ONLY ubicacion
 
 --
 -- TOC entry 1949 (class 2606 OID 68234)
--- Name: ubigeos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: ubigeos_pkey; Type: CONSTRAINT; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 ALTER TABLE ONLY ubigeos
@@ -1249,7 +1249,7 @@ ALTER TABLE ONLY ubigeos
 
 --
 -- TOC entry 1967 (class 1259 OID 68571)
--- Name: fki_celula_red; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: fki_celula_red; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE INDEX fki_celula_red ON celula USING btree (id_red);
@@ -1281,7 +1281,7 @@ CREATE INDEX idpersona ON persona USING btree (id);
 
 --
 -- TOC entry 1961 (class 1259 OID 68452)
--- Name: idubicacion; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: idubicacion; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE INDEX idubicacion ON ubicacion USING btree (id);
@@ -1289,7 +1289,7 @@ CREATE INDEX idubicacion ON ubicacion USING btree (id);
 
 --
 -- TOC entry 1974 (class 1259 OID 68609)
--- Name: indcurso; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: indcurso; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE INDEX indcurso ON curso USING btree (id);
@@ -1297,7 +1297,7 @@ CREATE INDEX indcurso ON curso USING btree (id);
 
 --
 -- TOC entry 1964 (class 1259 OID 68660)
--- Name: index_nivel_crecimientos_on_persona_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: index_nivel_crecimientos_on_persona_id; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE INDEX index_nivel_crecimientos_on_persona_id ON nivel_crecimiento USING btree (persona_id);
@@ -1305,7 +1305,7 @@ CREATE INDEX index_nivel_crecimientos_on_persona_id ON nivel_crecimiento USING b
 
 --
 -- TOC entry 1981 (class 1259 OID 68657)
--- Name: indid; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: indid; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE INDEX indid ON archivo USING btree (id);
@@ -1313,7 +1313,7 @@ CREATE INDEX indid ON archivo USING btree (id);
 
 --
 -- TOC entry 1982 (class 1259 OID 68658)
--- Name: indireccion; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: indireccion; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE INDEX indireccion ON archivo USING btree (direccion);
@@ -1321,7 +1321,7 @@ CREATE INDEX indireccion ON archivo USING btree (direccion);
 
 --
 -- TOC entry 1983 (class 1259 OID 68659)
--- Name: indnombre; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: indnombre; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE INDEX indnombre ON archivo USING btree (nombre);
@@ -1329,7 +1329,7 @@ CREATE INDEX indnombre ON archivo USING btree (nombre);
 
 --
 -- TOC entry 1946 (class 1259 OID 68217)
--- Name: uniq_fe00578992fc23a8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: uniq_fe00578992fc23a8; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE UNIQUE INDEX uniq_fe00578992fc23a8 ON ae_user USING btree (username_canonical);
@@ -1337,7 +1337,7 @@ CREATE UNIQUE INDEX uniq_fe00578992fc23a8 ON ae_user USING btree (username_canon
 
 --
 -- TOC entry 1947 (class 1259 OID 68218)
--- Name: uniq_fe005789a0d96fbf; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: uniq_fe005789a0d96fbf; Type: INDEX; Schema: public; Owner: actumbes; Tablespace: 
 --
 
 CREATE UNIQUE INDEX uniq_fe005789a0d96fbf ON ae_user USING btree (email_canonical);
@@ -1345,7 +1345,7 @@ CREATE UNIQUE INDEX uniq_fe005789a0d96fbf ON ae_user USING btree (email_canonica
 
 --
 -- TOC entry 2000 (class 2606 OID 68641)
--- Name: curso_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: curso_fk; Type: FK CONSTRAINT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY tema_curso
@@ -1372,7 +1372,7 @@ ALTER TABLE ONLY persona
 
 --
 -- TOC entry 1998 (class 2606 OID 68566)
--- Name: fk_celula_red; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_celula_red; Type: FK CONSTRAINT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY celula
@@ -1390,7 +1390,7 @@ ALTER TABLE ONLY red
 
 --
 -- TOC entry 1996 (class 2606 OID 68561)
--- Name: fk_nivel_celula; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_nivel_celula; Type: FK CONSTRAINT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY nivel_crecimiento
@@ -1399,7 +1399,7 @@ ALTER TABLE ONLY nivel_crecimiento
 
 --
 -- TOC entry 1997 (class 2606 OID 68661)
--- Name: fk_nivel_persona; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_nivel_persona; Type: FK CONSTRAINT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY nivel_crecimiento
@@ -1408,7 +1408,7 @@ ALTER TABLE ONLY nivel_crecimiento
 
 --
 -- TOC entry 1995 (class 2606 OID 68556)
--- Name: fk_nivel_red; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_nivel_red; Type: FK CONSTRAINT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY nivel_crecimiento
@@ -1417,7 +1417,7 @@ ALTER TABLE ONLY nivel_crecimiento
 
 --
 -- TOC entry 1986 (class 2606 OID 68359)
--- Name: fk_persona; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_persona; Type: FK CONSTRAINT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY ae_user
@@ -1462,7 +1462,7 @@ ALTER TABLE ONLY iglesia
 
 --
 -- TOC entry 1994 (class 2606 OID 68453)
--- Name: fk_ubigeo; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_ubigeo; Type: FK CONSTRAINT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY ubicacion
@@ -1471,7 +1471,7 @@ ALTER TABLE ONLY ubicacion
 
 --
 -- TOC entry 1999 (class 2606 OID 68592)
--- Name: leche_espiritual_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: leche_espiritual_fk; Type: FK CONSTRAINT; Schema: public; Owner: actumbes
 --
 
 ALTER TABLE ONLY tema_leche
@@ -1481,18 +1481,18 @@ ALTER TABLE ONLY tema_leche
 --
 -- TOC entry 2114 (class 0 OID 0)
 -- Dependencies: 5
--- Name: public; Type: ACL; Schema: -; Owner: postgres
+-- Name: public; Type: ACL; Schema: -; Owner: actumbes
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
+REVOKE ALL ON SCHEMA public FROM actumbes;
+GRANT ALL ON SCHEMA public TO actumbes;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 -- Completed on 2013-12-10 09:59:05
 
 --
--- PostgreSQL database dump complete
+-- actumbesQL database dump complete
 --
 
