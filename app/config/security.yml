@@ -40,10 +40,11 @@ security:
                 check_path: /login_check #_security_check
                 login_path: /login #_demo_login
                 provider: fos_userbundle
+                target: /gana/nuevo
                 
             logout:
                 path:   /logout #_demo_logout
-                target: / #_demo
+                target: / login
                
             anonymous: ~
             #http_basic:
