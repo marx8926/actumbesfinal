@@ -45,7 +45,7 @@ security:
                 
             logout:
                 path:   /logout #_demo_logout
-                target: / login
+                target: /login
                
             anonymous: ~
             #http_basic:
