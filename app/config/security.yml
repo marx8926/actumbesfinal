@@ -36,7 +36,7 @@ security:
         #login:
         main:
             #pattern:  ^/demo/secured/login$      
-            pattern: /.*
+            #pattern: /.*
             form_login:
                 check_path: /login_check #_security_check
                 login_path: /login #_demo_login
