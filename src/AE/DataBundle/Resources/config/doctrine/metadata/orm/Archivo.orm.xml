@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Archivo" table="archivo">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="direccion" type="text" column="direccion" nullable="false"/>
+    <field name="peso" type="bigint" column="peso" nullable="true"/>
+    <field name="tipo" type="string" column="tipo" length="25" nullable="true"/>
+    <field name="extension" type="string" column="extension" length="10" nullable="true"/>
+    <field name="nombre" type="text" column="nombre" nullable="true"/>
+    <field name="fecha" type="date" column="fecha" nullable="true"/>
+    <field name="idTemaCelula" type="integer" column="id_tema_celula" nullable="true"/>
+    <field name="idTemaCurso" type="integer" column="id_tema_curso" nullable="true"/>
+    <field name="idLecheEspiritual" type="integer" column="id_leche_espiritual" nullable="true"/>
+  </entity>
+</doctrine-mapping>
