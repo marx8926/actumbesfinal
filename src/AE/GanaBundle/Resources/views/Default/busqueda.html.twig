@@ -14,6 +14,7 @@
 <div class="span9" >
 	<h1>Buscar Nuevos Convertidos</h1>
         
+        <form id="form_busqueda" name="form_busqueda" method="POST" >
          <div class="control-group span3">
             <label class="control-label" >Red</label>
             <div class="controls">
@@ -29,7 +30,7 @@
                 <input type="checkbox" id="desde_check" name="desde_check">
                 Desde</label>
             <div class="controls">
-                <input type="text" class="datepick rango" id="desde" name="desde" required>
+                <input type="text" class="datepick rango input-medium" id="desde" name="desde" required>
             </div>
         </div>
         
@@ -39,10 +40,20 @@
                 <input type="checkbox" id="desde_check" name="desde_check">
                 Hasta</label>
             <div class="controls">
-                <input type="text" class="datepick rango" id="hasta" name="hasta" required>
+                <input type="text" class="datepick rango input-medium" id="hasta" name="hasta" required>
             </div>
         </div>
         
+         <div class="control-group span3">
+            
+            <div class="controls">
+                <input type="submit" class="btn btn-primary" id="subir" name="subir" value="Generar">
+            </div>
+        </div>
+        </form>
+</div>
+ 
+        <div class="span9">
 	<div class="box">
 		<div class="box-head tabs">
                     <h3>Nuevos Convertidos</h3>	
@@ -60,13 +71,13 @@
             	<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped dataTable table-bordered"  id="persona" name="persona">
             		<thead id='lol'>
                 		<tr>
-		                   <th>ID</th>
-		                    <th>Nombres</th>
-		                    <th>Apellidos</th>
+		                    <th>Nombres</th>		                    
 		                    <th width="5%">Edad</th>
 		                    <th width="6%">Red</th>
 		                    <th width="8%">Conversión</th>
+                                    <th> Telefono</th>
                                     <th>Ganado por</th>
+                                    <th>Acciones</th>
 		                </tr>
 					</thead>
 					
@@ -113,7 +124,6 @@
 	<script src="http://d19k46zntalu3t.cloudfront.net/js/ui.spinner.js"></script>
 	<script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>
         <script src="http://d19k46zntalu3t.cloudfront.net/js/tablasfeatures.js"></script>
-        <script src="http://d19k46zntalu3t.cloudfront.net/js/functiongen.js"></script>
         <script src="http://d19k46zntalu3t.cloudfront.net/js/ganar.js"></script>
         <script src="http://d19k46zntalu3t.cloudfront.net/js/tiempo.js"></script>
         <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
@@ -122,6 +132,7 @@
         <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->              
         <script src="http://d19k46zntalu3t.cloudfront.net/js/DT_bootstrap.js"> </script>
         <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+        <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
             
           
  
@@ -132,16 +143,211 @@
 	 var oTable;
          
         var values = [];
-         function recargar_celula()
-         {
-             
-         }
-         
-         
+        root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
+        root.SourceTServicio = '{{path('services_personas_init')}}';
+      
+        var FormatoPersonaTable, PersonaRowCB, PersonaTable;
+        PersonaRowCB = function(nRow, aData, iDisplayIndex) {
+            var acciones, index;
+            //index = $(PersonaTable.fnGetData()).getIndexObj(aData, 'id');
+            //PersonaTable.fnUpdate(acciones, index, 5);
+            //$(nRow).find('a').tooltip('hide');
+    
+    
+        };
+        
+        
+        PersonaRowCB = function(nRow, aData, iDisplayIndex) {
+    var acciones, index;
+    index = $(PersonaTable.fnGetData()).getIndexObj(aData, 'id');
+    acciones = getActionButtons("111");
+    PersonaTable.fnUpdate(acciones, index, 6);
+    $(nRow).find('a').tooltip('hide');
+    $(nRow).find('.delete-row').click(function(event) {
+      event.preventDefault();
+      root.SelectToDrop = aData.persona_data.int_persona_id;
+      return false;
+    });
+    $(nRow).find('.ver_row').click(function(event) {
+      event.preventDefault();
+      if ("Visitante" === aData.nivel) {
+        HideForms();
+        $("#form_visita").disable();
+        $("#visitante").show();
+        $("#nombrev").val(aData.persona_data.var_persona_nombres);
+        $("#apellidov").val(aData.persona_data.var_persona_apellidos);
+        $("#edadv").val(aData.persona_data.int_persona_edad);
+        $(aData.telefono_data).each(function(index) {
+          var showtipotel, tel;
+          showtipotel = "";
+          if (this.int_telefono_tipo === 1) {
+            showtipotel = "Celular";
+          } else {
+            showtipotel = "Fijo";
+          }
+          tel = {
+            "numero": this.var_telefono_codigo + this.var_telefono,
+            "tipo": showtipotel,
+            "btn_elim": "",
+            "id": this.int_telefono_id,
+            "tipo_val": this.int_telefono_tipo,
+            "codigo": this.var_telefono_codigo,
+            "tel": this.var_telefono
+          };
+          return TelefonoVTable.fnAddData(tel);
+        });
+        return $("#invitadov").val(aData.persona_data.var_persona_invitado);
+      } else {
+        cargarUbigeo(ubigeos, "distrito", "provincia", "departamento", aData.distrito, aData.provincia, aData.departamento);
+        $("#form_miembro").disable();
+        $("#miembro").show();
+        $("#nombre").val(aData.persona_data.var_persona_nombres);
+        $("#apellido").val(aData.persona_data.var_persona_apellidos);
+        $("#edad").val(aData.persona_data.int_persona_edad);
+        $("#estado_civil").val(aData.persona_data.var_persona_estado);
+        $("#sexo").val(aData.persona_data.var_persona_sexo);
+        $("#fec_nac").val(aData.fecnacimiento);
+        $("#dni").val(aData.persona_data.var_persona_dni);
+        $("#ocupacion").val(aData.persona_data.var_persona_ocupacion);
+        $("#profesion").val(aData.persona_data.var_persona_profesion);
+        $(aData.telefono_data).each(function(index) {
+          var showtipotel, tel;
+          showtipotel = "";
+          if (this.int_telefono_tipo === 1) {
+            showtipotel = "Celular";
+          } else {
+            showtipotel = "Fijo";
+          }
+          tel = {
+            "numero": this.var_telefono_codigo + this.var_telefono,
+            "tipo": showtipotel,
+            "btn_elim": "",
+            "id": this.int_telefono_id,
+            "tipo_val": this.int_telefono_tipo,
+            "codigo": this.var_telefono_codigo,
+            "tel": this.var_telefono
+          };
+          return TelefonoTable.fnAddData(tel);
+        });
+        $("#direccion").val(aData.direccion.var_direccion_descripcion);
+        $("#referencia").val(aData.direccion.var_direccion_referencia);
+        $("#_lugar").val(aData.persona_data.lugar_id);
+        $("#fec_conversion").val(aData.convertido);
+        $("#email").val(aData.persona_data.var_persona_email);
+        return $("#invitado").val(aData.persona_data.var_persona_invitado);
+      }
+    });
+    return $(nRow).find('.edit_row').click(function(event) {
+      event.preventDefault();
+      $("#idPersona").val(aData.persona_data.int_persona_id);
+      if ("Visitante" === aData.nivel) {
+        HideForms();
+        $("#visitante").show();
+        $("#btneditarv").show();
+        $("#nombrev").val(aData.persona_data.var_persona_nombres);
+        $("#apellidov").val(aData.persona_data.var_persona_apellidos);
+        $("#edadv").val(aData.persona_data.int_persona_edad);
+        $(aData.telefono_data).each(function(index) {
+          var showtipotel, tel;
+          showtipotel = "";
+          if (this.int_telefono_tipo === 1) {
+            showtipotel = "Celular";
+          } else {
+            showtipotel = "Fijo";
+          }
+          tel = {
+            "numero": this.var_telefono_codigo + this.var_telefono,
+            "tipo": showtipotel,
+            "btn_elim": getActionButtons("001"),
+            "id": this.int_telefono_id,
+            "tipo_val": this.int_telefono_tipo,
+            "codigo": this.var_telefono_codigo,
+            "tel": this.var_telefono
+          };
+          return TelefonoVTable.fnAddData(tel);
+        });
+        return $("#invitadov").val(aData.persona_data.var_persona_invitado);
+      } else {
+        cargarUbigeo(ubigeos, "distrito", "provincia", "departamento", aData.distrito, aData.provincia, aData.departamento);
+        $("#miembro").show();
+        $("#btneditar_Miembro").show();
+        $("#nombre").val(aData.persona_data.var_persona_nombres);
+        $("#apellido").val(aData.persona_data.var_persona_apellidos);
+        $("#edad").val(aData.persona_data.int_persona_edad);
+        $("#estado_civil").val(aData.persona_data.var_persona_estado);
+        $("#sexo").val(aData.persona_data.var_persona_sexo);
+        $("#fec_nac").val(aData.fecnacimiento);
+        $("#dni").val(aData.persona_data.var_persona_dni);
+        $("#ocupacion").val(aData.persona_data.var_persona_ocupacion);
+        $("#profesion").val(aData.persona_data.var_persona_profesion);
+        $("#idpersona").val(aData.persona_data.int_persona_id);
+        $(aData.telefono_data).each(function(index) {
+          var showtipotel, tel;
+          showtipotel = "";
+          if (this.int_telefono_tipo === 1) {
+            showtipotel = "Celular";
+          } else {
+            showtipotel = "Fijo";
+          }
+          tel = {
+            "numero": this.var_telefono_codigo + this.var_telefono,
+            "tipo": showtipotel,
+            "btn_elim": getActionButtons("001"),
+            "id": this.int_telefono_id,
+            "tipo_val": this.int_telefono_tipo,
+            "codigo": this.var_telefono_codigo,
+            "tel": this.var_telefono
+          };
+          return TelefonoTable.fnAddData(tel);
+        });
+        $("#direccion").val(aData.direccion.var_direccion_descripcion);
+        $("#referencia").val(aData.direccion.var_direccion_referencia);
+        $("#_lugar").val(aData.persona_data.lugar_id);
+        $("#fec_conversion").val(aData.convertido);
+        $("#email").val(aData.persona_data.var_persona_email);
+        return $("#invitado").val(aData.persona_data.var_persona_invitado);
+      }
+    });
+  };
+
+        
+        urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt"
+        FormatoPersonaTable = [
+            {
+                "sWidth": "25%",
+                "mDataProp": "nombres"
+            },
+            {
+                "sWidth": "10%",
+                "mDataProp": "red"
+            },
+            {
+                "sWidth": "10%",
+                "mDataProp": "edad"
+            }, {
+                "sWidth": "10%",
+                "mDataProp": "convertido"
+            }, {
+                "sWidth": "12%",
+                "mDataProp": "telefono"
+            },{
+                "sWidth": "20%",
+                "mDataProp": "ganado"
+            },
+            {
+                "sWidth": "10%",
+                "mDataProp": "acciones"
+                
+            }
+       ];
 	$(document).ready(function() {
             
             FechaActualT('desde');
             FechaActualT('hasta');
+            
+            PersonaTable = createDataTable("persona", root.SourceTServicio, FormatoPersonaTable, null, PersonaRowCB);
+
             
             var rede = '{{red}}';
                   
@@ -195,150 +401,11 @@
             });
             
             //click handler para eliminar
-            
-            $('#vista').click(function(){
-                var anSelected = fnGetSelected(oTable);
-                //oTable.fnDeleteRow(anSelected[0]);
-                if(anSelected.length !=0)
-                {
-                    var tds = $(anSelected).find('td');
-                    var val = [];
-                    $.each(tds, function(index, item) {
-                    val.push(item.innerHTML); 
-  
-                      }); 
-                    var route = '{{path('ganar_vistamiembro',{'id': 'nom'})}}';
-            
-                    var rutas = route.replace('nom',val[0]);
-                    
-                    window.open(rutas,'1359563086883','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
-               
-                }
-            });            
-           
-           $('#eliminar').click(function(){
-            var anSelected = fnGetSelected(oTable);
-                //oTable.fnDeleteRow(anSelected[0]);
-                if(anSelected.length !=0)
-                {
-                    var tds = $(anSelected).find('td');
-                    var val = [];
-                    $.each(tds, function(index, item) {
-                    val.push(item.innerHTML); 
-  
-                      }); 
-                    var route = '{{path('ganar_eliminar_miembro',{'id': 'nom'})}}';
-            
-                    var rutas = route.replace('nom',val[0]);
-                    
-                     $.ajax(
-                    {
-                        url: rutas,
-                        async: false,
-                        type: "POST",
-                    }).done(function(data){
-                       // oTable.fnReloadAjax();
-                       //aporte de carlos para esto
-                       if(data.responseCode==200 )
-                        oTable.fnReloadAjax();                    
-                    });
-                                   
-                }
-            
-           });
-           
-           $('#modificar').click(function(){       
-                var anSelected = fnGetSelected(oTable);
-                //oTable.fnDeleteRow(anSelected[0]);
-                if(anSelected.length !=0)
-                {
-                    var tds = $(anSelected).find('td');
-                    var val = [];
-                    $.each(tds, function(index, item) {
-                    val.push(item.innerHTML);   
-                      }); 
-                    var route = '{{path('ganar_modificar',{'id': 'nom'})}}';
-                    var rutas = route.replace('nom',val[0]);                    
-                    //$('#mas').attr("href",rutas);                    
-                    $(this).target = "_blank";
-                    //window.open($(this).prop('href'));
-                    window.open(rutas);
-                    return false;                                   
-                }                 
-           });
-            
-            //click handler para vista
-            
-            
-              $(".rango").change(function(){
-                
-                var net = $('#red_lista option:selected').val();
-                var date1 =  $("#desde").val().split('/');
-                var date2 =  $("#hasta").val().split('/');
-                var desde = date1[2] + '-' + date1[1] + '-' + date1[0];
-                var hasta = date2[2] + '-' + date2[1] + '-' + date2[0];
-               
-                var url = "{{path('servicio_nuevo_convertido_all_ganador_red_tiempo',{'red':'net','inicio':'ini','fin':':fin'})}}";
-                url = url.replace('ini',desde);
-                url = url.replace(':fin',hasta);
-                url = url.replace('net',net);
-
-                if(net!='-1' && net!='0')
-                {
-                    get_tabla(url);
-                }
-                else if(net=='0')
-                    {
-                        var url1 = "{{path('servicio_nuevo_convertido_all_ganador_tiempo',{'inicio':'ini','fin':':fin'})}}";
-                        url1 = url1.replace('ini',desde);
-                        url1 = url1.replace(':fin',hasta);                        
-                        get_tabla(url1);
-                    }              
-            });            
+          
             
 	 });
   
-       function get_tabla(url)
-       {
-            /* Build the DataTable with third column using our custom sort functions */
-            oTable = $('#persona').dataTable( {
-                                    
-                "bProcessing": true,
-                "bServerSide": false,
-                "bDestroy": true,
-                "sAjaxSource": url, 
-                "aoColumns": [
-                     { "mDataProp": "id" },
-                    { "mDataProp": "nombre" },
-                    { "mDataProp": "apellidos" },
-                    { "mDataProp": "edad" },
-                    { "mDataProp": "red" },
-                    { "mDataProp": "conversion"},
-                    { "mDataProp": "gnom"}
-                ],
-		"aaSorting": [ [5,'desc']],//por consultar el tipo de orden
-		"aoColumnDefs": [
-                    { "sType": 'string-case', "aTargets": [ 2 ] }
-		],
-                "sScrollY": "200px",
-                "bPaginate": false,
-                "bScrollCollapse": true,
-                "sDom": 'T<"clear">lfrtip',
-                "oTableTools": {
-			"sRowSelect": "single",
-                        "fnRowSelected": function ( node ) {
-                            var s=$(node).children();
-                            alert("Selected Row : " + s[0]);
-                        }
-		},
-                "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
-					/*"sPaginationType": "bootstrap",
-					"oLanguage": {
-						"sLengthMenu": "_MENU_ registros por página"
-					}*/
-            } );	
-   
-       }
+       
       
        </script>
 {%endblock %} 

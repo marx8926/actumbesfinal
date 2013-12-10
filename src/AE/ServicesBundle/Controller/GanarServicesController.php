@@ -11,7 +11,7 @@ class GanarServicesController extends Controller
 {
     public function lista_redAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         $sql = "select * from red where activo=true";
         
@@ -37,7 +37,7 @@ class GanarServicesController extends Controller
     
      public function lista_lugarAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         $sql = "select * from lugar";
         
@@ -72,13 +72,30 @@ class GanarServicesController extends Controller
             
             $result[] = $item;
         }
-        
-        
-
         $resultado= new JsonResponse($result);
         $resultado->setMaxAge(60);
         $resultado->setPublic();
        
         return $resultado;
     }
+
+    public  function personas_initAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from view_get_personas_init";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+ 
+       
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array( "aaData" =>$result));
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
+       
+        return $resultado;
+    }
+    
 }

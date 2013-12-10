@@ -15,3 +15,9 @@ services_lugar:
 services_celula:
     pattern: /lista_celula/{red}
     defaults: {_controller: AEServicesBundle:GanarServices:lista_celula}
+    
+services_personas_init:
+    pattern: /personas_init
+    defaults: {_controller: AEServicesBundle:GanarServices:personas_init}
+    requirements:
+        _method: GET

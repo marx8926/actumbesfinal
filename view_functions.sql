@@ -1,5 +1,5 @@
-﻿--
--- actumbesQL database dump
+--
+-- PostgreSQL database dump
 --
 
 -- Dumped from database version 9.3.1
@@ -2352,6 +2352,6 @@ SELECT pg_catalog.setval('ubigeos_int_ubigeo_id_seq', 2064, true);
 -- Completed on 2013-12-10 09:54:51
 
 --
--- actumbesQL database dump complete
+-- PostgreSQL database dump complete
 --
 

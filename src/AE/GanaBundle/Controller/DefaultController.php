@@ -21,7 +21,7 @@ class DefaultController extends Controller
         {
         $ganador = $securityContext->getToken()->getUser()->getIdPersona();
         $red = NULL;
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         if($ganador != NULL)
         {
