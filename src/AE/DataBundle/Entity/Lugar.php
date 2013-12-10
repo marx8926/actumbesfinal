@@ -36,13 +36,6 @@ class Lugar
      */
     private $varLugarEstado;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
-     */
-    private $createdAt;
-
 
 
     /**
@@ -99,28 +92,5 @@ class Lugar
     public function getVarLugarEstado()
     {
         return $this->varLugarEstado;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Lugar
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
     }
 }

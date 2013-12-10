@@ -44,16 +44,6 @@ class NivelCrecimiento
     private $creacion;
 
     /**
-     * @var \Persona
-     *
-     * @ORM\ManyToOne(targetEntity="Persona")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
-     * })
-     */
-    private $persona;
-
-    /**
      * @var \Red
      *
      * @ORM\ManyToOne(targetEntity="Red")
@@ -72,6 +62,16 @@ class NivelCrecimiento
      * })
      */
     private $celula;
+
+    /**
+     * @var \Persona
+     *
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+     * })
+     */
+    private $persona;
 
 
 
@@ -155,29 +155,6 @@ class NivelCrecimiento
     }
 
     /**
-     * Set persona
-     *
-     * @param \AE\DataBundle\Entity\Persona $persona
-     * @return NivelCrecimiento
-     */
-    public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
-    {
-        $this->persona = $persona;
-    
-        return $this;
-    }
-
-    /**
-     * Get persona
-     *
-     * @return \AE\DataBundle\Entity\Persona 
-     */
-    public function getPersona()
-    {
-        return $this->persona;
-    }
-
-    /**
      * Set red
      *
      * @param \AE\DataBundle\Entity\Red $red
@@ -221,5 +198,28 @@ class NivelCrecimiento
     public function getCelula()
     {
         return $this->celula;
+    }
+
+    /**
+     * Set persona
+     *
+     * @param \AE\DataBundle\Entity\Persona $persona
+     * @return NivelCrecimiento
+     */
+    public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
+    {
+        $this->persona = $persona;
+    
+        return $this;
+    }
+
+    /**
+     * Get persona
+     *
+     * @return \AE\DataBundle\Entity\Persona 
+     */
+    public function getPersona()
+    {
+        return $this->persona;
     }
 }
