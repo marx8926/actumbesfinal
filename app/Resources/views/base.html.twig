@@ -63,14 +63,14 @@
 				<ul class='collapsed-nav closed'>
                                       {% if (is_granted('ROLE_USER')) %}
 					<li>
-						<a href="{{path('ganar_persona')}}">
+						<a href="{{path('ae_gana_persona')}}">
 							Registrar
 						</a>
 					</li>
                                       {% endif %}  
                                         {% if ( is_granted('ROLE_LIDER_RED') )%}
                                         <li>
-						<a href="{{path('ganar_busqueda')}}">
+						<a href="{{path('ae_gana_busqueda')}}">
 							Buscar
 						</a>
 					</li>

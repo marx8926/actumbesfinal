@@ -4,3 +4,8 @@ ae_gana_homepage:
     
 gana_registrar_routing:    
     resource: "@AEGanaBundle/Resources/config/registrar_routing.yml"
+    
+    
+ae_gana_busqueda:
+    pattern: /busqueda
+    defaults: { _controller: AEGanaBundle:Default:busqueda}

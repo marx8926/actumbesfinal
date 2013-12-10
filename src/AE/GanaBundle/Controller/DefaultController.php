@@ -10,4 +10,35 @@ class DefaultController extends Controller
     {
         return $this->render('AEGanaBundle:Default:index.html.twig', array('name' => $name));
     }
+    
+    public  function busquedaAction()
+    {
+        
+         $securityContext = $this->get('security.context');
+        
+        
+        if($securityContext->isGranted('ROLE_LIDER_RED'))
+        {
+        $ganador = $securityContext->getToken()->getUser()->getIdPersona();
+        $red = NULL;
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        if($ganador != NULL)
+        {
+            $sql = "select * from get_red_persona(:id)";
+            $smt = $em->getConnection()->prepare($sql);
+            $smt->execute(array(':id'=>$ganador->getId()));
+            $req = $smt->fetch();
+            
+            $red = $req['red'];
+        }
+        
+        return $this->render('AEGanaBundle:Default:busqueda.html.twig',
+                array('red'=>$red));
+        }
+        else return $this->render('AEGanaBundle:Default:sinacceso.html.twig');
+        
+        
+    }
+    
 }
