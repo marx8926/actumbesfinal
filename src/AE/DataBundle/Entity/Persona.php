@@ -121,6 +121,27 @@ class Persona
     private $ganadoPor;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="peticion", type="string", length=300, nullable=true)
+     */
+    private $peticion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dia", type="string", length=30, nullable=true)
+     */
+    private $dia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hora", type="string", length=10, nullable=true)
+     */
+    private $hora;
+
+    /**
      * @var \Iglesia
      *
      * @ORM\ManyToOne(targetEntity="Iglesia")
@@ -492,6 +513,75 @@ class Persona
     public function getGanadoPor()
     {
         return $this->ganadoPor;
+    }
+
+    /**
+     * Set peticion
+     *
+     * @param string $peticion
+     * @return Persona
+     */
+    public function setPeticion($peticion)
+    {
+        $this->peticion = $peticion;
+    
+        return $this;
+    }
+
+    /**
+     * Get peticion
+     *
+     * @return string 
+     */
+    public function getPeticion()
+    {
+        return $this->peticion;
+    }
+
+    /**
+     * Set dia
+     *
+     * @param string $dia
+     * @return Persona
+     */
+    public function setDia($dia)
+    {
+        $this->dia = $dia;
+    
+        return $this;
+    }
+
+    /**
+     * Get dia
+     *
+     * @return string 
+     */
+    public function getDia()
+    {
+        return $this->dia;
+    }
+
+    /**
+     * Set hora
+     *
+     * @param string $hora
+     * @return Persona
+     */
+    public function setHora($hora)
+    {
+        $this->hora = $hora;
+    
+        return $this;
+    }
+
+    /**
+     * Get hora
+     *
+     * @return string 
+     */
+    public function getHora()
+    {
+        return $this->hora;
     }
 
     /**

@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AE\DataBundle\Entity\Persona;
 use AE\DataBundle\Entity\Ubicacion;
 use AE\DataBundle\Entity\Ubigeos;
+use AE\DataBundle\Entity\NivelCrecimiento;
 
 class RegistrarController  extends Controller {
     
@@ -60,7 +61,7 @@ class RegistrarController  extends Controller {
                 
                 $red = $datos['red_lista'];
                 if(strcmp($red, '-1')!=0)
-                $celula = '';
+                    $celula = $datos['celula_lista'];
             
                 $fechaConv_b = $datos['inputFechaConversion'];
             
@@ -68,8 +69,7 @@ class RegistrarController  extends Controller {
             
                 $fechaConv = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0];            
             
-                $lugar = $datos['lugar'];
-          
+                $lugar = $datos['lugar'];       
             
                 $peticion = $datos['inputDescripcion'];            
             
@@ -88,8 +88,7 @@ class RegistrarController  extends Controller {
                 $ubicacion->setReferencia($referencia);
                 $ubicacion->setLatitud(0);
                 $ubicacion->setLongitud(0);
-                $ubicacion->setUbigeo($ubigeo);
-                            
+                $ubicacion->setUbigeo($ubigeo);                            
                 $em->persist($ubicacion);
                 $em->flush();
                 
@@ -98,6 +97,8 @@ class RegistrarController  extends Controller {
                 $persona = new Persona();
                 $persona->setApellidos($apellidos);
                 $persona->setNombre($nombres);
+                $persona->setDia($dia);
+                $persona->setHora($hora);
                 $persona->setCelular($celular);
                 $persona->setTelefono($telefono);
                 $persona->setEstadoCivil($civil);
@@ -108,11 +109,15 @@ class RegistrarController  extends Controller {
                 $persona->setDni($dni);
                 $persona->setOcupacion($ocupacion);
                 $persona->setEmail($email);
+                $persona->setPeticion($peticion);
                 
                 //lugar                  
                 $con1 = $em->getRepository('AEDataBundle:Lugar');          
                 $lug= $con1->findOneBy(array('intLugarId'=>$lugar));
                 $persona->setLugar($lug);
+                
+                $redU = NULL;
+                $celulaU = NULL;
                 
                 if(strcmp($red, '-1')!=0)
                 {
@@ -123,19 +128,30 @@ class RegistrarController  extends Controller {
                     //celula
                     if(strcmp($celula, '-1')!=0)
                     {
-                        //$con3 = $em->getRepository('AEDataBundle:Celula');
-                        //$cell = $con3->findOneBy(array('id'=>$celula));
-                
-                        //$nuev_con->setIdCelula($cell);
+                        $con3 = $em->getRepository('AEDataBundle:Celula');
+                        $celulaU = $con3->findOneBy(array('id'=>$celula));                
                     }
-                    //$nuev_con->setIdRed($redU);
                     
-                    $persona->setRed($redU);
                 }
                 
+                $persona->setRed($redU); 
+                $persona->setActivo(true);
                 $em->persist($persona);
                 $em->flush();
                 
+                
+                $nivel = new NivelCrecimiento();
+                
+                $nivel->setIntNivelcrecimientoEscala(0);
+                $nivel->setIntNivelcrecimientoEstadoactual(1);
+                $nivel->setRed($redU);
+                $nivel->setCelula($celulaU);
+                $nivel->setPersona($persona);
+                $nivel->setCreacion(new \DateTime($fechaConv));
+                
+                
+                $em->persist($nivel);
+                $em->flush();
                 
                 $return=array("responseCode"=>200,  "greeting"=>'ok');
                 
@@ -196,5 +212,38 @@ class RegistrarController  extends Controller {
         $return=array("responseCode"=>400, "greeting"=>"Bad");
         
         return new JsonResponse($return);
+    }
+    
+    
+    public function nuevoAction()
+    {
+        $securityContext = $this->get('security.context');
+        
+        if($securityContext->isGranted('ROLE_LIDER'))
+        {
+        $ganador = $securityContext->getToken()->getUser()->getIdPersona();
+        $red = NULL;
+        $em = $this->getDoctrine()->getManager();
+        
+        if($ganador != NULL)
+        {
+            $sql = "select * from get_red_persona(:id)";
+            $smt = $em->getConnection()->prepare($sql);
+            $smt->execute(array(':id'=>$ganador->getId()));
+            $req = $smt->fetch();
+            
+            $red = $req['red'];
+        }
+
+          $result = $this->render('AEGanaBundle:Default:registrar.html.twig', array('red'=>$red));
+          $result->setMaxAge(100);
+          
+        }
+        else{ $result = $this->render('AEGanaBundle:Default:sinacceso.html.twig');
+            $result->setPublic();
+            $result->setMaxAge(100);
+        }
+        
+        return $result;
     }
 }
