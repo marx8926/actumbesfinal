@@ -5,3 +5,6 @@ main:
 inicio:
     pattern: /
     defaults: { _controller: AEConfigurarBundle:Default:inicio}
+    
+permisos_configurar_routing:
+    resource: "@AEConfigurarBundle/Resources/config/permisos_routing.yml"

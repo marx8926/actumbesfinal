@@ -7,6 +7,7 @@
         <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
  {% endblock %}
            
 {% block content %}
@@ -229,43 +230,13 @@
                <div class="control-group">
                 <label class="control-label">Célula</label>
                 <div class="controls">
-                    <select id="celula_lista" name="celula_lista" class="input-medium">
-                        <option value="-1">Sin célula</option>
-                    </select>
+                    <input type="hidden" id="celula_lista" name="celula_lista">
+                    <input type="text" class="input-large" id="celula" name="celula">
                 </div>
                </div> 
             </div>
         </div>
-        {% if is_granted('ROLE_LIDER_RED') %}
-        <div class="span9">
-            <div class="span3">
-                <div class="control-group">
-                    <label class="control-label">Ganado por</label>
-                    <div class="controls">
-                         <select id="tip_red" name="tip_red"  class="input-medium">
-                                <option value="0">Lider de red</option>                                
-                                <option value="1">Pastor Ejecutivo</option>
-                                <option value="2">Misionero</option>
-                                <option value="3">Lider</option>
-                            </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="span3">
-                <div class="control-group">
-                    <label class="control-label">Ganador por:</label>
-                    <div class="controls">
-                        <select id="ids" name="ids" class="input-medium" >
-                        
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-        </div>    
-      
-        {% endif %}
+        
         
         <div class="span9">
             <div class="span3">
@@ -297,7 +268,7 @@
             <div class="span3">
         
                 <div class="control-group">
-                    <label class="control-label">Dia de Visitas (*)</label>
+                    <label class="control-label">Dia Visita(*)</label>
                     <div class="controls">
                         <select id="dia_lista" name="dia_lista" required class="input-medium" >
                             <option value="Lunes">Lunes</option>
@@ -323,6 +294,22 @@
           
            
        </div>
+            
+       {% if is_granted('ROLE_LIDER_RED') %}
+        <div class="span9">
+            
+            <div class="control-group">
+                <label class="control-label">Ganado por</label>
+                <input type="hidden" id="ganador_id" name="ganador_id">
+                <div class="controls">
+                    <input type="text" id="ganador" name="ganador" class="input-xxlarge" >
+                </div>
+            </div>
+           
+            
+        </div>    
+      
+        {% endif %}
     </fieldset>
             
             
@@ -366,16 +353,19 @@
 	<script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>            
          <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
   	<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.inputmask.min.js"></script>
-        <script src="http://d19k46zntalu3t.cloudfront.net/js/ganar.js"></script>
         <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+        <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
+        <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
+        <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
+        <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
 
-           
             
             <script type="text/javascript">
                 
                 ubigeos = null ;
                 redes = null;
                 lugares = null;
+                personas = null;
                 
                 var PrepararDatosVisitante, SuccessFunction, root;
 
@@ -394,7 +384,6 @@
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
                             "formulario": $("#form_persona").serializeObject()
-                            
                     };
                 };
 
@@ -409,6 +398,17 @@
                         cargarSelect(lugares, "lugar", "int_lugar_id", "var_lugar_descripcion");
                         
                         alert('Registro Completado');
+                        
+                        $("#ganador").autocomplete({
+                            source: personas,
+                            select: function(event, ui) {
+                                $("#ganador_id").val(ui.item.id);
+                                $("#ganador").val(ui.item.label);
+                            return false;
+                            }
+                        });
+                        
+                        $("#ganador_id").val(-1);
                         
                     }
                     else if(data.responseCode===400){//bad request
@@ -425,7 +425,37 @@
                 };
 
                 
-
+             function ganador_autocomplete_red()
+             {
+                 
+                 if($("#red_lista").val() == '-1')
+                 {
+                    // personas = getAjaxObject('{{path('services_ganadores_autocomplete_all')}}');
+                 }
+                 else
+                 {
+                     //recargar celula
+                     //recargar ganador
+                     
+                          //nuevo convertido
+                     url = '{{path( 'services_ganadores_autocomplete_red', {'red':'cod'} )}}';
+                     url = url.replace('cod',$("#red_lista").val());
+             
+                     personas = getAjaxObject(url);
+                     
+                     $("#ganador").autocomplete({
+                        source: personas,
+                        select: function(event, ui) {
+                            $("#ganador_id").val(ui.item.id);
+                            $("#ganador").val(ui.item.label);
+                            return false;
+                        }
+                    });
+                    
+                    $("#ganador_id").val(-1);
+                 }
+                 
+             }
              $(document).ready(function(){
                  
                  
@@ -438,6 +468,16 @@
                  cargarSelect(redes, "red_lista", "int_red_id", "id");
                  cargarSelect(lugares, "lugar", "int_lugar_id", "var_lugar_descripcion");
                  
+          
+                 //cambiar red
+                 $("#red_lista").change(function(){
+                     //cambiar célula
+                     
+                     //cambiar ganadores x red
+                     
+                     ganador_autocomplete_red();
+                 });
+                
                  $("#form_persona").submit(function(event) {
                     event.preventDefault();
                     PrepararDatos();

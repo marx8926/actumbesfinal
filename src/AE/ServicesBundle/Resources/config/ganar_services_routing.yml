@@ -21,3 +21,16 @@ services_personas_init:
     defaults: {_controller: AEServicesBundle:GanarServices:personas_init}
     requirements:
         _method: GET
+        
+        
+services_ganadores_autocomplete_all:
+    pattern: /ganador_autocomplete_all
+    defaults: { _controller: AEServicesBundle:GanarServices:ganador_autocomplete_all}
+    requirements:
+        _method: GET
+        
+services_ganadores_autocomplete_red:
+    pattern: /ganador_autocomplete_red/{red}
+    defaults: {_controller: AEServicesBundle:GanarServices:ganador_autocomplete_red}
+    requirements:
+        _method: GET

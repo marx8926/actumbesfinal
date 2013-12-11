@@ -1,0 +1,14 @@
+    
+permisos:
+    pattern: /permisos
+    defaults: { _controller: AEConfigurarBundle:Permiso:vista}
+    requirements:
+        _method: GET
+
+permisos_save:    
+    pattern: /permisos_save
+    defaults: { _controller: AEConfigurarBundle:Permiso:guardar}
+    requirements:
+        _method: POST
+
+

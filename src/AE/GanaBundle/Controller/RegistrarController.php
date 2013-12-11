@@ -79,6 +79,8 @@ class RegistrarController  extends Controller {
                 $dia = $datos['dia_lista'];
                 $hora = $datos['inputHora'];     
                 
+                $ganado = $datos['ganador_id'];
+                
                 $prev_div = $em->getRepository('AEDataBundle:Ubigeos');
                 $ubigeo = $prev_div->findOneBy(array('intUbigeoId'=>$distrito));
                 
@@ -106,6 +108,7 @@ class RegistrarController  extends Controller {
                 $persona->setFechaNacimiento(new \DateTime($fech));
                 $persona->setSexo($sexo);
                 $persona->setIdUbicacion($ubicacion);
+                $persona->setGanadoPor($ganado);
                 
                 $persona->setDni($dni);
                 $persona->setOcupacion($ocupacion);

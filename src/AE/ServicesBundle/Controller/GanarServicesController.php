@@ -98,4 +98,30 @@ class GanarServicesController extends Controller
         return $resultado;
     }
     
+    public function ganador_autocomplete_allAction()
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from view_get_ganador_all";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+       
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();       
+        return $resultado;       
+    }
+    
+    public function ganador_autocomplete_redAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_ganador_red(:red)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red' => $red));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();       
+        return $resultado;
+    }
 }

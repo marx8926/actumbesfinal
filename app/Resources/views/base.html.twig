@@ -139,7 +139,28 @@
                                         </ul>
 			</li>
                         
-			
+			<li>
+				<a class='light toggle-collapsed'>
+					Configurar
+					<img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+				</a>
+				<ul class='collapsed-nav closed'>
+                                      {% if (is_granted('ROLE_ADMIN')) %}
+					<li>
+						<a href="{{path('permisos')}}">
+							Registrar
+						</a>
+					</li>
+                                        
+                                        <li>
+                                            <a href="nueva red">
+                                                
+                                                Administrar redes
+                                            </a>
+                                        </li>
+                                       {% endif %}
+                                </ul>
+                        </li>
               </ul>
 	</div>
 	<div class="container-fluid">

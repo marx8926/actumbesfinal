@@ -1,0 +1,305 @@
+{% extends "::base.html.twig" %}
+        {% block stylesheets %}
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
+
+        <!-- Scripts -->
+                 
+        {% endblock %}
+        
+{% block content %}
+
+      <div  >
+
+        <!--
+        <div class="box-head tabs">
+            <h3>Permisos</h3>	
+        </div>
+      -->
+      <div >
+                  
+          <form id="form_permiso" name="form_permiso" class="form-horizontal "  method="POST" action="{{path('permisos_save')}}" >
+         
+              <div class="span9">
+                 
+                   <div class="control-group">
+                      <label class="control-label"> Red</label>
+                      <div class="controls">
+                        <select id="red_lista" name="red_lista" >
+                   
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="span3">
+                  
+                  <div class="control-group span3">
+                      <label class="control-label"> Persona</label>
+                      <div class="controls">
+                          <input id="persona_id" name="persona_id" type="hidden">
+                          <input id="persona" name="persona" class="input-large" type="text" >
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              <div class="span9">
+
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                          <input id="btnGuardar" name="btnGuardar" type="submit" class="btn btn-primary" value="Guardar">
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="span9">
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="miembro" id="miembro"> Miembro
+                        </label>
+                      </div>
+                  </div>
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="lider" id="lider"> Lider Célula
+                        </label>
+                      </div>
+                  </div>
+                  
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="lider_red" id="lider_red"> Lider Red
+                        </label>
+                      </div>
+                  </div>
+                  
+              </div>
+              
+              <div class="span9">
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="consolidador" id="consolidador"> Consolidador
+                        </label>
+                      </div>
+                  </div>
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="estudiante" id="estudiante"> Estudiante
+                        </label>
+                      </div>
+                  </div>
+                  
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="docente" id="docente"> Docente
+                        </label>
+                      </div>
+                  </div>
+                  
+              </div>
+              
+              <div class="span9">
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="ganar" id="ganar"> Ganar
+                        </label>
+                      </div>
+                  </div>
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="consolidar" id="consolidar"> Consolidar
+                        </label>
+                      </div>
+                  </div>
+                  
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="enviar" id="enviar"> Enviar
+                        </label>
+                      </div>
+                  </div>
+                  
+              </div>
+              
+              <div class="span9">
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="discipular" id="discipular"> Discipular
+                        </label>
+                      </div>
+                  </div>
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="tesoreria" id="tesoreria"> Tesoreria
+                        </label>
+                      </div>
+                  </div>
+                  
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="pastor" id="pastor"> Pastor
+                        </label>
+                      </div>
+                  </div>
+                  
+              </div>
+              
+              <div class="span9">
+                  
+                  <div class="control-group span2">
+                      <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="admin" id="admin"> Administrador
+                        </label>
+                      </div>
+                  </div>
+                  
+              </div>
+      
+        </form>
+        
+      </div>   
+
+</div>
+{% endblock %}
+      
+               
+      {%block javascript %}
+      <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
+
+      
+      <script type="text/javascript">
+          
+                $redes = null;
+                root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
+                root.SourceTServicio = "/recuperar_personas_inicio";
+
+                root.DatosEnviar = null;
+                personas = null;
+        
+                PrepararDatos = function() {
+                    return root.DatosEnviar = {
+                            "formulario": $("#form_permiso").serializeObject()
+                    };
+                };
+
+                SuccessFunction = function(data) {
+                    
+                    console.log(data);
+                    
+                    if(data.responseCode===200 ){          
+                      
+                        //$("#form_persona").reset();
+                       
+                        //cargarSelect(redes, "red_lista", "int_red_id", "id");
+                        
+                        alert('Registro Completado');
+                        /*
+                        $("#persona").autocomplete({
+                            source: personas,
+                            select: function(event, ui) {
+                                $("#ganador_id").val(ui.item.id);
+                                $("#ganador").val(ui.item.label);
+                            return false;
+                            }
+                        });
+                        */
+                       // $("#persona_id").val(-1);
+                        
+                    }
+                    else if(data.responseCode===400){//bad request
+                       alert('Error bad request');
+                        }
+                    else{                        
+                        if(data.responseCode===500)
+                        {
+                            alert('Error bad request');
+                        }
+                        else alert("An unexpeded error occured.");
+                        }
+                    
+                };
+
+    
+	$(document).ready(function() {
+            
+            redes = getAjaxObject('{{path('services_red')}}');
+                          
+            cargarSelect(redes, "red_lista", "int_red_id", "id");
+            
+            $("#form_permiso").submit(function(event){
+                
+                 event.preventDefault();
+                 PrepararDatos();
+                 console.log(root.DatosEnviar);
+                 return enviar('{{path('permisos_save')}}', root.DatosEnviar, SuccessFunction, null);
+  
+            });
+            
+            $("#red_lista").change(function(event){
+            
+                if($("#red_lista").val() != '-1')
+                {
+                         //nuevo convertido
+                     url = '{{path( 'services_ganadores_autocomplete_red', {'red':'cod'} )}}';
+                     url = url.replace('cod',$("#red_lista").val());
+             
+                     personas = getAjaxObject(url);
+                     
+                     $("#persona").autocomplete({
+                        source: personas,
+                        select: function(event, ui) {
+                            $("#persona_id").val(ui.item.id);
+                            $("#persona").val(ui.item.label);
+                            return false;
+                        }
+                    });
+                    
+                    $("#persona_id").val(-1);
+                }
+            });
+                        
+        } );
+
+       </script>
+      {%endblock %}
