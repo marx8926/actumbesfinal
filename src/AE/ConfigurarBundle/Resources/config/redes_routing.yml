@@ -4,6 +4,12 @@ red_view:
     requirements:
         _method: GET
         
+red_save:
+    pattern: /red_save
+    defaults: { _controller: AEConfigurarBundle:Red:save}
+    requirements:
+        _method: POST
+    
 red_editar:
     pattern: /red_editar
     defaults: { _controller: AEConfigurarBundle:Red:editar}

@@ -44,3 +44,22 @@ CREATE OR REPLACE VIEW view_get_ganador_all AS
 
 ALTER TABLE view_get_ganador_all
   OWNER TO actumbes;
+
+ALTER TABLE red
+   ADD COLUMN pastor bigint;
+  
+  
+CREATE OR REPLACE VIEW view_get_lider_red_complete_all AS 
+ SELECT p.id, 
+    (p.nombre::text || ' '::text) || p.apellidos::text AS label
+   FROM persona p
+   JOIN nivel_crecimiento n ON n.persona_id = p.id AND n.int_nivelcrecimiento_estadoactual = 1 AND n.int_nivelcrecimiento_escala = 2;
+
+ALTER TABLE view_get_lider_red_complete_all
+  OWNER TO actumbes;
+CREATE OR REPLACE VIEW view_get_pastor_complete_all AS 
+ SELECT p.id, 
+    (p.nombre::text || ' '::text) || p.apellidos::text AS label
+   FROM persona p
+   JOIN nivel_crecimiento n ON n.persona_id = p.id AND n.int_nivelcrecimiento_estadoactual = 1 AND n.int_nivelcrecimiento_escala = 11;
+

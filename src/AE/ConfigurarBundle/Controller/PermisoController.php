@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of PermisoController
- *
- * @author Marks-Calderon
- */
 
 namespace AE\ConfigurarBundle\Controller;
 
@@ -45,9 +34,10 @@ class PermisoController extends Controller {
         $permisos[] = 0;
         $form = ['miembro', 'lider', 'lider_red', 'consolidador', 'estudiante', 'docente',
             'ganar', 'consolidar', 'enviar', 'discipular', 'tesoreria', 'pastor', 'admin'];
-        $roles = ['ROLE_USER', 'ROLE_LIDER', 'ROLE_LIDER_RED', 'ROLE_CONSOLIDADOR', 'ROLE_ESTUDIANTE',
-            'ROLE_DOCENTE', 'ROLE_GANAR', 'ROLE_CONSOLIDAR', 'ROLE_ENVIAR', 'ROLE_DISCIPULAR', 
-            'ROLE_TESORERIA', 'ROLE_ADMIN'];
+        $roles = array(  0 => 'ROLE_USER', 1 => 'ROLE_LIDER', 2 => 'ROLE_LIDER_RED', 3 =>'ROLE_CONSOLIDADOR', 
+            4 => 'ROLE_ESTUDIANTE', 5 => 'ROLE_DOCENTE', 6 => 'ROLE_GANAR',
+            7 => 'ROLE_CONSOLIDAR', 8 => 'ROLE_ENVIAR', 9=> 'ROLE_DISCIPULAR', 
+            10 => 'ROLE_TESORERIA', 11 => 'ROLE_PASTOR' , 12 =>'ROLE_ADMIN');
         
         $cont = 1;
         
@@ -98,7 +88,7 @@ class PermisoController extends Controller {
                         $n->setCreacion(new \DateTime());                      
 
                         $n->setPersona($persona);                        
-                        $n->setIntNivelcrecimientoEscala($cont);
+                        $n->setIntNivelcrecimientoEscala($cont-1);
                         $n->setIntNivelcrecimientoEstadoactual(1);
                         
                         $em->persist($n);

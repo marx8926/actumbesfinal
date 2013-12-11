@@ -44,6 +44,20 @@ class Red
     private $activo;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="pastor", type="bigint", nullable=true)
+     */
+    private $pastor;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tipo", type="integer", nullable=true)
+     */
+    private $tipo;
+
+    /**
      * @var \Persona
      *
      * @ORM\ManyToOne(targetEntity="Persona")
@@ -142,6 +156,52 @@ class Red
     public function getActivo()
     {
         return $this->activo;
+    }
+
+    /**
+     * Set pastor
+     *
+     * @param integer $pastor
+     * @return Red
+     */
+    public function setPastor($pastor)
+    {
+        $this->pastor = $pastor;
+    
+        return $this;
+    }
+
+    /**
+     * Get pastor
+     *
+     * @return integer 
+     */
+    public function getPastor()
+    {
+        return $this->pastor;
+    }
+
+    /**
+     * Set tipo
+     *
+     * @param integer $tipo
+     * @return Red
+     */
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+    
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return integer 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
     }
 
     /**

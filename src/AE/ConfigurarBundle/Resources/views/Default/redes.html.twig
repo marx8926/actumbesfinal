@@ -3,6 +3,8 @@
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
+       <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+
         <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
 
         <!-- Scripts -->
@@ -11,6 +13,143 @@
         
 {% block content %}
 
+       <div class="container-fluid">
+        <div class="content">
+          
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-head tabs">
+                            <h3>Red perfiles</h3>
+                            <ul class="nav nav-tabs">
+                                <li class='active'>
+                                    <a href="#basic" data-toggle='tab'>Información Básica</a>
+                                </li>
+                                <li>
+                                    <a href="#sec" data-toggle='tab'>Ubicación</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                        <div class="box-content">
+                            <form action="#" class="form-horizontal" id="form_red" name="form_red" method="POST">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="basic">
+                                        <div class="control-group">
+                                            <label for="red" class="control-label">Red</label>
+                                            <div class="controls">
+                                                <input type="text" name="red" id="red" value="">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="control-group">
+                                            <label class="control-label" >Tipo de Red  </label>
+                                                <div class="controls">
+                                                    <select id="tipo_red" name="tipo_red" required >
+                                                        <option value="0">Mixta</option>
+                                                        <option value="1">Hombres</option>
+                                                        <option value="2">Mujeres</option>
+                                                        <option value="3">Hombres Jovenes</option>
+                                                        <option value="4">Mujeres Jovenes</option>
+                                                    </select>
+                                                </div>
+                                        </div>
+                                    
+                                       <div class="control-group">
+                                            <label class="control-label">Fecha Creación(*)</label>
+                                            <div class="controls">
+                                                <input type= "text" class="datepick input-medium" id="creacion"
+                                                    name="creacion" required/>
+                                                <p class="help-block">Día/Mes/Año</p>  
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="control-group">
+                                            <label for="lider" class="control-label">Lider</label>
+                                            <div class="controls">
+                                                <div class="input-append">
+                                                    <input type="hidden" name="lider_id" id="lider_id">
+                                                    <input type="text" name="lider" id="lider" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label for="pastor" class="control-label">Pastor</label>
+                                            <div class="controls">
+                                                <div class="input-append">
+                                                    <select id="pastor" name="pastor">
+                                                    
+                                                    </select>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                </div>
+                                <div class="tab-pane" id="sec">
+                                    <div class="control-group">
+                                        <label class="control-label">Dirección (*)</label>
+                                        <div class="controls">
+                                            <input type="text" class="input-xxlarge" id="inputDireccion" name="inputDireccion" required />
+                                        </div>
+                                    </div>
+        
+                                    <div class="control-group">
+                                        <label class="control-label">Referencia</label>
+                                        <div class="controls" >
+                                            <input type="text" class="input-xxlarge" id="inputReferencia" name="inputReferencia" />
+                                        </div>
+                                    </div>
+                
+                                    <div class="">
+                                        <div class="">
+                                            <div class="control-group">
+                                                <label class="control-label" >Departamento (*)</label>
+                                                <div class="controls">
+                                                    <select name="departamento_lista" id="departamento_lista" required  class="input-medium">
+                    
+                                                    </select>
+                                                </div>
+                                            </div>  
+                                        </div>
+        
+                                    <div class="">
+                                        <div class="control-group">
+                                            <label class="control-label" >Provincia (*)</label>
+                                            <div class="controls">
+                                                <select name="provincia_lista" id="provincia_lista" required class="input-medium">
+                   
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="">
+        
+                                        <div class="control-group">
+                                            <label class="control-label">Distrito (*)</label>
+                                            <div class="controls">
+                                                <select name="distrito_lista" id="distrito_lista" required class="input-medium">
+                    
+                                                </select>
+                                            </div>        
+                                        </div>
+                                </div>
+                            </div>
+                          </div>
+                                
+                            </div>
+                                <div class="form-actions">
+                                    <input type="submit" class='btn btn-primary' value="Guardar" id="btnGuardarRed" name="btnGuardarRed">
+                                    <input type="reset" class='btn btn-danger' value="Cancelar">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
         
 {% endblock %}
       
@@ -30,6 +169,8 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
 
       
       <script type="text/javascript">
@@ -44,7 +185,7 @@
         
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
-                            "formulario": $("#form_permiso").serializeObject()
+                            "formulario": $("#form_red").serializeObject()
                     };
                 };
 
@@ -54,22 +195,22 @@
                     
                     if(data.responseCode===200 ){          
                       
-                       $("#form_persona").reset();
+                       $("#form_red").reset();
                        
                        cargarSelect(redes, "red_lista", "int_red_id", "id");
                         
                         alert('Registro Completado');
                        
-                        $("#persona").autocomplete({
+                        $("#lider").autocomplete({
                             source: personas,
                             select: function(event, ui) {
-                                $("#ganador_id").val(ui.item.id);
-                                $("#ganador").val(ui.item.label);
+                                $("#lider_id").val(ui.item.id);
+                                $("#lider").val(ui.item.label);
                             return false;
                             }
                         });
                         
-                        $("#persona_id").val(-1);
+                        $("#lider_id").val(-1);
                         
                     }
                     else if(data.responseCode===400){//bad request
@@ -88,6 +229,39 @@
     
 	$(document).ready(function() {
             
+            ubigeos = getAjaxObject("https://s3.amazonaws.com/adminchurchs3/json/ubi.json");
+            cargarUbigeo(ubigeos, "distrito_lista", "provincia_lista", "departamento_lista");
+                 
+            redes = getAjaxObject('{{path('services_red')}}');
+                          
+            cargarSelect(redes, "red_lista", "int_red_id", "id");
+            
+            pastores = getAjaxObject('{{path('services_pastor')}}');
+                          
+            cargarSelect(pastores, "pastor", "id", "label");
+            
+            $("#form_red").submit(function(event){
+                
+                 event.preventDefault();
+                 PrepararDatos();
+                 console.log(root.DatosEnviar);
+                 return enviar('{{path('red_save')}}', root.DatosEnviar, SuccessFunction, null);
+  
+            });
+            
+                    url = '{{path( 'services_lider_red')}}';
+             
+                     personas = getAjaxObject(url);
+                     
+                     $("#lider").autocomplete({
+                        source: personas,
+                        select: function(event, ui) {
+                            $("#lider_id").val(ui.item.id);
+                            $("#lider").val(ui.item.label);
+                            return false;
+                        }
+                    });
+          
         } );
 
        </script>

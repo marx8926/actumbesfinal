@@ -4,3 +4,7 @@ ae_services_homepage:
     
 ganar_services_routing:
     resource: "@AEServicesBundle/Resources/config/ganar_services_routing.yml"
+
+   
+configurar_services_routing:
+    resource: "@AEServicesBundle/Resources/config/configurar_services_routing.yml"

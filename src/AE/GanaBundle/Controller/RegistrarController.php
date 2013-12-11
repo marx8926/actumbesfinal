@@ -108,7 +108,9 @@ class RegistrarController  extends Controller {
                 $persona->setFechaNacimiento(new \DateTime($fech));
                 $persona->setSexo($sexo);
                 $persona->setIdUbicacion($ubicacion);
-                $persona->setGanadoPor($ganado);
+                
+                if(strlen($ganado)>0)
+                    $persona->setGanadoPor($ganado);
                 
                 $persona->setDni($dni);
                 $persona->setOcupacion($ocupacion);

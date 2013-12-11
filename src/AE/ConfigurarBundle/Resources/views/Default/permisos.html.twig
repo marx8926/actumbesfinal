@@ -276,6 +276,20 @@
   
             });
             
+            url = '{{path('services_ganadores_autocomplete_all')}}';
+            personas = getAjaxObject(url);
+             
+            $("#persona").autocomplete({
+                        source: personas,
+                        select: function(event, ui) {
+                            $("#persona_id").val(ui.item.id);
+                            $("#persona").val(ui.item.label);
+                            return false;
+                       }
+                });
+                    
+            $("#persona_id").val(-1);
+            
             $("#red_lista").change(function(event){
             
                 if($("#red_lista").val() != '-1')
@@ -283,20 +297,24 @@
                          //nuevo convertido
                      url = '{{path( 'services_ganadores_autocomplete_red', {'red':'cod'} )}}';
                      url = url.replace('cod',$("#red_lista").val());
-             
-                     personas = getAjaxObject(url);
+
+                }
+                else{
+                    url = '{{path('services_ganadores_autocomplete_all')}}';
+                }
+                personas = getAjaxObject(url);
                      
-                     $("#persona").autocomplete({
+                $("#persona").autocomplete({
                         source: personas,
                         select: function(event, ui) {
                             $("#persona_id").val(ui.item.id);
                             $("#persona").val(ui.item.label);
                             return false;
-                        }
-                    });
+                       }
+                });
                     
-                    $("#persona_id").val(-1);
-                }
+                $("#persona_id").val(-1);
+                
             });
                         
         } );

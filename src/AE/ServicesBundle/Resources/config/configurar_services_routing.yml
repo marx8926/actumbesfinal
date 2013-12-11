@@ -1,0 +1,11 @@
+services_lider_red:
+  pattern: /lista_lider_red
+  defaults: {_controller: AEServicesBundle:ConfigurarServices:lista_lider_red}
+  requirements:
+    _method: GET
+    
+services_pastor:
+  pattern: /lista_pastor
+  defaults: {_controller: AEServicesBundle:ConfigurarServices:lista_pastor}
+  requirements:
+    _method: GET
