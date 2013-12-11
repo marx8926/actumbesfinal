@@ -8,3 +8,12 @@ inicio:
     
 permisos_configurar_routing:
     resource: "@AEConfigurarBundle/Resources/config/permisos_routing.yml"
+    
+red_configurar_routing:
+    resource: "@AEConfigurarBundle/Resources/config/redes_routing.yml"
+    
+lider_configurar_routing:
+    resource: "@AEConfigurarBundle/Resources/config/lider_routing.yml"
+    
+usuario_configurar_routing:
+    resource: "@AEConfigurarBundle/Resources/config/usuario_routing.yml"

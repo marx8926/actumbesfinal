@@ -1,0 +1,21 @@
+usuarios_view:    
+    pattern:  /usuarios
+    defaults: { _controller: AEConfigurarBundle:Usuarios:view }
+    
+usuario_edit:
+    pattern: /usuario_edit
+    defaults: {_controller: AEConfigurarBundle:Usuarios:edit}
+    requirements:
+        _method: POST
+        
+usuario_save:
+    pattern: /usuario_save
+    defaults: {_controller: AEConfigurarBundle:Usuarios:save}
+    requirements:
+        _method: POST
+
+usuario_delete:
+    pattern: /usuario_delete
+    defaults: {_controller: AEConfigurarBundle:Usuarios:delete}
+    requirements:
+        _method: POST

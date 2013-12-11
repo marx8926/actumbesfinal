@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of PermisoController
+ * Description of UsuarioController
  *
  * @author Marks-Calderon
  */
@@ -20,24 +20,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
-use AE\DataBundle\Entity\NivelCrecimiento;
-use AE\DataBundle\Entity\Persona;
 use Doctrine\ORM\TransactionRequiredException;
 use FOS\UserBundle\FOSUserBundle;
 use FOS\UserBundle\Model\UserManager;
+use AE\DataBundle\Entity\NivelCrecimiento;
+use AE\DataBundle\Entity\Persona;
 
-class PermisoController extends Controller {
+class UsuariosController extends Controller {
     //put your code here
     
-    public function vistaAction()
+    public function viewAction()
     {
-        
-        return $this->render('AEConfigurarBundle:Default:permisos.html.twig');
-        
+        return $this->render('AEConfigurarBundle:Default:usuario.html.twig');
     }
     
-    public function guardarAction()
-    {
+    public  function saveAction()
+     {
         $request = $this->get('request');
         $datos =$request->request->get('formulario');
         
@@ -45,15 +43,22 @@ class PermisoController extends Controller {
         $permisos[] = 0;
         $form = ['miembro', 'lider', 'lider_red', 'consolidador', 'estudiante', 'docente',
             'ganar', 'consolidar', 'enviar', 'discipular', 'tesoreria', 'pastor', 'admin'];
-        $roles = ['ROLE_USER', 'ROLE_LIDER', 'ROLE_LIDER_RED', 'ROLE_CONSOLIDADOR', 'ROLE_ESTUDIANTE',
-            'ROLE_DOCENTE', 'ROLE_GANAR', 'ROLE_CONSOLIDAR', 'ROLE_ENVIAR', 'ROLE_DISCIPULAR', 
-            'ROLE_TESORERIA', 'ROLE_ADMIN'];
+        
+        $roles = array(  0 => 'ROLE_USER', 1 => 'ROLE_LIDER', 2 => 'ROLE_LIDER_RED', 3 =>'ROLE_CONSOLIDADOR', 
+            4 => 'ROLE_ESTUDIANTE', 5 => 'ROLE_DOCENTE', 6 => 'ROLE_GANAR',
+            7 => 'ROLE_CONSOLIDAR', 8 => 'ROLE_ENVIAR', 9=> 'ROLE_DISCIPULAR', 
+            10 => 'ROLE_TESORERIA', 11 => 'ROLE_PASTOR' , 12 =>'ROLE_ADMIN');
         
         $cont = 1;
+        
+       //$return=array("responseCode"=>400, "greeting"=>"Bad");            
+       //return new JsonResponse(count($form));
         
         $em = $this->getDoctrine()->getManager();
         
         $id = $datos['persona_id'];
+        
+        $estado = $datos['usuario_estado'];
         
         if($id == '-1')
         {
@@ -71,12 +76,35 @@ class PermisoController extends Controller {
         $result = [];
         
         $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($datos['usuario']);
         
-        $user = $userManager->findUserBy(array('idPersona' => $id));
+        if( $estado == '0' && $user != NULL)
+        {
+            $return=array("responseCode"=>400, "greeting"=>"Bad");            
+            return new JsonResponse($return); 
+        }
+        
+        if( $persona ==NULL)
+        {
+            $return=array("responseCode"=>400, "greeting"=>"Bad");            
+            return new JsonResponse($return); 
+        }
+        else
+        {
+            if($user == NULL)
+            {
+                $user = $userManager->createUser();
+                $user->setUsername($datos['usuario']);
+                $user->setPlainPassword($datos['password']);
+                $user->setEnabled(TRUE);
+                $user->setEmail($datos['email']);
+                $user->setIdPersona($persona);
+                //$userManager->updateUser($user);
+            }
+        }
         
         
-        
-        
+        $cont = 1;
         $em->beginTransaction();
         try{
             //for ($index = 0; $index < 1; $index++) {
@@ -114,8 +142,15 @@ class PermisoController extends Controller {
                     if($user != NULL)
                     {
                                    
-                      $user->addRole($roles[$cont-1]);
+                      //$user->addRole("ROLE_ADMIN");
+                      
+                      $rol = $user->getRoles();
+                      $rol[] = $roles[$cont-1] ;
+                      $user->setRoles($rol);
                       $userManager->updateUser($user);
+                      
+                      //$return=array("responseCode"=>200, "greeting"=>$user->getRoles());            
+                      //return new JsonResponse($return); 
                     }
                 }
                 else
@@ -135,13 +170,15 @@ class PermisoController extends Controller {
                     {
                                    
                       $user->removeRole($roles[$cont-1]);
-                      $userManager->updateUser($user);
+                      
                     }
                     
                     
                 }
                 $cont++;
             }
+            
+            $userManager->updateUser($user);
             
             $em->commit();
             $return=array("responseCode"=>200, "greeting"=>"OK");
@@ -156,5 +193,15 @@ class PermisoController extends Controller {
         //$em->close();
 
         return new JsonResponse($return);
+    }
+    
+    public function editAction()
+    {
+        return new Response();
+
+    }
+    public function deleteAction()
+    {
+        return new Response();
     }
 }

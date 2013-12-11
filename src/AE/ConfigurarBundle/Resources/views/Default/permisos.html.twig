@@ -229,22 +229,22 @@
                     
                     if(data.responseCode===200 ){          
                       
-                        //$("#form_persona").reset();
+                       $("#form_persona").reset();
                        
-                        //cargarSelect(redes, "red_lista", "int_red_id", "id");
+                       cargarSelect(redes, "red_lista", "int_red_id", "id");
                         
                         alert('Registro Completado');
-                        /*
+                       
                         $("#persona").autocomplete({
                             source: personas,
                             select: function(event, ui) {
-                                $("#ganador_id").val(ui.item.id);
-                                $("#ganador").val(ui.item.label);
+                                $("#persona_id").val(ui.item.id);
+                                $("#persona").val(ui.item.label);
                             return false;
                             }
                         });
-                        */
-                       // $("#persona_id").val(-1);
+                        
+                        $("#persona_id").val(-1);
                         
                     }
                     else if(data.responseCode===400){//bad request

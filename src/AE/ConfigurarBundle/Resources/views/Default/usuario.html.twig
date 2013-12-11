@@ -1,0 +1,359 @@
+{% extends "::base.html.twig" %}
+        {% block stylesheets %}
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
+
+        <!-- Scripts -->
+                 
+        {% endblock %}
+        
+{% block content %}
+
+   
+        <div class="container-fluid">
+        <div class="content">
+           
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-head tabs">
+                            <h3>Perfil Usuario</h3>
+                            <ul class="nav nav-tabs">
+                                <li class='active'>
+                                    <a href="#basic" data-toggle='tab'>Información Básica</a>
+                                </li>
+                                <li>
+                                    <a href="#sec" data-toggle='tab'>Roles</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                        <div class="box-content">
+                            <form action="#" class="form-horizontal" method="POST" id="form_usuario" name="form_usuario">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="basic">
+                                        <div class="control-group">
+                                            <label for="username" class="control-label">Usuario</label>
+                                            <div class="controls">
+                                                <input type="hidden" name="usuario_estado" id="usuario_estado" value="0">
+                                                <input type="text" name="usuario" id="usuario" value="Usuario" required>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Password</label>
+                                            <div class="controls">
+                                                <input type="password" name="password" id="password" required>
+                                            </div>
+                                        </div>
+                                        
+                                    
+                                        <div class="control-group">
+                                            <label class="control-label"> Red</label>
+                                            <div class="controls">
+                                                <select id="red_lista" name="red_lista" >
+                   
+                                                </select>
+                                            </div>
+                                       </div>
+                  
+                                        <div class="control-group">
+                                            <label class="control-label"> Persona</label>
+                                            <div class="controls">
+                                                    <input id="persona_id" name="persona_id" type="hidden">
+                                                    <input id="persona" name="persona" class="input-large" type="text" require >
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="control-group">
+                                            <label for="email" class="control-label">Email</label>
+                                            <div class="controls">
+                                                <div class="input-append">
+                                                    <input type="text" name="email" id="email" value="info@sitename.com"><span class="add-on"><i class="icon-envelope"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                </div>
+                                <div class="tab-pane" id="sec">
+                                    <!--
+                                    <div class="control-group">
+                                        <label class="control-label">Cookie duration</label>
+                                        <div class="controls">
+                                            <label class="radio"><input type="radio" name="duration"> 1 day</label>
+                                            <label class="radio"><input type="radio" name="duration"> 7 days</label>
+                                            <label class="radio"><input type="radio" name="duration"> 24 days</label>
+                                            <label class="radio"><input type="radio" name="duration"> 1 year</label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Hide my email</label>
+                                        <div class="controls">
+                                            <label class="radio"><input type="radio" name="hide"> Yes</label>
+                                            <label class="radio"><input type="radio" name="hide"> No</label>
+                                        </div>
+                                    </div>
+                                    -->
+                              
+              
+                                <div class="span9">
+                  
+                                    <div class="control-group span3">
+                                        <div class="controls">
+                                            <label class="checkbox">
+                                                <input type="checkbox" name="miembro" id="miembro"> Miembro
+                                            </label>
+                                        </div>
+                                    </div>
+                  
+                                    <div class="control-group span3">
+                                        <div class="controls">
+                                            <label class="checkbox">
+                                                <input type="checkbox" name="lider" id="lider"> Lider Célula
+                                            </label>
+                                        </div>
+                                    </div>
+                  
+                  
+                                    <div class="control-group span3">
+                                        <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="lider_red" id="lider_red"> Lider Red
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                            </div>
+              
+                            <div class="span9">
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="consolidador" id="consolidador"> Consolidador
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="estudiante" id="estudiante"> Estudiante
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="docente" id="docente"> Docente
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                            </div>
+              
+                            <div class="span9">
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="ganar" id="ganar"> Ganar
+                                        </label>
+                                    </div>
+                                </div>    
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="consolidar" id="consolidar"> Consolidar
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="enviar" id="enviar"> Enviar
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                            </div>
+              
+                            <div class="span9">
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="discipular" id="discipular"> Discipular
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="tesoreria" id="tesoreria"> Tesoreria
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="pastor" id="pastor"> Pastor
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                            </div>
+              
+                            <div class="span9">
+                  
+                                <div class="control-group span3">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="admin" id="admin"> Administrador
+                                        </label>
+                                    </div>
+                                </div>
+                  
+                            </div>
+                                    
+                          </div>
+                               
+                            </div>
+                                <div class="form-actions span9">
+                                    <input type="submit" class='btn btn-primary' id="form_usuario" name="form_usuario" value="Guardar">
+                                    <input type="reset" class='btn btn-danger' value="Cancelar">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    
+{% endblock %}
+      
+               
+      {%block javascript %}
+      <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
+
+      
+      <script type="text/javascript">
+          
+                $redes = null;
+                root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
+                root.SourceTServicio = "/recuperar_personas_inicio";
+
+                root.DatosEnviar = null;
+                personas = null;
+        
+                PrepararDatos = function() {
+                    return root.DatosEnviar = {
+                            "formulario": $("#form_usuario").serializeObject()
+                    };
+                };
+
+                SuccessFunction = function(data) {
+                    
+                    console.log(data);
+                    
+                    if(data.responseCode===200 ){          
+                      
+                       $("#form_usuario").reset();
+                       
+                       cargarSelect(redes, "red_lista", "int_red_id", "id");
+                        
+                        alert('Registro Completado');
+                       
+                        $("#persona").autocomplete({
+                            source: personas,
+                            select: function(event, ui) {
+                                $("#persona_id").val(ui.item.id);
+                                $("#persona").val(ui.item.label);
+                            return false;
+                            }
+                        });
+                        
+                        $("#persona_id").val(-1);
+                        $("#usuario_estado").val(0);
+                    }
+                    else if(data.responseCode===400){//bad request
+                            alert('Eliga otro usuario');
+                        }
+                    else{                        
+                        if(data.responseCode===500)
+                        {
+                            alert('Error bad request');
+                        }
+                        else alert("An unexpeded error occured.");
+                        }
+                    
+                };
+
+    
+	$(document).ready(function() {
+            
+            redes = getAjaxObject('{{path('services_red')}}');
+                          
+            cargarSelect(redes, "red_lista", "int_red_id", "id");
+            
+            $("#form_usuario").submit(function(event){
+                
+                 event.preventDefault();
+                 PrepararDatos();
+                 console.log(root.DatosEnviar);
+                 return enviar('{{path('usuario_save')}}', root.DatosEnviar, SuccessFunction, null);
+  
+            });
+            
+            $("#red_lista").change(function(event){
+            
+                if($("#red_lista").val() != '-1')
+                {
+                         //nuevo convertido
+                     url = '{{path( 'services_ganadores_autocomplete_red', {'red':'cod'} )}}';
+                     url = url.replace('cod',$("#red_lista").val());
+             
+                     personas = getAjaxObject(url);
+                     
+                     $("#persona").autocomplete({
+                        source: personas,
+                        select: function(event, ui) {
+                            $("#persona_id").val(ui.item.id);
+                            $("#persona").val(ui.item.label);
+                            return false;
+                        }
+                    });
+                    
+                    $("#persona_id").val(-1);
+                }
+            });
+                        
+        } );
+
+       </script>
+      {%endblock %}

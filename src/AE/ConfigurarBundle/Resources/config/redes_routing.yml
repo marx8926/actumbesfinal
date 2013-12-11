@@ -1,0 +1,17 @@
+red_view:
+    pattern: /red_view
+    defaults: { _controller: AEConfigurarBundle:Red:red_view}
+    requirements:
+        _method: GET
+        
+red_editar:
+    pattern: /red_editar
+    defaults: { _controller: AEConfigurarBundle:Red:editar}
+    requirements:
+        _method: POST
+        
+red_informacion:
+    pattern: /red_informacion
+    defaults: {_controller: AEConfigurarBundle:Red:informacion}
+    requirements:
+        _method: GET
