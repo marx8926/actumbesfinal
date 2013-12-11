@@ -1,6 +1,6 @@
 
 ae_gana_persona:
-    pattern: /registrar_persona
+    pattern: /nueva_persona
     defaults: { _controller: AEGanaBundle:Registrar:registrar_persona}
     requirements:
         _method: POST

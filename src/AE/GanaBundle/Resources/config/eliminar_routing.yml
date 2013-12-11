@@ -1,2 +1,9 @@
 ## YAML Template.
 ---
+ae_elimina_persona:
+    pattern: /elimina_persona
+    defaults: { _controller: AEGanaBundle:Eliminar:elimina_persona}
+    requirements:
+        _method: POST
+        
+    

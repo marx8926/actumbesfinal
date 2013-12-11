@@ -47,7 +47,7 @@
          <div class="control-group span3">
             
             <div class="controls">
-                <input type="submit" class="btn btn-primary" id="subir" name="subir" value="Generar">
+                <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
             </div>
         </div>
         </form>
@@ -148,167 +148,60 @@
         root.SourceTServicio = '{{path('services_personas_init')}}';
       
         var FormatoPersonaTable, PersonaRowCB, PersonaTable;
+        
+        
+        
+        
+        SuccessFunction = function(data) {
+                    console.log(data);
+                    
+                    if(data.responseCode===200 ){          
+                      alert('Registro Completado');  
+                      
+                      PersonaTable.fnReloadAjax(root.SourceTServicio)
+                    }
+                    else if(data.responseCode===400){//bad request
+                       alert('Error bad request');
+                        }
+                    else{                        
+                        if(data.responseCode===500)
+                        {
+                            alert('Error bad request');
+                        }
+                        else alert("An unexpeded error occured.");
+                        }                    
+        };
+
+           
+        
         PersonaRowCB = function(nRow, aData, iDisplayIndex) {
             var acciones, index;
-            //index = $(PersonaTable.fnGetData()).getIndexObj(aData, 'id');
-            //PersonaTable.fnUpdate(acciones, index, 5);
-            //$(nRow).find('a').tooltip('hide');
-    
-    
-        };
-        
-        
-        PersonaRowCB = function(nRow, aData, iDisplayIndex) {
-    var acciones, index;
-    index = $(PersonaTable.fnGetData()).getIndexObj(aData, 'id');
-    acciones = getActionButtons("111");
-    PersonaTable.fnUpdate(acciones, index, 6);
-    $(nRow).find('a').tooltip('hide');
-    $(nRow).find('.delete-row').click(function(event) {
-      event.preventDefault();
-      root.SelectToDrop = aData.persona_data.int_persona_id;
-      return false;
-    });
-    $(nRow).find('.ver_row').click(function(event) {
-      event.preventDefault();
-      if ("Visitante" === aData.nivel) {
-        HideForms();
-        $("#form_visita").disable();
-        $("#visitante").show();
-        $("#nombrev").val(aData.persona_data.var_persona_nombres);
-        $("#apellidov").val(aData.persona_data.var_persona_apellidos);
-        $("#edadv").val(aData.persona_data.int_persona_edad);
-        $(aData.telefono_data).each(function(index) {
-          var showtipotel, tel;
-          showtipotel = "";
-          if (this.int_telefono_tipo === 1) {
-            showtipotel = "Celular";
-          } else {
-            showtipotel = "Fijo";
-          }
-          tel = {
-            "numero": this.var_telefono_codigo + this.var_telefono,
-            "tipo": showtipotel,
-            "btn_elim": "",
-            "id": this.int_telefono_id,
-            "tipo_val": this.int_telefono_tipo,
-            "codigo": this.var_telefono_codigo,
-            "tel": this.var_telefono
-          };
-          return TelefonoVTable.fnAddData(tel);
-        });
-        return $("#invitadov").val(aData.persona_data.var_persona_invitado);
-      } else {
-        cargarUbigeo(ubigeos, "distrito", "provincia", "departamento", aData.distrito, aData.provincia, aData.departamento);
-        $("#form_miembro").disable();
-        $("#miembro").show();
-        $("#nombre").val(aData.persona_data.var_persona_nombres);
-        $("#apellido").val(aData.persona_data.var_persona_apellidos);
-        $("#edad").val(aData.persona_data.int_persona_edad);
-        $("#estado_civil").val(aData.persona_data.var_persona_estado);
-        $("#sexo").val(aData.persona_data.var_persona_sexo);
-        $("#fec_nac").val(aData.fecnacimiento);
-        $("#dni").val(aData.persona_data.var_persona_dni);
-        $("#ocupacion").val(aData.persona_data.var_persona_ocupacion);
-        $("#profesion").val(aData.persona_data.var_persona_profesion);
-        $(aData.telefono_data).each(function(index) {
-          var showtipotel, tel;
-          showtipotel = "";
-          if (this.int_telefono_tipo === 1) {
-            showtipotel = "Celular";
-          } else {
-            showtipotel = "Fijo";
-          }
-          tel = {
-            "numero": this.var_telefono_codigo + this.var_telefono,
-            "tipo": showtipotel,
-            "btn_elim": "",
-            "id": this.int_telefono_id,
-            "tipo_val": this.int_telefono_tipo,
-            "codigo": this.var_telefono_codigo,
-            "tel": this.var_telefono
-          };
-          return TelefonoTable.fnAddData(tel);
-        });
-        $("#direccion").val(aData.direccion.var_direccion_descripcion);
-        $("#referencia").val(aData.direccion.var_direccion_referencia);
-        $("#_lugar").val(aData.persona_data.lugar_id);
-        $("#fec_conversion").val(aData.convertido);
-        $("#email").val(aData.persona_data.var_persona_email);
-        return $("#invitado").val(aData.persona_data.var_persona_invitado);
-      }
-    });
-    return $(nRow).find('.edit_row').click(function(event) {
-      event.preventDefault();
-      $("#idPersona").val(aData.persona_data.int_persona_id);
-      if ("Visitante" === aData.nivel) {
-        HideForms();
-        $("#visitante").show();
-        $("#btneditarv").show();
-        $("#nombrev").val(aData.persona_data.var_persona_nombres);
-        $("#apellidov").val(aData.persona_data.var_persona_apellidos);
-        $("#edadv").val(aData.persona_data.int_persona_edad);
-        $(aData.telefono_data).each(function(index) {
-          var showtipotel, tel;
-          showtipotel = "";
-          if (this.int_telefono_tipo === 1) {
-            showtipotel = "Celular";
-          } else {
-            showtipotel = "Fijo";
-          }
-          tel = {
-            "numero": this.var_telefono_codigo + this.var_telefono,
-            "tipo": showtipotel,
-            "btn_elim": getActionButtons("001"),
-            "id": this.int_telefono_id,
-            "tipo_val": this.int_telefono_tipo,
-            "codigo": this.var_telefono_codigo,
-            "tel": this.var_telefono
-          };
-          return TelefonoVTable.fnAddData(tel);
-        });
-        return $("#invitadov").val(aData.persona_data.var_persona_invitado);
-      } else {
-        cargarUbigeo(ubigeos, "distrito", "provincia", "departamento", aData.distrito, aData.provincia, aData.departamento);
-        $("#miembro").show();
-        $("#btneditar_Miembro").show();
-        $("#nombre").val(aData.persona_data.var_persona_nombres);
-        $("#apellido").val(aData.persona_data.var_persona_apellidos);
-        $("#edad").val(aData.persona_data.int_persona_edad);
-        $("#estado_civil").val(aData.persona_data.var_persona_estado);
-        $("#sexo").val(aData.persona_data.var_persona_sexo);
-        $("#fec_nac").val(aData.fecnacimiento);
-        $("#dni").val(aData.persona_data.var_persona_dni);
-        $("#ocupacion").val(aData.persona_data.var_persona_ocupacion);
-        $("#profesion").val(aData.persona_data.var_persona_profesion);
-        $("#idpersona").val(aData.persona_data.int_persona_id);
-        $(aData.telefono_data).each(function(index) {
-          var showtipotel, tel;
-          showtipotel = "";
-          if (this.int_telefono_tipo === 1) {
-            showtipotel = "Celular";
-          } else {
-            showtipotel = "Fijo";
-          }
-          tel = {
-            "numero": this.var_telefono_codigo + this.var_telefono,
-            "tipo": showtipotel,
-            "btn_elim": getActionButtons("001"),
-            "id": this.int_telefono_id,
-            "tipo_val": this.int_telefono_tipo,
-            "codigo": this.var_telefono_codigo,
-            "tel": this.var_telefono
-          };
-          return TelefonoTable.fnAddData(tel);
-        });
-        $("#direccion").val(aData.direccion.var_direccion_descripcion);
-        $("#referencia").val(aData.direccion.var_direccion_referencia);
-        $("#_lugar").val(aData.persona_data.lugar_id);
-        $("#fec_conversion").val(aData.convertido);
-        $("#email").val(aData.persona_data.var_persona_email);
-        return $("#invitado").val(aData.persona_data.var_persona_invitado);
-      }
-    });
+            index = $(PersonaTable.fnGetData()).getIndexObj(aData, 'id');
+            {% if is_granted('ROLE_GANAR')  %}
+                acciones = getActionButtons("111");
+            {% else %}
+                acciones = getActionButtons("010");
+            {% endif %}
+            PersonaTable.fnUpdate(acciones, index, 6);
+            $(nRow).find('a').tooltip('hide');
+            $(nRow).find('.delete-row').click(function(event) {
+                    event.preventDefault();
+                        root.SelectToDrop = aData.id;
+                        
+                        return enviar('{{path('ae_elimina_persona')}}', { "formulario": aData.id }, SuccessFunction, null);
+  
+                });
+            $(nRow).find('.ver_row').click(function(event) {
+                event.preventDefault();
+                 var route = '{{path('ae_gana_persona_vista',{'id': 'nom'})}}';            
+                 var rutas = route.replace('nom',aData.id);
+                 console.log(rutas);
+                 window.open(rutas,'1359563086883','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
+            });
+            return $(nRow).find('.edit_row').click(function(event) {
+                event.preventDefault();
+     
+            });
   };
 
         
@@ -385,23 +278,7 @@
 		$("#form").submit();
             });
         
-            $('#persona tbody').click(function(event){
-                $(oTable.fnSettings().aoData).each(function(){
-                    $(this.nTr).removeClass('row_selected');
-                });
-                
-                $(event.target.parentNode).addClass('row_selected');               
-                trselected = $(event.target.parentNode);                
-                var tds = $(trselected).find('td');                
-                values = [];  
-                $.each(tds, function(index, item) {
-                    values.push(item.innerHTML); 
-                }); 
-                $('#select').css({'display':'block'});
-            });
-            
-            //click handler para eliminar
-          
+           
             
 	 });
   

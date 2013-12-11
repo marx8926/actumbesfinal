@@ -6,10 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
@@ -24,8 +22,7 @@ class DefaultController extends Controller
         //$usuario = $this->getUser();
                
         if($usuario->isEnabled()=="1")
-        {
-             
+        {             
             $response = $this->render('AEConfigurarBundle:Default:index.html.twig');        
             $response->setSharedMaxAge(60);
             $response->setPublic();        
@@ -34,5 +31,26 @@ class DefaultController extends Controller
         else {
                return $this->redirect($this->generateUrl('logout'));
         }
+    }
+    
+    public function inicioAction()
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $securityContext = $this->get('security.context');
+
+        // get the login error if there is one
+        if ($session->isStarted() === TRUE) {
+            //$error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+            return $this->redirect($this->generateUrl('main'));
+            
+            
+        } else {
+           // $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+           return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
+      
+
     }
 }
