@@ -25,6 +25,7 @@ use FOS\UserBundle\FOSUserBundle;
 use FOS\UserBundle\Model\UserManager;
 use AE\DataBundle\Entity\NivelCrecimiento;
 use AE\DataBundle\Entity\Persona;
+use AE\DataBundle\Entity\Lider;
 
 class UsuariosController extends Controller {
     //put your code here
@@ -117,6 +118,8 @@ class UsuariosController extends Controller {
                     $niv = $repo_nivel->findOneBy(array('persona' => $id, 'intNivelcrecimientoEscala' => $cont));                    
                     
                     //return new JsonResponse($niv == NULL);
+                    
+                    
                     if($niv == NULL)
                     {
                         
@@ -131,6 +134,22 @@ class UsuariosController extends Controller {
                         
                         $em->persist($n);
                         $em->flush();
+                        
+                        if($value =='ROLE_LIDER_RED')
+                        {
+                            $lider = new Lider();
+                            $lider->setActivo(TRUE);
+                            $lider->setDependencia(0);
+                            $lider->setFecha(new \DateTime());
+                            $lider->setIntLider12(1);
+                            $lider->setIntLider144(0);
+                            $lider->setIntLider1728(0);
+                            $lider->setIntLider20736(0);
+                            $lider->setPersona($persona);
+                            
+                            $em->persist($lider);
+                            $em->flush();
+                        }
                         
                     }
                     else {

@@ -8,10 +8,14 @@
     <field name="intLider144" type="integer" column="int_lider_144" nullable="true"/>
     <field name="intLider1728" type="integer" column="int_lider_1728" nullable="true"/>
     <field name="intLider20736" type="integer" column="int_lider_20736" nullable="true"/>
-    <field name="pastorId" type="bigint" column="pastor_id" nullable="true"/>
     <field name="fecha" type="date" column="fecha" nullable="true"/>
     <field name="activo" type="boolean" column="activo" nullable="true"/>
     <field name="dependencia" type="bigint" column="dependencia" nullable="true"/>
+    <many-to-one field="red" target-entity="Red">
+      <join-columns>
+        <join-column name="red_id" referenced-column-name="int_red_id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="persona" target-entity="Persona">
       <join-columns>
         <join-column name="persona_id" referenced-column-name="id"/>

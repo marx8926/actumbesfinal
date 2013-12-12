@@ -51,13 +51,6 @@ class Lider
     private $intLider20736;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="pastor_id", type="bigint", nullable=true)
-     */
-    private $pastorId;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="date", nullable=true)
@@ -87,6 +80,16 @@ class Lider
      * })
      */
     private $persona;
+
+    /**
+     * @var \Red
+     *
+     * @ORM\ManyToOne(targetEntity="Red")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="red_id", referencedColumnName="int_red_id")
+     * })
+     */
+    private $red;
 
 
 
@@ -193,29 +196,6 @@ class Lider
     }
 
     /**
-     * Set pastorId
-     *
-     * @param integer $pastorId
-     * @return Lider
-     */
-    public function setPastorId($pastorId)
-    {
-        $this->pastorId = $pastorId;
-    
-        return $this;
-    }
-
-    /**
-     * Get pastorId
-     *
-     * @return integer 
-     */
-    public function getPastorId()
-    {
-        return $this->pastorId;
-    }
-
-    /**
      * Set fecha
      *
      * @param \DateTime $fecha
@@ -305,5 +285,28 @@ class Lider
     public function getPersona()
     {
         return $this->persona;
+    }
+
+    /**
+     * Set red
+     *
+     * @param \AE\DataBundle\Entity\Red $red
+     * @return Lider
+     */
+    public function setRed(\AE\DataBundle\Entity\Red $red = null)
+    {
+        $this->red = $red;
+    
+        return $this;
+    }
+
+    /**
+     * Get red
+     *
+     * @return \AE\DataBundle\Entity\Red 
+     */
+    public function getRed()
+    {
+        return $this->red;
     }
 }

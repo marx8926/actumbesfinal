@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
 use AE\DataBundle\Entity\NivelCrecimiento;
 use AE\DataBundle\Entity\Persona;
+use AE\DataBundle\Entity\Lider;
 use Doctrine\ORM\TransactionRequiredException;
 use FOS\UserBundle\FOSUserBundle;
 use FOS\UserBundle\Model\UserManager;

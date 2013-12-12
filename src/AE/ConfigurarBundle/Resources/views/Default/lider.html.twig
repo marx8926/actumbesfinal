@@ -49,8 +49,7 @@
                                                 <label class="checkbox" >
                                                     <input type="checkbox" id="doce" name="doce">
                                                 </label>
-                                                <select id="doce_lista" name="doce_lista" class="cho">
-                                                    <option >MAs</option>
+                                                <select id="doce_lista" name="doce_lista">
                                                 </select>
                                             </div>                                          
                                         </div>
@@ -217,19 +216,22 @@
   
             });
             
-                    url = '{{path( 'services_lider_red')}}';
+             $('#red_lista').change(function(){
              
-                     personas = getAjaxObject(url);
-                     
-                     $("#lider").autocomplete({
-                        source: personas,
-                        select: function(event, ui) {
-                            $("#lider_id").val(ui.item.id);
-                            $("#lider").val(ui.item.label);
-                            return false;
-                        }
-                    });
-          
+                red = $("#red_lista").val();
+                console.log(red);
+                if(red != '-1')
+                {
+                    url = '{{path( 'service_lider_red_by_red',{'red':'nom'})}}';
+                    url = url.replace('nom',red);
+                   
+
+                    doce = getAjaxObject(url);
+                    cargarSelect(doce,'doce_lista','id','label');
+                }
+            });
+            
+            
         } );
 
        </script>

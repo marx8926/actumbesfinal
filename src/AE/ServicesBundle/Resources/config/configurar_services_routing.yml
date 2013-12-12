@@ -16,3 +16,6 @@ service_lider_celula_all:
     requirements:
         _method: GET
     
+service_lider_red_by_red:
+    pattern: /lider_red/{red}
+    defaults: {_controller: AEServicesBundle:ConfigurarServices:lider_red}
