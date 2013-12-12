@@ -173,7 +173,7 @@ class UsuariosController extends Controller {
                 else
                 {
                     
-                    $niv = $repo_nivel->findOneBy(array('persona' => $id, 'intNivelcrecimientoEscala' => $cont));
+                    $niv = $repo_nivel->findOneBy(array('persona' => $id, 'intNivelcrecimientoEscala' => ($cont-1)));
                     
                     if($niv != NULL)
                     {
