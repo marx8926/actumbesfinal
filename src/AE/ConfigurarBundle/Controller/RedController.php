@@ -78,8 +78,9 @@ class RedController extends Controller {
             $r->setInicio(new \DateTime($fecha));
             if($datos['lider_id'] != '-1')
                 $r->setLider($em->getRepository('AEDataBundle:Persona')->find($datos['lider_id']));
+            if(strlen($datos['pastor'])>0)
+                $r->setPastor($datos['pastor']);
             
-            $r->setPastor($datos['pastor']);
             $r->setTipo($datos['tipo_red']);
             $r->setId($datos['red']);
            
