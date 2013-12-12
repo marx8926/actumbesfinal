@@ -7,10 +7,11 @@
  */
 
 /**
- * Description of RedController
+ * Description of CelulaController
  *
  * @author Marks-Calderon
  */
+
 namespace AE\ConfigurarBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,23 +21,19 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
 use AE\DataBundle\Entity\Red;
+use AE\DataBundle\Entity\Celula;
 use AE\DataBundle\Entity\Ubicacion;
 
-class RedController extends Controller {
+class CelulaController extends Controller {
     //put your code here
-    public function red_viewAction()
-    {
-        return $this->render('AEConfigurarBundle:Default:redes.html.twig');
-    }
     
-    public function editarAction()
-    {
+    public function viewAction(){
         
+        return $this->render('AEConfigurarBundle:Default:celulas.html.twig');
     }
     
-    public function informacionAction()
-    {
-        return $this->render('AEConfigurarBundle:Default:informacion_red.html.twig');
+    public function editAction(){
+        
     }
     
     public function saveAction()
@@ -50,8 +47,6 @@ class RedController extends Controller {
         $em->beginTransaction();
         
         try{
-            $r = new Red();
-            $r->setActivo(TRUE);
             
             $dis = $datos['distrito_lista'];
             
@@ -65,25 +60,38 @@ class RedController extends Controller {
             $ubicacion->setUbigeo($distrito);                            
             $em->persist($ubicacion);
             $em->flush();
-                
-            $r->setIdUbicacion($ubicacion);
-            $r->setActivo(TRUE);
+            
+            $red = $em->getRepository('AEDataBundle:Red')->find($datos['red_lista']);
+            
+            $c = new Celula();
+            
+            $c->setActivo(TRUE);
+            $c->setDia($datos['dia']);
+            $c->setHora($datos['hora']);
+            $c->setFamilia($datos['familia']);
+           
+            
+            $c->setIdRed($red);
+            
+            $c->setIdUbicacion($ubicacion);
+            $c->setTelefono($datos['telefono']);
+            $c->setTipo($datos['tipo']);
             
             $fechaConv_b = $datos['creacion'];
             
             $fechaConv_a = explode('/', $fechaConv_b, 3);
             
             $fecha = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0]; 
+            $c->setFechaCreacion(new \DateTime($fecha));
                 
-            $r->setInicio(new \DateTime($fecha));
-            if($datos['lider_id'] != '-1')
-                $r->setLider($em->getRepository('AEDataBundle:Persona')->find($datos['lider_id']));
             
-            $r->setPastor($datos['pastor']);
-            $r->setTipo($datos['tipo_red']);
-            $r->setId($datos['red']);
+            if($datos['lider_id'] != '-1')
+            {
+                $c->setPersona($em->getRepository('AEDataBundle:Persona')->find($datos['lider_id']));
+             
+            }
            
-            $em->persist($r);
+            $em->persist($c);
             $em->flush();
             
             $em->commit();
@@ -99,5 +107,10 @@ class RedController extends Controller {
         }
         
         return new JsonResponse($return);
+    }
+
+    
+    public function deleteAction(){
+        
     }
 }

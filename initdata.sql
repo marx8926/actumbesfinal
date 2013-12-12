@@ -63,3 +63,31 @@ CREATE OR REPLACE VIEW view_get_pastor_complete_all AS
    FROM persona p
    JOIN nivel_crecimiento n ON n.persona_id = p.id AND n.int_nivelcrecimiento_estadoactual = 1 AND n.int_nivelcrecimiento_escala = 11;
 
+
+ CREATE OR REPLACE FUNCTION get_niveles_complete_red(IN red integer, IN escala integer , IN estado integer,  OUT id bigint, OUT label text)
+  RETURNS SETOF record AS
+$BODY$
+BEGIN
+
+-- escala: 0 => 'ROLE_USER', 1 => 'ROLE_LIDER', 2 => 'ROLE_LIDER_RED', 3 =>'ROLE_CONSOLIDADOR', 
+-- 4 => 'ROLE_ESTUDIANTE', 5 => 'ROLE_DOCENTE', 6 => 'ROLE_GANAR',
+-- 7 => 'ROLE_CONSOLIDAR', 8 => 'ROLE_ENVIAR', 9=> 'ROLE_DISCIPULAR', 
+-- 10 => 'ROLE_TESORERIA', 11 => 'ROLE_PASTOR' , 12 =>'ROLE_ADMIN'
+
+-- estado: 0 desactivo 1 activo
+
+return query SELECT p.id, 
+    (p.nombre::text || ' '::text) || p.apellidos::text AS label
+   FROM persona p
+   JOIN nivel_crecimiento n ON n.persona_id = p.id AND n.int_nivelcrecimiento_estadoactual = estado AND n.int_nivelcrecimiento_escala = escala AND
+    p.red_id =red;
+
+return;
+ 
+END;$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 10000;
+
+
+

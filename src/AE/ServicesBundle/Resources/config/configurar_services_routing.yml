@@ -9,3 +9,10 @@ services_pastor:
   defaults: {_controller: AEServicesBundle:ConfigurarServices:lista_pastor}
   requirements:
     _method: GET
+    
+service_lider_celula_all:
+    pattern: /lider_celula_all/{red}
+    defaults: { _controller: AEServicesBundle:ConfigurarServices:lider_celula_all}
+    requirements:
+        _method: GET
+    

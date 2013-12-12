@@ -51,13 +51,6 @@ class Celula
     private $telefono;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_ubicacion", type="bigint", nullable=false)
-     */
-    private $idUbicacion;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="activo", type="boolean", nullable=true)
@@ -87,6 +80,26 @@ class Celula
      * })
      */
     private $idRed;
+
+    /**
+     * @var \Ubicacion
+     *
+     * @ORM\ManyToOne(targetEntity="Ubicacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_ubicacion", referencedColumnName="id")
+     * })
+     */
+    private $idUbicacion;
+
+    /**
+     * @var \Persona
+     *
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+     * })
+     */
+    private $persona;
 
 
 
@@ -193,29 +206,6 @@ class Celula
     }
 
     /**
-     * Set idUbicacion
-     *
-     * @param integer $idUbicacion
-     * @return Celula
-     */
-    public function setIdUbicacion($idUbicacion)
-    {
-        $this->idUbicacion = $idUbicacion;
-    
-        return $this;
-    }
-
-    /**
-     * Get idUbicacion
-     *
-     * @return integer 
-     */
-    public function getIdUbicacion()
-    {
-        return $this->idUbicacion;
-    }
-
-    /**
      * Set activo
      *
      * @param boolean $activo
@@ -305,5 +295,51 @@ class Celula
     public function getIdRed()
     {
         return $this->idRed;
+    }
+
+    /**
+     * Set idUbicacion
+     *
+     * @param \AE\DataBundle\Entity\Ubicacion $idUbicacion
+     * @return Celula
+     */
+    public function setIdUbicacion(\AE\DataBundle\Entity\Ubicacion $idUbicacion = null)
+    {
+        $this->idUbicacion = $idUbicacion;
+    
+        return $this;
+    }
+
+    /**
+     * Get idUbicacion
+     *
+     * @return \AE\DataBundle\Entity\Ubicacion 
+     */
+    public function getIdUbicacion()
+    {
+        return $this->idUbicacion;
+    }
+
+    /**
+     * Set persona
+     *
+     * @param \AE\DataBundle\Entity\Persona $persona
+     * @return Celula
+     */
+    public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
+    {
+        $this->persona = $persona;
+    
+        return $this;
+    }
+
+    /**
+     * Get persona
+     *
+     * @return \AE\DataBundle\Entity\Persona 
+     */
+    public function getPersona()
+    {
+        return $this->persona;
     }
 }

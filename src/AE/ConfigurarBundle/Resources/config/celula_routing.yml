@@ -1,0 +1,23 @@
+celula_view:
+    pattern: /celula_view
+    defaults: { _controller: AEConfigurarBundle:Celula:view}
+    requirements:
+        _method: GET
+        
+celula_edit:
+    pattern: /celula_edit
+    defaults: { _controller: AEConfigurarBundle:Celula:edit}
+    requirements:
+        _method: GET
+        
+celula_save:
+    pattern: /celula_save
+    defaults: { _controller: AEConfigurarBundle:Celula:save}
+    requirements:
+        _method: POST
+        
+celula_delete:
+    pattern: /celula_edit
+    defaults: { _controller: AEConfigurarBundle:Celula:delete}
+    requirements:
+        _method: GET

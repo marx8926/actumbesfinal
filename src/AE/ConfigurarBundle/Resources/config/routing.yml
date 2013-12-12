@@ -17,3 +17,6 @@ lider_configurar_routing:
     
 usuario_configurar_routing:
     resource: "@AEConfigurarBundle/Resources/config/usuario_routing.yml"
+    
+celula_configurar_routing:
+    resource: "@AEConfigurarBundle/Resources/config/celula_routing.yml"

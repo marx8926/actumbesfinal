@@ -55,4 +55,24 @@ class ConfigurarServicesController extends Controller {
        
         return $resultado;
     }
+    
+    public function lider_celula_allAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from get_niveles_complete_red(:red,:esc,:est)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        
+        // redes , escala, estado
+        
+        $smt->execute(array(':red' => $red, ':esc' => '1', ':est' => '1'));
+        
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
+       
+        return $resultado;
+    }
 }
