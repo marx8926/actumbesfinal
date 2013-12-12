@@ -163,10 +163,11 @@ class UsuariosController extends Controller {
                                    
                       //$user->addRole("ROLE_ADMIN");
                       
-                      $rol = $user->getRoles();
-                      $rol[] = $roles[$cont-1] ;
-                      $user->setRoles($rol);
-                      $userManager->updateUser($user);
+                     // $rol = $user->getRoles();
+                     // $rol[] = $roles[$cont-1] ;
+                     // $user->setRoles($rol);
+                       $user->addRole($roles[$cont-1]);
+                      //$userManager->updateUser($user);
                       
                       //$return=array("responseCode"=>200, "greeting"=>$user->getRoles());            
                       //return new JsonResponse($return); 
