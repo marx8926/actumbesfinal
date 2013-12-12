@@ -142,6 +142,13 @@ class Persona
     private $hora;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="asiste_celula", type="boolean", nullable=true)
+     */
+    private $asisteCelula;
+
+    /**
      * @var \Iglesia
      *
      * @ORM\ManyToOne(targetEntity="Iglesia")
@@ -582,6 +589,29 @@ class Persona
     public function getHora()
     {
         return $this->hora;
+    }
+
+    /**
+     * Set asisteCelula
+     *
+     * @param boolean $asisteCelula
+     * @return Persona
+     */
+    public function setAsisteCelula($asisteCelula)
+    {
+        $this->asisteCelula = $asisteCelula;
+    
+        return $this;
+    }
+
+    /**
+     * Get asisteCelula
+     *
+     * @return boolean 
+     */
+    public function getAsisteCelula()
+    {
+        return $this->asisteCelula;
     }
 
     /**

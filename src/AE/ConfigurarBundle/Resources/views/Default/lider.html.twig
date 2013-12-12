@@ -20,7 +20,7 @@
                 <div class="span12">
                     <div class="box">
                         <div class="box-head tabs">
-                            <h3>Célula perfiles</h3>
+                            <h3>Lideres perfiles</h3>
                             <ul class="nav nav-tabs">
                                 <li class='active'>
                                     <a href="#basic" data-toggle='tab'>Información Básica</a>
@@ -30,7 +30,7 @@
                             </ul>
                         </div>
                         <div class="box-content">
-                            <form action="#" class="form-horizontal" id="form_celula" name="form_celula" method="POST">
+                            <form action="#" class="form-horizontal" id="form_lider" name="form_lider" method="POST">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="basic">
                                     
@@ -47,7 +47,7 @@
                                             <label class="control-label">12</label>
                                             <div class="controls">
                                                 <label class="checkbox" >
-                                                    <input type="checkbox" id="doce" name="doce">
+                                                    <input type="checkbox" id="doce" name="doce" value="doce">
                                                 </label>
                                                 <select id="doce_lista" name="doce_lista">
                                                 </select>
@@ -58,9 +58,9 @@
                                             <label class="control-label">144</label>
                                             <div class="controls">
                                                 <label class="checkbox" >
-                                                    <input type="checkbox" id="ciento" name="ciento">
+                                                    <input type="checkbox" id="ciento" name="ciento" value="ciento">
                                                 </label>
-                                                <select id="ciento_lista" name="ciento_lista" class="cho">
+                                                <select id="ciento_lista" name="ciento_lista" >
                                                     
                                                 </select>
                                             </div>                                          
@@ -70,9 +70,9 @@
                                             <label class="control-label">1728</label>
                                             <div class="controls">
                                                 <label class="checkbox" >
-                                                    <input type="checkbox" id="mil" name="mil">
+                                                    <input type="checkbox" id="mil" name="mil" value="mil">
                                                 </label>
-                                                <select id="mil_lista" name="mil_lista" class="cho">
+                                                <select id="mil_lista" name="mil_lista" >
                                                     
                                                 </select>
                                             </div>                                          
@@ -84,9 +84,9 @@
                                             <label class="control-label">20736</label>
                                             <div class="controls">
                                                 <label class="checkbox" >
-                                                    <input type="checkbox" id="veinte" name="veinte">
+                                                    <input type="checkbox" id="veinte" name="veinte" value="veinte">
                                                 </label>
-                                                <select id="veinte_lista" name="veinte_lista" class="cho">
+                                                <select id="veinte_lista" name="veinte_lista">
                                                     
                                                 </select>
                                             </div>                                          
@@ -152,7 +152,7 @@
         
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
-                            "formulario": $("#form_red").serializeObject()
+                            "formulario": $("#form_lider").serializeObject()
                     };
                 };
 
@@ -162,7 +162,7 @@
                     
                     if(data.responseCode===200 ){          
                       
-                       $("#form_red").reset();
+                       $("#form_lider").reset();
                        
                        cargarSelect(redes, "red_lista", "int_red_id", "id");
                         
@@ -193,6 +193,9 @@
                     
                 };
 
+        checkFunction  = function(){
+            console.log($( "input:checked" ).val());
+        };
     
 	$(document).ready(function() {
             
@@ -203,16 +206,13 @@
                           
             cargarSelect(redes, "red_lista", "int_red_id", "id");
             
-            pastores = getAjaxObject('{{path('services_pastor')}}');
-                          
-            cargarSelect(pastores, "pastor", "id", "label");
             
-            $("#form_red").submit(function(event){
+            $("#form_lider").submit(function(event){
                 
                  event.preventDefault();
                  PrepararDatos();
                  console.log(root.DatosEnviar);
-                 return enviar('{{path('red_save')}}', root.DatosEnviar, SuccessFunction, null);
+                 return enviar('{{path('lider_save')}}', root.DatosEnviar, SuccessFunction, null);
   
             });
             
@@ -230,7 +230,7 @@
                     cargarSelect(doce,'doce_lista','id','label');
                 }
             });
-            
+            $( "input[type=checkbox]" ).on( "click", checkFunction );
             
         } );
 

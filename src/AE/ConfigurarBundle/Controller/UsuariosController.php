@@ -132,7 +132,7 @@ class UsuariosController extends Controller {
                         $em->persist($n);
                         $em->flush();
                         
-                        if($value =='ROLE_LIDER_RED')
+                        if($value =='lider_red')
                         {
                             $lider = new Lider();
                             $lider->setActivo(TRUE);
@@ -143,6 +143,7 @@ class UsuariosController extends Controller {
                             $lider->setIntLider1728(0);
                             $lider->setIntLider20736(0);
                             $lider->setPersona($persona);
+                            $lider->setRed($persona->getRed());
                             
                             $em->persist($lider);
                             $em->flush();

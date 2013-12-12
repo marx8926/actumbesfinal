@@ -60,8 +60,7 @@ class RegistrarController  extends Controller {
                 $distrito = $datos['distrito_lista'];
                 
                 $red = $datos['red_lista'];
-                if(strcmp($red, '-1')!=0)
-                    $celula = $datos['celula_lista'];
+              
             
                 $fechaConv_b = $datos['inputFechaConversion'];
             
@@ -128,23 +127,24 @@ class RegistrarController  extends Controller {
                 $persona->setLugar($lug);
                 
                 $redU = NULL;
-                $celulaU = NULL;
                 
                 if(strcmp($red, '-1')!=0)
                 {
                     //red
                     $con2 = $em->getRepository('AEDataBundle:Red');
                     $redU = $con2->findOneBy(array('intRedId'=>$red));
-                
-                    //celula
-                    if(strlen($celula) > 0)
-                    {
-                        $con3 = $em->getRepository('AEDataBundle:Celula');
-                        $celulaU = $con3->findOneBy(array('id'=>$celula));                
-                    }
-                    
+                  
                 }
-                
+                $celulaU=NULL;
+                $cell = $datos['celula'];
+                if($cell === 'si')
+                {
+                    $celula = TRUE;
+                }
+                else {
+                    $celula = FALSE;
+                }
+                $persona->setAsisteCelula($celula);
                 $persona->setRed($redU); 
                 $persona->setActivo(true);
                 $em->persist($persona);
