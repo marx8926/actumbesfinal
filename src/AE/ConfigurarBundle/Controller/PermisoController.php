@@ -77,7 +77,7 @@ class PermisoController extends Controller {
                 
                 if(array_key_exists($value, $datos))
                 {                  
-                    $niv = $repo_nivel->findOneBy(array('persona' => $id, 'intNivelcrecimientoEscala' => $cont));                    
+                    $niv = $repo_nivel->findOneBy(array('persona' => $id, 'intNivelcrecimientoEscala' => ( $cont - 1)));                    
                     
                     //return new JsonResponse($niv == NULL);
                     if($niv == NULL)

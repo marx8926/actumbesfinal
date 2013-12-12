@@ -115,21 +115,18 @@ class UsuariosController extends Controller {
                 
                 if(array_key_exists($value, $datos))
                 {                  
-                    $niv = $repo_nivel->findOneBy(array('persona' => $id, 'intNivelcrecimientoEscala' => $cont));                    
-                    
-                    //return new JsonResponse($niv == NULL);
-                    
-                    
+                    $temp = ($cont-1);
+                    $niv = $repo_nivel->findOneBy(array('persona' => $id, 'intNivelcrecimientoEscala' => $temp) );                    
+                   
                     if($niv == NULL)
                     {
                         
                         $n = new NivelCrecimiento();
-                        //$persona = new Persona();
                         $n->setRed($persona->getRed());
                         $n->setCreacion(new \DateTime());                      
 
                         $n->setPersona($persona);                        
-                        $n->setIntNivelcrecimientoEscala($cont);
+                        $n->setIntNivelcrecimientoEscala($cont-1);
                         $n->setIntNivelcrecimientoEstadoactual(1);
                         
                         $em->persist($n);

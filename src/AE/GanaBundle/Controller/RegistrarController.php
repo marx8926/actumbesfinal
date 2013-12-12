@@ -80,6 +80,11 @@ class RegistrarController  extends Controller {
                 $hora = $datos['inputHora'];     
                 
                 $ganado = $datos['ganador_id'];
+                if($ganado == '-1')
+                {
+                    $ganado = NULL;
+                }
+                
                 
                 $prev_div = $em->getRepository('AEDataBundle:Ubigeos');
                 $ubigeo = $prev_div->findOneBy(array('intUbigeoId'=>$distrito));
@@ -132,7 +137,7 @@ class RegistrarController  extends Controller {
                     $redU = $con2->findOneBy(array('intRedId'=>$red));
                 
                     //celula
-                    if(strcmp($celula, '-1')!=0)
+                    if(strlen($celula) > 0)
                     {
                         $con3 = $em->getRepository('AEDataBundle:Celula');
                         $celulaU = $con3->findOneBy(array('id'=>$celula));                

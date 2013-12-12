@@ -36,6 +36,10 @@ class LiderController extends Controller {
         $datos =$request->request->get('formulario');        
         $em = $this->getDoctrine()->getManager();
         
+        $fechaConv_b = $datos['creacion'];            
+        $fechaConv_a = explode('/', $fechaConv_b, 3);            
+        $fecha = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0];
+        
         $em->beginTransaction();
         
         try{
@@ -49,33 +53,40 @@ class LiderController extends Controller {
                 $persona = $em->getRepository('AEDataBundle:Persona')->find($doce);
                 //$net = new Red();
                 
-                //asignamos a la red
-                $lider_red = new Lider();
-                $lider_red->setIntLider12(1);
-                $lider_red->setIntLider144(0);
-                $lider_red->setIntLider1728(0);
-                $lider_red->setIntLider20736(0);
+                if($net->getLider() != $persona) //cambiamos de lider de red
+                {
+                        //asignamos a la red
+                        $lider_red = new Lider();
+                        $lid = $em->getRepository('AEDataBundle:Lider')->findOneBy(array('persona' => $doce));
+                        if($lid == NULL)
+                        {
+                            $lider_red = new Lider();
+                            $lider_red->setIntLider12(1);
+                            $lider_red->setIntLider144(0);
+                            $lider_red->setIntLider1728(0);
+                            $lider_red->setIntLider20736(0);
+                            $lider_red->setFecha(new \DateTime($fecha));
+                            $lider_red->setPastorId($net->getPastor());
+                            $lider_red->setActivo(TRUE);
+                            $lider_red->setPersona($persona);
+                            $lider_red->setDependencia(0);
                 
-                $fechaConv_b = $datos['creacion'];
-            
-                $fechaConv_a = explode('/', $fechaConv_b, 3);
-            
-                $fecha = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0]; 
-                $lider_red->setFecha(new \DateTime($fecha));
-                $lider_red->setPastorId($net->getPastor());
-                $lider_red->setActivo(TRUE);
-                $lider_red->setPersona($persona);
-                $lider_red->setDependencia(0);
-                
-                $em->persist($lider_red);
-                $em->flush();
-                
-                //$net = new Red();
-                $net->setLider($persona);
-                $em->persist($net);
-                $em->flush();
-                
-                
+                            $em->persist($lider_red);
+                            $em->flush();
+                        }
+                        else
+                        {
+                           $lider_red = $lid;
+                        }
+                        
+                        $net->setLider($persona);
+                        $em->persist($net);
+                        $em->flush();
+                }
+                else { //mantenemos al lider de red
+                    
+                }
+       
             }
             elseif (arra_key_exists('ciento',$datos)) {
             
