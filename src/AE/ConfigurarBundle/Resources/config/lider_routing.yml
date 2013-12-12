@@ -1,2 +1,23 @@
-## YAML Template.
----
+lider_view:
+    pattern: /lider_view
+    defaults: { _controller: AEConfigurarBundle:Lider:view}
+    requirements:
+        _method: GET
+        
+lider_edit:
+    pattern: /lider_edit
+    defaults: { _controller: AEConfigurarBundle:Lider:edit}
+    requirements:
+        _method: POST
+        
+lider_save:
+    pattern: /lider_save
+    defaults: { _controller: AEConfigurarBundle:Lider:save}
+    requirements:
+        _method: POST
+        
+lider_delete:
+    pattern: /lider_delete
+    defaults: { _controller: AEConfigurarBundle:Lider:delete}
+    requirements:
+        _method: GET

@@ -22,4 +22,22 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class LiderController extends Controller {
     //put your code here
+    public function viewAction()
+    {
+        return $this->render('AEConfigurarBundle:Default:lider.html.twig');
+    }
+    
+    public function saveAction()
+    {
+        
+    }
+    public function editAction()
+    {
+        
+    }
+    public function deleteAction()
+    {
+        
+    }
+    
 }
