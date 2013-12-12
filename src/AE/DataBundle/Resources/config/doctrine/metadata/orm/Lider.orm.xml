@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Lider" table="lider">
+    <id name="intLiderId" type="bigint" column="int_lider_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="intLider12" type="integer" column="int_lider_12" nullable="true"/>
+    <field name="intLider144" type="integer" column="int_lider_144" nullable="true"/>
+    <field name="intLider1728" type="integer" column="int_lider_1728" nullable="true"/>
+    <field name="intLider20736" type="integer" column="int_lider_20736" nullable="true"/>
+    <field name="pastorId" type="bigint" column="pastor_id" nullable="true"/>
+    <field name="fecha" type="date" column="fecha" nullable="true"/>
+    <field name="activo" type="boolean" column="activo" nullable="true"/>
+    <field name="dependencia" type="bigint" column="dependencia" nullable="true"/>
+    <many-to-one field="persona" target-entity="Persona">
+      <join-columns>
+        <join-column name="persona_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
