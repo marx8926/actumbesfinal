@@ -17,5 +17,17 @@ service_lider_celula_all:
         _method: GET
     
 service_lider_red_by_red:
+    pattern: /lideres_red/{red}
+    defaults: {_controller: AEServicesBundle:ConfigurarServices:lideres_red}
+    
+service_get_lider_red:
     pattern: /lider_red/{red}
     defaults: {_controller: AEServicesBundle:ConfigurarServices:lider_red}
+    
+service_get_lideres_celula_sinaginar:
+    pattern: /lideres_celula_sinasignar/{red}
+    defaults: {_controller: AEServicesBundle:ConfigurarServices:lideres_celula_sinasignar}
+    
+service_get_lider_libre_antecesor_red_sinasignar:
+    pattern: /lider_libre_antecesor_red_sinasignar/{red}/{padre}
+    defaults: {_controller: AEServicesBundle:ConfigurarServices:lider_libre_antecesor_red_sinasignar}

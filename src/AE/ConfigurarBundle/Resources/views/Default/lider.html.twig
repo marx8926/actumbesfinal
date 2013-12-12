@@ -43,22 +43,23 @@
                                             </div>
                                         </div>
                                     
-                                        <div class="control-group">                                            
-                                            <label class="control-label">12</label>
+                                        <div class="control-group" id="doze">                                            
+                                            <label class="control-label"></label>
                                             <div class="controls">
-                                                <label class="checkbox" >
-                                                    <input type="checkbox" id="doce" name="doce" value="doce">
+                                                <label class="radio">
+                                                    <input type="radio" id="nivel" name="nivel" value="doce"> 12
                                                 </label>
+                                                
                                                 <select id="doce_lista" name="doce_lista">
                                                 </select>
                                             </div>                                          
                                         </div>
                                     
-                                        <div class="control-group">                                            
-                                            <label class="control-label">144</label>
+                                        <div class="control-group" id="cien">                                            
+                                            <label class="control-label"></label>
                                             <div class="controls">
-                                                <label class="checkbox" >
-                                                    <input type="checkbox" id="ciento" name="ciento" value="ciento">
+                                                <label class="radio">
+                                                    <input type="radio" id="nivel" name="nivel" value="ciento"> 144
                                                 </label>
                                                 <select id="ciento_lista" name="ciento_lista" >
                                                     
@@ -66,11 +67,11 @@
                                             </div>                                          
                                         </div>
                                     
-                                        <div class="control-group">                                            
-                                            <label class="control-label">1728</label>
+                                        <div class="control-group" id="miles">                                            
+                                            <label class="control-label"></label>
                                             <div class="controls">
-                                                <label class="checkbox" >
-                                                    <input type="checkbox" id="mil" name="mil" value="mil">
+                                                <label class="radio">
+                                                    <input type="radio" id="nivel" name="nivel" value="mil"> 1728
                                                 </label>
                                                 <select id="mil_lista" name="mil_lista" >
                                                     
@@ -80,13 +81,13 @@
                                     
                                         
                                     
-                                        <div class="control-group">                                            
-                                            <label class="control-label">20736</label>
+                                        <div class="control-group" id="veintes">                                            
+                                            <label class="control-label"></label>
                                             <div class="controls">
-                                                <label class="checkbox" >
-                                                    <input type="checkbox" id="veinte" name="veinte" value="veinte">
+                                               <label class="radio">
+                                                    <input type="radio" id="nivel" name="nivel" value="veinte"> 20736
                                                 </label>
-                                                <select id="veinte_lista" name="veinte_lista">
+                                                <select id="veinte_lista" name="veinte_lista" >
                                                     
                                                 </select>
                                             </div>                                          
@@ -164,7 +165,7 @@
                       
                        $("#form_lider").reset();
                        
-                       cargarSelect(redes, "red_lista", "int_red_id", "id");
+                       //cargarSelect(redes, "red_lista", "int_red_id", "id");
                         
                         alert('Registro Completado');
                        
@@ -176,6 +177,10 @@
                             return false;
                             }
                         });
+                        $("#doce_lista").css("display", "none");
+                        $("#ciento_lista").css("display", "none");
+                        $("#mil_lista").css("display", "none");
+                        $("#veinte_lista").css("display", "none");
                         
                         $("#lider_id").val(-1);
                         
@@ -193,9 +198,125 @@
                     
                 };
 
-        checkFunction  = function(){
-            console.log($( "input:checked" ).val());
+       lider_red_xregistrarFunction = function(){
+             
+                red = $("#red_lista").val();
+                
+                if(red != '-1')
+                {
+                    url = '{{path( 'service_lider_red_by_red',{'red':'nom'})}}';
+                    url = url.replace('nom',red);
+                   
+
+                    doce = getAjaxObject(url);
+                    console.log(doce.length);
+                    if(doce.length > 0)
+                    {
+                        cargarSelect(doce,'doce_lista','id','label');
+                        $('#doce_lista').css("display","block");
+                    }
+                    else $('#doce_lista').css("display","none");
+                }
+            };
+            
+         function lideres_sinaginarFunction(idselect)
+        {
+            red = $("#red_lista").val();
+                
+                if(red != '-1')
+                {
+                    url = '{{path( 'service_get_lideres_celula_sinaginar',{'red':'nom'})}}';
+                    url = url.replace('nom',red);
+                    ciento = getAjaxObject(url);
+                    
+                    console.log(url);
+                    if(doce.length > 0)
+                    {
+                        cargarSelect(ciento,idselect,'id','label');
+                        $('#'+idselect).css("display","block");
+                    }
+                    else $('#'+idselect).css("display","none");
+                }
+                else
+                {
+                    $('#'+idselect).css("display","none");
+                }
         };
+        
+        //cargar funciones
+        function lideres_padre_red(idselect, red, padre)
+        {
+             red = $("#red_lista").val();
+                
+                if(red != '-1')
+                {
+                    url = '{{path( 'service_get_lider_libre_antecesor_red_sinasignar',{'red':'nom','padre':'father'})}}';
+                    url1 = url.replace('nom',red);
+                    url1 = url1.replace('father',padre);
+                    
+                    lista = getAjaxObject(url1);
+                    cargarSelect(lista,idselect,'id','label');
+                     $('#'+idselect).css("display","block");
+                }
+                
+        }
+        lider_redFunction = function(entrada) //recupera al encargado del lider de red
+        {
+            red = $("#red_lista").val();
+                
+                if(red != '-1')
+                {
+                    url = '{{path( 'service_get_lider_red',{'red':'nom'})}}';
+                    url = url.replace('nom',red);
+                    doce = getAjaxObject(url);
+                    console.log(doce.length);
+                    if(doce.length > 0)
+                    {
+                        cargarSelect(doce,'doce_lista','id','label');
+                        $('#doce_lista').css("display","block");
+                        if(entrada == '1') //1 para lideres sin asignar
+                            lideres_sinaginarFunction('ciento_lista');
+                        else{
+                            lideres_padre_red('ciento_lista', red,$("#doce_lista").val());
+                            lideres_sinaginarFunction('mil_lista');
+                            
+                        }
+                    }
+                    else $('#doce_lista').css("display","none");
+                }
+                else
+                {
+                    $('#doce_lista').css("display","none");
+                }
+        };
+       
+        radioFunction  = function(){
+                if(this.value === 'doce')
+                {
+                    lider_red_xregistrarFunction();
+                    $('#red_lista').change(lider_red_xregistrarFunction);
+                    $("#ciento_lista").css("display", "none");
+                    $("#mil_lista").css("display", "none");
+                     $("#veinte_lista").css("display", "none");
+                }
+                if(this.value === 'ciento')
+                {
+                    lider_redFunction();
+                    $('#red_lista').change(lider_redFunction);
+                   
+                    $("#mil_lista").css("display", "none");
+                    $("#veinte_lista").css("display", "none");
+                    
+                }
+                if(this.value === 'mil')
+                {
+                    lider_redFunction();
+                }
+                if(this.value === 'veinte')
+                {
+                    
+                }
+            }
     
 	$(document).ready(function() {
             
@@ -205,6 +326,12 @@
             redes = getAjaxObject('{{path('services_red')}}');
                           
             cargarSelect(redes, "red_lista", "int_red_id", "id");
+            
+            $("#doce_lista").css("display", "none");
+            $("#ciento_lista").css("display", "none");
+            $("#mil_lista").css("display", "none");
+            $("#veinte_lista").css("display", "none");
+            
             
             
             $("#form_lider").submit(function(event){
@@ -216,21 +343,9 @@
   
             });
             
-             $('#red_lista').change(function(){
              
-                red = $("#red_lista").val();
-                console.log(red);
-                if(red != '-1')
-                {
-                    url = '{{path( 'service_lider_red_by_red',{'red':'nom'})}}';
-                    url = url.replace('nom',red);
-                   
-
-                    doce = getAjaxObject(url);
-                    cargarSelect(doce,'doce_lista','id','label');
-                }
-            });
-            $( "input[type=checkbox]" ).on( "click", checkFunction );
+           
+            $("input[type=radio][name=nivel]").change(radioFunction);
             
         } );
 

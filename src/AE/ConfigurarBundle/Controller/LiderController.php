@@ -44,20 +44,31 @@ class LiderController extends Controller {
         
         try{
             
-            if(array_key_exists('doce', $datos))
-            {
-                $doce = $datos['doce_lista'];
-                $red = $datos['red_lista'];
+            $nivel = $datos['nivel'];
+            
+            $doce = $datos['doce_lista'];
+            $red = $datos['red_lista'];
                 
-                $net = $em->getRepository('AEDataBundle:Red')->find($red);
-                $persona = $em->getRepository('AEDataBundle:Persona')->find($doce);
-                //$net = new Red();
+            $net = $em->getRepository('AEDataBundle:Red')->find($red);
+            $repo_persona = $em->getRepository('AEDataBundle:Persona');
+            $repo_lider = $em->getRepository('AEDataBundle:Lider');
+            
+            
+            
+            if($nivel == 'doce')
+            {
+                $persona = $repo_persona->find($doce);
                 
                 if($net->getLider() != $persona) //cambiamos de lider de red
                 {
-                        //asignamos a la red
-                        $lider_red = new Lider();
-                        $lid = $em->getRepository('AEDataBundle:Lider')->findOneBy(array('persona' => $doce));
+                    //creando un nuevo lider
+                    
+                    //cambiado de red al lider
+                    
+                    //asignamos a la red
+                        
+                        $lid = $repo_lider->findOneBy(array('persona' => $doce));
+                        
                         if($lid == NULL)
                         {
                             $lider_red = new Lider();
@@ -66,10 +77,10 @@ class LiderController extends Controller {
                             $lider_red->setIntLider1728(0);
                             $lider_red->setIntLider20736(0);
                             $lider_red->setFecha(new \DateTime($fecha));
-                            $lider_red->setPastorId($net->getPastor());
                             $lider_red->setActivo(TRUE);
                             $lider_red->setPersona($persona);
                             $lider_red->setDependencia(0);
+                            $lider_red->setRed($net);
                 
                             $em->persist($lider_red);
                             $em->flush();
@@ -82,26 +93,111 @@ class LiderController extends Controller {
                         $net->setLider($persona);
                         $em->persist($net);
                         $em->flush();
+                        
+                         $return=array("responseCode"=>200, "greeting"=>"lider");
                 }
-                else { //mantenemos al lider de red
-                    
-                }
-       
-            }
-            elseif (arra_key_exists('ciento',$datos)) {
-            
-            }
-            elseif (arra_key_exists('mil',$datos)) {
                 
             }
-            elseif (arra_key_exists('ciento',$datos)){
+            elseif ($nivel == 'ciento') {
+              $ciento = $datos['ciento_lista'];
+              $persona = $repo_persona->find($ciento);
+              
+              $antecesor = $repo_lider->findOneBy(array('persona' => $doce, 'intLider12' => '1', 'red' => $red));
+              
+              if($antecesor != NULL)
+              {
+                  $he = $repo_lider->findOneBy(array('persona' => $ciento, 'intLider144' => '1', 'red' => $red));
+                  
+                  if($he ==NULL)
+                  {
+                      $lider = new Lider();
+                      $lider->setIntLider12(0);
+                      $lider->setIntLider144(1);
+                      $lider->setIntLider1728(0);
+                      $lider->setIntLider20736(0);
+                      $lider->setFecha(new \DateTime($fecha));
+                      $lider->setActivo(TRUE);
+                      $lider->setPersona($persona);
+                      $lider->setDependencia($antecesor->getIntLiderId());
+                      $lider->setRed($net);
+                
+                      $em->persist($lider);
+                      $em->flush();
+                      
+                      
+                  }
+                  else{
+                      //ya se asigno
+                      
+                  }
+              
+              }
+              else
+              {
+                  //errore en asignancion de datos
+                  $return = array("responseCode"=>400, "greeting"=>"Ok");
+              }
+              
+              //buscamos a su padre
+              
+              
+            }
+            elseif ( $nivel == 'mil')
+            {
+              $ciento = $datos['ciento_lista'];
+              $mil = $datos['mil_lista'];
+              $persona = $repo_persona->find($mil);
+              
+              $antecesor = $repo_lider->findOneBy(array('persona' => $ciento, 'intLider144' => '1', 'red' => $red));
+              
+              if($antecesor != NULL)
+              {
+                  $he = $repo_lider->findOneBy(array('persona' => $mil, 'intLider1728' => '1', 'red' => $red));
+                  
+                  if($he ==NULL)
+                  {
+                      $lider = new Lider();
+                      $lider->setIntLider12(0);
+                      $lider->setIntLider144(0);
+                      $lider->setIntLider1728(1);
+                      $lider->setIntLider20736(0);
+                      $lider->setFecha(new \DateTime($fecha));
+                      $lider->setActivo(TRUE);
+                      $lider->setPersona($persona);
+                      $lider->setDependencia($antecesor->getIntLiderId());
+                      $lider->setRed($net);
+                
+                      $em->persist($lider);
+                      $em->flush();
+                      
+                      
+                  }
+                  else{
+                      //ya se asigno
+                      
+                  }
+              
+              }
+              else
+              {
+                  //errore en asignancion de datos
+                  $return = array("responseCode"=>400, "greeting"=>"Ok");
+              }
+              
+              //buscamos a su padre
+              
+            }
+            elseif( $nivel == 'veinte')
+            {
                 
             }
+                
             
             $em->commit();
             $em->clear();
             
-            $return=array("responseCode"=>200, "greeting"=>"Ok");
+            $return=array("responseCode"=>200, "greeting"=>"ok");
+            
         } catch (Exception $ex) {
 
             $em->rollback();
