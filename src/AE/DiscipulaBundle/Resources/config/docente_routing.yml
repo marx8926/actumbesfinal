@@ -1,0 +1,24 @@
+docente_view:
+    pattern:  /docente_view
+    defaults: { _controller: AEDiscipulaBundle:Docente:view }
+    requirements:
+        _method: GET
+        
+docente_save:
+    pattern:  /docente_save
+    defaults: { _controller: AEDiscipulaBundle:Docente:save }
+    requirements:
+        _method: POST
+
+docente_edit:
+    pattern:  /docente_edit
+    defaults: { _controller: AEDiscipulaBundle:Docente:edit }
+    requirements:
+        _method: POST
+        
+        
+docente_delete:
+    pattern:  /docente_delete
+    defaults: { _controller: AEDiscipulaBundle:Docente:delete }
+    requirements:
+        _method: POST

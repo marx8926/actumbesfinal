@@ -1,0 +1,24 @@
+estudiante_view:
+    pattern:  /estudiante_view
+    defaults: { _controller: AEDiscipulaBundle:Estudiante:view }
+    requirements:
+        _method: GET
+        
+estudiante_save:
+    pattern:  /estudiante_save
+    defaults: { _controller: AEDiscipulaBundle:Estudiante:save }
+    requirements:
+        _method: POST
+
+estudiante_edit:
+    pattern:  /estudiante_edit
+    defaults: { _controller: AEDiscipulaBundle:Estudiante:edit }
+    requirements:
+        _method: POST
+        
+        
+estudiante_delete:
+    pattern:  /estudiante_delete
+    defaults: { _controller: AEDiscipulaBundle:Estudiante:delete }
+    requirements:
+        _method: POST

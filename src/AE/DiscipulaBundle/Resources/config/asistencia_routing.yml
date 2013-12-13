@@ -1,0 +1,24 @@
+asistencia_view:
+    pattern:  /asistencia_view
+    defaults: { _controller: AEDiscipulaBundle:Asistencia:view }
+    requirements:
+        _method: GET
+        
+asistencia_save:
+    pattern:  /asistencia_save
+    defaults: { _controller: AEDiscipulaBundle:Asistencia:save }
+    requirements:
+        _method: POST
+
+asistencia_edit:
+    pattern:  /asistencia_edit
+    defaults: { _controller: AEDiscipulaBundle:Asistencia:edit }
+    requirements:
+        _method: POST
+        
+        
+asistencia_delete:
+    pattern:  /asistencia_delete
+    defaults: { _controller: AEDiscipulaBundle:Asistencia:delete }
+    requirements:
+        _method: POST

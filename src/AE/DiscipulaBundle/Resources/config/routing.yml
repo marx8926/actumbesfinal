@@ -4,3 +4,18 @@ ae_discipula_homepage:
 
 curso_discipula_routing:
     resource: "@AEDiscipulaBundle/Resources/config/curso_routing.yml"
+    
+docente_discipula_routing:
+    resource: "@AEDiscipulaBundle/Resources/config/docente_routing.yml"
+    
+estudiante_discipula_routing:
+    resource: "@AEDiscipulaBundle/Resources/config/estudiante_routing.yml"
+    
+aula_discipula_routing:
+    resource: "@AEDiscipulaBundle/Resources/config/aula_routing.yml"
+    
+asistencia_discipula_routing:
+    resource: "@AEDiscipulaBundle/Resources/config/asistencia_routing.yml"
+    
+matricula_discipula_routing:
+    resource: "@AEDiscipulaBundle/Resources/config/matricula_routing.yml"

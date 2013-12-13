@@ -1,0 +1,24 @@
+aula_view:
+    pattern:  /aula_view
+    defaults: { _controller: AEDiscipulaBundle:Aula:view }
+    requirements:
+        _method: GET
+        
+aula_save:
+    pattern:  /aula_save
+    defaults: { _controller: AEDiscipulaBundle:Aula:save }
+    requirements:
+        _method: POST
+
+aula_edit:
+    pattern:  /aula_edit
+    defaults: { _controller: AEDiscipulaBundle:Aula:edit }
+    requirements:
+        _method: POST
+        
+        
+aula_delete:
+    pattern:  /aula_delete
+    defaults: { _controller: AEDiscipulaBundle:Aula:delete }
+    requirements:
+        _method: POST

@@ -1,0 +1,24 @@
+matricula_view:
+    pattern:  /matricula_view
+    defaults: { _controller: AEDiscipulaBundle:Matricula:view }
+    requirements:
+        _method: GET
+        
+matricula_save:
+    pattern:  /matricula_save
+    defaults: { _controller: AEDiscipulaBundle:Matricula:save }
+    requirements:
+        _method: POST
+
+matricula_edit:
+    pattern:  /matricula_edit
+    defaults: { _controller: AEDiscipulaBundle:Matricula:edit }
+    requirements:
+        _method: POST
+        
+        
+matricula_delete:
+    pattern:  /matricula_delete
+    defaults: { _controller: AEDiscipulaBundle:Matricula:delete }
+    requirements:
+        _method: POST
