@@ -20,7 +20,7 @@
                 <div class="span12">
                     <div class="box">
                         <div class="box-head tabs">
-                            <h3>Ofrenda</h3>
+                            <h3>Diezmo</h3>
                             <ul class="nav nav-tabs">
                                 <li class='active'>
                                     <a href="#basic" data-toggle='tab'>Información</a>
@@ -29,16 +29,24 @@
                         </div>
                         
                         <div class="box-content">
-                            <form action="#" class="form-horizontal" id="form_ofrenda" name="form_ofrenda" method="POST">
+                            <form action="#" class="form-horizontal" id="form_diezmo" name="form_diezmo" method="POST">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="basic">
                                     
                                         <div class="control-group">
-                                            <label class="control-label">Servicio</label>
+                                            <label class="control-label">Red</label>
                                             <div class="controls">
-                                                <select id="servicio" name="servicio" required class="input-xxlarge">
+                                                <select id="red_lista" name="red_lista" required>
                                                     
                                                 </select>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="control-group">
+                                            <label class="control-label">Persona</label>
+                                            <div class="controls">
+                                                <input type="hidden" name="persona_id" id="persona_id" value="-1">
+                                                <input type="text" name="persona" id="persona">
                                             </div>
                                         </div>
                                     
@@ -56,6 +64,14 @@
                                             <div class="controls">
                                                 <input type="text" id="monto" name="monto">
                                             </div>                                          
+                                        </div>
+                                    
+                                        <div class="control-group">
+                                            <label class="control-label">Petición</label>
+                                            <div class="controls">
+                                              <textarea rows="5" id="peticion" name="peticion" class="input-xlarge" required> </textarea>
+ 
+                                            </div>
                                         </div>
                                     
                                                                                            
@@ -110,7 +126,7 @@
         
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
-                            "formulario": $("#form_ofrenda").serializeObject()
+                            "formulario": $("#form_diezmo").serializeObject()
                     };
                 };
 
@@ -120,7 +136,7 @@
                     
                     if(data.responseCode===200 ){          
                       
-                       $("#form_ofrenda").reset();                      
+                       $("#form_diezmo").reset();                      
                         alert('Registro Completado');
                         
                     }
@@ -136,22 +152,61 @@
                         }
                     
                 };
-
+                
+            
+             persona_autocomplete_red = function()
+             {
+                 
+                 if($("#red_lista").val() == '-1')
+                 {
+                    // personas = getAjaxObject('{{path('services_ganadores_autocomplete_all')}}');
+                 }
+                 else
+                 {
+                     //recargar celula
+                     //recargar ganador
+                     //nuevo convertido
+                     
+                     url = '{{path( 'services_ganadores_autocomplete_red', {'red':'cod'} )}}';
+                     url = url.replace('cod',$("#red_lista").val());
+             
+                     personas = getAjaxObject(url);
+                     
+                     $("#persona").autocomplete({
+                        source: personas,
+                        select: function(event, ui) {
+                            $("#persona_id").val(ui.item.id);
+                            $("#persona").val(ui.item.label);
+                            return false;
+                        }
+                    });
+                    
+                    $("#persona_id").val(-1);
+                 }
+                 
+             };
+      
 	$(document).ready(function() {
                     
+            redes = getAjaxObject('{{path('services_red')}}');
+                          
+            cargarSelect(redes, "red_lista", "int_red_id", "id");
+            
             servicio = getAjaxObject('{{path('service_get_servicios_all')}}');
                           
             cargarSelect(servicio, "servicio", "id","horario");
             
-            $("#form_ofrenda").submit(function(event){
+            $("#form_diezmo").submit(function(event){
                 
                  event.preventDefault();
                  PrepararDatos();
                  console.log(root.DatosEnviar);
-                 return enviar('{{path('ofrenda_save')}}', root.DatosEnviar, SuccessFunction, null);
+                 return enviar('{{path('diezmo_save')}}', root.DatosEnviar, SuccessFunction, null);
   
             });
        
+            persona_autocomplete_red();
+            $("#red_lista").change(persona_autocomplete_red);
             
         } );
 
