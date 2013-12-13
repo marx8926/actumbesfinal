@@ -70,6 +70,7 @@ class LecheController extends Controller {
             }
             
             $em->commit();
+            
             $return=array("responseCode"=>200, "greeting"=>"Ok");
         } catch (Exception $ex) {
             $em->rollback();

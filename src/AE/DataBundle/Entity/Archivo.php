@@ -64,27 +64,6 @@ class Archivo
      */
     private $fecha;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_tema_celula", type="integer", nullable=true)
-     */
-    private $idTemaCelula;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_tema_curso", type="integer", nullable=true)
-     */
-    private $idTemaCurso;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_leche_espiritual", type="integer", nullable=true)
-     */
-    private $idLecheEspiritual;
-
 
 
     /**
@@ -233,74 +212,5 @@ class Archivo
     public function getFecha()
     {
         return $this->fecha;
-    }
-
-    /**
-     * Set idTemaCelula
-     *
-     * @param integer $idTemaCelula
-     * @return Archivo
-     */
-    public function setIdTemaCelula($idTemaCelula)
-    {
-        $this->idTemaCelula = $idTemaCelula;
-    
-        return $this;
-    }
-
-    /**
-     * Get idTemaCelula
-     *
-     * @return integer 
-     */
-    public function getIdTemaCelula()
-    {
-        return $this->idTemaCelula;
-    }
-
-    /**
-     * Set idTemaCurso
-     *
-     * @param integer $idTemaCurso
-     * @return Archivo
-     */
-    public function setIdTemaCurso($idTemaCurso)
-    {
-        $this->idTemaCurso = $idTemaCurso;
-    
-        return $this;
-    }
-
-    /**
-     * Get idTemaCurso
-     *
-     * @return integer 
-     */
-    public function getIdTemaCurso()
-    {
-        return $this->idTemaCurso;
-    }
-
-    /**
-     * Set idLecheEspiritual
-     *
-     * @param integer $idLecheEspiritual
-     * @return Archivo
-     */
-    public function setIdLecheEspiritual($idLecheEspiritual)
-    {
-        $this->idLecheEspiritual = $idLecheEspiritual;
-    
-        return $this;
-    }
-
-    /**
-     * Get idLecheEspiritual
-     *
-     * @return integer 
-     */
-    public function getIdLecheEspiritual()
-    {
-        return $this->idLecheEspiritual;
     }
 }

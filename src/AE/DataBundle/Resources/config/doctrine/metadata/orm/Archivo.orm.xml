@@ -10,8 +10,5 @@
     <field name="extension" type="string" column="extension" length="10" nullable="true"/>
     <field name="nombre" type="text" column="nombre" nullable="true"/>
     <field name="fecha" type="date" column="fecha" nullable="true"/>
-    <field name="idTemaCelula" type="integer" column="id_tema_celula" nullable="true"/>
-    <field name="idTemaCurso" type="integer" column="id_tema_curso" nullable="true"/>
-    <field name="idLecheEspiritual" type="integer" column="id_leche_espiritual" nullable="true"/>
   </entity>
 </doctrine-mapping>

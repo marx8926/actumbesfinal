@@ -57,6 +57,16 @@ class TemaCelula
      */
     private $tipo;
 
+    /**
+     * @var \Archivo
+     *
+     * @ORM\ManyToOne(targetEntity="Archivo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="archivo_id", referencedColumnName="id")
+     * })
+     */
+    private $archivo;
+
 
 
     /**
@@ -182,5 +192,28 @@ class TemaCelula
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set archivo
+     *
+     * @param \AE\DataBundle\Entity\Archivo $archivo
+     * @return TemaCelula
+     */
+    public function setArchivo(\AE\DataBundle\Entity\Archivo $archivo = null)
+    {
+        $this->archivo = $archivo;
+    
+        return $this;
+    }
+
+    /**
+     * Get archivo
+     *
+     * @return \AE\DataBundle\Entity\Archivo 
+     */
+    public function getArchivo()
+    {
+        return $this->archivo;
     }
 }

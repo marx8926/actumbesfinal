@@ -1,0 +1,24 @@
+tema_view:
+    pattern:  /tema_view
+    defaults: { _controller: AEEnviaBundle:Tema:view }
+    requirements:
+        _method: GET
+        
+tema_save:
+    pattern:  /tema_save
+    defaults: { _controller: AEEnviaBundle:Tema:save }
+    requirements:
+        _method: POST
+
+tema_edit:
+    pattern:  /tema_edit
+    defaults: { _controller: AEEnviaBundle:Tema:edit }
+    requirements:
+        _method: POST
+        
+        
+tema_delete:
+    pattern:  /tema_delete
+    defaults: { _controller: AEEnviaBundle:Tema:delete }
+    requirements:
+        _method: POST

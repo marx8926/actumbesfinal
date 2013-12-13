@@ -1,3 +1,6 @@
 ae_envia_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: AEEnviaBundle:Default:index }
+
+tema_envia_routing:
+    resource: "@AEEnviaBundle/Resources/config/tema_routing.yml"
