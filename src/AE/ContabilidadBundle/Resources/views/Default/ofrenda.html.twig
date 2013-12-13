@@ -1,0 +1,159 @@
+{% extends "::base.html.twig" %}
+        {% block stylesheets %}
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
+       <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/chosen.css">
+        <!-- Scripts -->
+                 
+        {% endblock %}
+        
+{% block content %}
+
+       <div class="container-fluid">
+        <div class="content">
+          
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-head tabs">
+                            <h3>Ofrenda</h3>
+                            <ul class="nav nav-tabs">
+                                <li class='active'>
+                                    <a href="#basic" data-toggle='tab'>Información</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="box-content">
+                            <form action="#" class="form-horizontal" id="form_ofrenda" name="form_ofrenda" method="POST">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="basic">
+                                    
+                                        <div class="control-group">
+                                            <label class="control-label">Servicio</label>
+                                            <div class="controls">
+                                                <select id="servicio" name="servicio" required class="input-xxlarge">
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="control-group">                                            
+                                            <label class="control-label">Fecha</label>
+                                            <div class="controls">
+                                               <input type= "text" class="datepick input-medium" id="fecha"
+                                                    name="fecha" required/>
+                                                <p class="help-block">Día/Mes/Año</p>  
+                                            </div>                                          
+                                        </div>
+                                    
+                                        <div class="control-group" >                                            
+                                            <label class="control-label">Monto</label>
+                                            <div class="controls">
+                                                <input type="text" id="monto" name="monto">
+                                            </div>                                          
+                                        </div>
+                                    
+                                                                                           
+                                </div>
+                              
+                            </div>
+                                <div class="form-actions">
+                                    <input type="submit" class='btn btn-primary' value="Guardar" id="btnGuardarServicio" name="btnGuardarServicio">
+                                    <input type="reset" class='btn btn-danger' value="Cancelar">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+        
+{% endblock %}
+      
+               
+      {%block javascript %}
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/bbq.js"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/chosen.jquery.min.js"> </script>
+
+      
+      <script type="text/javascript">
+          
+                $redes = null;
+                root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
+                root.SourceTServicio = "/recuperar_personas_inicio";
+
+                root.DatosEnviar = null;
+                personas = null;
+        
+                PrepararDatos = function() {
+                    return root.DatosEnviar = {
+                            "formulario": $("#form_ofrenda").serializeObject()
+                    };
+                };
+
+                SuccessFunction = function(data) {
+                    
+                    console.log(data);
+                    
+                    if(data.responseCode===200 ){          
+                      
+                       $("#form_ofrenda").reset();                      
+                        alert('Registro Completado');
+                        
+                    }
+                    else if(data.responseCode===400){//bad request
+                       alert('Error bad request');
+                        }
+                    else{                        
+                        if(data.responseCode===500)
+                        {
+                            alert('Error bad request');
+                        }
+                        else alert("An unexpeded error occured.");
+                        }
+                    
+                };
+
+	$(document).ready(function() {
+                    
+            servicio = getAjaxObject('{{path('service_get_servicios_all')}}');
+                          
+            cargarSelect(servicio, "servicio", "id","horario");
+            
+            $("#form_ofrenda").submit(function(event){
+                
+                 event.preventDefault();
+                 PrepararDatos();
+                 console.log(root.DatosEnviar);
+                 return enviar('{{path('ofrenda_save')}}', root.DatosEnviar, SuccessFunction, null);
+  
+            });
+       
+            
+        } );
+
+       </script>
+      {%endblock %}

@@ -1,0 +1,27 @@
+diezmo_view:
+    pattern:  /diezmo_view
+    defaults: { _controller: AEContabilidadBundle:Diezmo:view }
+    requirements:
+        _method: GET
+        
+diezmo_save:
+    pattern:  /diezmo_save
+    defaults: { _controller: AEContabilidadBundle:Diezmo:save }
+    requirements:
+        _method: POST
+        
+diezmo_edit:
+    pattern:  /diezmo_edit
+    defaults: { _controller: AEContabilidadBundle:Diezmo:edit }
+    requirements:
+        _method: POST
+        
+diezmo_info:
+    pattern:  /diezmo_info
+    defaults: { _controller: AEContabilidadBundle:Diezmo:info }
+    requirements:
+        _method: GET
+        
+diezmo_dashboard:
+    pattern: /diezmo_dashboard
+    defaults: { _controller: AEContabilidadBundle:Diezmo:dashboard }

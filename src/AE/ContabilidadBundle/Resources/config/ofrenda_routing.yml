@@ -1,0 +1,27 @@
+ofrenda_view:
+    pattern:  /ofrenda_view
+    defaults: { _controller: AEContabilidadBundle:Ofrenda:view }
+    requirements:
+        _method: GET
+        
+ofrenda_save:
+    pattern:  /ofrenda_save
+    defaults: { _controller: AEContabilidadBundle:Ofrenda:save }
+    requirements:
+        _method: POST
+        
+ofrenda_edit:
+    pattern:  /ofrenda_edit
+    defaults: { _controller: AEContabilidadBundle:Ofrenda:edit }
+    requirements:
+        _method: POST
+        
+ofrenda_info:
+    pattern:  /ofrenda_info
+    defaults: { _controller: AEContabilidadBundle:Ofrenda:info }
+    requirements:
+        _method: GET
+        
+ofrenda_dashboard:
+    pattern: /ofrenda_dashboard
+    defaults: { _controller: AEContabilidadBundle:Ofrenda:dashboard }

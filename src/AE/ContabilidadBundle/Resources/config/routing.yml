@@ -1,3 +1,11 @@
 ae_contabilidad_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: AEContabilidadBundle:Default:index }
+    
+ofrenda_contabilidad_routing:    
+    resource: "@AEContabilidadBundle/Resources/config/ofrenda_routing.yml"
+  
+diezmo_contabilidad_routing:    
+    resource: "@AEContabilidadBundle/Resources/config/diezmo_routing.yml"
+
+    
