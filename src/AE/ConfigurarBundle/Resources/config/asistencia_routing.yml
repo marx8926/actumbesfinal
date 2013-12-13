@@ -1,0 +1,23 @@
+asistencia_view:
+    pattern: /asistencia_view
+    defaults: { _controller: AEConfigurarBundle:Asistencia:view}
+    requirements:
+        _method: GET
+        
+asistencia_edit:
+    pattern: /asistencia_edit
+    defaults: { _controller: AEConfigurarBundle:Asistencia:edit}
+    requirements:
+        _method: GET
+        
+asistencia_save:
+    pattern: /asistencia_save
+    defaults: { _controller: AEConfigurarBundle:Asistencia:save}
+    requirements:
+        _method: POST
+        
+asistencia_dashboard:
+    pattern: /asistencia_dashboard
+    defaults: { _controller: AEConfigurarBundle:Asistencia:dashboard}
+    requirements:
+        _method: GET

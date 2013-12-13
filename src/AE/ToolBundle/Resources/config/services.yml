@@ -1,0 +1,7 @@
+parameters:
+#    ae_tool.example.class: AE\ToolBundle\Example
+
+services:
+#    ae_tool.example:
+#        class: %ae_tool.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

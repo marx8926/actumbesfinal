@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Asistencia" table="asistencia">
+    <id name="intAsistenciaId" type="integer" column="int_asistencia_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="datAsistenciaFecregistro" type="datetime" column="dat_asistencia_fecregistro" nullable="true"/>
+    <field name="datAsistenciaFecasistencia" type="datetime" column="dat_asistencia_fecasistencia" nullable="true"/>
+    <field name="intAsistenciaCategoria" type="integer" column="int_asistencia_categoria" nullable="true"/>
+    <field name="intAsistenciaCantidad" type="integer" column="int_asistencia_cantidad" nullable="true"/>
+    <many-to-one field="servicio" target-entity="Servicios">
+      <join-columns>
+        <join-column name="servicio_id" referenced-column-name="int_servicio_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

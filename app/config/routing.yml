@@ -1,3 +1,7 @@
+ae_tool:
+    resource: "@AEToolBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ae_contabilidad:
     resource: "@AEContabilidadBundle/Resources/config/routing.yml"
     prefix:   /contabilidad/
