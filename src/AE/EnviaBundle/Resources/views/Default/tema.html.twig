@@ -31,70 +31,60 @@
                         </div>
                         
                         <div class="box-content">
-                            <form action="#" class="form-horizontal" id="form_leche" name="form_leche" method="POST">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="basic">
+                            <form action="#" class="form-horizontal" id="form_tema" name="form_tema" method="POST">
+                                <div class="tab-content">
+                                   <div class="tab-pane active" id="basic">
                                     
-                                        <div class="control-group">
-                                            <label class="control-label">Nombre</label>
-                                            <div class="controls">
-                                                <input type="text" id="nombre" name="nombre" required class='input-xlarge'>
-                                            </div>
+                                    <div class="control-group">
+                                        <label class="control-label" >Titulo</label>
+                                        <div class="controls">
+                                            <input type="text" id="titulo" name="titulo" placeholder="Titulo" class="input-xxlarge" pattern="|^[a-zA-Z ñÑáéíóúüç0-9]+$|" required autofocus>
                                         </div>
-                                    
-                                        <div class="control-group">                                            
-                                            <label class="control-label">Fecha Creación</label>
-                                            <div class="controls">
-                                               <input type= "text" class="datepick input-xlarge" id="fecha"
-                                                    name="fecha" required/>
-                                                <p class="help-block">Día/Mes/Año</p>  
-                                            </div>                                          
+                                    </div>
+            
+                                    <div class="control-group">
+                                        <label class="control-label" >Autor</label>
+                                        <div class="controls">
+                                            <input type="text" id="author" name="author" placeholder="Autor" class="input-xxlarge" pattern="|^[a-zA-Z ñÑáéíóúüç]+$|" required>
                                         </div>
-                                    
-                                        <div class="control-group">
-                                            <label class="control-label">Resumén</label>
-                                            <div class="controls">
-                                                <textarea id="resumen" name="resumen" class="input-xlarge">
-                                                    
-                                                </textarea>
-                                            </div>
+                                    </div>
+                            
+                                    <div class="control-group">
+                                        <label class="control-label" >Descripción</label>
+                                        <div class="controls">
+                                            <textarea rows="5" id="descripcion" name="descripcion" placeholder="Descripción" class="input-xxlarge" required> </textarea>
                                         </div>
-                                    
-                                        
-                                    
-                                        <div class="control-group" >                                            
-                                            <label class="control-label">Clase</label>
-                                            <div class="controls">
-                                                <input type="text" id="clase" name="clase" class="input-xlarge">
-                                                <input type="button" id="btnAddClase" name="btnAddClase"  class="btn btn-success" value="Añadir">
-                                            </div>                                          
-                                        </div>                                 
-                                                                                 
-                                </div>
+                                    </div>
+                            
+                                    <div class="control-group">
+                                        <label class="control-label">Tipo</label>
+                                        <div class="controls">
+                                            <select id="tipo"  name="tipo" required>
+                                                <option value="Evangelistica">Evangelistica</option>
+                                                <option value="Mentoreo">Discipulado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="control-group">
+                                        <label class="control-label">Archivo</label>
+                                        <div class="controls">
+                                            <input type="file" name="file">
+                                            <input type="hidden" name="filename0" class="name">
+                                        </div>
+                                    </div>
+                            
+                        
+                       
                               
-                            </div>
+                                </div>
                                 <div class="form-actions">
                                     <input type="submit" class='btn btn-primary' value="Guardar" id="btnGuardarServicio" name="btnGuardarServicio">
                                     <input type="reset" class='btn btn-danger' value="Cancelar">
                                 </div>
+                                </div>
                             </form>
-                            
-                             <div >
-                                <table class='table table-condensed table-striped table-hover table-bordered pull-left' id='table_leccion' name="table_leccion">
-                                    <thead>
-                                        <tr>
-                                            <th style='width:33%'>N°</th>
-                                            <th style='width:33%'>Lección</th>
-                                            
-                                            <th class='hidden-phone' style='width:33%'>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                            
-                            
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -151,8 +141,7 @@
         
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
-                            "formulario": $("#form_leche").serializeObject(),
-                            "tabla" : leccionTabla.fnGetData()
+                            "formulario": $("#form_tema").serializeObject()
                     };
                 };
 
@@ -160,9 +149,8 @@
                                         
                     if(data.responseCode===200 ){          
                       
-                       $("#form_leche").reset();                      
+                       $("#form_tema").reset();                      
                         alert('Registro Completado');
-                        leccionTabla.fnClearTable();
                         
                     }
                     else if(data.responseCode===400){//bad request
@@ -179,89 +167,16 @@
                 };
                 
             
-             persona_autocomplete_red = function()
-             {
-                 
-                 if($("#red_lista").val() == '-1')
-                 {
-                    // personas = getAjaxObject('{{path('services_ganadores_autocomplete_all')}}');
-                 }
-                 else
-                 {
-                     //recargar celula
-                     //recargar ganador
-                     //nuevo convertido
-                     
-                     url = '{{path( 'services_ganadores_autocomplete_red', {'red':'cod'} )}}';
-                     url = url.replace('cod',$("#red_lista").val());
-             
-                     personas = getAjaxObject(url);
-                     
-                     $("#persona").autocomplete({
-                        source: personas,
-                        select: function(event, ui) {
-                            $("#persona_id").val(ui.item.id);
-                            $("#persona").val(ui.item.label);
-                            return false;
-                        }
-                    });
-                    
-                    $("#persona_id").val(-1);
-                 }
-                 
-             };
-      
+         
 	$(document).ready(function() {
-            
-
-        leccionTabla = $('#table_leccion').dataTable({
-            "aoColumns": [
-            {
-                "mDataProp": "numero"
-            }, {
-                "mDataProp": "leccion"
-            }, {
-                "mDataProp": "btn_elim"
-            }
-            ],
-            "bPaginate": false,
-            "sDom": "<r>t<'row-fluid'>",
-            "fnCreatedRow": function(nRow, aData, iDisplayIndex) {
-            $(nRow).find('a').tooltip('hide');
-            return $(nRow).find('.delete-row').click(function(e) {
-                var index;
-                index = $(leccionTabla.fnGetData()).getIndexObj(aData, 'numero');
-                return leccionTabla.fnDeleteRow(index);
-             });
-            }
-            });
-            
-            
-            
-        $('#btnAddClase').click(function(event) {
-            var num, leccion;
-            event.preventDefault();
+       
           
-            if ($("#clase").val().length > 0) {
-                leccion = {
-                    "numero": root.count,
-                    "leccion": $("#clase").val(),
-                    "btn_elim": getActionButtons("001")
-                };
-                leccionTabla.fnAddData(leccion);
-                root.count++;
-                $("#clase").val("");
-                return false;
-            }
-        });
-
-          
-            $("#form_leche").submit(function(event){
+            $("#form_tema").submit(function(event){
                 
                  event.preventDefault();
                  PrepararDatos();
                  console.log(root.DatosEnviar);
-                 return enviar('{{path('leche_save')}}', root.DatosEnviar, SuccessFunction, null);
+                 return enviar('{{path('tema_save')}}', root.DatosEnviar, SuccessFunction, null);
   
             });
        
