@@ -1,3 +1,19 @@
+ae_secretaria:
+    resource: "@AESecretariaBundle/Resources/config/routing.yml"
+    prefix:   /secretaria
+
+ae_discipula:
+    resource: "@AEDiscipulaBundle/Resources/config/routing.yml"
+    prefix:   /discipula/
+
+ae_consolida:
+    resource: "@AEConsolidaBundle/Resources/config/routing.yml"
+    prefix:   /consolida/
+
+ae_envia:
+    resource: "@AEEnviaBundle/Resources/config/routing.yml"
+    prefix:   /envia/
+
 ae_tool:
     resource: "@AEToolBundle/Resources/config/routing.yml"
     prefix:   /

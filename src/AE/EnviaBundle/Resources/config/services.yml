@@ -1,0 +1,7 @@
+parameters:
+#    ae_envia.example.class: AE\EnviaBundle\Example
+
+services:
+#    ae_envia.example:
+#        class: %ae_envia.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
