@@ -1,0 +1,24 @@
+leche_view:
+    pattern:  /leche_view
+    defaults: { _controller: AEConsolidaBundle:Leche:view }
+    requirements:
+        _method: GET
+        
+leche_save:
+    pattern:  /leche_save
+    defaults: { _controller: AEConsolidaBundle:Leche:save }
+    requirements:
+        _method: POST
+
+leche_edit:
+    pattern:  /leche_edit
+    defaults: { _controller: AEConsolidaBundle:Leche:edit }
+    requirements:
+        _method: POST
+        
+        
+leche_delete:
+    pattern:  /leche_delete
+    defaults: { _controller: AEConsolidaBundle:Leche:delete }
+    requirements:
+        _method: POST

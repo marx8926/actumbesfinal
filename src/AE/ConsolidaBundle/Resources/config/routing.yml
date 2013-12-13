@@ -1,3 +1,5 @@
 ae_consolida_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: AEConsolidaBundle:Default:index }
+leche_consolida_routing:
+    resource: "@AEConsolidaBundle/Resources/config/leche_routing.yml"
