@@ -1,3 +1,6 @@
 ae_discipula_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: AEDiscipulaBundle:Default:index }
+
+curso_discipula_routing:
+    resource: "@AEDiscipulaBundle/Resources/config/curso_routing.yml"

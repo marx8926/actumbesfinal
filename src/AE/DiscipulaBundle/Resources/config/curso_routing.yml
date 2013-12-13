@@ -1,0 +1,24 @@
+curso_view:
+    pattern:  /curso_view
+    defaults: { _controller: AEDiscipulaBundle:Curso:view }
+    requirements:
+        _method: GET
+        
+curso_save:
+    pattern:  /curso_save
+    defaults: { _controller: AEDiscipulaBundle:Curso:save }
+    requirements:
+        _method: POST
+
+curso_edit:
+    pattern:  /curso_edit
+    defaults: { _controller: AEDiscipulaBundle:Curso:edit }
+    requirements:
+        _method: POST
+        
+        
+curso_delete:
+    pattern:  /curso_delete
+    defaults: { _controller: AEDiscipulaBundle:Curso:delete }
+    requirements:
+        _method: POST

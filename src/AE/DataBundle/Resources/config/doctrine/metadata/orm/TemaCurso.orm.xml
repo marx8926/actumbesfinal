@@ -6,8 +6,6 @@
     </id>
     <field name="activo" type="boolean" column="activo" nullable="false"/>
     <field name="fechaCreacion" type="date" column="fecha_creacion" nullable="false"/>
-    <field name="descripcion" type="text" column="descripcion" nullable="false"/>
-    <field name="tipo" type="smallint" column="tipo" nullable="false"/>
     <many-to-one field="idCurso" target-entity="Curso">
       <join-columns>
         <join-column name="id_curso" referenced-column-name="id"/>

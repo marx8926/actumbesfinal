@@ -64,6 +64,16 @@ class Archivo
      */
     private $fecha;
 
+    /**
+     * @var \Curso
+     *
+     * @ORM\ManyToOne(targetEntity="Curso")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
+     * })
+     */
+    private $curso;
+
 
 
     /**
@@ -212,5 +222,28 @@ class Archivo
     public function getFecha()
     {
         return $this->fecha;
+    }
+
+    /**
+     * Set curso
+     *
+     * @param \AE\DataBundle\Entity\Curso $curso
+     * @return Archivo
+     */
+    public function setCurso(\AE\DataBundle\Entity\Curso $curso = null)
+    {
+        $this->curso = $curso;
+    
+        return $this;
+    }
+
+    /**
+     * Get curso
+     *
+     * @return \AE\DataBundle\Entity\Curso 
+     */
+    public function getCurso()
+    {
+        return $this->curso;
     }
 }

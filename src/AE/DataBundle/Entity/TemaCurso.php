@@ -37,20 +37,6 @@ class TemaCurso
     private $fechaCreacion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="descripcion", type="text", nullable=false)
-     */
-    private $descripcion;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="tipo", type="smallint", nullable=false)
-     */
-    private $tipo;
-
-    /**
      * @var \Curso
      *
      * @ORM\ManyToOne(targetEntity="Curso")
@@ -116,52 +102,6 @@ class TemaCurso
     public function getFechaCreacion()
     {
         return $this->fechaCreacion;
-    }
-
-    /**
-     * Set descripcion
-     *
-     * @param string $descripcion
-     * @return TemaCurso
-     */
-    public function setDescripcion($descripcion)
-    {
-        $this->descripcion = $descripcion;
-    
-        return $this;
-    }
-
-    /**
-     * Get descripcion
-     *
-     * @return string 
-     */
-    public function getDescripcion()
-    {
-        return $this->descripcion;
-    }
-
-    /**
-     * Set tipo
-     *
-     * @param integer $tipo
-     * @return TemaCurso
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-    
-        return $this;
-    }
-
-    /**
-     * Get tipo
-     *
-     * @return integer 
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
     }
 
     /**

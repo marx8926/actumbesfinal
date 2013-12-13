@@ -6,12 +6,13 @@
  * and open the template in the editor.
  */
 
+namespace AE\DiscipulaBundle\Controller;
+
 /**
- * Description of LecheController
+ * Description of CursoController
  *
  * @author Marks-Calderon
  */
-namespace AE\ConsolidaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,20 +20,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
-use AE\DataBundle\Entity\LecheEspiritual;
-use AE\DataBundle\Entity\TemaLeche;
+use AE\DataBundle\Entity\Curso;
+use AE\DataBundle\Entity\TemaCurso;
 
-class LecheController extends Controller {
+class CursoController extends Controller {
     //put your code here
     
     public function viewAction()
     {
-        return $this->render('AEConsolidaBundle:Default:leche.html.twig');
-    }
-    
-    public function editAction()
-    {
-        
+        return $this->render('AEDiscipulaBundle:Default:curso.html.twig');
     }
     
     public function saveAction()
@@ -51,19 +47,27 @@ class LecheController extends Controller {
             $fechaConv_a = explode('/', $fechaConv_b, 3);            
             $fecha = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0]; 
             
-            $leche = new LecheEspiritual();
-            $leche->setFechaCreacion(new \DateTime($fecha));
-            $leche->setNombre($datos['nombre']);
-            $leche->setResumen($datos['resumen']);
+            $curso = new Curso();
             
-            $em->persist($leche);
+            $curso->setActivo(TRUE);
+            $curso->setDescripcion($datos['resumen']);
+            $curso->setFechaCreacion(new \DateTime($fecha));
+            $curso->setNumeroSesiones(count($tabla));
+            $curso->setTitulo($datos['nombre']);
+            
+            
+            
+            $em->persist($curso);
+            
             $em->flush();
             
             foreach ($tabla as $value) {
                 
-                $tema = new TemaLeche();
-                $tema->setIdLecheEspiritual($leche);
-                $tema->setTitulo($value['leccion']);
+                $tema = new TemaCurso();
+                
+                $tema->setActivo(TRUE);
+                $tema->setFechaCreacion(new \DateTime());
+                $tema->setIdCurso($curso);
                 
                 $em->persist($tema);
                 $em->flush();
@@ -80,6 +84,11 @@ class LecheController extends Controller {
         }
         
         return new JsonResponse($return); 
+    }
+    
+    public function editAction()
+    {
+        
     }
     
     public function deleteAction()
