@@ -1,3 +1,8 @@
+ae_contabilidad:
+    resource: "@AEContabilidadBundle/Resources/config/routing.yml"
+    prefix:   /contabilidad/
+
+
 ae_gana:
     resource: "@AEGanaBundle/Resources/config/routing.yml"
     prefix:   /gana/

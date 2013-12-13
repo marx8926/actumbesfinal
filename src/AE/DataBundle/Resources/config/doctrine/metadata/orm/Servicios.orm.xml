@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Servicios" table="servicios">
+    <id name="intServicioId" type="integer" column="int_servicio_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="varServicioNombre" type="string" column="var_servicio_nombre" length="150" nullable="true"/>
+    <field name="intServicioTipo" type="integer" column="int_servicio_tipo" nullable="true"/>
+  </entity>
+</doctrine-mapping>

@@ -140,7 +140,6 @@ class LiderController extends Controller {
               
               //buscamos a su padre
               
-              
             }
             elseif ( $nivel == 'mil')
             {

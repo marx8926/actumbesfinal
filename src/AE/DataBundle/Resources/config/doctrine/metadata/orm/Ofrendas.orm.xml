@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Ofrendas" table="ofrendas">
+    <id name="intOfrendaId" type="bigint" column="int_ofrenda_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="decOfrendaMonto" type="decimal" column="dec_ofrenda_monto" nullable="true"/>
+    <field name="decOfrendaFecharegistro" type="datetime" column="dec_ofrenda_fecharegistro" nullable="true"/>
+    <many-to-one field="turno" target-entity="Turnos">
+      <join-columns>
+        <join-column name="turno_id" referenced-column-name="int_turno_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
