@@ -39,13 +39,6 @@ class Asistencia
     /**
      * @var integer
      *
-     * @ORM\Column(name="int_asistencia_categoria", type="integer", nullable=true)
-     */
-    private $intAsistenciaCategoria;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="int_asistencia_cantidad", type="integer", nullable=true)
      */
     private $intAsistenciaCantidad;
@@ -59,6 +52,16 @@ class Asistencia
      * })
      */
     private $servicio;
+
+    /**
+     * @var \Red
+     *
+     * @ORM\ManyToOne(targetEntity="Red")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="red_id", referencedColumnName="int_red_id")
+     * })
+     */
+    private $red;
 
 
 
@@ -119,29 +122,6 @@ class Asistencia
     }
 
     /**
-     * Set intAsistenciaCategoria
-     *
-     * @param integer $intAsistenciaCategoria
-     * @return Asistencia
-     */
-    public function setIntAsistenciaCategoria($intAsistenciaCategoria)
-    {
-        $this->intAsistenciaCategoria = $intAsistenciaCategoria;
-    
-        return $this;
-    }
-
-    /**
-     * Get intAsistenciaCategoria
-     *
-     * @return integer 
-     */
-    public function getIntAsistenciaCategoria()
-    {
-        return $this->intAsistenciaCategoria;
-    }
-
-    /**
      * Set intAsistenciaCantidad
      *
      * @param integer $intAsistenciaCantidad
@@ -185,5 +165,28 @@ class Asistencia
     public function getServicio()
     {
         return $this->servicio;
+    }
+
+    /**
+     * Set red
+     *
+     * @param \AE\DataBundle\Entity\Red $red
+     * @return Asistencia
+     */
+    public function setRed(\AE\DataBundle\Entity\Red $red = null)
+    {
+        $this->red = $red;
+    
+        return $this;
+    }
+
+    /**
+     * Get red
+     *
+     * @return \AE\DataBundle\Entity\Red 
+     */
+    public function getRed()
+    {
+        return $this->red;
     }
 }

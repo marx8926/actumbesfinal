@@ -6,8 +6,12 @@
     </id>
     <field name="datAsistenciaFecregistro" type="datetime" column="dat_asistencia_fecregistro" nullable="true"/>
     <field name="datAsistenciaFecasistencia" type="datetime" column="dat_asistencia_fecasistencia" nullable="true"/>
-    <field name="intAsistenciaCategoria" type="integer" column="int_asistencia_categoria" nullable="true"/>
     <field name="intAsistenciaCantidad" type="integer" column="int_asistencia_cantidad" nullable="true"/>
+    <many-to-one field="red" target-entity="Red">
+      <join-columns>
+        <join-column name="red_id" referenced-column-name="int_red_id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="servicio" target-entity="Servicios">
       <join-columns>
         <join-column name="servicio_id" referenced-column-name="int_servicio_id"/>
