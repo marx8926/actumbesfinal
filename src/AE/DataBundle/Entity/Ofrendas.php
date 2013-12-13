@@ -37,14 +37,14 @@ class Ofrendas
     private $decOfrendaFecharegistro;
 
     /**
-     * @var \Turnos
+     * @var \Servicios
      *
-     * @ORM\ManyToOne(targetEntity="Turnos")
+     * @ORM\ManyToOne(targetEntity="Servicios")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="turno_id", referencedColumnName="int_turno_id")
+     *   @ORM\JoinColumn(name="servicio_id", referencedColumnName="int_servicio_id")
      * })
      */
-    private $turno;
+    private $servicio;
 
 
 
@@ -105,25 +105,25 @@ class Ofrendas
     }
 
     /**
-     * Set turno
+     * Set servicio
      *
-     * @param \AE\DataBundle\Entity\Turnos $turno
+     * @param \AE\DataBundle\Entity\Servicios $servicio
      * @return Ofrendas
      */
-    public function setTurno(\AE\DataBundle\Entity\Turnos $turno = null)
+    public function setServicio(\AE\DataBundle\Entity\Servicios $servicio = null)
     {
-        $this->turno = $turno;
+        $this->servicio = $servicio;
     
         return $this;
     }
 
     /**
-     * Get turno
+     * Get servicio
      *
-     * @return \AE\DataBundle\Entity\Turnos 
+     * @return \AE\DataBundle\Entity\Servicios 
      */
-    public function getTurno()
+    public function getServicio()
     {
-        return $this->turno;
+        return $this->servicio;
     }
 }

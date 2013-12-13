@@ -1,0 +1,17 @@
+servicio_view:
+    pattern: /servicio_view
+    defaults: { _controller: AEConfigurarBundle:Servicio:view}
+    requirements:
+        _method: GET
+        
+servicio_save:
+    pattern: /servicio_save
+    defaults: { _controller: AEConfigurarBundle:Servicio:save}
+    requirements:
+        _method: POST
+    
+servicio_editar:
+    pattern: /servicio_editar
+    defaults: { _controller: AEConfigurarBundle:Servicio:editar}
+    requirements:
+        _method: POST

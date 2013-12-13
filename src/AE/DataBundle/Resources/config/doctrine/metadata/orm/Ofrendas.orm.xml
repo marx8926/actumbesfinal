@@ -6,9 +6,9 @@
     </id>
     <field name="decOfrendaMonto" type="decimal" column="dec_ofrenda_monto" nullable="true"/>
     <field name="decOfrendaFecharegistro" type="datetime" column="dec_ofrenda_fecharegistro" nullable="true"/>
-    <many-to-one field="turno" target-entity="Turnos">
+    <many-to-one field="servicio" target-entity="Servicios">
       <join-columns>
-        <join-column name="turno_id" referenced-column-name="int_turno_id"/>
+        <join-column name="servicio_id" referenced-column-name="int_servicio_id"/>
       </join-columns>
     </many-to-one>
   </entity>

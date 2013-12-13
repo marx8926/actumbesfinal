@@ -36,6 +36,27 @@ class Servicios
      */
     private $intServicioTipo;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="var_turno_horainicio", type="string", length=10, nullable=true)
+     */
+    private $varTurnoHorainicio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="var_turno_horafin", type="string", length=10, nullable=true)
+     */
+    private $varTurnoHorafin;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="int_turno_dia", type="integer", nullable=true)
+     */
+    private $intTurnoDia;
+
 
 
     /**
@@ -92,5 +113,74 @@ class Servicios
     public function getIntServicioTipo()
     {
         return $this->intServicioTipo;
+    }
+
+    /**
+     * Set varTurnoHorainicio
+     *
+     * @param string $varTurnoHorainicio
+     * @return Servicios
+     */
+    public function setVarTurnoHorainicio($varTurnoHorainicio)
+    {
+        $this->varTurnoHorainicio = $varTurnoHorainicio;
+    
+        return $this;
+    }
+
+    /**
+     * Get varTurnoHorainicio
+     *
+     * @return string 
+     */
+    public function getVarTurnoHorainicio()
+    {
+        return $this->varTurnoHorainicio;
+    }
+
+    /**
+     * Set varTurnoHorafin
+     *
+     * @param string $varTurnoHorafin
+     * @return Servicios
+     */
+    public function setVarTurnoHorafin($varTurnoHorafin)
+    {
+        $this->varTurnoHorafin = $varTurnoHorafin;
+    
+        return $this;
+    }
+
+    /**
+     * Get varTurnoHorafin
+     *
+     * @return string 
+     */
+    public function getVarTurnoHorafin()
+    {
+        return $this->varTurnoHorafin;
+    }
+
+    /**
+     * Set intTurnoDia
+     *
+     * @param integer $intTurnoDia
+     * @return Servicios
+     */
+    public function setIntTurnoDia($intTurnoDia)
+    {
+        $this->intTurnoDia = $intTurnoDia;
+    
+        return $this;
+    }
+
+    /**
+     * Get intTurnoDia
+     *
+     * @return integer 
+     */
+    public function getIntTurnoDia()
+    {
+        return $this->intTurnoDia;
     }
 }

@@ -6,5 +6,8 @@
     </id>
     <field name="varServicioNombre" type="string" column="var_servicio_nombre" length="150" nullable="true"/>
     <field name="intServicioTipo" type="integer" column="int_servicio_tipo" nullable="true"/>
+    <field name="varTurnoHorainicio" type="string" column="var_turno_horainicio" length="10" nullable="true"/>
+    <field name="varTurnoHorafin" type="string" column="var_turno_horafin" length="10" nullable="true"/>
+    <field name="intTurnoDia" type="integer" column="int_turno_dia" nullable="true"/>
   </entity>
 </doctrine-mapping>

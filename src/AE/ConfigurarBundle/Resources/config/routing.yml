@@ -20,3 +20,6 @@ usuario_configurar_routing:
     
 celula_configurar_routing:
     resource: "@AEConfigurarBundle/Resources/config/celula_routing.yml"
+    
+servicio_configurar_routing:
+    resource: "@AEConfigurarBundle/Resources/config/servicios_routing.yml"
