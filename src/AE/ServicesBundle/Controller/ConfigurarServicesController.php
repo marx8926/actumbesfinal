@@ -138,4 +138,17 @@ class ConfigurarServicesController extends Controller {
        
         return $resultado;
     }
+    
+    public function servicio_all_optionAction()
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from view_get_servicios_option";        
+        $smt = $em->getConnection()->prepare($sql);        
+        // redes , padre       
+        $smt->execute();        
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);      
+       
+        return $resultado;
+    }
 }

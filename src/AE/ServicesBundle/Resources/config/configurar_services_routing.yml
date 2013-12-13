@@ -31,3 +31,7 @@ service_get_lideres_celula_sinaginar:
 service_get_lider_libre_antecesor_red_sinasignar:
     pattern: /lider_libre_antecesor_red_sinasignar/{red}/{padre}
     defaults: {_controller: AEServicesBundle:ConfigurarServices:lider_libre_antecesor_red_sinasignar}
+    
+service_get_servicios_all:
+    pattern: /servicio_all_option
+    defaults: {_controller: AEServicesBundle:ConfigurarServices:servicio_all_option}
