@@ -5,13 +5,7 @@
         {% block stylesheets %}
 		<link rel="stylesheet" type="text/css" href="http://d19k46zntalu3t.cloudfront.net/css/perfil/style.css">
         {% endblock %}
-        
-         {%block javascripts %}    
    
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>            
-                 
-        {%endblock%}
 <title>Perfil</title>
 </head>
 <body>
@@ -87,7 +81,7 @@
     					</tr>
     					<tr>
     						<th>Consolidador:</th>
-    						<td>{{cons}}</td>
+    						<td>{{consolidador}}</td>
 							<th>Líder:</th>
 							<td>{{lider}}</td>
 						</tr>
@@ -95,7 +89,7 @@
 							<th>Conversión:</th>
 							<td>{{conversion}}</td>
 							<th>Lugar:</th>
-							<td id="lugar" ></td>
+							<td id="lugar" >{{lugar}}</td>
 						</tr>
                         <tr>
                         	<th>Petición</th>
@@ -116,6 +110,7 @@
 {%block javascript %}
            
 <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>
 <script type="text/javascript">
                 
             
@@ -134,16 +129,6 @@
                         var codigo = {{id}};
                         init();
          
-                        //nuevo convertido
-                        url = '{{path( 'servicio_nuevo_convertido_id', {'id':'cod'} )}}';
-                        ruta = url.replace('cod',codigo);
-                        $.ajax(
-                            {   url : ruta,
-                                dataType:"json",
-                                type: "POST",
-                                async: false,
-                            }
-                        ).done(convertido);
                             
                       
             });

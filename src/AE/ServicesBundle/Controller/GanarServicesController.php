@@ -13,7 +13,7 @@ class GanarServicesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        $sql = "select * from red where activo=true";
+        $sql = "select * from red where activo=true order by id asc";
         
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute();

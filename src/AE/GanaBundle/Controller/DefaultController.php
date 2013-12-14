@@ -71,10 +71,7 @@ class DefaultController extends Controller
         $distrito = NULL;
         $red = NULL;
         $celula = NULL;
-        $lider_ap = NULL;
-        $lider_nom = NULL;
-        $cons_ap = NULL;
-        $cons_nom = NULL;
+        
         $conversion = NULL;
         $peticion = NULL;
         $dni = NULL;
@@ -102,6 +99,10 @@ class DefaultController extends Controller
             $fecha_nacimiento = $data->format('d-m-Y');
             $email = $p->getEmail(); $website = $p->getWebsite();
             $sexo = $p->getSexo(); 
+            $dni = $p->getDni();
+            
+            $ocupacion = $p->getOcupacion();
+            $telefono = $p->getTelefono();
             $id_ubicacion = $p->getIdUbicacion();
             $direccion = $p->getIdUbicacion()->getDireccion(); $referencia = $p->getIdUbicacion()->getReferencia();
             $ubigeo = $p->getIdUbicacion()->getUbigeo();
@@ -121,6 +122,19 @@ class DefaultController extends Controller
             $nivel = $prev_nivel->findOneBy(array('persona'=>$id));
             $conversion = $nivel->getCreacion()->format('d-m-Y');
             $peticion = $p->getPeticion();
+            
+            $lugar = $p->getLugar()->getVarLugarDescripcion();
+            
+            $sql = "select * from get_lider_consolidador(:id)";
+            
+            $smt = $em->getConnection()->prepare($sql);
+            $smt->execute(array(':id'=>$id));
+ 
+            $lider_consolidador = $smt->fetch();
+            
+            $lider = $lider_consolidador['lider'];
+            $consolidador = $lider_consolidador['consolidador'];
+            
             $em->commit();
             
         } catch (Exception $exc) {
@@ -135,8 +149,8 @@ class DefaultController extends Controller
             'fecha_nacimiento'=>$fecha_nacimiento,'email'=>$email,'website'=>$website,'sexo'=>$sexo,'id_ubicacion'=>$id_ubicacion,
             'direccion'=>$direccion,'referencia'=>$referencia,'latitud'=>$latitud,'longitud'=>$longitud,'id_ubigeo'=>$id_ubigeo,
             'departamento'=>$departamento,'provincia'=>$provincia,'distrito'=>$distrito,
-            'red'=>$red,'celula'=>$celula,'lider'=>$lider_ap.' '.$lider_nom,'cons'=>$cons_ap.' '.$cons_nom,
-            'conversion'=>$conversion,'peticion'=>$peticion,
-            'dni'=>$dni, 'ocupacion'=>$ocupacion));
+            'red'=>$red,'celula'=>$celula,'conversion'=>$conversion,'peticion'=>$peticion, 'consolidador' => $consolidador,
+            'dni'=>$dni, 'ocupacion'=>$ocupacion,'lider' => $lider,
+            'lugar' => $lugar));
     }
 }

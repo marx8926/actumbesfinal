@@ -23,6 +23,7 @@ use AE\DataBundle\Entity\Persona;
 use AE\DataBundle\Entity\Ubicacion;
 use AE\DataBundle\Entity\Ubigeos;
 use AE\DataBundle\Entity\NivelCrecimiento;
+use AE\DataBundle\Entity\DetalleMiembro;
 
 class RegistrarController  extends Controller {
     
@@ -46,24 +47,17 @@ class RegistrarController  extends Controller {
                 $fech_b = $datos['inputFechaNacimiento'];
             
                 $fech_a =explode('/', $fech_b,3);
-                $fech = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0];
+                $fech = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0];            
             
-            
-                $edad = $datos['inputEdad'];
-            
+                $edad = $datos['inputEdad'];            
                 $telefono = $datos['inputTelefono'];
-                $celular = $datos['inputCelular'];
-            
+                $celular = $datos['inputCelular'];            
                 $direccion = $datos['inputDireccion'];
-                $referencia = $datos['inputReferencia'];
+                $referencia = $datos['inputReferencia'];            
+                $distrito = $datos['distrito_lista'];                
+                $red = $datos['red_lista'];              
             
-                $distrito = $datos['distrito_lista'];
-                
-                $red = $datos['red_lista'];
-              
-            
-                $fechaConv_b = $datos['inputFechaConversion'];
-            
+                $fechaConv_b = $datos['inputFechaConversion'];            
                 $fechaConv_a = explode('/', $fechaConv_b, 3);
             
                 $fechaConv = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0];            
@@ -98,6 +92,11 @@ class RegistrarController  extends Controller {
                 $em->persist($ubicacion);
                 $em->flush();
                 
+                
+                //guardar detalle miembro
+                
+                $det = new DetalleMiembro();
+                
                 //persona           
                 
                 $persona = new Persona();
@@ -114,7 +113,10 @@ class RegistrarController  extends Controller {
                 $persona->setIdUbicacion($ubicacion);
                 
                 if(strlen($ganado)>0)
+                {
                     $persona->setGanadoPor($ganado);
+                    $det->setGanadoPor($ganado);
+                }
                 
                 $persona->setDni($dni);
                 $persona->setOcupacion($ocupacion);
@@ -133,6 +135,8 @@ class RegistrarController  extends Controller {
                     //red
                     $con2 = $em->getRepository('AEDataBundle:Red');
                     $redU = $con2->findOneBy(array('intRedId'=>$red));
+                    
+                    
                   
                 }
                 $celulaU=NULL;
@@ -163,6 +167,16 @@ class RegistrarController  extends Controller {
                 
                 $em->persist($nivel);
                 $em->flush();
+                
+                
+                $det->setActivo(TRUE);
+                $det->setRed($redU);
+                $det->setPersonaId($persona->getId());
+                
+                
+                $em->persist($det);
+                $em->flush();
+                
                 
                 $return=array("responseCode"=>200,  "greeting"=>'ok');
                 

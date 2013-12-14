@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block titulo %}Registrar Nuevo - {% endblock %}
+{% block titulo %} Editar - {% endblock %}
 
 {% block stylesheets %}
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
@@ -12,10 +12,11 @@
            
 {% block content %}
     <div class="span9" id="registro_form">
-    <h1>Registrar Nuevo</h1>
+    <h1>Editar Nuevo</h1>
     <br>
         <form class="form-horizontal" action="{{path('ae_gana_persona')}}" method="POST" id="form_persona" name="form_persona">
            
+            <input type="hidden" name="id_persona" id="id_persona" value="-1">
             <fieldset>
                 <legend>Datos Personales</legend>        
                 <div class="span9">
