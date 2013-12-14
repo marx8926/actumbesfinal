@@ -20,7 +20,7 @@
                 <div class="span12">
                     <div class="box">
                         <div class="box-head tabs">
-                            <h3>Membresia</h3>
+                            <h3>Registro Docente</h3>
                             <ul class="nav nav-tabs">
                                 <li class='active'>
                                     <a href="#basic" data-toggle='tab'>Información Básica</a>
@@ -29,7 +29,7 @@
                             </ul>
                         </div>
                         <div class="box-content">
-                            <form action="#" class="form-horizontal" id="form_membresia" name="form_membresia" method="POST">
+                            <form action="#" class="form-horizontal" id="form_docente" name="form_docente" method="POST">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="basic">
                                     
@@ -111,7 +111,7 @@
         
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
-                            "formulario": $("#form_membresia").serializeObject()
+                            "formulario": $("#form_docente").serializeObject()
                     };
                 };
 
@@ -121,13 +121,12 @@
                     
                     if(data.responseCode===200 ){          
                       
-                       $("#form_celula").reset();
+                       $("#form_docente").reset();
                        
                        cargarSelect(redes, "red_lista", "int_red_id", "id");
                         
                         alert('Registro Completado');
-                       
-                        
+                        personas.clear();              
                         $("#persona_id").val(-1);                        
                     }
                     else if(data.responseCode===400){//bad request
@@ -150,7 +149,7 @@
             
             if(red != '-1')
             {
-                url = '{{path( 'services_sinbautizo_autocomplete_red',{'red':'nom'})}}';
+                url = '{{path( 'services_miembros_nodocente_autocomplete_red',{'red':'nom'})}}';
                 url = url.replace('nom',red);
                                 
                 personas = getAjaxObject(url);                     
@@ -173,13 +172,13 @@
                           
             cargarSelect(redes, "red_lista", "int_red_id", "id");
                      
-            $("#form_membresia").submit(function(event){
+            $("#form_docente").submit(function(event){
                 
                  event.preventDefault();
                  PrepararDatos();
                  
                  if($("#persona_id").val() != '-1')
-                    return enviar('{{path('membresia_save')}}', root.DatosEnviar, SuccessFunction, null);
+                    return enviar('{{path('docente_save')}}', root.DatosEnviar, SuccessFunction, null);
                 else alert('Seleccione una persona');
   
             });

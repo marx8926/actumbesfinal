@@ -12,3 +12,5 @@ configurar_services_routing:
 secretaria_services_routing:
     resource: "@AEServicesBundle/Resources/config/secretaria_services_routing.yml"
 
+discipular_services_routing:
+    resource: "@AEServicesBundle/Resources/config/discipular_services_routing.yml"

@@ -1,0 +1,12 @@
+services_miembros_nodocente_autocomplete_red:
+    pattern: /miembros_nodocente_autocomplete_red/{red}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:miembros_nodocente_autocomplete_red}
+    requirements:
+        _method: GET
+        
+        
+services_persona_noestudiante_autocomplete_red:
+    pattern: /persona_noestudiante_autocomplete_red/{red}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:persona_noestudiante_autocomplete_red}
+    requirements:
+        _method: GET
