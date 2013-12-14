@@ -22,7 +22,6 @@
                   
           <form id="form_permiso" name="form_permiso" class="form-horizontal "  method="POST" action="{{path('permisos_save')}}" >
          
-              <div class="span9">
                  
                    <div class="control-group">
                       <label class="control-label"> Red</label>
@@ -33,17 +32,16 @@
                       </div>
                   </div>
                   
-                  <div class="span3">
                   
-                  <div class="control-group span3">
+                  
+                  <div class="control-group">
                       <label class="control-label"> Persona</label>
+                       <input id="persona_id" name="persona_id" type="hidden">
+
                       <div class="controls">
-                          <input id="persona_id" name="persona_id" type="hidden">
                           <input id="persona" name="persona" class="input-large" type="text" >
                       </div>
                   </div>
-                  </div>
-              </div>
               <div class="span9">
 
                   

@@ -1,3 +1,6 @@
 ae_secretaria_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: AESecretariaBundle:Default:index }
+    
+membresia_secretaria_routing:
+    resource: "@AESecretariaBundle/Resources/config/membresia_routing.yml"

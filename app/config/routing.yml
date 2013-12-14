@@ -1,6 +1,6 @@
 ae_secretaria:
     resource: "@AESecretariaBundle/Resources/config/routing.yml"
-    prefix:   /secretaria
+    prefix:   /secretaria/
 
 ae_discipula:
     resource: "@AEDiscipulaBundle/Resources/config/routing.yml"

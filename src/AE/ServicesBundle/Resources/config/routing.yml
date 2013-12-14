@@ -8,3 +8,7 @@ ganar_services_routing:
    
 configurar_services_routing:
     resource: "@AEServicesBundle/Resources/config/configurar_services_routing.yml"
+    
+secretaria_services_routing:
+    resource: "@AEServicesBundle/Resources/config/secretaria_services_routing.yml"
+

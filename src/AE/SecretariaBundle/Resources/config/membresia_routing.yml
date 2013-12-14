@@ -1,0 +1,21 @@
+membresia_view:
+    pattern:  /membresia_view
+    defaults: { _controller: AESecretariaBundle:Membresia:view }
+    
+membresia_save:
+    pattern:  /membresia_save
+    defaults: { _controller: AESecretariaBundle:Membresia:save }
+    requirements:
+        _method: POST
+    
+membresia_edit:
+    pattern:  /membresia_edit
+    defaults: { _controller: AESecretariaBundle:Membresia:edit }
+    requirements:
+        _method: POST
+    
+membresia_delete:
+    pattern:  /membresia_view
+    defaults: { _controller: AESecretariaBundle:Membresia:delete}
+    requirements:
+        _method: POST
