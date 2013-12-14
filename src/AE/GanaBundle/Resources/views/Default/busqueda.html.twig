@@ -274,6 +274,13 @@
             });
             return $(nRow).find('.edit_row').click(function(event) {
                 event.preventDefault();
+                
+                 var route = '{{path('editar_gana_view',{'id': 'nom'})}}';
+                 var rutas = route.replace('nom',aData.id);                    
+                    //$('#mas').attr("href",rutas);                    
+                 $(this).target = "_blank";
+                    //window.open($(this).prop('href'));
+                 window.open(rutas);
      
             });
   };

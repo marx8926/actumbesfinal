@@ -1,2 +1,9 @@
-## YAML Template.
----
+editar_gana_view:
+    pattern: /editar_view/{id}
+    defaults: {_controller: AEGanaBundle:Editar:view}
+    
+editar_gana_save:
+    pattern: /editar_save
+    defaults: {_controller: AEGanaBundle:Editar:save}
+    requirements:
+        _method: POST
