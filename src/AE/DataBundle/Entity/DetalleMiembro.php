@@ -58,6 +58,13 @@ class DetalleMiembro
     private $personaId;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="convertido", type="date", nullable=true)
+     */
+    private $convertido;
+
+    /**
      * @var \Red
      *
      * @ORM\ManyToOne(targetEntity="Red")
@@ -202,6 +209,29 @@ class DetalleMiembro
     public function getPersonaId()
     {
         return $this->personaId;
+    }
+
+    /**
+     * Set convertido
+     *
+     * @param \DateTime $convertido
+     * @return DetalleMiembro
+     */
+    public function setConvertido($convertido)
+    {
+        $this->convertido = $convertido;
+    
+        return $this;
+    }
+
+    /**
+     * Get convertido
+     *
+     * @return \DateTime 
+     */
+    public function getConvertido()
+    {
+        return $this->convertido;
     }
 
     /**

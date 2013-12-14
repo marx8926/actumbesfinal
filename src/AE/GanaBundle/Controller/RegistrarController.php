@@ -172,6 +172,7 @@ class RegistrarController  extends Controller {
                 $det->setActivo(TRUE);
                 $det->setRed($redU);
                 $det->setPersonaId($persona->getId());
+                $det-setConvertido(new \DateTime($fechaConv));
                 
                 
                 $em->persist($det);

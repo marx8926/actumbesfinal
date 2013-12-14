@@ -7,6 +7,16 @@
         <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+       <style type="text/css">
+    
+           #form_busqueda {
+            margin-top: 15px;
+            padding: 0px;
+            }
+            
+            
+        </style>
+        
 {% endblock %}                 
 
 {% block content %} 
@@ -25,40 +35,40 @@
 
                 <div class="box-content box-nomargin">
         
-        <form id="form_busqueda" name="form_busqueda" method="POST" >
+        <form id="form_busqueda" name="form_busqueda" method="POST" class="form-horizontal" >
          <div class="control-group span3">
-            <label class="control-label" >Red</label>
-            <div class="controls">
-                <select id="red_lista" name="red_lista" class="rango input-medium" >
+             <label class="control-label" style="width:auto; margin-left: 40px;" >Red</label>
+            <div class="controls" style="margin-left: 90px;">
+                <select id="red_lista" name="red_lista" class="rango input-small" >
                    
                 </select>
             </div>
         </div>
-         <div class="control-group span3">
+         <div class="control-group span3" id="desde_block" name="desde_block" >
              
              
-            <label class="control-label" >
+            <label class="control-label"  style="width:auto; margin-left: -10px;" >
                 <input type="checkbox" id="desde_check" name="desde_check">
                 Desde</label>
-            <div class="controls">
-                <input type="text" class="datepick rango input-medium" id="desde" name="desde" required>
+            <div class="controls" style="margin-left: 35px;">
+                <input type="text" class="datepick rango input-medium" id="desde" name="desde" required readonly="reandonly">
             </div>
         </div>
         
         
-         <div class="control-group">
-            <label class="control-label" >
-                <input type="checkbox" id="desde_check" name="desde_check">
+         <div class="control-group span3" id="hasta_block" name="hasta_block">
+            <label class="control-label"  style="width:auto; margin-left: -10px; " >
+                <input type="checkbox" id="hasta_check" name="hasta_check">
                 Hasta</label>
-            <div class="controls">
-                <input type="text" class="datepick rango input-medium" id="hasta" name="hasta" required>
+            <div class="controls" style="margin-left: 35px;">
+                <input type="text" class="datepick rango input-medium" id="hasta" name="hasta" required readonly="reandonly">
             </div>
         </div>
         
          <div class="control-group span3">
             
-            <div class="controls">
-                <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
+            <div class="controls"  style="width:auto; margin-left: -10px; " >
+                <input type="button" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
             </div>
         </div>
         </form>
@@ -139,10 +149,7 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/bbq.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/chosen.jquery.min.js"> </script>
             <script src="https://www.google.com/jsapi"></script>
             <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->           
             <script src="http://d19k46zntalu3t.cloudfront.net/js/tiempo.js"></script>        
@@ -170,7 +177,54 @@
         var FormatoPersonaTable, PersonaRowCB, PersonaTable;
         
         
-        
+        generardata = function()
+        {
+            var red = $("#red_lista").val()
+            if(red=='0')
+            {
+                url = '{{path('services_personas_all')}}';
+                PersonaTable.fnReloadAjax(url);
+                
+            }    
+            else if( red != '-1')
+            {     
+                ini = "";
+                fin = "";
+                inicio = new Date();
+                
+                if( $('#desde_check').prop("checked"))
+                {                  
+                   ini = $("#desde").val();                   
+                   split = ini.split('/');
+                   ini = [split[2], split[1], split[0]].join('-');
+                   
+                   if($('#hasta_check').prop("checked"))
+                   {
+                        fin = $("#hasta").val();                   
+                        split = fin.split('/');
+                        fin = [split[2], split[1], split[0]].join('-');
+                   }
+                   else fin = inicio.getFullYear().toString()+'-'+(inicio.getMonth()+1).toString()+'-'+inicio.getUTCDate().toString();
+                   
+                   url = '{{path('services_personas_filtro_fechas',{'red':'net','ini':'begin', 'fin':'end'})}}';
+                   url = url.replace('net', red);
+                   url = url.replace('begin', ini);
+                   url = url.replace('end', fin);
+                   
+                   PersonaTable.fnReloadAjax(url);
+                } 
+                else
+                {
+                   url = '{{path('services_personas_filtro_red',{'red':'net'})}}';
+
+                   url = url.replace('net', red);                 
+                   
+                   PersonaTable.fnReloadAjax(url);
+                    
+                }
+                
+            }
+        }
         
         SuccessFunction = function(data) {
                     console.log(data);
@@ -178,7 +232,7 @@
                     if(data.responseCode===200 ){          
                       alert('Registro Completado');  
                       
-                      PersonaTable.fnReloadAjax(root.SourceTServicio)
+                      PersonaTable.fnReloadAjax(root.SourceTServicio);
                     }
                     else if(data.responseCode===400){//bad request
                        alert('Error bad request');
@@ -254,6 +308,8 @@
                 
             }
        ];
+       
+      
 	$(document).ready(function() {
             
             FechaActualT('desde');
@@ -261,6 +317,25 @@
             
             PersonaTable = createDataTable("persona", root.SourceTServicio, FormatoPersonaTable, null, PersonaRowCB);
 
+            $("#desde_check").change(function(){
+                
+                if($('#desde_check').prop("checked"))
+                {
+                 $('#desde').attr("readonly",false);
+                }
+                else
+                 $('#desde').attr("readonly",true);
+            });
+            
+            $("#hasta_check").change(function(){
+                
+                if($('#hasta_check').prop("checked"))
+                {
+                 $('#hasta').attr("readonly",false);
+                }
+                else
+                 $('#hasta').attr("readonly",true);
+            });
             
             var rede = '{{red}}';
                   
@@ -279,17 +354,30 @@
 
             {% endif%}
         
+            $("#red_lista").change(function()
+            {
+                if($("#red_lista").val() == '0')
+                {
+                    $('#desde_block').css({'display':'none'});
+                    $('#hasta_block').css({'display':'none'});
+                }
+                else
+                {
+                    $('#desde_block').css({'display':'block'});
+                    $('#hasta_block').css({'display':'block'});
+                }
+            });
              $('#select').css({'display':'none'});
 
 
+
             $("#excelbutton").click(function(event) {
-                console.log($("#persona").html());
             	$("#content").val("<table>" + $("#persona").html() + "</table>");
 		$("#form").attr("action", "{{asset('extensiones/exportexcel.php')}}");
 		$("#form").submit();
             });
         
-           
+            $("#btnGenerar").click(generardata);
             
 	 });
   

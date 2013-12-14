@@ -98,6 +98,58 @@ class GanarServicesController extends Controller
         return $resultado;
     }
     
+    
+    public function personas_allAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from view_get_personas_all";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array( "aaData" =>$result));
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
+       
+        return $resultado;
+    }
+    
+    public function personas_filtro_fecha_redAction($red, $ini, $fin)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from get_personas_filtro(:red,:ini,:fin)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red,':ini'=>$ini,':fin'=>$fin));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array( "aaData" =>$result));
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
+       
+        return $resultado;
+    }
+
+    public function personas_filtro_redAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from get_personas_filtro_red(:red)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array( "aaData" =>$result));
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
+       
+        return $resultado;
+    }
+    
     public function ganador_autocomplete_allAction()
     {
         $em = $this->getDoctrine()->getManager();        

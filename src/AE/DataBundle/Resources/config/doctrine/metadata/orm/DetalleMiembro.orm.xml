@@ -9,6 +9,7 @@
     <field name="liderId" type="bigint" column="lider_id" nullable="true"/>
     <field name="ganadoPor" type="bigint" column="ganado_por" nullable="true"/>
     <field name="personaId" type="bigint" column="persona_id" nullable="true"/>
+    <field name="convertido" type="date" column="convertido" nullable="true"/>
     <many-to-one field="celula" target-entity="Celula">
       <join-columns>
         <join-column name="celula_id" referenced-column-name="id"/>

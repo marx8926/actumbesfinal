@@ -23,6 +23,19 @@ services_personas_init:
         _method: GET
         
         
+services_personas_all:
+    pattern: /personas_all
+    defaults: {_controller: AEServicesBundle:GanarServices:personas_all}
+    
+services_personas_filtro_fechas:
+    pattern: /personas_filtro/{red}/{ini}/{fin}
+    defaults: {_controller: AEServicesBundle:GanarServices:personas_filtro_fecha_red}
+    
+services_personas_filtro_red:
+    pattern: /personas_filtro_red/{red}
+    defaults: {_controller: AEServicesBundle:GanarServices:personas_filtro_red}
+        
+        
 services_ganadores_autocomplete_all:
     pattern: /ganador_autocomplete_all
     defaults: { _controller: AEServicesBundle:GanarServices:ganador_autocomplete_all}
