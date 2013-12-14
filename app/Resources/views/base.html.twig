@@ -68,23 +68,14 @@
 						</a>
 					</li>
                                       {% endif %}  
-                                        {% if ( is_granted('ROLE_LIDER_RED') )%}
+                                        {% if ( is_granted('ROLE_GANAR') )%}
                                         <li>
 						<a href="{{path('ae_gana_busqueda')}}">
 							Buscar
 						</a>
 					</li>
                                         {% endif %}
-                                        {% if ( is_granted('ROLE_GANAR') )%}
-
-                                        <li>
-                                                <a href="{{path('ganar_modificar_ganador')}}">
-                                                    Modificar Ganador
-                                                </a>
-                                        </li>
                                         
-					{% endif %}
-                                       
 					<li>
 						<a href="#" class='light toggle-collapsed'>
 							Informes
