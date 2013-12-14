@@ -34,22 +34,31 @@ class EliminarController extends Controller {
         if($id != NULL)
         {
             $em = $this->getDoctrine()->getManager();            
+            
+            
             $em->beginTransaction();            
             try{             
                 
                 $prev_div = $em->getRepository('AEDataBundle:Persona');
                 $persona = $prev_div->findOneBy(array('id'=>$id));                
-                $ubicacion = $persona->getIdUbicacion();                
+                $ubicacion = $persona->getIdUbicacion();        
+                
                 $prev_nivel = $em->getRepository('AEDataBundle:NivelCrecimiento');
                 $nivel = $prev_nivel->findBy(array('persona' => $id));
                 
                 foreach ($nivel as $value) {
                     $em->remove($value);
+                    $em->flush();
                 }
                 
                 $em->remove($ubicacion);
                 $em->remove($persona);
                 
+                $det = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+
+                $em->remove($det);
+                
+                $em->flush();
                 
                 $em->commit();
                 
