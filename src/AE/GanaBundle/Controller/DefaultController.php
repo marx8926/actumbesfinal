@@ -142,8 +142,7 @@ class DefaultController extends Controller
             $em->close();
             throw $exc;
         }
-
-       
+ 
         return $this->render('AEGanaBundle:Default:vista.html.twig',array('id'=>$id,'nombre'=>$nombre,
             'apellidos'=>$apellidos,'estado_civil'=>$estado_civil,'edad'=>$edad, 'telefono'=>$telefono,'celular'=>$celular,
             'fecha_nacimiento'=>$fecha_nacimiento,'email'=>$email,'website'=>$website,'sexo'=>$sexo,'id_ubicacion'=>$id_ubicacion,

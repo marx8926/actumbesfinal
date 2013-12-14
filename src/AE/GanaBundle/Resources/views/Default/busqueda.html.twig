@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block titulo %}Buscar Nuevos Convertidos - {% endblock %}
+{% block titulo %}Buscar Personas - {% endblock %}
 
 {% block stylesheets %}
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -10,8 +10,20 @@
 {% endblock %}                 
 
 {% block content %} 
-<div class="span9" >
-	<h1>Buscar Nuevos Convertidos</h1>
+        
+<div class="container-fluid">
+    <div class="content">
+     <div class="row-fluid">
+	<div class="span12">
+
+            <div class="box">
+                
+		<div class="box-head tabs">
+                    <h3>Filtro de busqueda </h3>
+                </div>
+       
+
+                <div class="box-content box-nomargin">
         
         <form id="form_busqueda" name="form_busqueda" method="POST" >
          <div class="control-group span3">
@@ -50,22 +62,37 @@
             </div>
         </div>
         </form>
-</div>
+        
  
-        <div class="span9">
-	<div class="box">
-		<div class="box-head tabs">
-                    <h3>Nuevos Convertidos</h3>	
                 </div>
-       
+            </div>
+        
+	<div class="box">
+             <form id='form' method='POST'>
+		<div class="box-head">
+                    <h3>Personas</h3>	
+            
+                <div class="actions">
+								<ul>
+                                                                    
+                                                                        <li>
+                                                                            
+                                                                            <button id='excelbutton' class="btn btn-mini btn-square tip">
+                                                                                <i class="icon-hdd"></i>
+                                                                                Guardar
+                                                                            </button>
+                                                                        </li>
+								</ul>	
+							</div>
+
+                </div>
 
         <div class="box-content box-nomargin">
-        	<form id='form' method='POST'>
+        	
                 
                     <input id='content' type='hidden' name='content' >
                     <input id='title' type='hidden' name='title' >
-                    <input id='pdfbutton' type='button' value='PDF' class="btn btn-info">
-                    <input id='excelbutton' type='button' value='Excel' class="btn btn-info">
+                    
             
             	<table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left"  id="persona" name="persona">
             		<thead id='lol'>
@@ -82,13 +109,20 @@
 					
 	
     			</table>
-   			</form>
+   			
     	</div>
             
+        </form>
+            
 	</div>
-    
+     </div>
+    </div>
 </div>    
-                 
+        
+     </div>
+        
+    </div>
+</div>
 {% endblock %}
       
  {%block javascript %}
@@ -247,15 +281,6 @@
         
              $('#select').css({'display':'none'});
 
-
-            $("#pdfbutton").click(function(event) {
-                $("#persona th").css("width","auto");
-            	$("#content").val($("#persona").html());
-            	$("#title").val($("h3").html());
-            	//$("#content").val($("#lol").html() + $("tbody").html());
-                $("#form").attr("action", "{{asset('extensiones/exportpdf.php')}}");
-		 		$("#form").submit();
-            });
 
             $("#excelbutton").click(function(event) {
                 console.log($("#persona").html());
