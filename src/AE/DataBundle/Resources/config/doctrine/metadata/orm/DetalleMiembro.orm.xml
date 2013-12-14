@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="DetalleMiembro" table="detalle_miembro">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="activo" type="boolean" column="activo" nullable="true"/>
+    <field name="consolidadorId" type="bigint" column="consolidador_id" nullable="true"/>
+    <field name="liderId" type="bigint" column="lider_id" nullable="true"/>
+    <field name="ganadoPor" type="bigint" column="ganado_por" nullable="true"/>
+    <field name="personaId" type="bigint" column="persona_id" nullable="true"/>
+    <many-to-one field="celula" target-entity="Celula">
+      <join-columns>
+        <join-column name="celula_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="red" target-entity="Red">
+      <join-columns>
+        <join-column name="red_id" referenced-column-name="int_red_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

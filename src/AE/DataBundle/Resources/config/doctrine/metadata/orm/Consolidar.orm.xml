@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Consolidar" table="consolidar">
+    <id name="intConsolidarId" type="bigint" column="int_consolidar_id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="inicio" type="date" column="inicio" nullable="true"/>
+    <field name="fin" type="date" column="fin" nullable="true"/>
+    <field name="pausa" type="date" column="pausa" nullable="true"/>
+    <many-to-one field="consolidador" target-entity="Persona">
+      <join-columns>
+        <join-column name="consolidador_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="consolidado" target-entity="Persona">
+      <join-columns>
+        <join-column name="consolidado_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
