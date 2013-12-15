@@ -10,8 +10,8 @@ asignarconsolidador_save:
     requirements:
         _method: POST
 
-asignarconsolidador_edit:
-    pattern:  /asignarconsolidador_edit
-    defaults: { _controller: AEConsolidaBundle:AsignarConsolidador:edit }
+consolidado_off:
+    pattern:  /consolidado_off
+    defaults: { _controller: AEConsolidaBundle:AsignarConsolidador:off }
     requirements:
         _method: POST

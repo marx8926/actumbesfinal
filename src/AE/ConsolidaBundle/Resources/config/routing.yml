@@ -10,3 +10,7 @@ consolidador_consolida_routing:
     
 asignarconsolidador_consolida_routing:
     resource: "@AEConsolidaBundle/Resources/config/asignarconsolidador_routing.yml"
+
+
+asistencia_consolida_routing:
+    resource: "@AEConsolidaBundle/Resources/config/asistencia_routing.yml"

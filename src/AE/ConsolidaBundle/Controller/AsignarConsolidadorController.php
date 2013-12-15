@@ -24,6 +24,7 @@ use AE\DataBundle\Entity\TemaLeche;
 use AE\DataBundle\Entity\NivelCrecimiento;
 use AE\DataBundle\Entity\Consolidar;
 use AE\DataBundle\Entity\ConsolidadoAsistencia;
+use AE\DataBundle\Entity\DetalleMiembro;
 
 class AsignarConsolidadorController extends Controller {
     //put your code here
@@ -67,7 +68,19 @@ class AsignarConsolidadorController extends Controller {
             $consolidar->setConsolidador($consolidador);
             $consolidar->setInicio(new \DateTime($fecha));
             
+            
+            
             $em->persist($consolidar);
+            $em->flush();
+            
+            
+            //actualizamos detalle de miembro
+            
+            $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+            
+            $detalle->setConsolidadorId($consolidador_id);
+            
+            $em->persist($detalle);
             $em->flush();
             
             //buscamos la leche espiritual
@@ -118,8 +131,28 @@ class AsignarConsolidadorController extends Controller {
     }
     
     
-    public function editAction()
+    public function offAction()
     {
+        $request = $this->get('request');
+        $id =$request->request->get('formulario');
         
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+       
+            //$consolidado = $em->getRepository('AEDataBundle:Consolidar')->findBy(array('consolidado'));
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            $em->close();
+            $em->clear();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        
+        return new JsonResponse($return);
     }
 }

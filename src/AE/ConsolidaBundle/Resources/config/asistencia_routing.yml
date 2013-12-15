@@ -1,0 +1,5 @@
+asistencia_leche_view:
+    pattern:  /asistencia_view
+    defaults: { _controller: AEConsolidaBundle:Asistencia:view }
+    requirements:
+        _method: GET
