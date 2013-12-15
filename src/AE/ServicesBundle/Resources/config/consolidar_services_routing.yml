@@ -1,0 +1,35 @@
+services_consolidador_init:
+  pattern: /lista_consolidador_init
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidador_init}
+  requirements:
+    _method: GET
+    
+services_consolidador_all:
+  pattern: /lista_consolidador_all
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidador_all}
+  requirements:
+    _method: GET
+    
+services_consolidador_red:
+  pattern: /lista_consolidador_red/{red}
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidador_red}
+  requirements:
+    _method: GET
+
+services_miembro_init_no_consolidador:
+  pattern: /lista_miembro_init_no_consolidador
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_miembro_init_no_consolidador}
+  requirements:
+    _method: GET
+    
+services_miembro_all_no_consolidador:
+  pattern: /lista_miembro_all_no_consolidador
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_miembro_all_no_consolidador}
+  requirements:
+    _method: GET
+    
+services_miembro_red_no_consolidador:
+  pattern: /lista_miembro_red_no_consolidador/{red}
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_miembro_red_no_consolidador}
+  requirements:
+    _method: GET

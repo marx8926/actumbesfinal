@@ -1,0 +1,24 @@
+consolidador_view:
+    pattern:  /consolidador_view
+    defaults: { _controller: AEConsolidaBundle:Consolidador:view }
+    requirements:
+        _method: GET
+        
+consolidador_save:
+    pattern:  /consolidador_save
+    defaults: { _controller: AEConsolidaBundle:Consolidador:save }
+    requirements:
+        _method: POST
+
+consolidador_edit:
+    pattern:  /consolidador_edit
+    defaults: { _controller: AEConsolidaBundle:Consolidador:edit }
+    requirements:
+        _method: POST
+        
+        
+consolidador_delete:
+    pattern:  /consolidador_delete
+    defaults: { _controller: AEConsolidaBundle:Consolidador:delete }
+    requirements:
+        _method: POST

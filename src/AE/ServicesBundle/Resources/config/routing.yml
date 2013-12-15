@@ -14,3 +14,6 @@ secretaria_services_routing:
 
 discipular_services_routing:
     resource: "@AEServicesBundle/Resources/config/discipular_services_routing.yml"
+
+consolidar_services_routing:
+    resource: "@AEServicesBundle/Resources/config/consolidar_services_routing.yml"

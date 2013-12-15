@@ -6,10 +6,10 @@
  * and open the template in the editor.
  */
 
-namespace AE\DiscipulaBundle\Controller;
+namespace AE\ConsolidaBundle\Controller;
 
 /**
- * Description of EstudianteController
+ * Description of ConsolidadorController
  *
  * @author Marks-Calderon
  */
@@ -22,37 +22,29 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
 use AE\DataBundle\Entity\NivelCrecimiento;
 
-class EstudianteController extends Controller {
+
+class ConsolidadorController extends Controller {
     //put your code here
     
-       
     public function viewAction()
     {
-       return $this->render('AEDiscipulaBundle:Default:estudiante.html.twig');
+        return $this->render('AEConsolidaBundle:Default:consolidador.html.twig');
     }
     
-    public function editAction()
-    {
-        
-    }
     public function saveAction()
     {
-        $request = $this->get('request');
-        $datos =$request->request->get('formulario');
+         $request = $this->get('request');
+        $id =$request->request->get('formulario');
         
         $em = $this->getDoctrine()->getManager();
         
         $em->beginTransaction();
         
         try{
+       
+            //$niv = $em->getRepository('AEDataBundle:NivelCrecimiento')->findOneBy(array('persona'=>$id,'intNivelcrecimientoEscala' => 4 ));
             
-            $fechaConv_b = $datos['fecha'];            
-            $fechaConv_a = explode('/', $fechaConv_b, 3);            
-            $fecha = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0]; 
-            
-            $id = $datos['persona_id'];
-            
-            $niv = $em->getRepository('AEDataBundle:NivelCrecimiento')->findOneBy(array('persona'=>$id,'intNivelcrecimientoEscala' => 4 ));
+            $niv = NULL;
             
             if($niv == NULL)
             {
@@ -61,8 +53,8 @@ class EstudianteController extends Controller {
                 $nivel = new NivelCrecimiento();
                 $nivel->setRed($persona->getRed());
                 $nivel->setPersona($persona);
-                $nivel->setCreacion(new \DateTime($fecha));
-                $nivel->setIntNivelcrecimientoEscala(5);
+                $nivel->setCreacion(new \DateTime());
+                $nivel->setIntNivelcrecimientoEscala(3);
                 $nivel->setIntNivelcrecimientoEstadoactual(1);
                 
                 $em->persist($nivel);
@@ -86,6 +78,11 @@ class EstudianteController extends Controller {
         }
         
         return new JsonResponse($return); 
+    }
+    
+    public function editAction()
+    {
+        
     }
     
     public function deleteAction()
