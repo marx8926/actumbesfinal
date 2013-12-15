@@ -7,3 +7,6 @@ leche_consolida_routing:
 
 consolidador_consolida_routing:
     resource: "@AEConsolidaBundle/Resources/config/consolidador_routing.yml"
+    
+asignarconsolidador_consolida_routing:
+    resource: "@AEConsolidaBundle/Resources/config/asignarconsolidador_routing.yml"

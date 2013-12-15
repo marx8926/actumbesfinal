@@ -1,0 +1,17 @@
+asignarconsolidador_view:
+    pattern:  /asignarconsolidador_view
+    defaults: { _controller: AEConsolidaBundle:AsignarConsolidador:view }
+    requirements:
+        _method: GET
+        
+asignarconsolidador_save:
+    pattern:  /asignarconsolidador_save
+    defaults: { _controller: AEConsolidaBundle:AsignarConsolidador:save }
+    requirements:
+        _method: POST
+
+asignarconsolidador_edit:
+    pattern:  /asignarconsolidador_edit
+    defaults: { _controller: AEConsolidaBundle:AsignarConsolidador:edit }
+    requirements:
+        _method: POST
