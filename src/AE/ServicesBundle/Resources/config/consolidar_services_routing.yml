@@ -33,3 +33,22 @@ services_miembro_red_no_consolidador:
   defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_miembro_red_no_consolidador}
   requirements:
     _method: GET
+    
+    
+services_sin_consolidar_red:
+  pattern: /lista_sin_consolidar_red/{red}
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_sin_consolidar_red}
+  requirements:
+    _method: GET
+    
+services_consolidando_red:
+  pattern: /lista_consolidando_red/{red}
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidando_red}
+  requirements:
+    _method: GET
+    
+services_leche_espiritual:
+    pattern: /lista_leche
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_leche}
+    requirements:
+        _method: GET

@@ -104,5 +104,49 @@ class ConsolidarServicesController extends Controller {
         $resultado= new JsonResponse(array('aaData' =>$result));
         return $resultado;
     }
-    
+   
+    public function lista_sin_consolidar_redAction($red)
+    {
+      $em = $this->getDoctrine()->getManager();
+        
+        $sql = "SELECT * from get_miembro_red_no_escala(:red,:escala,:estado)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':escala'=>13,':estado'=>1));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
+    }
+
+    public function lista_consolidando_redAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from get_miembros_consolidando_red(:red)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
+    }
+
+    public function lista_lecheAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "SELECT id, nombre  FROM leche_espiritual";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse($result);
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
+       
+        return $resultado;
+    }
 }
