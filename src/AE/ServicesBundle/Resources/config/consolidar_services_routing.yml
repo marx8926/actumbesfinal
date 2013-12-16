@@ -52,3 +52,28 @@ services_leche_espiritual:
     defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_leche}
     requirements:
         _method: GET
+        
+        
+services_consolidando_red_consolidador:
+    pattern: /lista_consolidando_red_consolidador/{red}/{consolidador}
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidando_red_consolidador}
+    requirements:
+        _method: GET
+        
+services_consolidado_red_consolidador:
+    pattern: /lista_consolidado_red_consolidador/{red}/{consolidador}
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidado_red_consolidador}
+    requirements:
+        _method: GET
+        
+services_descartar_red_consolidador:
+    pattern: /lista_descartar_red_consolidador/{red}/{consolidador}
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_descartar_red_consolidador}
+    requirements:
+        _method: GET
+        
+services_temas_leche_consolidado:
+    pattern: /temas_leche_consolidado/{consolidado}
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:temas_leche_consolidado}
+    requirements:
+        _method: GET

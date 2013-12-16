@@ -1,5 +1,23 @@
 asistencia_leche_view:
-    pattern:  /asistencia_view
+    pattern:  /asistencia_leche_view
     defaults: { _controller: AEConsolidaBundle:Asistencia:view }
     requirements:
         _method: GET
+        
+asistencia_leche_save:
+    pattern: /asistencia_leche_save
+    defaults: { _controller: AEConsolidaBundle:Asistencia:leche_save}
+    requirements:
+        _method: POST
+        
+asistencia_leche_descartar:
+    pattern: /asistencia_leche_descartar
+    defaults: { _controller: AEConsolidaBundle:Asistencia:leche_descartar}
+    requirements:
+        _method: POST
+        
+asistencia_leche_editar:
+    pattern: /asistencia_leche_editar
+    defaults: { _controller: AEConsolidaBundle:Asistencia:leche_editar}
+    requirements:
+        _method: POST

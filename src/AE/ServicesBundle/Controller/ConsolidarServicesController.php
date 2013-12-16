@@ -149,4 +149,40 @@ class ConsolidarServicesController extends Controller {
        
         return $resultado;
     }
+    
+    public function lista_consolidando_red_consolidadorAction($red , $consolidador)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from get_miembros_consolidando_red_xconsolidador(:red,:consolidador)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
+        
+    }
+    
+    public function lista_consolidado_red_consolidadorAction($red , $consolidador)
+    {
+        
+    }
+    
+    public function lista_descartar_red_consolidadorAction($red , $consolidador)
+    {
+        
+    }
+    
+    public function temas_leche_consolidadoAction($consolidado)
+    {        
+        
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_tema_por_consolidado(:consolidado)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':consolidado' => $consolidado));
+        $result = $smt->fetchAll();        
+        return new JsonResponse($result);
+    }
 }

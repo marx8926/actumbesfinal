@@ -100,49 +100,155 @@
                         </div>
                         
                        
-                         <div class="modal hide" id="modal_sinconsolidar">
-                            <form id="form_consolidado" name="form_consolidado" method="POST" class="form-horizontal">
-                            <input type="hidden" id="persona_id" name="persona_id">
+                         <div class="modal hide" id="asistencia_modal">
+                            <form id="form_asistencia" name="form_asistencia" method="POST" class="form-horizontal">
+                            <input type="hidden" id="asistencia_id" name="asistencia_id">
+                            <input type="hidden" id="num_lecciones" name="num_lecciones">
                             <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				 <h3>Confirmación</h3>
                             </div>
                             <div class="modal-body">
-                                <p id="posible_consolidado"></p>
+                                <p id="posible_asistencia"></p>
                                 <div class="form-horizontal">
                                     
                                     <div class="control-group" >
-                                        <label class="control-label">Consolidadores</label>
+                                        <label class="control-label">Lección</label>
                                         <div class="controls" >
-                                            <select id="consolidadores" name="consolidadores">
+                                            <select id="leccion" name="leccion" class="input-large">
                                                 
                                             </select>
                                         </div>
                                     </div>
                                     
                                     <div class="control-group">
-                                        <label class="control-label">Fecha de inicio</label>
+                                        <label class="control-label">Aplicación</label>
                                         <div class="controls">
-                                            <input type="text" id="inicio" name="inicio" class="datepick input-small" >
+                                            <input type="text" id="aplicacion" name="aplicacion" class="datepick input-large" >
                                         </div>
                                     </div>
                                     
                                     <div class="control-group">
-                                        <label class="control-label">Leche Espiritual</label>
+                                        <label class="control-label">Iglesia</label>
                                         <div class="controls">
-                                            <select id="leche" name="leche">
-                                                
-                                            </select>
+                                            <label class="radio">
+                                                <input type="radio" id="iglesia" name="iglesia" value="si"> Si
+                                            </label>
+                                            
+                                            <label class="radio">
+                                                <input type="radio" id="iglesia" name="iglesia" value="no"> No
+                                            </label>
                                         </div>
                                     </div>
+                                    
+                                    <div class="control-group">
+                                        <label class="control-label">Célula</label>
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input type="radio" id="celula" name="celula" value="si"> Si
+                                            </label>
+                                            
+                                            <label class="radio">
+                                                <input type="radio" id="celula" name="celula" value="no"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="control-group" >
+                                        
+                                        <label class="control-label">Interés</label>
+                                        <div class="controls" >
+                                            1 <input type="range" name="interes" id="interes" min="1" max="10" value="1">10
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="control-group">
+                                        
+                                        <label class="control-label" >Detalle</label>
+                                        <div class="controls">
+                                            <textarea id="detalle" name="detalle" ></textarea>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    
                                 </div>
                               </div>
 			    <div class="modal-footer">
                                                              
                                 <a href="#" class="btn" data-dismiss="modal">Descartar</a>
-                                <input type="button" value="Guardar cambios" id="guardarcambios" name="guardarcambios" class="btn btn-primary" data-dismiss="modal" >
+                                <input type="button" value="Guardar cambios" id="guardar_asistencia" name="guardar_asistencia" class="btn btn-primary" data-dismiss="modal" >
 			     </div>
                             </form> 
+                        </div>
+                        
+                        <div class="modal hide" id="descartar_modal">
+                            
+                            <form class="form-horizontal" id="form_descartar" name="form_descartar" >
+                                
+                                 <input type="hidden" id="descartar_id" name="descartar_id">
+                            <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				 <h3>Confirmación</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p id="posible_descarte"></p>
+                               
+                            </div>
+			    <div class="modal-footer">
+                                                             
+                                <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                <input type="button" value="Guardar cambios" id="guardar_descartar" name="guardar_descartar" class="btn btn-primary" data-dismiss="modal" >
+			     </div>
+                            </form>
+                        </div>
+                        
+                        
+                           
+                        <div class="modal hide" id="editar_modal">
+                            
+                            <form class="form-horizontal" id="form_editar" name="form_editar" >
+                                
+                                 <input type="hidden" id="editar_id" name="editar_id">
+                            <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				 <h3>Cambiar consolidador</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p id="posible_editar"></p>
+                               
+                            </div>
+                                 
+                             <div class="control-group">
+                                <label class="control-label">Cambiar Consolidador</label>
+                                <div class="controls">
+                                    <label class="radio">
+                                                <input type="radio" id="cambiarconsolidador" name="cambiarconsolidador" value="si"> Si
+                                    </label>
+                                           
+                                    <label class="radio">
+                                                <input type="radio" id="cambiarconsolidador" name="cambiarconsolidador" value="no"> No
+                                    </label>
+                                </div>
+                             </div>
+                                 
+                             <div class="control-group">
+                                 
+                                 <label class="control-label">Nuevo consolidador</label>
+                                 <div class="controls">
+                                     <select id="nuevo_consolidador" name="nuevo_consolidador" class="input-medium">
+                                         
+                                     </select>
+                                 </div>                                 
+                             </div>
+                                 
+                            
+			    <div class="modal-footer">
+                                                             
+                                <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                <input type="button" value="Guardar cambios" id="guardar_editar" name="guardar_editar" class="btn btn-primary" data-dismiss="modal" >
+			     </div>
+                            </form>
                         </div>
                         
                     </div>
@@ -158,7 +264,7 @@
             <div class="box">
                 
 		<div class="box-head tabs">
-                    <h3>Convertidos sin consolidar</h3>
+                    <h3>Convertidos asignados</h3>
                     
                 </div>
        
@@ -167,12 +273,13 @@
          
                
                     
-            	<table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left"  id="sinconsolidar" name="sinconsolidar">
+            	<table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left"  id="asignados" name="asignados">
             		<thead id='lol'>
                 		<tr>
 		                    <th>Nombres</th>	
                                     <th width="6%">Red</th>
 		                    <th width="5%">Edad</th>		                    
+		                    <th width="8%">Conversión</th>
                                     <th>Inicio</th>
                                     <th>Pausa</th>
                                     <th>Fin</th>
@@ -219,8 +326,7 @@
             
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
-            <script src="{{asset('js/otherfunctiondatatable.js')}}"></script>
-            
+            <script src="{{asset('js/asistenciaconsolidar.js')}}"></script>
           
  
  
@@ -238,8 +344,10 @@
         root.Leches = null;
         root.Consolidadores = null;
         root.DatosEnviar = null;
+        root.count = 0;
+        root.filtro = 0;
       
-        var FormatoSinConsolidarTable, SinConsolidarRowCB, SinConsolidarTable;
+        var FormatoAsignadoTable, AsignadoRowCB, AsignadoTable;
         
         Consolidador_red = function(){
             
@@ -253,56 +361,81 @@
                 root.Consolidadores = temp['aaData']; 
                 
                 cargarSelect(root.Consolidadores, "consolidador_lista", "id", "nombres");
+                cargarSelect(root.Consolidadores, "nuevo_consolidador", "id", "nombres");
                 
             }
         };
         
          PrepararDatos = function() {
                     return root.DatosEnviar = {
-                            "formulario": $("#form_consolidado").serializeObject()
+                            "formulario": $("#form_asistencia").serializeObject()
                     };
                 };
     
         generardata = function()
         {
             var red = $("#red_lista").val();
-            if( red != '-1')
+            var consolidador = $("#consolidador_lista").val();
+            var filtro = $("#filtro_lista").val();
+            
+            root.filtro = filtro;
+            
+            if( red != '-1' )
             {     
-               
-                url = '{{path('services_consolidando_red',{'red':'net'})}}';
-                url = url.replace('net', red);                 
-                   
-                   
-                url1 = '{{path('services_sin_consolidar_red',{'red':'net'})}}';
-                url1 = url1.replace('net', red);  
                 
-                root.SourceConsolidandoServicio = url;
-                root.SourceSinConsolidarServicio = url1;
+                if($('#hasta_check').prop("checked") && $("#desde_check").prop("checked"))
+                {
+                    if(filtro == '0') //consolidando
+                    {
+                        
+                    }
+                    else if(filtro == '1') //consolidado
+                    {
+                        
+                    }    
+                    else //descartado
+                    {
+                        
+                    }
+                }
+                else
+                {
+                     if(filtro == '0') //consolidando
+                    {
+                        url = "{{path('services_consolidando_red_consolidador',{'red':'net','consolidador':'consld'})}}";
+                        url = url.replace('net', red);
+                        url = url.replace('consld', consolidador);
+                        root.SourceAsignadoServicio = url;
+                    }
+                    else if(filtro == '1') //consolidado
+                    {
+                        
+                    }    
+                    else //descartado
+                    {
+                        
+                    }
+                }
                 
-                SinConsolidarTable.fnReloadAjax(root.SourceSinConsolidarServicio);
-                ConsolidandoTable.fnReloadAjax(root.SourceConsolidandoServicio); 
-                
-                //cargar consolidadores
-                
-                ruta = "{{path('services_consolidador_red',{'red':'nom'})}}";
-                ruta = ruta.replace('nom',red);
-                temp = getAjaxObject(ruta);
-                root.Consolidadores = temp['aaData'];
-                
-                cargarSelect(root.Consolidadores, "consolidadores", "id", "nombres");
+                if(root.count == 0)
+                {
+                    console.log(root.SourceAsignadoServicio);
+                    AsignadoTable = createDataTable("asignados", root.SourceAsignadoServicio, FormatoAsignadoTable, null, AsignadoRowCB);
+
+                }
             }
             
         };
         
-        SuccessSinConsolidarFunction = function(data) {
+        SuccessAsignadoFunction = function(data) {
                
                     if(data.responseCode===200 ){          
                       alert('Registro Completado');                       
-                      SinConsolidarTable.fnReloadAjax(root.SourceSinConsolidarServicio);
-                      ConsolidandoTable.fnReloadAjax(root.SourceConsolidandoServicio);
+                      
                     }
-                    else if(data.responseCode===400){//bad request
-                       alert('Error bad request');
+                    else if(data.responseCode===300){//bad request
+                       alert('Registro Completado');
+                       AsignadoTable.fnReloadAjax(root.SourceAsignadoServicio);
                         }
                     else{                        
                         if(data.responseCode===500)
@@ -315,30 +448,64 @@
 
         
          
-        SinConsolidarRowCB = function(nRow, aData, iDisplayIndex) {
+        AsignadoRowCB = function(nRow, aData, iDisplayIndex) {
             var acciones, index;
-            index = $(SinConsolidarTable.fnGetData()).getIndexObj(aData, 'id');
+            index = $(AsignadoTable.fnGetData()).getIndexObj(aData, 'id');
+       
             {% if is_granted('ROLE_LIDER_RED')  %}
-                acciones = getOtherActionButtons("100","modal_sinconsolidar", "","");
-            
+                if(root.filtro == '0')
+                    acciones = getConsolidadoActionButtons("resumen_modal", "#asistencia_modal", "#descartar_modal",
+                "#editar_modal");
+                else if(root.filtro == '1')
+                    acciones = getConsolidadoActionButtons("resumen_modal", "#asistencia_modal", "#descartar_modal",
+                "#editar_modal");
+                else
+                    acciones = getConsolidadoActionButtons("resumen_modal", "#asistencia_modal", "#descartar_modal",
+                "#editar_modal");                
             {% endif %}
-            SinConsolidarTable.fnUpdate(acciones, index, 6);
+            AsignadoTable.fnUpdate(acciones, index, 9);
             $(nRow).find('a').tooltip('hide');
             
-            $(nRow).find('.add_row').click(function(event) {
+            $(nRow).find('.resumen_row').click(function(event) {
                 event.preventDefault();
                 
-                root.idPersona = aData.id ;
+                
                 $("#persona_id").val(aData.id );
                 
                 $("#posible_consolidado").text('Desear asignarle a '+ aData.nombres+' un consolidador?');
             });
+            
+            $(nRow).find('.asistencia_row').click(function(event){
+                
+                event.preventDefault();
+                root.idPersona = aData.id;
+                url = "{{path('services_temas_leche_consolidado',{'consolidado': 'csl'})}}";
+                url = url.replace('csl', aData.id);
+                temas = getAjaxObject(url);
+                
+                //num_lecciones
+                $("#num_lecciones").val(temas.length);                
+                cargarSelect(temas, "leccion", "id", "titulo");                 
+                $("#asistencia_id").val(aData.id);
+                
+            });
+            
+             $(nRow).find('.descartar_row').click(function(event){
+                event.preventDefault();
+                $('#posible_descarte').text('Desea descartar a '+aData.nombres+' de consolidación?');
+                $("#descartar_id").val(aData.id);
+            });
+             $(nRow).find('.editar_row').click(function(event){
+                event.preventDefault();
+                
+                $("#editar_id").val(aData.id);
+            });
         };
         
         urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
-        FormatoConsolidandoTable = [
+        FormatoAsignadoTable = [
             {
-                "sWidth": "35%",
+                "sWidth": "30%",
                 "mDataProp": "nombres"
             },
             {
@@ -370,9 +537,8 @@
                 "mDataProp": "telefono"
             },
             {
-                "sWidth": "10%",
-                "mDataProp": "acciones"
-                
+                "sWidth": "15%",
+                "mDataProp": "acciones"                
             }
        ];
               
@@ -404,10 +570,7 @@
             FechaActualT('hasta');
             
             $("#red_lista").change(Consolidador_red);
-           
             
-            //ConsolidandoTable = createDataTable("consolidando", root.SourceConsolidandoServicio, FormatoConsolidandoTable, null, ConsolidandoRowCB);
-
             root.Leches = getAjaxObject("{{path('services_leche_espiritual')}}");
             
             cargarSelect(root.Leches, "leche", "id", "nombre");
@@ -442,15 +605,31 @@
             $("#btnGenerar").click(generardata);
             
             
-            $("#guardarcambios").click(function(event){
+            $("#guardar_asistencia").click(function(event){
+                
                 event.preventDefault();
-                PrepararDatos();
-              
-                    console.log(root.DatosEnviar);
-                enviar('{{path('asignarconsolidador_save')}}', root.DatosEnviar, SuccessSinConsolidarFunction, null);
+                PrepararDatos(); 
+                enviar('{{path('asistencia_leche_save')}}', root.DatosEnviar, SuccessAsignadoFunction, null);
 
             });
            
+            $("#guardar_descartar").click(function(event){
+                event.preventDefault();
+                
+                enviar('{{path('asistencia_leche_descartar')}}',{"formulario": $("#descartar_id").val() } , SuccessAsignadoFunction, null);
+            });
+            
+            
+            $("#guardar_editar").click(function(event){
+             
+                event.preventDefault();
+                
+                if($("#cambiarconsolidador").val() == "si")
+                {
+                    enviar('{{path('asistencia_leche_editar')}}',{"formulario": $("#form_editar").serializeObject() } , SuccessAsignadoFunction, null);
+
+                }
+            });
             
 	 });
   
