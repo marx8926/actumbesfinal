@@ -37,6 +37,20 @@ class TemaCurso
     private $fechaCreacion;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="titulo", type="string", length=100, nullable=true)
+     */
+    private $titulo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="abreviatura", type="string", length=5, nullable=true)
+     */
+    private $abreviatura;
+
+    /**
      * @var \Curso
      *
      * @ORM\ManyToOne(targetEntity="Curso")
@@ -102,6 +116,52 @@ class TemaCurso
     public function getFechaCreacion()
     {
         return $this->fechaCreacion;
+    }
+
+    /**
+     * Set titulo
+     *
+     * @param string $titulo
+     * @return TemaCurso
+     */
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+    
+        return $this;
+    }
+
+    /**
+     * Get titulo
+     *
+     * @return string 
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    /**
+     * Set abreviatura
+     *
+     * @param string $abreviatura
+     * @return TemaCurso
+     */
+    public function setAbreviatura($abreviatura)
+    {
+        $this->abreviatura = $abreviatura;
+    
+        return $this;
+    }
+
+    /**
+     * Get abreviatura
+     *
+     * @return string 
+     */
+    public function getAbreviatura()
+    {
+        return $this->abreviatura;
     }
 
     /**

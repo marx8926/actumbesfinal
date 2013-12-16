@@ -54,9 +54,15 @@ class CursoController extends Controller {
             $curso->setFechaCreacion(new \DateTime($fecha));
             $curso->setNumeroSesiones(count($tabla));
             $curso->setTitulo($datos['nombre']);
+            $curso->setAbreviatura($datos['abvr_curso']);
             
+            $requisito = $datos['requisito'];
             
-            
+            if($requisito != '-1')
+            {
+                $previo = $em->getRepository('AEDataBundle:Curso')->find($requisito);
+                $curso->setRequisito($previo);                
+            }
             $em->persist($curso);
             
             $em->flush();
@@ -64,7 +70,8 @@ class CursoController extends Controller {
             foreach ($tabla as $value) {
                 
                 $tema = new TemaCurso();
-                
+                $tema->setTitulo($value['leccion']);
+                $tema->setAbreviatura($value['abreviatura']);
                 $tema->setActivo(TRUE);
                 $tema->setFechaCreacion(new \DateTime());
                 $tema->setIdCurso($curso);
@@ -93,6 +100,32 @@ class CursoController extends Controller {
     
     public function deleteAction()
     {
+        $request = $this->get('request');
+        $datos =$request->request->get('formulario');
         
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+            
+            $id = $datos['descartar_id'];            
+            
+            $curso = $em->getRepository('AEDataBundle:Curso')->find($id);            
+            //$curso = new Curso();            
+            $curso->setActivo(!$curso->getActivo());           
+            $em->persist($curso);            
+            $em->flush();            
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            $em->close();
+            $em->clear();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        
+        return new JsonResponse($return); 
     }
 }

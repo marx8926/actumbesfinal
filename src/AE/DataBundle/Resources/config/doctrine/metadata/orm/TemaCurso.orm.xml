@@ -6,6 +6,8 @@
     </id>
     <field name="activo" type="boolean" column="activo" nullable="false"/>
     <field name="fechaCreacion" type="date" column="fecha_creacion" nullable="false"/>
+    <field name="titulo" type="string" column="titulo" length="100" nullable="true"/>
+    <field name="abreviatura" type="string" column="abreviatura" length="5" nullable="true"/>
     <many-to-one field="idCurso" target-entity="Curso">
       <join-columns>
         <join-column name="id_curso" referenced-column-name="id"/>

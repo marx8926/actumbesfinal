@@ -10,3 +10,16 @@ services_persona_noestudiante_autocomplete_red:
     defaults: {_controller: AEServicesBundle:DiscipularServices:persona_noestudiante_autocomplete_red}
     requirements:
         _method: GET
+        
+
+services_cursos_option_all:
+    pattern: /cursos_option_all
+    defaults: {_controller: AEServicesBundle:DiscipularServices:cursos_option_all}
+    requirements:
+        _method: GET
+        
+services_cursos_all_table:
+    pattern: /cursos_all_table
+    defaults: {_controller: AEServicesBundle:DiscipularServices:cursos_all_table}
+    requirements:
+        _method: GET

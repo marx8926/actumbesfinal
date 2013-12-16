@@ -57,6 +57,23 @@ class Curso
      */
     private $titulo;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="abreviatura", type="string", length=5, nullable=true)
+     */
+    private $abreviatura;
+
+    /**
+     * @var \Curso
+     *
+     * @ORM\ManyToOne(targetEntity="Curso")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="requisito_id", referencedColumnName="id")
+     * })
+     */
+    private $requisito;
+
 
 
     /**
@@ -182,5 +199,51 @@ class Curso
     public function getTitulo()
     {
         return $this->titulo;
+    }
+
+    /**
+     * Set abreviatura
+     *
+     * @param string $abreviatura
+     * @return Curso
+     */
+    public function setAbreviatura($abreviatura)
+    {
+        $this->abreviatura = $abreviatura;
+    
+        return $this;
+    }
+
+    /**
+     * Get abreviatura
+     *
+     * @return string 
+     */
+    public function getAbreviatura()
+    {
+        return $this->abreviatura;
+    }
+
+    /**
+     * Set requisito
+     *
+     * @param \AE\DataBundle\Entity\Curso $requisito
+     * @return Curso
+     */
+    public function setRequisito(\AE\DataBundle\Entity\Curso $requisito = null)
+    {
+        $this->requisito = $requisito;
+    
+        return $this;
+    }
+
+    /**
+     * Get requisito
+     *
+     * @return \AE\DataBundle\Entity\Curso 
+     */
+    public function getRequisito()
+    {
+        return $this->requisito;
     }
 }
