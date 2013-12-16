@@ -120,7 +120,7 @@ class AsistenciaController extends Controller {
             $em->commit();
            // $em->clear();
             
-           $return=array("responseCode"=>200, "greeting"=>"Ok");
+           $return=array("responseCode"=>600, "greeting"=>"Ok");
         } catch (Exception $ex) {
             $em->rollback();
             $em->close();
@@ -170,6 +170,78 @@ class AsistenciaController extends Controller {
            // $em->clear();
             
            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            $em->close();
+            $em->clear();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }        
+        return new JsonResponse($return); 
+    }
+    
+    public function leche_descartar_editarAction()
+    {
+        $request = $this->get('request');
+        $datos = $request->request->get('formulario');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+           
+            $inicio = new \DateTime();
+            $id = $datos['editar_descartar_id'];
+            $consolidador = $datos['nuevo_consolidador_d'];
+            $consolidador_objeto = $em->getRepository('AEDataBundle:Persona')->find($consolidador);
+            
+            $consolidar = $em->getRepository('AEDataBundle:Consolidar')->findOneBy(array('consolidado' => $id));
+            
+            //$consolidar = new Consolidar();
+            
+            $consolidar->setPausa(NULL);
+            $consolidar->setConsolidador($consolidador_objeto);
+            
+            
+            
+            //actualizar detalle miembro
+            
+            $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+            
+            $detalle->setConsolidadorId($consolidador);
+            
+            $em->persist($detalle);
+            $em->flush();
+            
+            //si reinicia las clases
+            if($datos['reiniciar'] == 'si')
+            {
+                $asistencias = $em->getRepository('AEDataBundle:ConsolidadoAsistencia')->findBy(array('consolidar'=> $consolidar->getIntConsolidarId()));
+                
+                $ini = $inicio;
+                foreach ($asistencias as $item) {
+                    
+                    $item->setInicio($inicio);
+                    $item->setPausa(NULL);
+                    $item->setFin(NULL);
+                    
+                    $inicio = $inicio->add(new \DateInterval('P7D'));
+                    
+                    $em->persist($item);
+                    $em->flush();
+                }
+                
+                $consolidar->setInicio(new \DateTime());
+                
+            }
+            
+            $em->persist($consolidar);
+            $em->flush();
+            
+            $em->commit();
+           // $em->clear();
+            
+           $return=array("responseCode"=>700, "greeting"=>"Ok");
         } catch (Exception $ex) {
             $em->rollback();
             $em->close();

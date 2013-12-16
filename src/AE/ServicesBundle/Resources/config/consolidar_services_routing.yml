@@ -60,9 +60,21 @@ services_consolidando_red_consolidador:
     requirements:
         _method: GET
         
+services_consolidando_red_consolidador_fecha:
+    pattern: /lista_consolidando_red_consolidador/{red}/{consolidador}/{inicio}/{fin}
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidando_red_consolidador_fecha}
+    requirements:
+        _method: GET
+        
 services_consolidado_red_consolidador:
     pattern: /lista_consolidado_red_consolidador/{red}/{consolidador}
     defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidado_red_consolidador}
+    requirements:
+        _method: GET
+        
+services_consolidado_red_consolidador_fecha:
+    pattern: /lista_consolidado_red_consolidador/{red}/{consolidador}/{inicio}/{fin}
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidado_red_consolidador_fecha}
     requirements:
         _method: GET
         
@@ -72,6 +84,12 @@ services_descartar_red_consolidador:
     requirements:
         _method: GET
         
+services_descartar_red_consolidador_fecha:
+    pattern: /lista_descartar_red_consolidador/{red}/{consolidador}/{inicio}/{fin}
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_descartar_red_consolidador_fecha}
+    requirements:
+        _method: GET       
+
 services_temas_leche_consolidado:
     pattern: /temas_leche_consolidado/{consolidado}
     defaults: {_controller: AEServicesBundle:ConsolidarServices:temas_leche_consolidado}

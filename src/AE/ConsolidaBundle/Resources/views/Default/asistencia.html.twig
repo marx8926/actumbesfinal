@@ -251,6 +251,55 @@
                             </form>
                         </div>
                         
+                        
+                        
+                             
+                        <div class="modal hide" id="editar_descartar_modal">
+                            
+                            <form class="form-horizontal" id="form_editar_descartar" name="form_editar_descartar" >
+                                
+                                 <input type="hidden" id="editar_descartar_id" name="editar_descartar_id">
+                            <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				 <h3>Cambiar consolidador</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p id="posible_editar"></p>
+                               
+                            </div>
+                                 
+                             <div class="control-group">
+                                <label class="control-label">Reiniciar las clases del inicio</label>
+                                <div class="controls">
+                                    <label class="radio">
+                                          <input type="radio" id="reiniciar" name="reiniciar" value="si"> Si
+                                    </label>
+                                           
+                                    <label class="radio">
+                                          <input type="radio" id="reiniciar" name="reiniciar" value="no"> No
+                                    </label>
+                                </div>
+                             </div>
+                                 
+                             <div class="control-group">
+                                 
+                                 <label class="control-label">Nuevo consolidador</label>
+                                 <div class="controls">
+                                     <select id="nuevo_consolidador_d" name="nuevo_consolidador_d" class="input-medium">
+                                         
+                                     </select>
+                                 </div>                                 
+                             </div>
+                                 
+                            
+			    <div class="modal-footer">
+                                                             
+                                <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                <input type="button" value="Guardar cambios" id="guardar_editar_descartar" name="guardar_editar_descartar" class="btn btn-primary" data-dismiss="modal" >
+			     </div>
+                            </form>
+                        </div>
+                        
                     </div>
                 </div>        
 
@@ -362,6 +411,7 @@
                 
                 cargarSelect(root.Consolidadores, "consolidador_lista", "id", "nombres");
                 cargarSelect(root.Consolidadores, "nuevo_consolidador", "id", "nombres");
+                cargarSelect(root.Consolidadores, "nuevo_consolidador_d", "id", "nombres");
                 
             }
         };
@@ -385,17 +435,41 @@
                 
                 if($('#hasta_check').prop("checked") && $("#desde_check").prop("checked"))
                 {
+                    ini = $("#desde").val();                   
+                    split = ini.split('/');
+                    ini = [split[2], split[1], split[0]].join('-');
+                    
+                    hasta = $("#hasta").val();
+                    split = hasta.split('/');
+                    hasta = [split[2], split[1], split[0]].join('-');
+                    
                     if(filtro == '0') //consolidando
                     {
-                        
+                        url = "{{path('services_consolidando_red_consolidador_fecha',{'red':'net','consolidador':'consld','inicio':'begin', 'fin':'end'})}}";
+                        url = url.replace('net', red);
+                        url = url.replace('consld', consolidador);
+                        url = url.replace('begin',ini);
+                        url = url.replace('end', hasta);
+                        root.SourceAsignadoServicio = url;
                     }
                     else if(filtro == '1') //consolidado
                     {
-                        
+                         url = "{{path('services_consolidado_red_consolidador_fecha',{'red':'net','consolidador':'consld','inicio':'begin', 'fin':'end'})}}";
+                        url = url.replace('net', red);
+                        url = url.replace('consld', consolidador);
+                        url = url.replace('begin',ini);
+                        url = url.replace('end', hasta);
+                        root.SourceAsignadoServicio = url;
                     }    
                     else //descartado
                     {
+                        url = "{{path('services_descartar_red_consolidador_fecha',{'red':'net','consolidador':'consld','inicio':'begin', 'fin':'end'})}}";
+                        url = url.replace('net', red);
+                        url = url.replace('consld', consolidador);
+                        url = url.replace('begin',ini);
+                        url = url.replace('end', hasta);
                         
+                        root.SourceAsignadoServicio = url;
                     }
                 }
                 else
@@ -409,11 +483,18 @@
                     }
                     else if(filtro == '1') //consolidado
                     {
-                        
+                                               
+                        url = "{{path('services_consolidado_red_consolidador',{'red':'net','consolidador':'consld'})}}";
+                        url = url.replace('net', red);
+                        url = url.replace('consld', consolidador);
+                        root.SourceAsignadoServicio = url;
                     }    
                     else //descartado
                     {
-                        
+                        url = "{{path('services_descartar_red_consolidador',{'red':'net','consolidador':'consld'})}}";
+                        url = url.replace('net', red);
+                        url = url.replace('consld', consolidador);
+                        root.SourceAsignadoServicio = url;
                     }
                 }
                 
@@ -437,6 +518,11 @@
                        alert('Registro Completado');
                        AsignadoTable.fnReloadAjax(root.SourceAsignadoServicio);
                         }
+                        
+                   else if(data.responseCode===600 || data.responseCode===700 ){//bad request
+                       alert('Registro Completado');
+                       AsignadoTable.fnReloadAjax(root.SourceAsignadoServicio);
+                        }
                     else{                        
                         if(data.responseCode===500)
                         {
@@ -454,14 +540,14 @@
        
             {% if is_granted('ROLE_LIDER_RED')  %}
                 if(root.filtro == '0')
-                    acciones = getConsolidadoActionButtons("resumen_modal", "#asistencia_modal", "#descartar_modal",
+                    acciones = getConsolidadoActionButtons(root.filtro, "resumen_modal", "#asistencia_modal", "#descartar_modal",
                 "#editar_modal");
                 else if(root.filtro == '1')
-                    acciones = getConsolidadoActionButtons("resumen_modal", "#asistencia_modal", "#descartar_modal",
+                    acciones = getConsolidadoActionButtons(root.filtro, "resumen_modal", "#asistencia_modal", "#descartar_modal",
                 "#editar_modal");
                 else
-                    acciones = getConsolidadoActionButtons("resumen_modal", "#asistencia_modal", "#descartar_modal",
-                "#editar_modal");                
+                    acciones = getConsolidadoActionButtons(root.filtro ,"resumen_modal", "#asistencia_modal", "#descartar_modal",
+                "#editar_descartar_modal");                
             {% endif %}
             AsignadoTable.fnUpdate(acciones, index, 9);
             $(nRow).find('a').tooltip('hide');
@@ -499,6 +585,7 @@
                 event.preventDefault();
                 
                 $("#editar_id").val(aData.id);
+                $("#editar_descartar_id").val(aData.id);
             });
         };
         
@@ -614,21 +701,29 @@
             });
            
             $("#guardar_descartar").click(function(event){
-                event.preventDefault();
-                
+                event.preventDefault();                
                 enviar('{{path('asistencia_leche_descartar')}}',{"formulario": $("#descartar_id").val() } , SuccessAsignadoFunction, null);
-            });
-            
+            });            
             
             $("#guardar_editar").click(function(event){
              
-                event.preventDefault();
-                
+                event.preventDefault();                
                 if($("#cambiarconsolidador").val() == "si")
                 {
                     enviar('{{path('asistencia_leche_editar')}}',{"formulario": $("#form_editar").serializeObject() } , SuccessAsignadoFunction, null);
-
                 }
+            });
+            
+             $("#guardar_editar_descartar").click(function(event){
+             
+                event.preventDefault();                
+                
+                enviar('{{path('asistencia_leche_descartar_editar')}}',{"formulario": $("#form_editar_descartar").serializeObject() } , SuccessAsignadoFunction, null);
+                
+            });
+            
+            $("#filtro_lista").change(function(){
+                root.filtro = $("#filtro_lista").val();
             });
             
 	 });

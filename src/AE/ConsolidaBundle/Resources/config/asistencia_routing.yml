@@ -16,8 +16,15 @@ asistencia_leche_descartar:
     requirements:
         _method: POST
         
+asistencia_leche_descartar_editar:
+    pattern: /asistencia_leche_descartar_editar
+    defaults: { _controller: AEConsolidaBundle:Asistencia:leche_descartar_editar}
+    requirements:
+        _method: POST
+        
 asistencia_leche_editar:
     pattern: /asistencia_leche_editar
     defaults: { _controller: AEConsolidaBundle:Asistencia:leche_editar}
     requirements:
         _method: POST
+        

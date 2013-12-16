@@ -137,7 +137,7 @@ class ConsolidarServicesController extends Controller {
     {
         $em = $this->getDoctrine()->getManager();
         
-        $sql = "SELECT id, nombre  FROM leche_espiritual";
+        $sql = "SELECT id, nombre  FROM leche_espiritual order by nombre asc";
         
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute();
@@ -165,14 +165,75 @@ class ConsolidarServicesController extends Controller {
         
     }
     
+    public function lista_consolidando_red_consolidador_fechaAction($red , $consolidador, $inicio, $fin)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from get_miembros_consolidando_red_xconsolidador_fecha(:red,:consolidador, :ini, :fin)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador, ':ini' => $inicio, ':fin' => $fin));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
+        
+    }
+    
     public function lista_consolidado_red_consolidadorAction($red , $consolidador)
     {
+        $em = $this->getDoctrine()->getManager();
         
+        $sql = "select * from get_miembros_consolidado_red_xconsolidador(:red,:consolidador)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
+    }
+    
+    public function lista_consolidado_red_consolidador_fechaAction($red , $consolidador, $inicio, $fin)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from get_miembros_consolidado_red_xconsolidador_fecha(:red,:consolidador,:ini,:fin)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador, ':ini'=>$inicio, ':fin' => $fin));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
     }
     
     public function lista_descartar_red_consolidadorAction($red , $consolidador)
     {
+        $em = $this->getDoctrine()->getManager();
         
+        $sql = "select * from get_miembros_descartado_red_xconsolidador(:red,:consolidador)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
+    }
+    
+    public function lista_descartar_red_consolidador_fechaAction($red , $consolidador,$inicio, $fin)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $sql = "select * from get_miembros_descartado_red_xconsolidador_fecha(:red,:consolidador, :ini,:fin)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador, ':ini'=>$inicio, ':fin'=>$fin));
+        $result = $smt->fetchAll();
+        
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
     }
     
     public function temas_leche_consolidadoAction($consolidado)
