@@ -23,3 +23,9 @@ services_cursos_all_table:
     defaults: {_controller: AEServicesBundle:DiscipularServices:cursos_all_table}
     requirements:
         _method: GET
+        
+services_profesor_all_table:
+    pattern: /profesor_all_table
+    defaults: {_controller: AEServicesBundle:DiscipularServices:profesor_all_table}
+    requirements:
+        _method: GET

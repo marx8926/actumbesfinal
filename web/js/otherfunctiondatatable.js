@@ -27,3 +27,15 @@ function cambiar_estado(modal)
     actions += '</p>';
     return actions;
 }
+
+function cambiar_ver_estado(modal_cambiar, modal_ver)
+{
+    actions = "<p>";
+    
+    actions += '<a class="estado-row  actions-icons" data-original-title="Cambiar Estado" data-toggle="modal" href="#'+modal_cambiar+'"><img alt="edit" class="icons" src="http://d19k46zntalu3t.cloudfront.net/img/sorting.png"></a>';
+    actions += '<a class="ver_row  actions-icons" data-original-title="Ver Detalle" href="'+modal_ver+'"><img alt="trash" src="http://d19k46zntalu3t.cloudfront.net/img/view.png"></a>';
+
+
+    actions += '</p>';
+    return actions;
+}

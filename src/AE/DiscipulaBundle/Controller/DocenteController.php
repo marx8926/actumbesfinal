@@ -89,6 +89,35 @@ class DocenteController extends Controller {
     
     public function deleteAction()
     {
+        $request = $this->get('request');
+        $id =$request->request->get('formulario');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+            
+            $nivel = $em->getRepository('AEDataBundle:NivelCrecimiento')->find($id);            
+            //$curso = new Curso();            
+            $estado = $nivel->getIntNivelcrecimientoEstadoactual();
+            $estado = abs($estado-1);
+            
+            $nivel->setIntNivelcrecimientoEstadoactual($estado);           
+            
+            $em->persist($nivel);            
+            $em->flush();            
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            $em->close();
+            $em->clear();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        
+        return new JsonResponse($return); 
         
     }
 }

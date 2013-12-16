@@ -114,4 +114,20 @@ class DiscipularServicesController extends Controller {
         $resultado= new JsonResponse(array('aaData'=>$result));      
         return $resultado;
     }
+    
+    public function profesor_all_tableAction()
+    {
+        
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "SELECT * FROM view_get_profesores_all";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse(array('aaData'=>$result));      
+        return $resultado;
+        
+    }
+            
+            
 }
