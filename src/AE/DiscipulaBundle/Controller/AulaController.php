@@ -51,10 +51,8 @@ class AulaController extends Controller {
             
            
             $aula = new Aula();
-            if($datos['activo'] == '1')
-                $aula->setActivo(TRUE);
-            else
-                $aula->setActivo (FALSE);
+          
+            $aula->setActivo(TRUE);
             
             $aula->setCreado(new \DateTime($fecha));
             $aula->setNombre($datos['nombre']);
@@ -80,5 +78,32 @@ class AulaController extends Controller {
     public function deleteAction()
     {
         
+        $request = $this->get('request');
+        $id =$request->request->get('formulario');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+            
+            $aula = $em->getRepository('AEDataBundle:Aula')->find($id);            
+            //$curso = new Curso();            
+            $aula->setActivo(!$aula->getActivo());
+            
+            $em->persist($aula);            
+            $em->flush();            
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            
+            $em->clear();
+            $em->close();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        
+        return new JsonResponse($return);  
     }
 }

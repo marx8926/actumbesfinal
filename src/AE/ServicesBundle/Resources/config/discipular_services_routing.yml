@@ -35,3 +35,10 @@ services_estudiante_red_table:
     defaults: {_controller: AEServicesBundle:DiscipularServices:estudiante_red_table}
     requirements:
         _method: GET
+        
+        
+services_aula_all_table:
+    pattern: /aula_all_table
+    defaults: {_controller: AEServicesBundle:DiscipularServices:aula_all_table}
+    requirements:
+        _method: GET
