@@ -67,7 +67,18 @@ class MatriculaController extends Controller {
             else {
                 $personas = $per;
             }
-            foreach ($personas as $value) {
+            
+            $matriculados = $request->request->get('matriculados');
+            $total = array();
+            foreach($matriculados as $mat)
+            {
+                $total[] = $mat['id'];
+            }
+            
+            //sacamos la diferencia de los no matriculados
+            $registrar = array_diff($personas, $total);
+            
+            foreach ($registrar as $value) {
                 $estudiante = $em->getRepository('AEDataBundle:Persona')->find($value);
                 
                 $matricula = new Matricula();

@@ -204,7 +204,7 @@ class DiscipularServicesController extends Controller {
     public function curso_profesor_tablaAction($profesor, $curso)
     {
         
-         $em = $this->getDoctrine()->getManager(); 
+        $em = $this->getDoctrine()->getManager(); 
         $sql = "select * from get_detalle_pca_profesor_curso(:profe,:curso)";
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute(array(':profe'=>$profesor, ':curso'=>$curso));
@@ -213,6 +213,18 @@ class DiscipularServicesController extends Controller {
         $resultado= new JsonResponse(array('aaData'=>$result));      
         return $resultado;
         
+    }
+    
+    public function matriculados_detalleAction($detalle)
+    {        
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "select * from get_matriculados_detalle(:detalle)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':detalle'=>$detalle));
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse($result);      
+        return $resultado;
     }
     
 }

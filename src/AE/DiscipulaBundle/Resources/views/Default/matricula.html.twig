@@ -217,6 +217,7 @@
                 root.count = 0;
                 root.count_student = 0;
                 root.count_enroll = 0;
+                root.matriculados = null;
                 personas = null;
                 
                 
@@ -279,7 +280,17 @@
                 },{ "mDataProp": "acciones"}
                 ]; 
                 
+                function cargar_matriculados()
+                {
+                    //cargar matriculados
                 
+                        url_m = "{{path('services_matriculados_detalle',{'detalle':'dit'})}}";
+                        url_m = url_m.replace('dit',$("#matricular_id").val());
+                        matriculados = getAjaxObject(url_m);
+                
+                        cargarSelect(matriculados,"matricular","id","nombres");
+                        root.matriculados = matriculados;
+                }
                  MatriculaRowCB = function(nRow, aData, iDisplayIndex) {
                     var acciones, index;
                     index = $(MatriculaTable.fnGetData()).getIndexObj(aData, 'id_detalle');
@@ -296,6 +307,8 @@
                 
                         event.preventDefault();
                         $("#matricular_id").val(aData.id_detalle);
+                        
+                        cargar_matriculados();
                     });
                     
                     $(nRow).find('.ver-row').click(function(event){
@@ -416,28 +429,13 @@
                 url = "{{path('services_estudiante_activo_red_table',{'red':'net'})}}";
                 url = url.replace('net', red);
                 
-                if(root.count_student == 0)
-                {
-                    estudiantes = getAjaxObject(url);                  
-                    
-                    cargarSelect(estudiantes['aaData'],"estudiantes","id","nombres");
-                    //EstudiantesTable = createDataTable("tabla_estudiantes", url , FormatoEMTable, null, EstudianteRowCB);
-                }
-                else
-                {
-                   // EstudiantesTable.fnReloadAjax(url);
-                }
                 
-                if(root.count_enroll == 0)
-                {
+                estudiantes = getAjaxObject(url);                  
                     
-                }
-                else
-                {
-                    
-                }
-                root.count_enroll++;
-                root.count_student++;
+                cargarSelect(estudiantes['aaData'],"estudiantes","id","nombres");
+                
+                
+            
             }
         };
       
@@ -468,7 +466,13 @@
              $("#guardar_matricular").click(function(event){
              
                 console.log($("#form_matricular").serializeObject());
-                enviar('{{path('matricula_save')}}', {'formulario': $("#form_matricular").serializeObject()}, SuccessFunction, null);
+                console.log(root);
+                datos ={
+                    'formulario': $("#form_matricular").serializeObject(),
+                    'matriculados': root.matriculados 
+                };
+                console.log(datos);
+                enviar('{{path('matricula_save')}}', datos , SuccessFunction, null);
             });
             $("#btnGenerar").click(generarData);
             

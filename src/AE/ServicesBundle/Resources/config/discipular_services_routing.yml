@@ -75,3 +75,7 @@ services_curso_profesor_tabla:
     defaults: {_controller: AEServicesBundle:DiscipularServices:curso_profesor_tabla}
     requirements:
         _method: GET
+        
+services_matriculados_detalle:
+    pattern: /matriculados_detalle/{detalle}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:matriculados_detalle}
