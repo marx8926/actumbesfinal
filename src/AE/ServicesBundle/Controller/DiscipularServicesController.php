@@ -141,6 +141,18 @@ class DiscipularServicesController extends Controller {
         return $resultado;
     }
     
+     public function estudiante_activo_red_tableAction($red)
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "SELECT * FROM get_niveles_all_tabla_red(:red,:nivel,:estado)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':nivel' => 4, ':estado' => 1));
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse(array('aaData'=>$result));      
+        return $resultado;
+    }
+    
     public function aula_all_tableAction()
     {
         $em = $this->getDoctrine()->getManager(); 
@@ -187,6 +199,20 @@ class DiscipularServicesController extends Controller {
         
         $resultado= new JsonResponse($result);      
         return $resultado;
+    }
+    
+    public function curso_profesor_tablaAction($profesor, $curso)
+    {
+        
+         $em = $this->getDoctrine()->getManager(); 
+        $sql = "select * from get_detalle_pca_profesor_curso(:profe,:curso)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':profe'=>$profesor, ':curso'=>$curso));
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse(array('aaData'=>$result));      
+        return $resultado;
+        
     }
     
 }

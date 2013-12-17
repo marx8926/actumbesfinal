@@ -37,6 +37,12 @@ services_estudiante_red_table:
         _method: GET
         
         
+services_estudiante_activo_red_table:
+    pattern: /estudiante_activo_red/{red}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:estudiante_activo_red_table}
+    requirements:
+        _method: GET
+        
 services_aula_all_table:
     pattern: /aula_all_table
     defaults: {_controller: AEServicesBundle:DiscipularServices:aula_all_table}
@@ -61,5 +67,11 @@ services_curso_option:
 services_aula_option:
     pattern: /aula_option
     defaults: {_controller: AEServicesBundle:DiscipularServices:aula_option}
+    requirements:
+        _method: GET
+        
+services_curso_profesor_tabla:
+    pattern: /curso_profesor_tabla/{profesor}/{curso}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:curso_profesor_tabla}
     requirements:
         _method: GET

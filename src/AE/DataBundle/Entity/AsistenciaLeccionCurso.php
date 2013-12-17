@@ -44,13 +44,6 @@ class AsistenciaLeccionCurso
     private $aplicacion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="detalle_asistencia", type="string", length=300, nullable=true)
-     */
-    private $detalleAsistencia;
-
-    /**
      * @var \Matricula
      *
      * @ORM\ManyToOne(targetEntity="Matricula")
@@ -149,29 +142,6 @@ class AsistenciaLeccionCurso
     public function getAplicacion()
     {
         return $this->aplicacion;
-    }
-
-    /**
-     * Set detalleAsistencia
-     *
-     * @param string $detalleAsistencia
-     * @return AsistenciaLeccionCurso
-     */
-    public function setDetalleAsistencia($detalleAsistencia)
-    {
-        $this->detalleAsistencia = $detalleAsistencia;
-    
-        return $this;
-    }
-
-    /**
-     * Get detalleAsistencia
-     *
-     * @return string 
-     */
-    public function getDetalleAsistencia()
-    {
-        return $this->detalleAsistencia;
     }
 
     /**
