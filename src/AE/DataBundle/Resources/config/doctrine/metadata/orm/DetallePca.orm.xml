@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="DetallePca" table="detalle_pca">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="dia" type="string" column="dia" length="30" nullable="true"/>
+    <field name="horaInicio" type="string" column="hora_inicio" length="15" nullable="true"/>
+    <field name="horaFin" type="string" column="hora_fin" length="15" nullable="true"/>
+    <field name="fechaInicio" type="date" column="fecha_inicio" nullable="true"/>
+    <field name="fechaFin" type="date" column="fecha_fin" nullable="true"/>
+    <field name="estado" type="integer" column="estado" nullable="true"/>
+    <many-to-one field="aula" target-entity="Aula">
+      <join-columns>
+        <join-column name="aula_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="curso" target-entity="Curso">
+      <join-columns>
+        <join-column name="curso_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="profesor" target-entity="Persona">
+      <join-columns>
+        <join-column name="profesor_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,24 @@
+asignacion_view:
+    pattern:  /asignacion_view
+    defaults: { _controller: AEDiscipulaBundle:Asignacion:view }
+    requirements:
+        _method: GET
+        
+asignacion_save:
+    pattern:  /asignacion_save
+    defaults: { _controller: AEDiscipulaBundle:Asignacion:save }
+    requirements:
+        _method: POST
+
+asignacion_edit:
+    pattern:  /asignacion_edit
+    defaults: { _controller: AEDiscipulaBundle:Asignacion:edit }
+    requirements:
+        _method: POST
+        
+        
+asignacion_delete:
+    pattern:  /asignacion_delete
+    defaults: { _controller: AEDiscipulaBundle:Asignacion:delete }
+    requirements:
+        _method: POST

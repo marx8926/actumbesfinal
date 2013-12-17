@@ -152,5 +152,41 @@ class DiscipularServicesController extends Controller {
         $resultado= new JsonResponse(array('aaData'=>$result));      
         return $resultado;
     }
-            
+    
+    public function profesor_optionAction()
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "SELECT * FROM view_get_profesores_all_option";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse($result);      
+        return $resultado;
+    }
+    
+    public function curso_optionAction()
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "SELECT * FROM view_get_curso_all_option";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse($result);      
+        return $resultado;
+    }
+    
+    public function aula_optionAction()
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "SELECT * FROM view_get_aula_all_option";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse($result);      
+        return $resultado;
+    }
+    
 }

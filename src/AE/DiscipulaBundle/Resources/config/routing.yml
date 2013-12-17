@@ -19,3 +19,6 @@ asistencia_discipula_routing:
     
 matricula_discipula_routing:
     resource: "@AEDiscipulaBundle/Resources/config/matricula_routing.yml"
+    
+asignacion_discipula_routing:
+    resource: "@AEDiscipulaBundle/Resources/config/asignacion_routing.yml"

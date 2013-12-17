@@ -42,3 +42,24 @@ services_aula_all_table:
     defaults: {_controller: AEServicesBundle:DiscipularServices:aula_all_table}
     requirements:
         _method: GET
+        
+#profesores activos
+services_profesor_option:
+    pattern: /profesor_option
+    defaults: {_controller: AEServicesBundle:DiscipularServices:profesor_option}
+    requirements:
+        _method: GET
+#curso activo        
+services_curso_option:
+    pattern: /curso_option
+    defaults: {_controller: AEServicesBundle:DiscipularServices:curso_option}
+    requirements:
+        _method: GET
+        
+#aula activa
+
+services_aula_option:
+    pattern: /aula_option
+    defaults: {_controller: AEServicesBundle:DiscipularServices:aula_option}
+    requirements:
+        _method: GET
