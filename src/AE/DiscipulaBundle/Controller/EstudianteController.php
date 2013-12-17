@@ -62,7 +62,7 @@ class EstudianteController extends Controller {
                 $nivel->setRed($persona->getRed());
                 $nivel->setPersona($persona);
                 $nivel->setCreacion(new \DateTime($fecha));
-                $nivel->setIntNivelcrecimientoEscala(5);
+                $nivel->setIntNivelcrecimientoEscala(4);
                 $nivel->setIntNivelcrecimientoEstadoactual(1);
                 
                 $em->persist($nivel);
@@ -73,11 +73,12 @@ class EstudianteController extends Controller {
                 $niv->setIntNivelcrecimientoEstadoactual(1);
                 $em->persist($niv);
                 $em->flush();
+
             }
-         
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+
             $em->commit();
             
-            $return=array("responseCode"=>200, "greeting"=>"Ok");
         } catch (Exception $ex) {
             $em->rollback();
             $em->close();
@@ -90,6 +91,35 @@ class EstudianteController extends Controller {
     
     public function deleteAction()
     {
+       $request = $this->get('request');
+        $id =$request->request->get('formulario');
         
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+            
+            $nivel = $em->getRepository('AEDataBundle:NivelCrecimiento')->find($id);            
+            //$curso = new Curso();            
+            $estado = $nivel->getIntNivelcrecimientoEstadoactual();
+            $estado = abs($estado-1);
+            
+            $nivel->setIntNivelcrecimientoEstadoactual($estado);           
+            
+            $em->persist($nivel);            
+            $em->flush();            
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            
+            $em->clear();
+            $em->close();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        
+        return new JsonResponse($return);  
     }
 }

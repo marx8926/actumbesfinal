@@ -129,5 +129,16 @@ class DiscipularServicesController extends Controller {
         
     }
             
+    public function estudiante_red_tableAction($red)
+    {
+          $em = $this->getDoctrine()->getManager(); 
+        $sql = "SELECT * FROM get_niveles_all_tabla_red(:red,:nivel)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':nivel' => 4));
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse(array('aaData'=>$result));      
+        return $resultado;
+    }
             
 }

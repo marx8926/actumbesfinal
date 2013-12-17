@@ -29,3 +29,9 @@ services_profesor_all_table:
     defaults: {_controller: AEServicesBundle:DiscipularServices:profesor_all_table}
     requirements:
         _method: GET
+        
+services_estudiante_red_table:
+    pattern: /estudiante_red/{red}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:estudiante_red_table}
+    requirements:
+        _method: GET

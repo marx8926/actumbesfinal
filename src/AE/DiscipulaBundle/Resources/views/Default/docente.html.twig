@@ -266,7 +266,6 @@
                     if(data.responseCode===200 ){                        
                        alert('Registro Completado');
                         ProfesorTable.fnReloadAjax('{{path('services_profesor_all_table')}}');                     
-                      //     location.reload();
                     }
                     else if(data.responseCode===400){//bad request
                         alert('Error bad request');
