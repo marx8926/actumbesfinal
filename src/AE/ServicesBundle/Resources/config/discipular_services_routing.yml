@@ -79,3 +79,8 @@ services_curso_profesor_tabla:
 services_matriculados_detalle:
     pattern: /matriculados_detalle/{detalle}
     defaults: {_controller: AEServicesBundle:DiscipularServices:matriculados_detalle}
+    
+    
+services_table_matriculados_detalle:
+    pattern: /table_matriculados_detalle/{detalle}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:table_matriculados_detalle}

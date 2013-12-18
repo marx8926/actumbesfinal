@@ -227,4 +227,9 @@ class DiscipularServicesController extends Controller {
         return $resultado;
     }
     
+    public function table_matriculados_detalleAction($detalle)
+    {
+        
+    }
+    
 }
