@@ -272,4 +272,28 @@ class DiscipularServicesController extends Controller {
 
     }
     
+    public function option_sin_aplicar_detalle_pcaAction($detalle)
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "select * from get_lecciones_sin_dictar_detalle_pca(:detalle)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':detalle'=>$detalle));
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse($result);      
+        return $resultado;
+    }
+    
+    public function table_matriculados_detalle_pcaAction($detalle)
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "select * from get_matriculados_detalle_tabla(:detalle)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':detalle'=>$detalle));
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse(array('aaData'=>$result));      
+        return $resultado;
+    }
+    
 }

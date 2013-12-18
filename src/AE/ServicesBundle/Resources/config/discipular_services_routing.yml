@@ -84,3 +84,15 @@ services_matriculados_detalle:
 services_table_matriculados_detalle:
     pattern: /table_matriculados_detalle/{detalle}/{num_lecciones}
     defaults: {_controller: AEServicesBundle:DiscipularServices:table_matriculados_detalle}
+    
+services_option_sin_aplicar_detalle_pca:
+    pattern: /option_sin_aplicar_detalle_pca/{detalle}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:option_sin_aplicar_detalle_pca}
+    requirements:
+        _method: GET
+        
+services_table_matriculados_detalle_pca:
+    pattern: /table_matriculados_detalle_pca/{detalle}
+    defaults: {_controller: AEServicesBundle:DiscipularServices:table_matriculados_detalle_pca}
+    requirements:
+        _method: GET

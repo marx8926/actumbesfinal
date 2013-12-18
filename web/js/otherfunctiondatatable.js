@@ -17,6 +17,10 @@ function getOtherActionButtons(conf,add_modal, delete_modal, view_modal ){
   actions += '</p>'
   return actions;
 }
+function check()
+{
+    return '<input type=\"checkbox\" >';
+}
 
 function getActionSinModalButtons(conf,add_modal, delete_modal, view_modal ){
   actions = "<p>"

@@ -15,7 +15,7 @@
             margin-top: 15px;
             padding: 0px;
             }
-            
+           .datepicker {z-index: 1151;}
             
         </style>
         {% endblock %}
@@ -169,6 +169,12 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="control-group">
+                                                <label class="control-label" >Aplicación</label>
+                                                <div class="controls">
+                                                    <input type = "text" id="aplicacion" name="aplicacion" class="input-medium datepick">
+                                                </div>
+                                            </div>
                                          
                                         </div>
                                        
@@ -194,7 +200,7 @@
                                     <div class="modal-footer">
                                                              
                                         <a href="#" class="btn" data-dismiss="modal">Descartar</a>
-                                        <input type="button" value="Guardar cambios" id="guardar_matricular" name="guardar_matricular" class="btn btn-primary" data-dismiss="modal" >
+                                        <input type="button" value="Guardar cambios" id="guardar_asistencia" name="guardar_asistencia" class="btn btn-primary" data-dismiss="modal" >
                                     </div>
                                 </form>
                             </div>
@@ -288,12 +294,13 @@
                 root.count_student = 0;
                 root.count_enroll = 0;
                 root.matriculados = null;
+                root.asistencia = true;
                 personas = null;
                 
                 
                 var MatriculaTable;
                 var EstudiantesTable;
-                var MatriculadosTable = null;
+                var MatriculadosTable;
                 
                 
                 urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
@@ -311,6 +318,25 @@
                         cargarSelect(matriculados,"matricular","id","nombres");
                         root.matriculados = matriculados;
                 }
+                
+               
+                 MatriculadosRowCB = function(nRow, aData, iDisplayIndex) {
+                     var acciones, index;
+                     
+                     index = $(MatriculadosTable.fnGetData()).getIndexObj(aData, 'id_det');
+                     acciones = check();
+                     input = "<input type=\"number\" min=\"0\" max=\"0\" value=\"0\" class=\"input-small\" id=\"nota\" name=\"nota\">"
+                     MatriculadosTable.fnUpdate("<input type=\"checkbox\" id=\"asiste\" name=\"asiste\" >", index, 2);
+                     MatriculadosTable.fnUpdate(input, index, 3);
+                     
+                     /*$(nRow).find('nota').change(function(){
+                         aData.nota_val = $("#nota").val();
+                     });*/
+                     $("#nota").on(function(){
+                         console.log($("#nota").val());
+                     });
+                    
+                 };
                  MatriculaRowCB = function(nRow, aData, iDisplayIndex) {
                     var acciones, index;
                     index = $(MatriculaTable.fnGetData()).getIndexObj(aData, 'id_detalle');
@@ -329,14 +355,21 @@
                         $("#matricular_id").val(aData.id_detalle);
                         
                         cargar_matriculados();
+                       
                     });
                     
                     $(nRow).find('.asistencia_row').click(function(event){
                 
                         event.preventDefault();
-                        $("#matricular_id").val(aData.id_detalle);
                         
-                        cargar_matriculados();
+                        $("#asistencia_id").val(aData.id_detalle);                         
+                        url = "{{path('services_option_sin_aplicar_detalle_pca',{'detalle':':dit'})}}";
+                        url = url.replace(':dit',aData.id_detalle);
+                        lecciones = getAjaxObject(url);
+                
+                        cargarSelect(lecciones,"leccion","id","sesion");
+                       
+                        cargar_matriculados_asistencia();
                     });
                     
                     $(nRow).find('.ver_row').click(function(event){
@@ -368,6 +401,24 @@
       
                 };
                
+               
+                function cargar_matriculados_asistencia()
+                {
+                    url = "{{path('services_table_matriculados_detalle_pca',{'detalle':':dit'})}}";
+                    url = url.replace(':dit',$("#asistencia_id").val());
+                    
+                    if(root.asistencia)
+                    {
+                        root.asistencia = false;
+                        
+                        MatriculadosTable = createDataTable("tabla_asistencia", url , FormatoEMTable, null, MatriculadosRowCB);
+
+                    }
+                    else{
+                        MatriculadosTable.fnReloadAjax(url);
+                    }
+                    
+                }
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
                             "formulario": $("#form_asignacion").serializeObject()
@@ -486,7 +537,15 @@
             
             $("#cargar_estudiantes").click(generarEstudiantes);
             
-            
+            $("#guardar_asistencia").click(function(event){
+                event.preventDefault();
+                datos ={
+                    'formulario': $("#form_asistencia").serializeObject(),
+                    'matriculados': MatriculadosTable.fnGetData() 
+                };
+                
+                console.log(datos);
+            });
             
         } );
 

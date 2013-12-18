@@ -25,7 +25,9 @@
                     },{
                         "mDataProp": "red"
                     },{
-                        "mDataProp": "acciones"
+                        "mDataProp": "asistencia"
+                    },{
+                        "mDataProp": "nota"
                     }];
                 
                 FormatoMatriculaTable = [
