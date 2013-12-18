@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
 use AE\DataBundle\Entity\DetallePca;
+use AE\DataBundle\Entity\SesionPca;
 
 class AsignacionController extends Controller {
     //put your code here
@@ -67,6 +68,25 @@ class AsignacionController extends Controller {
             
             $em->persist($det);
             $em->flush();
+            
+            //recuperar lecciones
+            $lecciones = $em->getRepository('AEDataBundle:TemaCurso')->findBy(array('idCurso'=>$datos['curso']));
+            
+            $inicio = new \DateTime();
+            
+            foreach ($lecciones as $leccion) {
+                $sesion = new SesionPca();
+                
+                $sesion->setOfrenda(0);
+                $sesion->setTemacurso($leccion);
+                $sesion->setDetallePca($det);
+                $sesion->setInicio($inicio);
+                        
+                $inicio = $inicio->add(new \DateInterval('P7D'));
+                
+                $em->persist($sesion);
+                $em->flush();
+            }
             
             $em->commit();
             
