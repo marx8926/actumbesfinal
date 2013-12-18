@@ -82,5 +82,5 @@ services_matriculados_detalle:
     
     
 services_table_matriculados_detalle:
-    pattern: /table_matriculados_detalle/{detalle}
+    pattern: /table_matriculados_detalle/{detalle}/{num_lecciones}
     defaults: {_controller: AEServicesBundle:DiscipularServices:table_matriculados_detalle}

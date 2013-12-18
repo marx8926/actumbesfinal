@@ -149,6 +149,56 @@
                                 </form>
                             </div>
          
+                            
+                            <div class="modal hide" id="asistencia_modal">                            
+                                <form id="form_asistencia" name="form_asistencia" >                                
+                                    <input type="hidden" id="asistencia_id" name="asistencia_id">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                        <h3>Confirmación</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p id="posible_descarte"></p>
+                                        
+                                        <div class="row form-horizontal">
+                                            <div class="control-group">
+                                                <label class="control-label">Lección</label>
+                                                <div class="controls">
+                                                    <select id="leccion" name="leccion" class="input-medium">
+                                                    
+                                                    </select>
+                                                </div>
+                                            </div>
+                                         
+                                        </div>
+                                       
+                                        <div class="box">
+                                            
+                                            <div class="box-content box-nomargin" >
+                                                
+                                                <table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left"  id="tabla_asistencia" name="tabla_asistencia">
+                                                    <thead id='lol'>
+                                                        <tr>
+                                                            <th>Nombres</th>
+                                                            <th>Red</th>
+                                                            <th>Asistencia</th>
+                                                            <th>Nota</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+               
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                                             
+                                        <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                        <input type="button" value="Guardar cambios" id="guardar_matricular" name="guardar_matricular" class="btn btn-primary" data-dismiss="modal" >
+                                    </div>
+                                </form>
+                            </div>
+         
                            	<table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left"  id="tabla_asignado" name="tabla_asignado">
                                     <thead id='lol'>
                                         <tr>
@@ -166,7 +216,8 @@
                                         </tr>
                                     </thead>
                                 </table>
-                </div>
+               
+                 </div>
             </div>
      
      </div>
@@ -242,7 +293,8 @@
                 
                 var MatriculaTable;
                 var EstudiantesTable;
-                var MatriculadosTable;
+                var MatriculadosTable = null;
+                
                 
                 urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
             
@@ -264,7 +316,7 @@
                     index = $(MatriculaTable.fnGetData()).getIndexObj(aData, 'id_detalle');
        
                     {% if is_granted('ROLE_DISCIPULAR')  %}
-                        acciones =  acciones_materia("#matricular_modal", "asistencia", "ver", "terminar");        
+                        acciones =  acciones_materia("#matricular_modal", "#asistencia_modal", "ver", "terminar");        
                     {% endif %}
                     MatriculaTable.fnUpdate(acciones, index, 10);
                     $(nRow).find('a').tooltip('hide');
@@ -279,63 +331,43 @@
                         cargar_matriculados();
                     });
                     
-                    $(nRow).find('.ver-row').click(function(event){
-                
-                        event.preventDefault();                        
-                        //resumen de curso
-                        $("#descartar_id").val(aData.id);
-                    });
-      
-                };
-        
-      
-                 EstudianteRowCB = function(nRow, aData, iDisplayIndex) {
-                    var acciones, index;
-                    index = $(EstudiantesTable.fnGetData()).getIndexObj(aData, 'id');
-       
-                    {% if is_granted('ROLE_DISCIPULAR')  %}
-                        acciones =  getActionSinModalButtons("100","","","");        
-                    {% endif %}
-                    EstudiantesTable.fnUpdate(acciones, index, 2);
-                    $(nRow).find('a').tooltip('hide');
-            
-           
-            
-                    $(nRow).find('.add_row').click(function(event){
+                    $(nRow).find('.asistencia_row').click(function(event){
                 
                         event.preventDefault();
-                        if(aData.activo == true)
-                            $("#posible_descarte").text("Desea desactivar al profesor "+ aData.nombres + "?");                
-                        else
-                            $("#posible_descarte").text("Desea activar al profesor "+ aData.nombres + "?");
-               
-                        $("#descartar_id").val(aData.id);
-                    });
-                  
-                };
-        
-      
-                
-                MatriculadoRowCB = function(nRow, aData, iDisplayIndex) {
-                    var acciones, index;
-                    index = $(MatriculadosTable.fnGetData()).getIndexObj(aData, 'id');
-       
-                    {% if is_granted('ROLE_DISCIPULAR')  %}
-                        acciones =  getActionSinModalButtons("010","","","");        
-                    {% endif %}
-                    MatriculadosTable.fnUpdate(acciones, index, 2);
-                    $(nRow).find('a').tooltip('hide');
-     
-                    $(nRow).find('.delete_row').click(function(event){
-                
-                        event.preventDefault();
+                        $("#matricular_id").val(aData.id_detalle);
                         
+                        cargar_matriculados();
                     });
                     
-                };
-        
-      
+                    $(nRow).find('.ver_row').click(function(event){
+                
+                        root.count++;
                         
+                        if(root.count == 10)
+                            locatio.reload();
+                        event.preventDefault();                        
+                        //resumen de curso
+                        
+                        url = '{{path('services_table_matriculados_detalle',{'detalle':':dit',
+                        'num_lecciones':':numlec'})}}';
+                                    
+                        url = url.replace(':dit',aData.id_detalle);
+                        url = url.replace(':numlec',aData.numero_sesiones);
+                        
+                        FormatoDTable = generar_acolumnas(aData.numero_sesiones,'L');
+                        
+                        //if(MatriculadosTable != null)
+                          //  MatriculadosTable.fnDestroy();
+                        
+                        $("#curso_asignado_tabla").empty();
+                        $("#curso_asignado_tabla").html('<table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left" id="vista_curso"></table>');
+
+                        MatriculadosTable = generar_vista_tabla_curso('vista_curso', url, FormatoDTable);                        
+                        $("#descartar_id").val(aData.id);
+                    });
+      
+                };
+               
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
                             "formulario": $("#form_asignacion").serializeObject()
@@ -384,6 +416,13 @@
             {
                 MatriculaTable.fnReloadAjax(url);
             }
+            
+            $('#vista_curso').empty();
+            if(MatriculadosTable != null)
+                MatriculadosTable.fnDestroy();
+            $("#curso_asignado_tabla").empty();
+            $("#curso_asignado_tabla").html('<table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left" id="vista_curso"></table>');
+
         };
         
         generarEstudiantes = function()

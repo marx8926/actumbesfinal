@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SesionPca" table="sesion_pca">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="inicio" type="date" column="inicio" nullable="true"/>
+    <field name="aplicacion" type="date" column="aplicacion" nullable="true"/>
+    <field name="ofrenda" type="float" column="ofrenda" nullable="true"/>
+    <many-to-one field="temacurso" target-entity="TemaCurso">
+      <join-columns>
+        <join-column name="temacurso_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

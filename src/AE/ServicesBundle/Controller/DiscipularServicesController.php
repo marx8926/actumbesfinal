@@ -227,9 +227,49 @@ class DiscipularServicesController extends Controller {
         return $resultado;
     }
     
-    public function table_matriculados_detalleAction($detalle)
+    public function table_matriculados_detalleAction($detalle, $num_lecciones)
     {
+        //select * from get_asistencia_detalle(1);
         
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "select * from get_asistencia_detalle(:detalle)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':detalle'=>$detalle));
+        $result = $smt->fetchAll();       
+        
+        
+        $num_total = count($result);
+        
+        $grupos = $num_total/$num_lecciones;
+        
+        $resultado = array();
+        
+        for ($i = 0; $i< $grupos; $i++) {
+            
+            $item = array();
+            $item['nro'] = strval($i+1);
+            $item['id'] = $result[$i*$num_lecciones]['id'];
+            $item['nombres'] = $result[$i*$num_lecciones]['nombres'];
+            
+            for($j = 0; $j<$num_lecciones; $j++)
+            {
+                $patron = "L".strval($j+1);                
+                $p = "";
+                //asistencia
+                if($result[$j+$i*$num_lecciones]['asistencia'])
+                    $p = "/<br>";
+               else
+                   $p = "x<br>";
+                //nota                   
+                $p = $p.$result[$j+$i*$num_lecciones]['nota'];                
+                $item[$patron] = $p;                
+            }
+            $resultado[] = $item;
+        }
+        
+        
+        return  new JsonResponse(array('aaData' =>$resultado));      
+
     }
     
 }

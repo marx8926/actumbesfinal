@@ -91,7 +91,7 @@
                     //añadir N°
                     resultado.push({"sTitle": "N°", "mDataProp": "nro" });
                     //Añadir inicio
-                    resultado.push({"sTitle": "Estudiante", "mDataProp": "estudiante"});
+                    resultado.push({"sTitle": "Estudiante", "mDataProp": "nombres"});
 
                     
                     for(i=1; i <= num_lecciones; i++ )
