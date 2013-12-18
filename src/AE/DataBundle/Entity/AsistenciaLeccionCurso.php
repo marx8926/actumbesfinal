@@ -23,9 +23,9 @@ class AsistenciaLeccionCurso
     private $id;
 
     /**
-     * @var float
+     * @var integer
      *
-     * @ORM\Column(name="nota", type="float", nullable=true)
+     * @ORM\Column(name="nota", type="integer", nullable=true)
      */
     private $nota;
 
@@ -78,7 +78,7 @@ class AsistenciaLeccionCurso
     /**
      * Set nota
      *
-     * @param float $nota
+     * @param integer $nota
      * @return AsistenciaLeccionCurso
      */
     public function setNota($nota)
@@ -91,7 +91,7 @@ class AsistenciaLeccionCurso
     /**
      * Get nota
      *
-     * @return float 
+     * @return integer 
      */
     public function getNota()
     {

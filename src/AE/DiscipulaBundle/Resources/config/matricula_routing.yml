@@ -17,8 +17,8 @@ matricula_edit:
         _method: POST
         
         
-matricula_delete:
-    pattern:  /matricula_delete
-    defaults: { _controller: AEDiscipulaBundle:Matricula:delete }
+matricula_asistencia:
+    pattern:  /matricula_asistencia
+    defaults: { _controller: AEDiscipulaBundle:Matricula:asistencia }
     requirements:
         _method: POST

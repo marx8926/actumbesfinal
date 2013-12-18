@@ -96,10 +96,10 @@ class Celula
      *
      * @ORM\ManyToOne(targetEntity="Persona")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="lider_id", referencedColumnName="id")
      * })
      */
-    private $persona;
+    private $lider;
 
 
 
@@ -321,25 +321,25 @@ class Celula
     }
 
     /**
-     * Set persona
+     * Set lider
      *
-     * @param \AE\DataBundle\Entity\Persona $persona
+     * @param \AE\DataBundle\Entity\Persona $lider
      * @return Celula
      */
-    public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
+    public function setLider(\AE\DataBundle\Entity\Persona $lider = null)
     {
-        $this->persona = $persona;
+        $this->lider = $lider;
     
         return $this;
     }
 
     /**
-     * Get persona
+     * Get lider
      *
      * @return \AE\DataBundle\Entity\Persona 
      */
-    public function getPersona()
+    public function getLider()
     {
-        return $this->persona;
+        return $this->lider;
     }
 }

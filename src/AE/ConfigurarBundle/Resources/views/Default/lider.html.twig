@@ -1,12 +1,12 @@
 {% extends "::base.html.twig" %}
         {% block stylesheets %}
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
-       <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+        <link href="{{asset('css/bootstrap.css')}}" media="screen" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" media="screen" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" media="screen" rel="stylesheet" type="text/css">
+       <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
 
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/chosen.css">
+        <link rel="stylesheet" href="{{asset('css/smooth/jquery-ui-1.8.16.custom.css')}}" >
+        <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
         <!-- Scripts -->
                  
         {% endblock %}
@@ -81,17 +81,6 @@
                                     
                                         
                                     
-                                        <div class="control-group" id="veintes">                                            
-                                            <label class="control-label"></label>
-                                            <div class="controls">
-                                               <label class="radio">
-                                                    <input type="radio" id="nivel" name="nivel" value="veinte"> 20736
-                                                </label>
-                                                <select id="veinte_lista" name="veinte_lista" >
-                                                    
-                                                </select>
-                                            </div>                                          
-                                        </div>
                                     
                                        <div class="control-group">
                                             <label class="control-label">Fecha Creación(*)</label>
@@ -121,24 +110,24 @@
       
                
       {%block javascript %}
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
-            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/bbq.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/chosen.jquery.min.js"> </script>
+            <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-typeahead.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-collapse.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-button.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tooltip.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tab.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>    
+            <script src="{{asset('js/custom.js')}}"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="{{asset('js/html5.js')}}"></script><![endif]-->
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
+            <script src="{{asset('js/jquery/jquery.ui.core.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.widget.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.position.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.autocomplete.min.js')}}"></script>
+            <script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
+            <script src="{{asset('js/bbq.js')}}"> </script>
+            <script src="{{asset('js/chosen.jquery.min.js')}}"> </script>
 
       
       <script type="text/javascript">
@@ -180,7 +169,6 @@
                         $("#doce_lista").css("display", "none");
                         $("#ciento_lista").css("display", "none");
                         $("#mil_lista").css("display", "none");
-                        $("#veinte_lista").css("display", "none");
                         
                         $("#lider_id").val(-1);
                         
@@ -214,8 +202,11 @@
                     {
                         cargarSelect(doce,'doce_lista','id','label');
                         $('#doce_lista').css("display","block");
+                        
                     }
                     else $('#doce_lista').css("display","none");
+                     $("#ciento_lista").css("display", "none");
+                    $("#mil_lista").css("display", "none");
                 }
             };
             
@@ -297,7 +288,6 @@
                     $('#red_lista').change(lider_red_xregistrarFunction);
                     $("#ciento_lista").css("display", "none");
                     $("#mil_lista").css("display", "none");
-                     $("#veinte_lista").css("display", "none");
                 }
                 if(this.value === 'ciento')
                 {
@@ -305,22 +295,18 @@
                     $('#red_lista').change(lider_redFunction);
                    
                     $("#mil_lista").css("display", "none");
-                    $("#veinte_lista").css("display", "none");
                     
                 }
                 if(this.value === 'mil')
                 {
                     lider_redFunction();
                 }
-                if(this.value === 'veinte')
-                {
-                    
-                }
+                
             }
     
 	$(document).ready(function() {
             
-            ubigeos = getAjaxObject("https://s3.amazonaws.com/adminchurchs3/json/ubi.json");
+            ubigeos = getAjaxObject("https://s3.amazonaws.com/adminchurchs3/json/ubi.js')}}on");
             cargarUbigeo(ubigeos, "distrito_lista", "provincia_lista", "departamento_lista");
                  
             redes = getAjaxObject('{{path('services_red')}}');
@@ -330,7 +316,6 @@
             $("#doce_lista").css("display", "none");
             $("#ciento_lista").css("display", "none");
             $("#mil_lista").css("display", "none");
-            $("#veinte_lista").css("display", "none");
             
             
             

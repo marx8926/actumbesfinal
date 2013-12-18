@@ -1,0 +1,5 @@
+services_ultimas_celula_table:
+  pattern: /ultimas_celula_table
+  defaults: {_controller: AEServicesBundle:EnviarServices:ultimas_celula_table}
+  requirements:
+    _method: GET

@@ -237,12 +237,40 @@ class DiscipularServicesController extends Controller {
         $smt->execute(array(':detalle'=>$detalle));
         $result = $smt->fetchAll();       
         
-        
-        $num_total = count($result);
-        
-        $grupos = $num_total/$num_lecciones;
-        
+        $num_total = count($result);        
+        $grupos = $num_total/$num_lecciones;        
         $resultado = array();
+        
+        //recuperar ofrendas asistencia
+        $sql2 = "select * from get_ofrenda_aplicacion_detalle(:detalle)";
+        $smt2 = $em->getConnection()->prepare($sql2);
+        $smt2->execute(array(':detalle'=>$detalle));
+        $asistencias = $smt2->fetchAll();
+        
+        $fechas = array();
+        $ofrendas = array();
+        
+        $fechas['nro'] = ''; $ofrendas['nro'] = '';
+        $fechas['id'] = ''; $ofrendas['nro'] = '';
+        $fechas['nombres'] = 'Aplicado'; $ofrendas['nombres'] = 'Ofrendas';
+
+        
+        $y = 1;
+        foreach ($asistencias as $value) {
+            
+            $patron = "L".strval($y); 
+            
+            if(strlen($value['aplicacion']) > 0)
+                $fechas[$patron] = $value['aplicacion'];
+            else
+                $fechas[$patron] = "";
+            
+            $ofrendas[$patron] = $value['ofrenda'] ;
+            
+            $y++;
+        }
+        $resultado[] = $fechas;
+        $resultado[] = $ofrendas;
         
         for ($i = 0; $i< $grupos; $i++) {
             
@@ -257,9 +285,10 @@ class DiscipularServicesController extends Controller {
                 $p = "";
                 //asistencia
                 if($result[$j+$i*$num_lecciones]['asistencia'])
-                    $p = "/<br>";
-               else
+                    $p = "&#10004<br>";
+               else if($result[$j+$i*$num_lecciones]['aplicacion']!= NULL)
                    $p = "x<br>";
+               else $p = "<br>";
                 //nota                   
                 $p = $p.$result[$j+$i*$num_lecciones]['nota'];                
                 $item[$patron] = $p;                

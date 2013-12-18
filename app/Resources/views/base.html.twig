@@ -7,26 +7,26 @@
 <meta name="viewport" content="width=device-width">
 
 {% block stylesheets %}
-<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css">
-<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/jquery.fancybox.css">
-<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/style.css">
+<link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+<link rel="stylesheet" href="{{asset('css/bootstrap-responsive.css')}}">
+<link rel="stylesheet" href="{{asset('css/jquery.fancybox.css')}}">
+<link rel="stylesheet" href="{{asset('css/style.css')}}">
 {% endblock %}
 </head>
 <body>
 <div class="topbar">
 	<div class="container-fluid">
-		<a href="{{path('main')}}" class='company'><img alt="Administración Eclesiástica" src="http://d19k46zntalu3t.cloudfront.net/images/ac-logo-horizontal-3.png"></a>
+		<a href="{{path('main')}}" class='company'><img alt="Administración Eclesiástica" src="{{asset('images/ac-logo-horizontal-3.png')}}"></a>
 		<ul class='mini'>
 			<li>
 				<a href="#">
-					<img src="http://d19k46zntalu3t.cloudfront.net/img/icons/fugue/help.png" alt="">
+					<img src="{{asset('img/icons/fugue/help.png')}}" alt="">
 					Ayuda
 				</a>
 			</li>
 			<li>
 				<a href="{{path('fos_user_security_logout')}}">
-					<img src="http://d19k46zntalu3t.cloudfront.net/img/icons/fugue/control-power.png" alt="">
+					<img src="{{asset('img/icons/fugue/control-power.png')}}" alt="">
 					Cerrar Sesión
 				</a>
 			</li>
@@ -58,7 +58,7 @@
 			<li>
 				<a class='light toggle-collapsed'>
 					Ganar
-					<img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+					<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
 				</a>
 				<ul class='collapsed-nav closed'>
                                       {% if (is_granted('ROLE_USER')) %}
@@ -79,7 +79,7 @@
 					<li>
 						<a href="#" class='light toggle-collapsed'>
 							Informes
-							<img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+							<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
 						</a>
 						<ul class='collapsed-nav closed dentro'>
 							
@@ -132,7 +132,7 @@
                         <li>
                             <a class="light toggle-collapsed">
                                 Consolidar
-                                <img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             <ul class="collapsed-nav closed">
                                 <li>
@@ -163,7 +163,7 @@
                         <li>
                             <a class="light toggle-collapsed">
                                 Discipular
-                                <img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             <ul class="collapsed-nav closed">
                                 <li>
@@ -205,7 +205,7 @@
                         <li>
                             <a class="light toggle-collapsed">
                                 Enviar
-                                <img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             <ul class="collapsed-nav closed">
                                 <li>
@@ -213,13 +213,24 @@
                                       Crear Tema Célula
                                     </a>
                                 </li>
+                                
+                                 <li>
+                                    <a href="{{path('celula_view')}}">
+                                             Administrar celulas
+                                    </a>                                            
+                                 </li>
+                                 <li>
+                                   <a href="{{path('lider_view')}}">
+                                       Administrar Lideres
+                                   </a>
+                                 </li>
                             </ul>
                         </li>
                         
 			<li>
 				<a class='light toggle-collapsed'>
 					Configurar
-					<img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+					<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
 				</a>
 				<ul class='collapsed-nav closed'>
                                       {% if (is_granted('ROLE_ADMIN')) %}
@@ -229,11 +240,7 @@
 						</a>
 					</li>
                                         
-                                        <li>
-                                            <a href="{{path('celula_view')}}">
-                                                Administrar celulas
-                                            </a>                                            
-                                        </li>
+                                       
                                         
                                         <li>
                                             <a href="{{path('red_view')}}">
@@ -246,11 +253,7 @@
                                                 Administrar Usuarios
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="{{path('lider_view')}}">
-                                                Administrar Lideres
-                                            </a>
-                                        </li>
+                                        
                                         <li>
                                             <a href="{{path('servicio_view')}}">
                                                 Administrar Servicios
@@ -276,7 +279,7 @@
                             
                             <a class="light toggle-collapsed">
                                 Contabilidad
-				<img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+				<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             
                             <ul class='collapsed-nav closed'>
@@ -297,7 +300,7 @@
                         <li>
                             <a class="light toggle-collapsed">
                                 Secretaría
-				<img src="http://d19k46zntalu3t.cloudfront.net/img/toggle-subnav-down.png" alt="">
+				<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             <ul class="collapsed-nav closed">
                                 <li>
@@ -322,22 +325,24 @@
 		<p align="center">&copy; 2013 por CLM Developers</p>
 		<p align="center">
 			<a href="http://www.w3.org/html/logo/" target="_blank">
+                            <!--
             	<img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-semantics.png" width="197" height="64" alt="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics" title="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics">
+                            -->
             </a> 
         </p>
 	</footer>
 </div>	
 {% block javascript %}
-<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/less.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.min.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/chosen.jquery.min.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.peity.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.fancybox.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.flot.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.color.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.flot.resize.js"></script>
-<script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/less.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/chosen.jquery.min.js')}}"></script>
+<script src="{{asset('js/jquery.peity.js')}}"></script>
+<script src="{{asset('js/jquery.fancybox.js')}}"></script>
+<script src="{{asset('js/jquery.flot.js')}}"></script>
+<script src="{{asset('js/jquery.color.js')}}"></script>
+<script src="{{asset('js/jquery.flot.resize.js')}}"></script>
+<script src="{{asset('js/custom.js')}}"></script>
 {% endblock %}
 </body>
 </html>

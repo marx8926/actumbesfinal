@@ -4,7 +4,7 @@
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
-    <field name="nota" type="float" column="nota" nullable="true"/>
+    <field name="nota" type="integer" column="nota" nullable="true"/>
     <field name="asistencia" type="boolean" column="asistencia" nullable="true"/>
     <field name="aplicacion" type="date" column="aplicacion" nullable="true"/>
     <many-to-one field="leccion" target-entity="TemaCurso">

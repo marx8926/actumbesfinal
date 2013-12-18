@@ -46,6 +46,26 @@ class Ofrendas
      */
     private $servicio;
 
+    /**
+     * @var \SesionPca
+     *
+     * @ORM\ManyToOne(targetEntity="SesionPca")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sesion_pca", referencedColumnName="id")
+     * })
+     */
+    private $sesionPca;
+
+    /**
+     * @var \Celula
+     *
+     * @ORM\ManyToOne(targetEntity="Celula")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="celula_id", referencedColumnName="id")
+     * })
+     */
+    private $celula;
+
 
 
     /**
@@ -125,5 +145,51 @@ class Ofrendas
     public function getServicio()
     {
         return $this->servicio;
+    }
+
+    /**
+     * Set sesionPca
+     *
+     * @param \AE\DataBundle\Entity\SesionPca $sesionPca
+     * @return Ofrendas
+     */
+    public function setSesionPca(\AE\DataBundle\Entity\SesionPca $sesionPca = null)
+    {
+        $this->sesionPca = $sesionPca;
+    
+        return $this;
+    }
+
+    /**
+     * Get sesionPca
+     *
+     * @return \AE\DataBundle\Entity\SesionPca 
+     */
+    public function getSesionPca()
+    {
+        return $this->sesionPca;
+    }
+
+    /**
+     * Set celula
+     *
+     * @param \AE\DataBundle\Entity\Celula $celula
+     * @return Ofrendas
+     */
+    public function setCelula(\AE\DataBundle\Entity\Celula $celula = null)
+    {
+        $this->celula = $celula;
+    
+        return $this;
+    }
+
+    /**
+     * Get celula
+     *
+     * @return \AE\DataBundle\Entity\Celula 
+     */
+    public function getCelula()
+    {
+        return $this->celula;
     }
 }

@@ -23,6 +23,7 @@ use AE\DataBundle\Entity\Matricula;
 use AE\DataBundle\Entity\Persona;
 use AE\DataBundle\Entity\DetallePca;
 use AE\DataBundle\Entity\AsistenciaLeccionCurso;
+use AE\DataBundle\Entity\Ofrendas;
 
 class MatriculaController extends Controller {
     //put your code here
@@ -68,11 +69,16 @@ class MatriculaController extends Controller {
                 $personas = $per;
             }
             
-            $matriculados = $request->request->get('matriculados');
+            $matri = $request->request->get('matriculados');
             $total = array();
-            foreach($matriculados as $mat)
+            $matriculados = array();
+            if(count($matri)!=0)
             {
-                $total[] = $mat['id'];
+                $matriculados[] = $matri;
+                foreach($matriculados as $mat)
+                {
+                    $total[] = $mat['id'];
+                }
             }
             
             //sacamos la diferencia de los no matriculados
@@ -120,8 +126,83 @@ class MatriculaController extends Controller {
         
     }
     
-    public function deleteAction()
+    public function asistenciaAction()
     {
+        
+        $request = $this->get('request');
+        $datos = $request->request->get('formulario'); 
+        $tabla = $request->request->get('matriculados');
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+         
+            $fechaConv_b = $datos['aplicacion'];            
+            $fechaConv_a = explode('/', $fechaConv_b, 3);            
+            $fecha = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0]; 
+            
+            $id = $datos['asistencia_id'];
+            $sesion = $em->getRepository('AEDataBundle:SesionPca')->findOneBy(array('detallePca'=>$id));
+            //$sesion = new \AE\DataBundle\Entity\SesionPca();
+            
+            $sesion->setAplicacion(new \DateTime($fecha));
+            $sesion->setOfrenda($datos['ofrenda']);
+            
+            $em->persist($sesion);
+            $em->flush();
+            
+            //guardando en la tabla ofrenda
+            
+            $ofrenda = new Ofrendas();
+            
+            $ofrenda->setDecOfrendaFecharegistro(new \DateTime($fecha));
+            $ofrenda->setSesionPca($sesion);
+            $em->persist($ofrenda);
+            $em->flush();
+            
+            //si es la asistencia de la última lección
+            if($datos['num_leccion'] == '1')
+            {
+                //actualizar detalle pca
+                $detalle = $em->getRepository('AEDataBundle:DetallePca')->find($id);
+                //$detalle = new \AE\DataBundle\Entity\DetallePca();
+                $detalle->setFechaFin(new \DateTime($fecha));
+                $detalle->setEstado(3);
+                $em->persist($detalle);
+                $em->flush();
+            }
+            else{
+                
+            }
+            
+            foreach ($tabla as $item) {
+                
+                
+                $sql = "SELECT update_asistencia_leccion_curso(:mat_id,:leccion,:note,:asist,:apli)";
+                $smt = $em->getConnection()->prepare($sql);
+                $smt->execute(array(':mat_id' => $item['id_det'], ':leccion' => $datos['leccion'] ,
+                    ':note' => $item['nota_val'], ':asist'=> $item['asistencia_val'], ':apli'=>$fecha));
+                
+                if($datos['num_leccion'] == '1')
+                {
+                    $sql2 = "select update_fin_matricula_curso(:mat, :apli)";
+                    $smt2 = $em->getConnection()->prepare($sql2);
+                    $smt2->execute(array(':mat'=>$item['id_det'], ':apli'=>$fecha));
+                }
+                
+            }
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            $em->close();
+            $em->clear();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        
+        return new JsonResponse($return);
         
     }
 }

@@ -17,3 +17,6 @@ discipular_services_routing:
 
 consolidar_services_routing:
     resource: "@AEServicesBundle/Resources/config/consolidar_services_routing.yml"
+    
+enviar_services_routing:
+    resource: "@AEServicesBundle/Resources/config/enviar_services_routing.yml"

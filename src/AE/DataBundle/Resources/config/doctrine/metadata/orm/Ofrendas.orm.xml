@@ -6,6 +6,16 @@
     </id>
     <field name="decOfrendaMonto" type="decimal" column="dec_ofrenda_monto" nullable="true"/>
     <field name="decOfrendaFecharegistro" type="datetime" column="dec_ofrenda_fecharegistro" nullable="true"/>
+    <many-to-one field="celula" target-entity="Celula">
+      <join-columns>
+        <join-column name="celula_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="sesionPca" target-entity="SesionPca">
+      <join-columns>
+        <join-column name="sesion_pca" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="servicio" target-entity="Servicios">
       <join-columns>
         <join-column name="servicio_id" referenced-column-name="int_servicio_id"/>

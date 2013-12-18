@@ -1,11 +1,11 @@
 {% extends "::base.html.twig" %}
         {% block stylesheets %}
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
-       <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/chosen.css">
+        <link href="{{asset('css/bootstrap.css')}}" media="screen" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" media="screen" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" media="screen" rel="stylesheet" type="text/css">
+       <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
+        <link rel="stylesheet" href="{{asset('css/smooth/jquery-ui-1.8.16.custom.css')}}" >
+        <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
         <!-- Scripts -->
                  
        
@@ -162,9 +162,10 @@
                                         
                                         <div class="row form-horizontal">
                                             <div class="control-group">
-                                                <label class="control-label">Lección</label>
+                                                <input type="hidden" id="num_leccion" name="num_leccion" value="0">
+                                                <label class="control-label" >Lección</label>
                                                 <div class="controls">
-                                                    <select id="leccion" name="leccion" class="input-medium">
+                                                    <select id="leccion" name="leccion" class="input-medium" style=" auto:width; margin-left: -20px;">
                                                     
                                                     </select>
                                                 </div>
@@ -172,7 +173,14 @@
                                             <div class="control-group">
                                                 <label class="control-label" >Aplicación</label>
                                                 <div class="controls">
-                                                    <input type = "text" id="aplicacion" name="aplicacion" class="input-medium datepick">
+                                                    <input type = "text" id="aplicacion" name="aplicacion" class="input-medium datepick" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="control-group" >
+                                                <label class="control-label">Ofrenda</label>
+                                                <div class="controls">
+                                                    <input type="number"  name="ofrenda" id="ofrenda" class="input-small">
                                                 </div>
                                             </div>
                                          
@@ -255,32 +263,30 @@
       
                
       {%block javascript %}
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
-            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/bbq.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/chosen.jquery.min.js"> </script>
-            <script src="https://www.google.com/jsapi"></script>
-            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->              
+            <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-typeahead.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-collapse.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-button.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tooltip.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tab.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>    
+            <script src="{{asset('js/custom.js')}}"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="{{asset('js/html5.js')}}"></script><![endif]-->
+            <script src="{{asset('js/jquery/jquery.ui.core.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.widget.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.position.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.autocomplete.min.js')}}"></script>
+            <script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+            <script src="{{asset('js/bbq.js')}}"> </script>
+            <script src="{{asset('js/chosen.jquery.min.js')}}"> </script>
             
         
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.sparkline.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
+            <script src="{{asset('js/jquery.sparkline.js')}}"> </script>
+            <script src="{{asset('js/jquery.dataTables.js')}}"> </script>
+            <script src="{{asset('js/custom-tables.js')}}"> </script>
             
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
+            <script src="{{asset('js/util/datatable_plugins.js')}}"></script>
             <script src="{{asset('js/otherfunctiondatatable.js')}}"></script>
             <script src="{{asset('js/discipular_tools.js')}}"></script>
       
@@ -303,7 +309,7 @@
                 var MatriculadosTable;
                 
                 
-                urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
+                urlES = "{{asset('js/dt_ES.txt')}}";
             
                 
                
@@ -326,15 +332,21 @@
                      index = $(MatriculadosTable.fnGetData()).getIndexObj(aData, 'id_det');
                      acciones = check();
                      input = "<input type=\"number\" min=\"0\" max=\"0\" value=\"0\" class=\"input-small\" id=\"nota\" name=\"nota\">"
-                     MatriculadosTable.fnUpdate("<input type=\"checkbox\" id=\"asiste\" name=\"asiste\" >", index, 2);
+                     MatriculadosTable.fnUpdate("<input type=\"checkbox\" id=\"asiste\" name=\"asiste\" value=\"si\" >", index, 2);
                      MatriculadosTable.fnUpdate(input, index, 3);
                      
-                     /*$(nRow).find('nota').change(function(){
-                         aData.nota_val = $("#nota").val();
-                     });*/
-                     $("#nota").on(function(){
-                         console.log($("#nota").val());
-                     });
+                     $(nRow).find('input[type=checkbox]').change(function(){
+                        if($(this).prop("checked"))
+                           aData.asistencia_val = true;
+                        else
+                           aData.asistencia_val = false;
+                      
+                    });
+                    
+                    $(nRow).find('input[type=number]').change(function(){
+                       
+                       aData.nota_val = this.value;                      
+                    });
                     
                  };
                  MatriculaRowCB = function(nRow, aData, iDisplayIndex) {
@@ -352,9 +364,12 @@
                     $(nRow).find('.matricula_row').click(function(event){
                 
                         event.preventDefault();
-                        $("#matricular_id").val(aData.id_detalle);
                         
-                        cargar_matriculados();
+                        $("#matricular_id").val(aData.id_detalle);
+                        if(aData.estado != 3)
+                            cargar_matriculados();
+                        else
+                            alert("Curso finalizado");
                        
                     });
                     
@@ -366,10 +381,17 @@
                         url = "{{path('services_option_sin_aplicar_detalle_pca',{'detalle':':dit'})}}";
                         url = url.replace(':dit',aData.id_detalle);
                         lecciones = getAjaxObject(url);
-                
-                        cargarSelect(lecciones,"leccion","id","sesion");
+                        
+                        $("#num_leccion").val(lecciones.length);
+                        
+                        if(lecciones.length == 0)
+                            alert('Curso finalizado');
+                        else
+                        {
+                            cargarSelect(lecciones,"leccion","id","sesion");
                        
-                        cargar_matriculados_asistencia();
+                            cargar_matriculados_asistencia();
+                        }
                     });
                     
                     $(nRow).find('.ver_row').click(function(event){
@@ -544,7 +566,8 @@
                     'matriculados': MatriculadosTable.fnGetData() 
                 };
                 
-                console.log(datos);
+                enviar('{{path('matricula_asistencia')}}', datos , SuccessFunction, null);
+                
             });
             
         } );
