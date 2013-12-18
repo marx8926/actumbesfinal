@@ -53,6 +53,16 @@ class SesionPca
      */
     private $temacurso;
 
+    /**
+     * @var \DetallePca
+     *
+     * @ORM\ManyToOne(targetEntity="DetallePca")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="detalle_pca", referencedColumnName="id")
+     * })
+     */
+    private $detallePca;
+
 
 
     /**
@@ -155,5 +165,28 @@ class SesionPca
     public function getTemacurso()
     {
         return $this->temacurso;
+    }
+
+    /**
+     * Set detallePca
+     *
+     * @param \AE\DataBundle\Entity\DetallePca $detallePca
+     * @return SesionPca
+     */
+    public function setDetallePca(\AE\DataBundle\Entity\DetallePca $detallePca = null)
+    {
+        $this->detallePca = $detallePca;
+    
+        return $this;
+    }
+
+    /**
+     * Get detallePca
+     *
+     * @return \AE\DataBundle\Entity\DetallePca 
+     */
+    public function getDetallePca()
+    {
+        return $this->detallePca;
     }
 }
