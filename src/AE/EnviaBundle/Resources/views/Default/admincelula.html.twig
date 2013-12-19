@@ -153,10 +153,44 @@
 
         <div class="box-content box-nomargin">
         	
+                            <div class="modal hide" id="desactivar_modal">
+                                <form id="form_desactivar" name="form_desactivar" >
+                                    <input type="hidden" id="celula_id" name="celula_id" >
+                                    <input type="hidden" id="tipo_celula" name="tipo_celula" value="0">
+                                     <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                        <h3>Confirmación</h3>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                        <p >Desea desactivar la célula</p>
+                                                                                
+                                        <div class="row form-horizontal" style="margin-left: 50px;">
+                                            
+                                           
+                                            <div class="control-group">
+                                                <label class="control-label">Cambiar miembros a</label>
+                                                <div class="controls" >
+                                                    <select id="cambio_celula" name="cambio_celula">
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                                             
+                                        <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                        <input type="button" value="Guardar cambios" id="guardar_desactivar" name="guardar_desactivar" class="btn btn-primary" data-dismiss="modal" >
+                                    </div>
+                                </form>
+                            </div>
                  
                             <div class="modal hide" id="matricular_modal">                            
                                 <form id="form_matricular" name="form_matricular" >                                
                                     <input type="hidden" id="matricular_id" name="matricular_id">
+                                    <input type="hidden" id="tipo_celula" name="tipo_celula" value="0">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">×</button>
                                         <h3>Confirmación</h3>
@@ -415,7 +449,7 @@
             var acciones, index;
             index = $(CelulaTable.fnGetData()).getIndexObj(aData, 'id');
             {% if is_granted('ROLE_GANAR')  %}
-                acciones = getCelulaActionButtons("111","matricular_modal", "delete_modal", "view_modal");
+                acciones = getCelulaActionButtons("111","matricular_modal", "desactivar_modal", "view_modal");
             {% else %}
                 acciones = getActionButtons("010");
             {% endif %}
@@ -429,6 +463,22 @@
                         $("#matricular_id").val(aData.id);
                        
              });
+             
+             $(nRow).find('.delete_row').click(function(event){
+                 event.preventDefault();
+                 
+                 $("#celula_id").val(aData.id);
+                 $("#tipo_celula").val(0);
+                 
+                 url = "{{path('services_celulas_menos_red',{'red':'net','celula':'cell','tipo':'type'})}}";
+                 url = url.replace('net',aData.red_id);
+                 url = url.replace('cell', aData.id);
+                 url = url.replace('type','0');
+                 nuevas_celulas = getAjaxObject(url);
+                 
+                 cargarSelect(nuevas_celulas,"cambio_celula","id","celula");
+                 
+                });
             
         };
 
@@ -587,6 +637,15 @@
                     'en': root.encelula
                 };
                 enviar('{{path('admincelula_enrolar')}}', datos , SuccessFunction, null);
+            });
+            
+            
+            $("#guardar_desactivar").click(function(event){
+                datos= {
+                    'formulario': $("#form_desactivar").serializeObject()
+                };
+                
+                enviar('{{path('admincelula_desactivar')}}', datos, SuccessFunction, null);
             });
             
 	 });

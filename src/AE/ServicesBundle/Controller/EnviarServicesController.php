@@ -96,4 +96,15 @@ class EnviarServicesController extends Controller {
         $resultado= new JsonResponse($result);            
         return $resultado;
     }
+    
+    public function celulas_menosAction($red, $celula, $tipo)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_celula_tipo_excepto_option(:red,:cell,:tipo)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red,':cell'=>$celula,':tipo'=>$tipo));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);            
+        return $resultado;
+    }
 }

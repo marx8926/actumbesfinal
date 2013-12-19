@@ -118,5 +118,49 @@ class AdminCelulaController extends Controller {
         
     }
     
-    
+    public function desactivarAction()
+    {
+        $request = $this->get('request');
+        $datos =$request->request->get('formulario'); 
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+            
+            $celula_old = $datos['celula_id'];
+            $tipo = $datos['tipo_celula'];
+            $cell = $datos['cambio_celula'];            
+            
+            $repo_cell = $em->getRepository('AEDataBundle:Celula');
+            $celula = $repo_cell->find($cell);
+            $old = $repo_cell->find($celula_old);
+            
+            $old->setActivo(FALSE);
+            $em->persist($old);
+            $em->flush();
+            
+            $detalles = $em->getRepository('AEDataBundle:DetalleMiembro')->findBy(array('celula' => $celula_old));
+            $n = count($detalles);
+            
+            
+            foreach ($detalles as $item) {                
+                $item->setCelula($celula);               
+                $em->persist($item);   
+                $em->flush();
+            }
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>$n);
+        } catch (Exception $ex) {
+            $em->rollback();
+            $em->close();
+            $em->clear();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        
+        return new JsonResponse($return);
+        
+    }
 }

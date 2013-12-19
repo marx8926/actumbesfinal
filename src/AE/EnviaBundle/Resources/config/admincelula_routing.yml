@@ -9,3 +9,10 @@ admincelula_enrolar:
     defaults: { _controller: AEEnviaBundle:AdminCelula:enrolar }
     requirements:
         _method: POST
+        
+        
+admincelula_desactivar:
+    pattern:  /admincelula_desactivar
+    defaults: { _controller: AEEnviaBundle:AdminCelula:desactivar }
+    requirements:
+        _method: POST

@@ -10,6 +10,11 @@
     <field name="ganadoPor" type="bigint" column="ganado_por" nullable="true"/>
     <field name="personaId" type="bigint" column="persona_id" nullable="true"/>
     <field name="convertido" type="date" column="convertido" nullable="true"/>
+    <many-to-one field="celulaDis" target-entity="Celula">
+      <join-columns>
+        <join-column name="celula_dis_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="celula" target-entity="Celula">
       <join-columns>
         <join-column name="celula_id" referenced-column-name="id"/>

@@ -33,3 +33,9 @@ services_con_celula_red:
     defaults: {_controller: AEServicesBundle:EnviarServices:con_celula_red}
     requirements:
         _method: GET
+        
+services_celulas_menos_red:
+    pattern: /celulas_menos/{red}/{celula}/{tipo}
+    defaults: {_controller: AEServicesBundle:EnviarServices:celulas_menos}
+    requirements:
+        _method: GET

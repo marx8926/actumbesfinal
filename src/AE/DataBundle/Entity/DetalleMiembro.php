@@ -84,6 +84,16 @@ class DetalleMiembro
      */
     private $celula;
 
+    /**
+     * @var \Celula
+     *
+     * @ORM\ManyToOne(targetEntity="Celula")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="celula_dis_id", referencedColumnName="id")
+     * })
+     */
+    private $celulaDis;
+
 
 
     /**
@@ -278,5 +288,28 @@ class DetalleMiembro
     public function getCelula()
     {
         return $this->celula;
+    }
+
+    /**
+     * Set celulaDis
+     *
+     * @param \AE\DataBundle\Entity\Celula $celulaDis
+     * @return DetalleMiembro
+     */
+    public function setCelulaDis(\AE\DataBundle\Entity\Celula $celulaDis = null)
+    {
+        $this->celulaDis = $celulaDis;
+    
+        return $this;
+    }
+
+    /**
+     * Get celulaDis
+     *
+     * @return \AE\DataBundle\Entity\Celula 
+     */
+    public function getCelulaDis()
+    {
+        return $this->celulaDis;
     }
 }
