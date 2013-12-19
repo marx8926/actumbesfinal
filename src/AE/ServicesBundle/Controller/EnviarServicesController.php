@@ -38,4 +38,62 @@ class EnviarServicesController extends Controller {
             
         return $resultado;
     }
+    
+    public function check_lider_redAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_check_liderred_red(:red)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetch();        
+        $resultado= new JsonResponse($result);
+            
+        return $resultado;
+    }
+    
+    public function hijos_de_lider_optionAction($lider, $tipo)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_padre_hijo_nivel(:padre,:tipo)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':padre'=>$lider, ':tipo'=>$tipo));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);
+            
+        return $resultado;
+    }
+    
+    public function all_celulas_red_tablaAction($red)
+    {
+                
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_celulas_red(:red)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse(array('aaData'=>$result));            
+        return $resultado;
+    }
+    
+    public function sin_celula_redAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_sin_celula_option(:red)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);            
+        return $resultado;
+    }
+    
+     public function con_celula_redAction($red, $celula)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_con_celula_option(:red,:celula)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red,':celula'=>$celula));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);            
+        return $resultado;
+    }
 }

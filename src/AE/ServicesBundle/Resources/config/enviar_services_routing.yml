@@ -3,3 +3,33 @@ services_ultimas_celula_table:
   defaults: {_controller: AEServicesBundle:EnviarServices:ultimas_celula_table}
   requirements:
     _method: GET
+    
+services_check_lider_red:
+    pattern: /check_lider_red/{red}
+    defaults: {_controller: AEServicesBundle:EnviarServices:check_lider_red}
+    requirements:
+        _method: GET
+        
+services_hijos_de_lider_option:
+    pattern: /hijos_de_lider_option/{lider}/{tipo}
+    defaults: {_controller: AEServicesBundle:EnviarServices:hijos_de_lider_option}
+    requirements:
+        _method: GET
+        
+services_all_celulas_red_tabla:
+    pattern: /all_celulas_red_tabla/{red}
+    defaults: {_controller: AEServicesBundle:EnviarServices:all_celulas_red_tabla}
+    requirements:
+        _method: GET
+        
+services_sin_celula_red:
+    pattern: /sin_celula_red/{red}
+    defaults: {_controller: AEServicesBundle:EnviarServices:sin_celula_red}
+    requirements:
+        _method: GET
+        
+services_con_celula_red:
+    pattern: /con_celula_red/{red}/{celula}
+    defaults: {_controller: AEServicesBundle:EnviarServices:con_celula_red}
+    requirements:
+        _method: GET

@@ -1,0 +1,11 @@
+admincelula_view:
+    pattern:  /admincelula_view
+    defaults: { _controller: AEEnviaBundle:AdminCelula:view }
+    requirements:
+        _method: GET
+        
+admincelula_enrolar:
+    pattern:  /admincelula_enrolar
+    defaults: { _controller: AEEnviaBundle:AdminCelula:enrolar }
+    requirements:
+        _method: POST

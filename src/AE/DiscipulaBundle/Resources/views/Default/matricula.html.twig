@@ -552,7 +552,6 @@
                     'formulario': $("#form_matricular").serializeObject(),
                     'matriculados': root.matriculados 
                 };
-                console.log(datos);
                 enviar('{{path('matricula_save')}}', datos , SuccessFunction, null);
             });
             $("#btnGenerar").click(generarData);

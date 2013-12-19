@@ -154,24 +154,21 @@
                       
                        $("#form_lider").reset();
                        
-                       //cargarSelect(redes, "red_lista", "int_red_id", "id");
                         
                         alert('Registro Completado');
                        
-                        $("#lider").autocomplete({
-                            source: personas,
-                            select: function(event, ui) {
-                                $("#lider_id").val(ui.item.id);
-                                $("#lider").val(ui.item.label);
-                            return false;
-                            }
-                        });
+                       
                         $("#doce_lista").css("display", "none");
                         $("#ciento_lista").css("display", "none");
                         $("#mil_lista").css("display", "none");
                         
-                        $("#lider_id").val(-1);
+                        $("#doce_lista").empty();
+                        $("#ciento_lista").empty();
+                        $("#mil_lista").empty();
                         
+                        $('select option').remove();
+                        cargarSelect(redes, "red_lista", "int_red_id", "id");
+                                                
                     }
                     else if(data.responseCode===400){//bad request
                        alert('Error bad request');
@@ -265,6 +262,7 @@
                     {
                         cargarSelect(doce,'doce_lista','id','label');
                         $('#doce_lista').css("display","block");
+                       
                         if(entrada == '1') //1 para lideres sin asignar
                             lideres_sinaginarFunction('ciento_lista');
                         else{
@@ -272,6 +270,7 @@
                             lideres_sinaginarFunction('mil_lista');
                             
                         }
+                        //lideres_sinaginarFunction('ciento_lista');
                     }
                     else $('#doce_lista').css("display","none");
                 }
@@ -292,23 +291,21 @@
                 if(this.value === 'ciento')
                 {
                     lider_redFunction();
-                    $('#red_lista').change(lider_redFunction);
+                    $('#red_lista').change(lider_redFunction('1'));
                    
                     $("#mil_lista").css("display", "none");
                     
                 }
                 if(this.value === 'mil')
                 {
-                    lider_redFunction();
+                    lider_redFunction('0');
                 }
                 
-            }
+            };
     
 	$(document).ready(function() {
             
-            ubigeos = getAjaxObject("https://s3.amazonaws.com/adminchurchs3/json/ubi.js')}}on");
-            cargarUbigeo(ubigeos, "distrito_lista", "provincia_lista", "departamento_lista");
-                 
+               
             redes = getAjaxObject('{{path('services_red')}}');
                           
             cargarSelect(redes, "red_lista", "int_red_id", "id");
