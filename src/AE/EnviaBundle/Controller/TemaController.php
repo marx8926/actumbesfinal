@@ -50,6 +50,7 @@ class TemaController extends Controller {
            $tema->setDescripcion($datos['descripcion']);
            $tema->setTitutlo($datos['titulo']);
            $tema->setTipo($datos['tipo']);
+           $tema->setFecha(new \DateTime());
            
            $em->persist($tema);
            $em->flush();
@@ -75,6 +76,11 @@ class TemaController extends Controller {
     }
     
     public function updateAction()
+    {
+        
+    }
+    
+    public function distribuirAction()
     {
         
     }

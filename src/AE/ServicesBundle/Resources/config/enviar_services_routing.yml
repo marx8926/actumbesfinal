@@ -39,3 +39,9 @@ services_celulas_menos_red:
     defaults: {_controller: AEServicesBundle:EnviarServices:celulas_menos}
     requirements:
         _method: GET
+        
+services_tema_celulas_tabla:
+    pattern: /tema_celulas_tabla
+    defaults: {_controller: AEServicesBundle:EnviarServices:tema_celulas_tabla}
+    requirements:
+        _method: GET

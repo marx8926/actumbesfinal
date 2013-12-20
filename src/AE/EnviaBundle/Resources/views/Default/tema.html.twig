@@ -89,38 +89,119 @@
                 </div>
             </div>
         </div>  
-    </div>
+    
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+			<div class="box-head tabs">
+                            <h3>Messages</h3>
+							
+			</div>
+			<div class="box-content box-nomargin">
+                            
+                            
+                           <div class="modal hide" id="distribuir_modal">
+                                <form id="form_distribuir" name="form_distribuir" >
+                                    <input type="hidden" id="tema_id" name="tema_id" >
+                                    <input type="hidden" id="tip1_id" name="tip1_id" >
+                                     <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                        <h3>Confirmación</h3>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                        <p >Desea distribuir el tema de célula</p>
+                                                                                
+                                        
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                                             
+                                        <a href="#" class="btn" data-dismiss="modal">No</a>
+                                        <input type="button" value="Si" id="guardar_distribuir" name="guardar_distribuir" class="btn btn-primary" data-dismiss="modal" >
+                                    </div>
+                                </form>
+                            </div>
+                 
+                           <div class="modal hide" id="eliminar_modal">
+                                <form id="form_eliminar" name="form_eliminar" >
+                                    <input type="hidden" id="tem_id" name="tem_id" >
+                                    <input type="hidden" id="tip2_id" name="tip2_id" >
+                                     <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                        <h3>Confirmación</h3>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                        <p >Desea eliminar el tema?</p>
+                                                                                
+                                       
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                                             
+                                        <a href="#" class="btn" data-dismiss="modal">No</a>
+                                        <input type="button" value="Si" id="guardar_eliminar" name="guardar_eliminar" class="btn btn-primary" data-dismiss="modal" >
+                                    </div>
+                                </form>
+                            </div>
+                           
+                            <div class="alert alert-info">
+				<strong>Note!</strong> As you can see, the checkbox column can't be sorted! It's disabled via <code>data</code> attribute. By the way... even popovers work well in dataTables!
+                            </div>
+                            <table id="temas_tabla" name="temas_tabla" cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left">
+                                <thead>
+                                    <tr>
+                                       <th width="5%">ID</th>
+                                                                                            <th width="25%">Titulo</th>
+                                                                                            <th width="25%">Autor</th>                                                                                            
+                                                                                            <th width="10%">Descripción</th>
+                                                                                            <th width="10%">Creado</th>
+                                                                                            <th>Descripcion</th>
+                                                                                            <th>Archivo</th>
+                                                                                            <th>Distribuido</th>
+                                                                                            <th width="10%">Acciones</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+										</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+        </div>
         
 {% endblock %}
       
                
       {%block javascript %}
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
-            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/bbq.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/chosen.jquery.min.js"> </script>
+           <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-typeahead.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-collapse.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-button.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tooltip.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tab.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>    
+            <script src="{{asset('js/custom.js')}}"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="{{asset('js/html5.js')}}"></script><![endif]-->
+            <script src="{{asset('js/jquery/jquery.ui.core.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.widget.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.position.min.js')}}"></script>
+            <script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
             <script src="https://www.google.com/jsapi"></script>
-            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->              
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js')}}"></script><![endif]-->           
+            <script src="{{asset('js/tiempo.js')}}"></script>        
+            <script src="{{asset('js/jquery.sparkline.js')}}"> </script>
+            <script src="{{asset('js/jquery.dataTables.js')}}"> </script>
+            <script src="{{asset('js/custom-tables.js')}}"> </script>
             
-        
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.sparkline.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
-            
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
+            <script src="{{asset('js/util/datatable_plugins.js')}}"></script>
+            <script src="{{asset('js/enviartema.js')}}"></script>
+            <script src="{{asset('js/admincelula.js')}}"></script>
             
             
 
@@ -131,13 +212,64 @@
                 root = typeof exports !== "undefined" && exports !== null ? exports : this;
                 var leccionTabla;
 
-                root.SourceTServicio = "/recuperar_personas_inicio";
+                root.SourceTServicio = "{{path('services_tema_celulas_tabla')}}";
 
                 root.DatosEnviar = null;
                 root.count = 0;
                 personas = null;
+                var TemaTable;
+                var TemaRowCB;
                 
-                urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt"
+                urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
+                
+                
+ FormatoTable = [
+                    {
+                        "mDataProp": "id"
+                    },
+                    {
+                        "mDataProp": "titulo"
+                    },{
+                        "mDataProp": "autor"
+                    },{
+                        "mDataProp": "descripcion"
+                    },{
+                        "mDataProp": "fecha"
+                    },{
+                        "mDataProp": "tipo"
+                    },{
+                        "mDataProp": "archivo_id"
+                    },{
+                        "mDataProp": "distribuido"
+                    },{
+                        "mDataProp": "acciones"
+                    }];
+
+                
+                TemaRowCB = function(nRow, aData, iDisplayIndex) {
+                    var acciones, index;
+                    console.log(aData);
+                    index = $(TemaTable.fnGetData()).getIndexObj(aData, 'id');
+                    {% if is_granted('ROLE_GANAR')  %}
+                        acciones = getTemaActionButtons("distribuir_modal", "eliminar_modal");
+                    {% else %}
+                        acciones = getActionButtons("010");
+                    {% endif %}
+                    
+                    TemaTable.fnUpdate(acciones, index, 8);
+                    //$(nRow).find('a').tooltip('hide');  
+            
+                    $(nRow).find('.share_row').click(function(event){
+                        
+                    });
+                    $(nRow).find('.delete_row').click(function(event){
+                        
+                    });
+             
+                };
+
+        
+        
         
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
@@ -151,6 +283,8 @@
                       
                        $("#form_tema").reset();                      
                         alert('Registro Completado');
+                        TemaTable.fnReloadAjax(root.SourceTServicio);
+                        
                         
                     }
                     else if(data.responseCode===400){//bad request
@@ -170,14 +304,17 @@
          
 	$(document).ready(function() {
        
-          
+       
+           
+           
+        TemaTable = crearDataTable("temas_tabla",root.SourceTServicio, FormatoTable, null, TemaRowCB);
+           
             $("#form_tema").submit(function(event){
                 
                  event.preventDefault();
                  PrepararDatos();
                  console.log(root.DatosEnviar);
                  return enviar('{{path('tema_save')}}', root.DatosEnviar, SuccessFunction, null);
-  
             });
        
             

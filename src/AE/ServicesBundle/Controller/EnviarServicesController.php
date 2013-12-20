@@ -107,4 +107,15 @@ class EnviarServicesController extends Controller {
         $resultado= new JsonResponse($result);            
         return $resultado;
     }
+    
+    public function tema_celulas_tablaAction()
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "SELECT *  FROM view_get_all_temas_celulas_table";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse(array('aaData'=>$result));            
+        return $resultado;
+    }
 }

@@ -22,3 +22,10 @@ tema_delete:
     defaults: { _controller: AEEnviaBundle:Tema:delete }
     requirements:
         _method: POST
+        
+tema_distribuir:
+    pattern: /tema_distribuir
+    defaults: {_controller: AEEnviaBundle:Tema:distribuir}
+    requirements:
+        _method: POST
+        
