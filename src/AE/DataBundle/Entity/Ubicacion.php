@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Ubicacion
  *
- * @ORM\Table(name="ubicacion")
+ * @ORM\Table(name="ubicacion", indexes={@ORM\Index(name="IDX_DC158CB86EBB006C", columns={"ubigeo_id"})})
  * @ORM\Entity
  */
 class Ubicacion
@@ -32,14 +32,14 @@ class Ubicacion
     /**
      * @var float
      *
-     * @ORM\Column(name="latitud", type="float", nullable=false)
+     * @ORM\Column(name="latitud", type="float", precision=10, scale=0, nullable=false)
      */
     private $latitud;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="longitud", type="float", nullable=false)
+     * @ORM\Column(name="longitud", type="float", precision=10, scale=0, nullable=false)
      */
     private $longitud;
 
@@ -81,7 +81,7 @@ class Ubicacion
     public function setDireccion($direccion)
     {
         $this->direccion = $direccion;
-    
+
         return $this;
     }
 
@@ -104,7 +104,7 @@ class Ubicacion
     public function setLatitud($latitud)
     {
         $this->latitud = $latitud;
-    
+
         return $this;
     }
 
@@ -127,7 +127,7 @@ class Ubicacion
     public function setLongitud($longitud)
     {
         $this->longitud = $longitud;
-    
+
         return $this;
     }
 
@@ -150,7 +150,7 @@ class Ubicacion
     public function setReferencia($referencia)
     {
         $this->referencia = $referencia;
-    
+
         return $this;
     }
 
@@ -173,7 +173,7 @@ class Ubicacion
     public function setUbigeo(\AE\DataBundle\Entity\Ubigeos $ubigeo = null)
     {
         $this->ubigeo = $ubigeo;
-    
+
         return $this;
     }
 

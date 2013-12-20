@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ConsolidadoAsistencia
  *
- * @ORM\Table(name="consolidado_asistencia")
+ * @ORM\Table(name="consolidado_asistencia", indexes={@ORM\Index(name="IDX_9F5D000F2156FD83", columns={"tema_leche_id"}), @ORM\Index(name="IDX_9F5D000F8CE615FD", columns={"consolidar_id"})})
  * @ORM\Entity
  */
 class ConsolidadoAsistencia
@@ -55,14 +55,14 @@ class ConsolidadoAsistencia
      *
      * @ORM\Column(name="celula", type="boolean", nullable=true)
      */
-    private $celula;
+    private $celula = 'true';
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="iglesia", type="boolean", nullable=true)
      */
-    private $iglesia;
+    private $iglesia = 'true';
 
     /**
      * @var integer
@@ -112,7 +112,7 @@ class ConsolidadoAsistencia
     public function setInicio($inicio)
     {
         $this->inicio = $inicio;
-    
+
         return $this;
     }
 
@@ -135,7 +135,7 @@ class ConsolidadoAsistencia
     public function setFin($fin)
     {
         $this->fin = $fin;
-    
+
         return $this;
     }
 
@@ -158,7 +158,7 @@ class ConsolidadoAsistencia
     public function setPausa($pausa)
     {
         $this->pausa = $pausa;
-    
+
         return $this;
     }
 
@@ -181,7 +181,7 @@ class ConsolidadoAsistencia
     public function setDetalle($detalle)
     {
         $this->detalle = $detalle;
-    
+
         return $this;
     }
 
@@ -204,7 +204,7 @@ class ConsolidadoAsistencia
     public function setCelula($celula)
     {
         $this->celula = $celula;
-    
+
         return $this;
     }
 
@@ -227,7 +227,7 @@ class ConsolidadoAsistencia
     public function setIglesia($iglesia)
     {
         $this->iglesia = $iglesia;
-    
+
         return $this;
     }
 
@@ -250,7 +250,7 @@ class ConsolidadoAsistencia
     public function setInteres($interes)
     {
         $this->interes = $interes;
-    
+
         return $this;
     }
 
@@ -273,7 +273,7 @@ class ConsolidadoAsistencia
     public function setTemaLeche(\AE\DataBundle\Entity\TemaLeche $temaLeche = null)
     {
         $this->temaLeche = $temaLeche;
-    
+
         return $this;
     }
 
@@ -296,7 +296,7 @@ class ConsolidadoAsistencia
     public function setConsolidar(\AE\DataBundle\Entity\Consolidar $consolidar = null)
     {
         $this->consolidar = $consolidar;
-    
+
         return $this;
     }
 

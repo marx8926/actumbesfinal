@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SesionPca
  *
- * @ORM\Table(name="sesion_pca")
+ * @ORM\Table(name="sesion_pca", indexes={@ORM\Index(name="fki_detalle_pca_sesion", columns={"detalle_pca"}), @ORM\Index(name="IDX_B8AB67EEF0F2C9CF", columns={"temacurso_id"})})
  * @ORM\Entity
  */
 class SesionPca
@@ -39,7 +39,7 @@ class SesionPca
     /**
      * @var float
      *
-     * @ORM\Column(name="ofrenda", type="float", nullable=true)
+     * @ORM\Column(name="ofrenda", type="float", precision=10, scale=0, nullable=true)
      */
     private $ofrenda;
 
@@ -84,7 +84,7 @@ class SesionPca
     public function setInicio($inicio)
     {
         $this->inicio = $inicio;
-    
+
         return $this;
     }
 
@@ -107,7 +107,7 @@ class SesionPca
     public function setAplicacion($aplicacion)
     {
         $this->aplicacion = $aplicacion;
-    
+
         return $this;
     }
 
@@ -130,7 +130,7 @@ class SesionPca
     public function setOfrenda($ofrenda)
     {
         $this->ofrenda = $ofrenda;
-    
+
         return $this;
     }
 
@@ -153,7 +153,7 @@ class SesionPca
     public function setTemacurso(\AE\DataBundle\Entity\TemaCurso $temacurso = null)
     {
         $this->temacurso = $temacurso;
-    
+
         return $this;
     }
 
@@ -176,7 +176,7 @@ class SesionPca
     public function setDetallePca(\AE\DataBundle\Entity\DetallePca $detallePca = null)
     {
         $this->detallePca = $detallePca;
-    
+
         return $this;
     }
 

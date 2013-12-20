@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NivelCrecimiento
  *
- * @ORM\Table(name="nivel_crecimiento")
+ * @ORM\Table(name="nivel_crecimiento", indexes={@ORM\Index(name="index_nivel_crecimientos_on_persona_id", columns={"persona_id"}), @ORM\Index(name="IDX_7CF9733F8BBE8922", columns={"red_id"}), @ORM\Index(name="IDX_7CF9733F4A4DABFB", columns={"celula_id"})})
  * @ORM\Entity
  */
 class NivelCrecimiento
@@ -94,7 +94,7 @@ class NivelCrecimiento
     public function setIntNivelcrecimientoEscala($intNivelcrecimientoEscala)
     {
         $this->intNivelcrecimientoEscala = $intNivelcrecimientoEscala;
-    
+
         return $this;
     }
 
@@ -117,7 +117,7 @@ class NivelCrecimiento
     public function setIntNivelcrecimientoEstadoactual($intNivelcrecimientoEstadoactual)
     {
         $this->intNivelcrecimientoEstadoactual = $intNivelcrecimientoEstadoactual;
-    
+
         return $this;
     }
 
@@ -140,7 +140,7 @@ class NivelCrecimiento
     public function setCreacion($creacion)
     {
         $this->creacion = $creacion;
-    
+
         return $this;
     }
 
@@ -163,7 +163,7 @@ class NivelCrecimiento
     public function setRed(\AE\DataBundle\Entity\Red $red = null)
     {
         $this->red = $red;
-    
+
         return $this;
     }
 
@@ -186,7 +186,7 @@ class NivelCrecimiento
     public function setCelula(\AE\DataBundle\Entity\Celula $celula = null)
     {
         $this->celula = $celula;
-    
+
         return $this;
     }
 
@@ -209,7 +209,7 @@ class NivelCrecimiento
     public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
     {
         $this->persona = $persona;
-    
+
         return $this;
     }
 

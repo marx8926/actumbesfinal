@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="NivelCrecimiento" table="nivel_crecimiento">
+    <indexes>
+      <index name="index_nivel_crecimientos_on_persona_id" columns="persona_id"/>
+      <index name="IDX_7CF9733F8BBE8922" columns="red_id"/>
+      <index name="IDX_7CF9733F4A4DABFB" columns="celula_id"/>
+    </indexes>
     <id name="intNivelcrecimientoId" type="bigint" column="int_nivelcrecimiento_id">
       <generator strategy="SEQUENCE"/>
     </id>

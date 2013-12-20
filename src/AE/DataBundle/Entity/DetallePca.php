@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * DetallePca
  *
- * @ORM\Table(name="detalle_pca")
+ * @ORM\Table(name="detalle_pca", indexes={@ORM\Index(name="IDX_DC42A61DE52BD977", columns={"profesor_id"}), @ORM\Index(name="IDX_DC42A61D87CB4A1F", columns={"curso_id"}), @ORM\Index(name="IDX_DC42A61DAD1A1255", columns={"aula_id"})})
  * @ORM\Entity
  */
 class DetallePca
@@ -115,7 +115,7 @@ class DetallePca
     public function setDia($dia)
     {
         $this->dia = $dia;
-    
+
         return $this;
     }
 
@@ -138,7 +138,7 @@ class DetallePca
     public function setHoraInicio($horaInicio)
     {
         $this->horaInicio = $horaInicio;
-    
+
         return $this;
     }
 
@@ -161,7 +161,7 @@ class DetallePca
     public function setHoraFin($horaFin)
     {
         $this->horaFin = $horaFin;
-    
+
         return $this;
     }
 
@@ -184,7 +184,7 @@ class DetallePca
     public function setFechaInicio($fechaInicio)
     {
         $this->fechaInicio = $fechaInicio;
-    
+
         return $this;
     }
 
@@ -207,7 +207,7 @@ class DetallePca
     public function setFechaFin($fechaFin)
     {
         $this->fechaFin = $fechaFin;
-    
+
         return $this;
     }
 
@@ -230,7 +230,7 @@ class DetallePca
     public function setEstado($estado)
     {
         $this->estado = $estado;
-    
+
         return $this;
     }
 
@@ -253,7 +253,7 @@ class DetallePca
     public function setProfesor(\AE\DataBundle\Entity\Persona $profesor = null)
     {
         $this->profesor = $profesor;
-    
+
         return $this;
     }
 
@@ -276,7 +276,7 @@ class DetallePca
     public function setCurso(\AE\DataBundle\Entity\Curso $curso = null)
     {
         $this->curso = $curso;
-    
+
         return $this;
     }
 
@@ -299,7 +299,7 @@ class DetallePca
     public function setAula(\AE\DataBundle\Entity\Aula $aula = null)
     {
         $this->aula = $aula;
-    
+
         return $this;
     }
 

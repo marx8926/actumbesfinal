@@ -45,3 +45,22 @@ services_tema_celulas_tabla:
     defaults: {_controller: AEServicesBundle:EnviarServices:tema_celulas_tabla}
     requirements:
         _method: GET
+        
+services_aplicacion_inbox_tema_red:
+    pattern: /aplicacion_inbox_tema_red/{red}
+    defaults: {_controller: AEServicesBundle:EnviarServices:aplicacion_inbox_tema_red}
+    requirements:
+        _method: GET
+        
+services_aplicacion_sent_tema_red:
+    pattern: /aplicacion_sent_tema_red/{red}
+    defaults: {_controller: AEServicesBundle:EnviarServices:aplicacion_sent_tema_red}
+    requirements:
+        _method: GET
+        
+        
+services_aplicacion_asistencia:
+    pattern: /aplicacion_asistencia/{app}
+    defaults: {_controller: AEServicesBundle:EnviarServices:aplicacion_asistencia}
+    requirements:
+        _method: GET

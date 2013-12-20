@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Red
  *
- * @ORM\Table(name="red")
+ * @ORM\Table(name="red", indexes={@ORM\Index(name="fki_lider_red", columns={"lider"}), @ORM\Index(name="IDX_FA615F8F5C20309F", columns={"id_ubicacion"})})
  * @ORM\Entity
  */
 class Red
@@ -98,7 +98,7 @@ class Red
     public function setId($id)
     {
         $this->id = $id;
-    
+
         return $this;
     }
 
@@ -121,7 +121,7 @@ class Red
     public function setInicio($inicio)
     {
         $this->inicio = $inicio;
-    
+
         return $this;
     }
 
@@ -144,7 +144,7 @@ class Red
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -167,7 +167,7 @@ class Red
     public function setPastor($pastor)
     {
         $this->pastor = $pastor;
-    
+
         return $this;
     }
 
@@ -190,7 +190,7 @@ class Red
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
-    
+
         return $this;
     }
 
@@ -213,7 +213,7 @@ class Red
     public function setLider(\AE\DataBundle\Entity\Persona $lider = null)
     {
         $this->lider = $lider;
-    
+
         return $this;
     }
 
@@ -236,7 +236,7 @@ class Red
     public function setIdUbicacion(\AE\DataBundle\Entity\Ubicacion $idUbicacion = null)
     {
         $this->idUbicacion = $idUbicacion;
-    
+
         return $this;
     }
 

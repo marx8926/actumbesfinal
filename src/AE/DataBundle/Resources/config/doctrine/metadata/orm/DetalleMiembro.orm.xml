@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="DetalleMiembro" table="detalle_miembro">
+    <indexes>
+      <index name="fki_persona" columns="persona_id"/>
+      <index name="fki_celula_discipulado" columns="celula_dis_id"/>
+      <index name="fki_celula_miembro" columns="celula_id"/>
+      <index name="IDX_3E1ED718BBE8922" columns="red_id"/>
+    </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Matricula" table="matricula">
+    <indexes>
+      <index name="fki_detalle_pca" columns="detalle_pca"/>
+      <index name="IDX_15DF188559590C39" columns="estudiante_id"/>
+    </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

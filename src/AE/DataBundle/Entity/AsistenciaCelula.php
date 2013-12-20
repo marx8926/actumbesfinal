@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AsistenciaCelula
  *
- * @ORM\Table(name="asistencia_celula")
+ * @ORM\Table(name="asistencia_celula", indexes={@ORM\Index(name="IDX_AD17BD66988B2EC5", columns={"aplicacion_cell_id"}), @ORM\Index(name="IDX_AD17BD66F5F88DB9", columns={"persona_id"})})
  * @ORM\Entity
  */
 class AsistenciaCelula
@@ -27,7 +27,7 @@ class AsistenciaCelula
      *
      * @ORM\Column(name="asistio", type="boolean", nullable=true)
      */
-    private $asistio;
+    private $asistio = 'false';
 
     /**
      * @var \AplicacionCelula
@@ -70,7 +70,7 @@ class AsistenciaCelula
     public function setAsistio($asistio)
     {
         $this->asistio = $asistio;
-    
+
         return $this;
     }
 
@@ -93,7 +93,7 @@ class AsistenciaCelula
     public function setAplicacionCell(\AE\DataBundle\Entity\AplicacionCelula $aplicacionCell = null)
     {
         $this->aplicacionCell = $aplicacionCell;
-    
+
         return $this;
     }
 
@@ -116,7 +116,7 @@ class AsistenciaCelula
     public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
     {
         $this->persona = $persona;
-    
+
         return $this;
     }
 

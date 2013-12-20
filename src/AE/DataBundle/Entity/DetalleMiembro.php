@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * DetalleMiembro
  *
- * @ORM\Table(name="detalle_miembro")
+ * @ORM\Table(name="detalle_miembro", indexes={@ORM\Index(name="fki_persona", columns={"persona_id"}), @ORM\Index(name="fki_celula_discipulado", columns={"celula_dis_id"}), @ORM\Index(name="fki_celula_miembro", columns={"celula_id"}), @ORM\Index(name="IDX_3E1ED718BBE8922", columns={"red_id"})})
  * @ORM\Entity
  */
 class DetalleMiembro
@@ -27,7 +27,7 @@ class DetalleMiembro
      *
      * @ORM\Column(name="activo", type="boolean", nullable=true)
      */
-    private $activo;
+    private $activo = 'true';
 
     /**
      * @var integer
@@ -118,7 +118,7 @@ class DetalleMiembro
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -141,7 +141,7 @@ class DetalleMiembro
     public function setConsolidadorId($consolidadorId)
     {
         $this->consolidadorId = $consolidadorId;
-    
+
         return $this;
     }
 
@@ -164,7 +164,7 @@ class DetalleMiembro
     public function setLiderId($liderId)
     {
         $this->liderId = $liderId;
-    
+
         return $this;
     }
 
@@ -187,7 +187,7 @@ class DetalleMiembro
     public function setGanadoPor($ganadoPor)
     {
         $this->ganadoPor = $ganadoPor;
-    
+
         return $this;
     }
 
@@ -210,7 +210,7 @@ class DetalleMiembro
     public function setConvertido($convertido)
     {
         $this->convertido = $convertido;
-    
+
         return $this;
     }
 
@@ -233,7 +233,7 @@ class DetalleMiembro
     public function setRed(\AE\DataBundle\Entity\Red $red = null)
     {
         $this->red = $red;
-    
+
         return $this;
     }
 
@@ -256,7 +256,7 @@ class DetalleMiembro
     public function setCelula(\AE\DataBundle\Entity\Celula $celula = null)
     {
         $this->celula = $celula;
-    
+
         return $this;
     }
 
@@ -279,7 +279,7 @@ class DetalleMiembro
     public function setCelulaDis(\AE\DataBundle\Entity\Celula $celulaDis = null)
     {
         $this->celulaDis = $celulaDis;
-    
+
         return $this;
     }
 
@@ -302,7 +302,7 @@ class DetalleMiembro
     public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
     {
         $this->persona = $persona;
-    
+
         return $this;
     }
 

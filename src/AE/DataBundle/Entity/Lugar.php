@@ -57,7 +57,7 @@ class Lugar
     public function setVarLugarDescripcion($varLugarDescripcion)
     {
         $this->varLugarDescripcion = $varLugarDescripcion;
-    
+
         return $this;
     }
 
@@ -80,7 +80,7 @@ class Lugar
     public function setVarLugarEstado($varLugarEstado)
     {
         $this->varLugarEstado = $varLugarEstado;
-    
+
         return $this;
     }
 

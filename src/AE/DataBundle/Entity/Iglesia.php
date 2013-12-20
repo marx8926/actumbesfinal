@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Iglesia
  *
- * @ORM\Table(name="iglesia")
+ * @ORM\Table(name="iglesia", indexes={@ORM\Index(name="IDX_1EB423FE6EBB006C", columns={"ubigeo_id"})})
  * @ORM\Entity
  */
 class Iglesia
@@ -74,14 +74,14 @@ class Iglesia
     /**
      * @var float
      *
-     * @ORM\Column(name="dou_iglesia_longitud", type="float", nullable=true)
+     * @ORM\Column(name="dou_iglesia_longitud", type="float", precision=10, scale=0, nullable=true)
      */
     private $douIglesiaLongitud;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="dou_iglesia_latitud", type="float", nullable=true)
+     * @ORM\Column(name="dou_iglesia_latitud", type="float", precision=10, scale=0, nullable=true)
      */
     private $douIglesiaLatitud;
 
@@ -116,7 +116,7 @@ class Iglesia
     public function setDatIglesiaFecregistro($datIglesiaFecregistro)
     {
         $this->datIglesiaFecregistro = $datIglesiaFecregistro;
-    
+
         return $this;
     }
 
@@ -139,7 +139,7 @@ class Iglesia
     public function setDatIglesiaFecreacion($datIglesiaFecreacion)
     {
         $this->datIglesiaFecreacion = $datIglesiaFecreacion;
-    
+
         return $this;
     }
 
@@ -162,7 +162,7 @@ class Iglesia
     public function setVarIglesiaTelefono($varIglesiaTelefono)
     {
         $this->varIglesiaTelefono = $varIglesiaTelefono;
-    
+
         return $this;
     }
 
@@ -185,7 +185,7 @@ class Iglesia
     public function setVarIglesiaSiglas($varIglesiaSiglas)
     {
         $this->varIglesiaSiglas = $varIglesiaSiglas;
-    
+
         return $this;
     }
 
@@ -208,7 +208,7 @@ class Iglesia
     public function setVarIglesiaNombre($varIglesiaNombre)
     {
         $this->varIglesiaNombre = $varIglesiaNombre;
-    
+
         return $this;
     }
 
@@ -231,7 +231,7 @@ class Iglesia
     public function setVarIglesiaDireccion($varIglesiaDireccion)
     {
         $this->varIglesiaDireccion = $varIglesiaDireccion;
-    
+
         return $this;
     }
 
@@ -254,7 +254,7 @@ class Iglesia
     public function setVarIglesiaReferencia($varIglesiaReferencia)
     {
         $this->varIglesiaReferencia = $varIglesiaReferencia;
-    
+
         return $this;
     }
 
@@ -277,7 +277,7 @@ class Iglesia
     public function setDouIglesiaLongitud($douIglesiaLongitud)
     {
         $this->douIglesiaLongitud = $douIglesiaLongitud;
-    
+
         return $this;
     }
 
@@ -300,7 +300,7 @@ class Iglesia
     public function setDouIglesiaLatitud($douIglesiaLatitud)
     {
         $this->douIglesiaLatitud = $douIglesiaLatitud;
-    
+
         return $this;
     }
 
@@ -323,7 +323,7 @@ class Iglesia
     public function setUbigeo(\AE\DataBundle\Entity\Ubigeos $ubigeo = null)
     {
         $this->ubigeo = $ubigeo;
-    
+
         return $this;
     }
 

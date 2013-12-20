@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Celula" table="celula">
+    <indexes>
+      <index name="fki_celula_red" columns="id_red"/>
+      <index name="IDX_BE47B30F5C20309F" columns="id_ubicacion"/>
+      <index name="IDX_BE47B30F66C9A2EF" columns="lider_id"/>
+    </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

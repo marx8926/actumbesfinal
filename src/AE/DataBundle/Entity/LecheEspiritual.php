@@ -64,7 +64,7 @@ class LecheEspiritual
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -87,7 +87,7 @@ class LecheEspiritual
     public function setResumen($resumen)
     {
         $this->resumen = $resumen;
-    
+
         return $this;
     }
 
@@ -110,7 +110,7 @@ class LecheEspiritual
     public function setFechaCreacion($fechaCreacion)
     {
         $this->fechaCreacion = $fechaCreacion;
-    
+
         return $this;
     }
 

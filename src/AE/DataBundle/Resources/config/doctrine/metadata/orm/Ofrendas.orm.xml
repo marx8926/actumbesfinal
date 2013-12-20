@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Ofrendas" table="ofrendas">
+    <indexes>
+      <index name="fki_celula_ofrenda" columns="celula_id"/>
+      <index name="index_ofrendas_on_turno_id" columns="servicio_id"/>
+      <index name="fki_sesion_pca" columns="sesion_pca"/>
+    </indexes>
     <id name="intOfrendaId" type="bigint" column="int_ofrenda_id">
       <generator strategy="SEQUENCE"/>
     </id>
-    <field name="decOfrendaMonto" type="decimal" column="dec_ofrenda_monto" nullable="true"/>
+    <field name="decOfrendaMonto" type="decimal" column="dec_ofrenda_monto" precision="18" scale="2" nullable="true"/>
     <field name="decOfrendaFecharegistro" type="datetime" column="dec_ofrenda_fecharegistro" nullable="true"/>
     <many-to-one field="celula" target-entity="Celula">
       <join-columns>

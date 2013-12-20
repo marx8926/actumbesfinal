@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="AeUser" table="ae_user">
+    <indexes>
+      <index name="IDX_FE0057898F781FEB" columns="id_persona"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="uniq_fe00578992fc23a8" columns="username_canonical"/>
+      <unique-constraint name="uniq_fe005789a0d96fbf" columns="email_canonical"/>
+    </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

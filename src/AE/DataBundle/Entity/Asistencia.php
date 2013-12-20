@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Asistencia
  *
- * @ORM\Table(name="asistencia")
+ * @ORM\Table(name="asistencia", indexes={@ORM\Index(name="fki_servicio_fk", columns={"servicio_id"}), @ORM\Index(name="fki_red_fk", columns={"red_id"})})
  * @ORM\Entity
  */
 class Asistencia
@@ -84,7 +84,7 @@ class Asistencia
     public function setDatAsistenciaFecregistro($datAsistenciaFecregistro)
     {
         $this->datAsistenciaFecregistro = $datAsistenciaFecregistro;
-    
+
         return $this;
     }
 
@@ -107,7 +107,7 @@ class Asistencia
     public function setDatAsistenciaFecasistencia($datAsistenciaFecasistencia)
     {
         $this->datAsistenciaFecasistencia = $datAsistenciaFecasistencia;
-    
+
         return $this;
     }
 
@@ -130,7 +130,7 @@ class Asistencia
     public function setIntAsistenciaCantidad($intAsistenciaCantidad)
     {
         $this->intAsistenciaCantidad = $intAsistenciaCantidad;
-    
+
         return $this;
     }
 
@@ -153,7 +153,7 @@ class Asistencia
     public function setServicio(\AE\DataBundle\Entity\Servicios $servicio = null)
     {
         $this->servicio = $servicio;
-    
+
         return $this;
     }
 
@@ -176,7 +176,7 @@ class Asistencia
     public function setRed(\AE\DataBundle\Entity\Red $red = null)
     {
         $this->red = $red;
-    
+
         return $this;
     }
 

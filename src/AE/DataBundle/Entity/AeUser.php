@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AeUser
  *
- * @ORM\Table(name="ae_user")
+ * @ORM\Table(name="ae_user", uniqueConstraints={@ORM\UniqueConstraint(name="uniq_fe00578992fc23a8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="uniq_fe005789a0d96fbf", columns={"email_canonical"})}, indexes={@ORM\Index(name="IDX_FE0057898F781FEB", columns={"id_persona"})})
  * @ORM\Entity
  */
 class AeUser
@@ -165,7 +165,7 @@ class AeUser
     public function setUsername($username)
     {
         $this->username = $username;
-    
+
         return $this;
     }
 
@@ -188,7 +188,7 @@ class AeUser
     public function setUsernameCanonical($usernameCanonical)
     {
         $this->usernameCanonical = $usernameCanonical;
-    
+
         return $this;
     }
 
@@ -211,7 +211,7 @@ class AeUser
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -234,7 +234,7 @@ class AeUser
     public function setEmailCanonical($emailCanonical)
     {
         $this->emailCanonical = $emailCanonical;
-    
+
         return $this;
     }
 
@@ -257,7 +257,7 @@ class AeUser
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-    
+
         return $this;
     }
 
@@ -280,7 +280,7 @@ class AeUser
     public function setSalt($salt)
     {
         $this->salt = $salt;
-    
+
         return $this;
     }
 
@@ -303,7 +303,7 @@ class AeUser
     public function setPassword($password)
     {
         $this->password = $password;
-    
+
         return $this;
     }
 
@@ -326,7 +326,7 @@ class AeUser
     public function setLastLogin($lastLogin)
     {
         $this->lastLogin = $lastLogin;
-    
+
         return $this;
     }
 
@@ -349,7 +349,7 @@ class AeUser
     public function setLocked($locked)
     {
         $this->locked = $locked;
-    
+
         return $this;
     }
 
@@ -372,7 +372,7 @@ class AeUser
     public function setExpired($expired)
     {
         $this->expired = $expired;
-    
+
         return $this;
     }
 
@@ -395,7 +395,7 @@ class AeUser
     public function setExpiresAt($expiresAt)
     {
         $this->expiresAt = $expiresAt;
-    
+
         return $this;
     }
 
@@ -418,7 +418,7 @@ class AeUser
     public function setConfirmationToken($confirmationToken)
     {
         $this->confirmationToken = $confirmationToken;
-    
+
         return $this;
     }
 
@@ -441,7 +441,7 @@ class AeUser
     public function setPasswordRequestedAt($passwordRequestedAt)
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
-    
+
         return $this;
     }
 
@@ -464,7 +464,7 @@ class AeUser
     public function setRoles($roles)
     {
         $this->roles = $roles;
-    
+
         return $this;
     }
 
@@ -487,7 +487,7 @@ class AeUser
     public function setCredentialsExpired($credentialsExpired)
     {
         $this->credentialsExpired = $credentialsExpired;
-    
+
         return $this;
     }
 
@@ -510,7 +510,7 @@ class AeUser
     public function setCredentialsExpireAt($credentialsExpireAt)
     {
         $this->credentialsExpireAt = $credentialsExpireAt;
-    
+
         return $this;
     }
 
@@ -533,7 +533,7 @@ class AeUser
     public function setIdPersona(\AE\DataBundle\Entity\Persona $idPersona = null)
     {
         $this->idPersona = $idPersona;
-    
+
         return $this;
     }
 

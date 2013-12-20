@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="AsistenciaLeccionCurso" table="asistencia_leccion_curso">
+    <indexes>
+      <index name="fki_leccion_curso" columns="leccion_id"/>
+      <index name="IDX_55F2910A15C84B52" columns="matricula_id"/>
+    </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

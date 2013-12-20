@@ -78,7 +78,7 @@ class Servicios
     public function setVarServicioNombre($varServicioNombre)
     {
         $this->varServicioNombre = $varServicioNombre;
-    
+
         return $this;
     }
 
@@ -101,7 +101,7 @@ class Servicios
     public function setIntServicioTipo($intServicioTipo)
     {
         $this->intServicioTipo = $intServicioTipo;
-    
+
         return $this;
     }
 
@@ -124,7 +124,7 @@ class Servicios
     public function setVarTurnoHorainicio($varTurnoHorainicio)
     {
         $this->varTurnoHorainicio = $varTurnoHorainicio;
-    
+
         return $this;
     }
 
@@ -147,7 +147,7 @@ class Servicios
     public function setVarTurnoHorafin($varTurnoHorafin)
     {
         $this->varTurnoHorafin = $varTurnoHorafin;
-    
+
         return $this;
     }
 
@@ -170,7 +170,7 @@ class Servicios
     public function setIntTurnoDia($intTurnoDia)
     {
         $this->intTurnoDia = $intTurnoDia;
-    
+
         return $this;
     }
 

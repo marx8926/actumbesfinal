@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TemaLeche
  *
- * @ORM\Table(name="tema_leche")
+ * @ORM\Table(name="tema_leche", indexes={@ORM\Index(name="IDX_1B7C5D1AFC3D109", columns={"id_leche_espiritual"})})
  * @ORM\Entity
  */
 class TemaLeche
@@ -34,7 +34,7 @@ class TemaLeche
      *
      * @ORM\Column(name="tipo", type="integer", nullable=true)
      */
-    private $tipo;
+    private $tipo = '0';
 
     /**
      * @var \LecheEspiritual
@@ -67,7 +67,7 @@ class TemaLeche
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-    
+
         return $this;
     }
 
@@ -90,7 +90,7 @@ class TemaLeche
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
-    
+
         return $this;
     }
 
@@ -113,7 +113,7 @@ class TemaLeche
     public function setIdLecheEspiritual(\AE\DataBundle\Entity\LecheEspiritual $idLecheEspiritual = null)
     {
         $this->idLecheEspiritual = $idLecheEspiritual;
-    
+
         return $this;
     }
 

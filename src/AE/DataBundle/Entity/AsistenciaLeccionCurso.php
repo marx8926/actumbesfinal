@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AsistenciaLeccionCurso
  *
- * @ORM\Table(name="asistencia_leccion_curso")
+ * @ORM\Table(name="asistencia_leccion_curso", indexes={@ORM\Index(name="fki_leccion_curso", columns={"leccion_id"}), @ORM\Index(name="IDX_55F2910A15C84B52", columns={"matricula_id"})})
  * @ORM\Entity
  */
 class AsistenciaLeccionCurso
@@ -84,7 +84,7 @@ class AsistenciaLeccionCurso
     public function setNota($nota)
     {
         $this->nota = $nota;
-    
+
         return $this;
     }
 
@@ -107,7 +107,7 @@ class AsistenciaLeccionCurso
     public function setAsistencia($asistencia)
     {
         $this->asistencia = $asistencia;
-    
+
         return $this;
     }
 
@@ -130,7 +130,7 @@ class AsistenciaLeccionCurso
     public function setAplicacion($aplicacion)
     {
         $this->aplicacion = $aplicacion;
-    
+
         return $this;
     }
 
@@ -153,7 +153,7 @@ class AsistenciaLeccionCurso
     public function setMatricula(\AE\DataBundle\Entity\Matricula $matricula = null)
     {
         $this->matricula = $matricula;
-    
+
         return $this;
     }
 
@@ -176,7 +176,7 @@ class AsistenciaLeccionCurso
     public function setLeccion(\AE\DataBundle\Entity\TemaCurso $leccion = null)
     {
         $this->leccion = $leccion;
-    
+
         return $this;
     }
 

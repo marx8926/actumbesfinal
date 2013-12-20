@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Ofrendas
  *
- * @ORM\Table(name="ofrendas")
+ * @ORM\Table(name="ofrendas", indexes={@ORM\Index(name="fki_celula_ofrenda", columns={"celula_id"}), @ORM\Index(name="index_ofrendas_on_turno_id", columns={"servicio_id"}), @ORM\Index(name="fki_sesion_pca", columns={"sesion_pca"})})
  * @ORM\Entity
  */
 class Ofrendas
@@ -23,9 +23,9 @@ class Ofrendas
     private $intOfrendaId;
 
     /**
-     * @var float
+     * @var string
      *
-     * @ORM\Column(name="dec_ofrenda_monto", type="decimal", nullable=true)
+     * @ORM\Column(name="dec_ofrenda_monto", type="decimal", precision=18, scale=2, nullable=true)
      */
     private $decOfrendaMonto;
 
@@ -81,20 +81,20 @@ class Ofrendas
     /**
      * Set decOfrendaMonto
      *
-     * @param float $decOfrendaMonto
+     * @param string $decOfrendaMonto
      * @return Ofrendas
      */
     public function setDecOfrendaMonto($decOfrendaMonto)
     {
         $this->decOfrendaMonto = $decOfrendaMonto;
-    
+
         return $this;
     }
 
     /**
      * Get decOfrendaMonto
      *
-     * @return float 
+     * @return string 
      */
     public function getDecOfrendaMonto()
     {
@@ -110,7 +110,7 @@ class Ofrendas
     public function setDecOfrendaFecharegistro($decOfrendaFecharegistro)
     {
         $this->decOfrendaFecharegistro = $decOfrendaFecharegistro;
-    
+
         return $this;
     }
 
@@ -133,7 +133,7 @@ class Ofrendas
     public function setServicio(\AE\DataBundle\Entity\Servicios $servicio = null)
     {
         $this->servicio = $servicio;
-    
+
         return $this;
     }
 
@@ -156,7 +156,7 @@ class Ofrendas
     public function setSesionPca(\AE\DataBundle\Entity\SesionPca $sesionPca = null)
     {
         $this->sesionPca = $sesionPca;
-    
+
         return $this;
     }
 
@@ -179,7 +179,7 @@ class Ofrendas
     public function setCelula(\AE\DataBundle\Entity\Celula $celula = null)
     {
         $this->celula = $celula;
-    
+
         return $this;
     }
 

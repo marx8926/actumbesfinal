@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="AsistenciaCelula" table="asistencia_celula">
+    <indexes>
+      <index name="IDX_AD17BD66988B2EC5" columns="aplicacion_cell_id"/>
+      <index name="IDX_AD17BD66F5F88DB9" columns="persona_id"/>
+    </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

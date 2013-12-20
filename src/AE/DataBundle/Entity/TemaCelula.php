@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TemaCelula
  *
- * @ORM\Table(name="tema_celula")
+ * @ORM\Table(name="tema_celula", indexes={@ORM\Index(name="fki_archivo", columns={"archivo_id"})})
  * @ORM\Entity
  */
 class TemaCelula
@@ -95,7 +95,7 @@ class TemaCelula
     public function setTitutlo($titutlo)
     {
         $this->titutlo = $titutlo;
-    
+
         return $this;
     }
 
@@ -118,7 +118,7 @@ class TemaCelula
     public function setAutor($autor)
     {
         $this->autor = $autor;
-    
+
         return $this;
     }
 
@@ -141,7 +141,7 @@ class TemaCelula
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
@@ -164,7 +164,7 @@ class TemaCelula
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
-    
+
         return $this;
     }
 
@@ -187,7 +187,7 @@ class TemaCelula
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
-    
+
         return $this;
     }
 
@@ -210,7 +210,7 @@ class TemaCelula
     public function setDistribuido($distribuido)
     {
         $this->distribuido = $distribuido;
-    
+
         return $this;
     }
 
@@ -233,7 +233,7 @@ class TemaCelula
     public function setArchivo(\AE\DataBundle\Entity\Archivo $archivo = null)
     {
         $this->archivo = $archivo;
-    
+
         return $this;
     }
 

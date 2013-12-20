@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Diezmos
  *
- * @ORM\Table(name="diezmos")
+ * @ORM\Table(name="diezmos", indexes={@ORM\Index(name="index_diezmos_on_persona_id", columns={"persona_id"})})
  * @ORM\Entity
  */
 class Diezmos
@@ -23,9 +23,9 @@ class Diezmos
     private $intDiezmoId;
 
     /**
-     * @var float
+     * @var string
      *
-     * @ORM\Column(name="dec_diezmo_monto", type="decimal", nullable=true)
+     * @ORM\Column(name="dec_diezmo_monto", type="decimal", precision=18, scale=2, nullable=true)
      */
     private $decDiezmoMonto;
 
@@ -68,20 +68,20 @@ class Diezmos
     /**
      * Set decDiezmoMonto
      *
-     * @param float $decDiezmoMonto
+     * @param string $decDiezmoMonto
      * @return Diezmos
      */
     public function setDecDiezmoMonto($decDiezmoMonto)
     {
         $this->decDiezmoMonto = $decDiezmoMonto;
-    
+
         return $this;
     }
 
     /**
      * Get decDiezmoMonto
      *
-     * @return float 
+     * @return string 
      */
     public function getDecDiezmoMonto()
     {
@@ -97,7 +97,7 @@ class Diezmos
     public function setDatDiezmoFecharegistro($datDiezmoFecharegistro)
     {
         $this->datDiezmoFecharegistro = $datDiezmoFecharegistro;
-    
+
         return $this;
     }
 
@@ -120,7 +120,7 @@ class Diezmos
     public function setVarDiezmoPeticion($varDiezmoPeticion)
     {
         $this->varDiezmoPeticion = $varDiezmoPeticion;
-    
+
         return $this;
     }
 
@@ -143,7 +143,7 @@ class Diezmos
     public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
     {
         $this->persona = $persona;
-    
+
         return $this;
     }
 

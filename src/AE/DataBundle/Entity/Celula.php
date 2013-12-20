@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Celula
  *
- * @ORM\Table(name="celula")
+ * @ORM\Table(name="celula", indexes={@ORM\Index(name="fki_celula_red", columns={"id_red"}), @ORM\Index(name="IDX_BE47B30F5C20309F", columns={"id_ubicacion"}), @ORM\Index(name="IDX_BE47B30F66C9A2EF", columns={"lider_id"})})
  * @ORM\Entity
  */
 class Celula
@@ -55,21 +55,21 @@ class Celula
      *
      * @ORM\Column(name="activo", type="boolean", nullable=true)
      */
-    private $activo;
+    private $activo = 'true';
 
     /**
      * @var string
      *
      * @ORM\Column(name="dia", type="string", length=25, nullable=true)
      */
-    private $dia;
+    private $dia = 'Miercoles';
 
     /**
      * @var string
      *
      * @ORM\Column(name="hora", type="string", length=10, nullable=true)
      */
-    private $hora;
+    private $hora = '00:00:00';
 
     /**
      * @var \Red
@@ -122,7 +122,7 @@ class Celula
     public function setFechaCreacion($fechaCreacion)
     {
         $this->fechaCreacion = $fechaCreacion;
-    
+
         return $this;
     }
 
@@ -145,7 +145,7 @@ class Celula
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
-    
+
         return $this;
     }
 
@@ -168,7 +168,7 @@ class Celula
     public function setFamilia($familia)
     {
         $this->familia = $familia;
-    
+
         return $this;
     }
 
@@ -191,7 +191,7 @@ class Celula
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
-    
+
         return $this;
     }
 
@@ -214,7 +214,7 @@ class Celula
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -237,7 +237,7 @@ class Celula
     public function setDia($dia)
     {
         $this->dia = $dia;
-    
+
         return $this;
     }
 
@@ -260,7 +260,7 @@ class Celula
     public function setHora($hora)
     {
         $this->hora = $hora;
-    
+
         return $this;
     }
 
@@ -283,7 +283,7 @@ class Celula
     public function setIdRed(\AE\DataBundle\Entity\Red $idRed = null)
     {
         $this->idRed = $idRed;
-    
+
         return $this;
     }
 
@@ -306,7 +306,7 @@ class Celula
     public function setIdUbicacion(\AE\DataBundle\Entity\Ubicacion $idUbicacion = null)
     {
         $this->idUbicacion = $idUbicacion;
-    
+
         return $this;
     }
 
@@ -329,7 +329,7 @@ class Celula
     public function setLider(\AE\DataBundle\Entity\Persona $lider = null)
     {
         $this->lider = $lider;
-    
+
         return $this;
     }
 

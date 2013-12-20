@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Consolidar" table="consolidar">
+    <indexes>
+      <index name="IDX_2C1C570FD19E5F94" columns="consolidado_id"/>
+      <index name="IDX_2C1C570FA87E1342" columns="consolidador_id"/>
+    </indexes>
     <id name="intConsolidarId" type="bigint" column="int_consolidar_id">
       <generator strategy="SEQUENCE"/>
     </id>

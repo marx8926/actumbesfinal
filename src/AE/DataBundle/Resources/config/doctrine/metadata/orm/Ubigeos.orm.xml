@@ -9,7 +9,7 @@
     <field name="intUbigeoProvincia" type="integer" column="int_ubigeo_provincia" nullable="true"/>
     <field name="intUbigeoDistrito" type="integer" column="int_ubigeo_distrito" nullable="true"/>
     <field name="intUbigeoDependencia" type="integer" column="int_ubigeo_dependencia" nullable="true"/>
-    <field name="floatUbigeoLatitud" type="float" column="float_ubigeo_latitud" nullable="true"/>
-    <field name="floatUbigeoLongitud" type="float" column="float_ubigeo_longitud" nullable="true"/>
+    <field name="floatUbigeoLatitud" type="float" column="float_ubigeo_latitud" precision="10" scale="0" nullable="true"/>
+    <field name="floatUbigeoLongitud" type="float" column="float_ubigeo_longitud" precision="10" scale="0" nullable="true"/>
   </entity>
 </doctrine-mapping>

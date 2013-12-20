@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Lider" table="lider">
+    <indexes>
+      <index name="IDX_359139D6F5F88DB9" columns="persona_id"/>
+      <index name="IDX_359139D68BBE8922" columns="red_id"/>
+    </indexes>
     <id name="intLiderId" type="bigint" column="int_lider_id">
       <generator strategy="SEQUENCE"/>
     </id>

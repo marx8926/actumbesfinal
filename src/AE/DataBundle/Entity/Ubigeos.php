@@ -60,14 +60,14 @@ class Ubigeos
     /**
      * @var float
      *
-     * @ORM\Column(name="float_ubigeo_latitud", type="float", nullable=true)
+     * @ORM\Column(name="float_ubigeo_latitud", type="float", precision=10, scale=0, nullable=true)
      */
     private $floatUbigeoLatitud;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="float_ubigeo_longitud", type="float", nullable=true)
+     * @ORM\Column(name="float_ubigeo_longitud", type="float", precision=10, scale=0, nullable=true)
      */
     private $floatUbigeoLongitud;
 
@@ -92,7 +92,7 @@ class Ubigeos
     public function setStringUbigeoDescripcion($stringUbigeoDescripcion)
     {
         $this->stringUbigeoDescripcion = $stringUbigeoDescripcion;
-    
+
         return $this;
     }
 
@@ -115,7 +115,7 @@ class Ubigeos
     public function setIntUbigeoDepartamento($intUbigeoDepartamento)
     {
         $this->intUbigeoDepartamento = $intUbigeoDepartamento;
-    
+
         return $this;
     }
 
@@ -138,7 +138,7 @@ class Ubigeos
     public function setIntUbigeoProvincia($intUbigeoProvincia)
     {
         $this->intUbigeoProvincia = $intUbigeoProvincia;
-    
+
         return $this;
     }
 
@@ -161,7 +161,7 @@ class Ubigeos
     public function setIntUbigeoDistrito($intUbigeoDistrito)
     {
         $this->intUbigeoDistrito = $intUbigeoDistrito;
-    
+
         return $this;
     }
 
@@ -184,7 +184,7 @@ class Ubigeos
     public function setIntUbigeoDependencia($intUbigeoDependencia)
     {
         $this->intUbigeoDependencia = $intUbigeoDependencia;
-    
+
         return $this;
     }
 
@@ -207,7 +207,7 @@ class Ubigeos
     public function setFloatUbigeoLatitud($floatUbigeoLatitud)
     {
         $this->floatUbigeoLatitud = $floatUbigeoLatitud;
-    
+
         return $this;
     }
 
@@ -230,7 +230,7 @@ class Ubigeos
     public function setFloatUbigeoLongitud($floatUbigeoLongitud)
     {
         $this->floatUbigeoLongitud = $floatUbigeoLongitud;
-    
+
         return $this;
     }
 

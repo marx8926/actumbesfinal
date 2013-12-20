@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Archivo
  *
- * @ORM\Table(name="archivo")
+ * @ORM\Table(name="archivo", indexes={@ORM\Index(name="indireccion", columns={"direccion"}), @ORM\Index(name="indnombre", columns={"nombre"}), @ORM\Index(name="fki_curso", columns={"curso_id"})})
  * @ORM\Entity
  */
 class Archivo
@@ -95,7 +95,7 @@ class Archivo
     public function setDireccion($direccion)
     {
         $this->direccion = $direccion;
-    
+
         return $this;
     }
 
@@ -118,7 +118,7 @@ class Archivo
     public function setPeso($peso)
     {
         $this->peso = $peso;
-    
+
         return $this;
     }
 
@@ -141,7 +141,7 @@ class Archivo
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
-    
+
         return $this;
     }
 
@@ -164,7 +164,7 @@ class Archivo
     public function setExtension($extension)
     {
         $this->extension = $extension;
-    
+
         return $this;
     }
 
@@ -187,7 +187,7 @@ class Archivo
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -210,7 +210,7 @@ class Archivo
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
-    
+
         return $this;
     }
 
@@ -233,7 +233,7 @@ class Archivo
     public function setCurso(\AE\DataBundle\Entity\Curso $curso = null)
     {
         $this->curso = $curso;
-    
+
         return $this;
     }
 

@@ -118,4 +118,38 @@ class EnviarServicesController extends Controller {
         $resultado= new JsonResponse(array('aaData'=>$result));            
         return $resultado;
     }
+    
+    public function aplicacion_inbox_tema_redAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_nuevas_aplicaciones_celula_red(:red)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse(array('aaData'=>$result));            
+        return $resultado;
+    }
+    
+    public function aplicacion_sent_tema_redAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_sent_aplicaciones_celula_red(:red)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse(array('aaData'=>$result));            
+        return $resultado;
+    }
+    
+    
+    public function aplicacion_asistenciaAction($app)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_asistencia_aplicacion_celula(:app)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':app'=>$app));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse(array('aaData'=>$result));            
+        return $resultado;
+    }
 }

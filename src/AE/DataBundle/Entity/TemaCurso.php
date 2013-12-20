@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TemaCurso
  *
- * @ORM\Table(name="tema_curso")
+ * @ORM\Table(name="tema_curso", indexes={@ORM\Index(name="IDX_9D32769724BE01DC", columns={"id_curso"})})
  * @ORM\Entity
  */
 class TemaCurso
@@ -27,7 +27,7 @@ class TemaCurso
      *
      * @ORM\Column(name="activo", type="boolean", nullable=false)
      */
-    private $activo;
+    private $activo = 'true';
 
     /**
      * @var \DateTime
@@ -81,7 +81,7 @@ class TemaCurso
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -104,7 +104,7 @@ class TemaCurso
     public function setFechaCreacion($fechaCreacion)
     {
         $this->fechaCreacion = $fechaCreacion;
-    
+
         return $this;
     }
 
@@ -127,7 +127,7 @@ class TemaCurso
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-    
+
         return $this;
     }
 
@@ -150,7 +150,7 @@ class TemaCurso
     public function setAbreviatura($abreviatura)
     {
         $this->abreviatura = $abreviatura;
-    
+
         return $this;
     }
 
@@ -173,7 +173,7 @@ class TemaCurso
     public function setIdCurso(\AE\DataBundle\Entity\Curso $idCurso = null)
     {
         $this->idCurso = $idCurso;
-    
+
         return $this;
     }
 

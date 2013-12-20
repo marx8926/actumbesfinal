@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Persona
  *
- * @ORM\Table(name="persona")
+ * @ORM\Table(name="persona", indexes={@ORM\Index(name="fki_ubicacion", columns={"id_ubicacion"}), @ORM\Index(name="fk_ganado_por", columns={"ganado_por"}), @ORM\Index(name="IDX_51E5B69BC0298A8E", columns={"id_iglesia"}), @ORM\Index(name="IDX_51E5B69BB5A3803B", columns={"lugar_id"}), @ORM\Index(name="IDX_51E5B69B8BBE8922", columns={"red_id"})})
  * @ORM\Entity
  */
 class Persona
@@ -111,7 +111,7 @@ class Persona
      *
      * @ORM\Column(name="activo", type="boolean", nullable=true)
      */
-    private $activo;
+    private $activo = 'true';
 
     /**
      * @var integer
@@ -146,7 +146,7 @@ class Persona
      *
      * @ORM\Column(name="asiste_celula", type="boolean", nullable=true)
      */
-    private $asisteCelula;
+    private $asisteCelula = 'true';
 
     /**
      * @var \Iglesia
@@ -209,7 +209,7 @@ class Persona
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -232,7 +232,7 @@ class Persona
     public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
-    
+
         return $this;
     }
 
@@ -255,7 +255,7 @@ class Persona
     public function setEstadoCivil($estadoCivil)
     {
         $this->estadoCivil = $estadoCivil;
-    
+
         return $this;
     }
 
@@ -278,7 +278,7 @@ class Persona
     public function setEdad($edad)
     {
         $this->edad = $edad;
-    
+
         return $this;
     }
 
@@ -301,7 +301,7 @@ class Persona
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
-    
+
         return $this;
     }
 
@@ -324,7 +324,7 @@ class Persona
     public function setCelular($celular)
     {
         $this->celular = $celular;
-    
+
         return $this;
     }
 
@@ -347,7 +347,7 @@ class Persona
     public function setFechaNacimiento($fechaNacimiento)
     {
         $this->fechaNacimiento = $fechaNacimiento;
-    
+
         return $this;
     }
 
@@ -370,7 +370,7 @@ class Persona
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -393,7 +393,7 @@ class Persona
     public function setWebsite($website)
     {
         $this->website = $website;
-    
+
         return $this;
     }
 
@@ -416,7 +416,7 @@ class Persona
     public function setSexo($sexo)
     {
         $this->sexo = $sexo;
-    
+
         return $this;
     }
 
@@ -439,7 +439,7 @@ class Persona
     public function setDni($dni)
     {
         $this->dni = $dni;
-    
+
         return $this;
     }
 
@@ -462,7 +462,7 @@ class Persona
     public function setOcupacion($ocupacion)
     {
         $this->ocupacion = $ocupacion;
-    
+
         return $this;
     }
 
@@ -485,7 +485,7 @@ class Persona
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -508,7 +508,7 @@ class Persona
     public function setGanadoPor($ganadoPor)
     {
         $this->ganadoPor = $ganadoPor;
-    
+
         return $this;
     }
 
@@ -531,7 +531,7 @@ class Persona
     public function setPeticion($peticion)
     {
         $this->peticion = $peticion;
-    
+
         return $this;
     }
 
@@ -554,7 +554,7 @@ class Persona
     public function setDia($dia)
     {
         $this->dia = $dia;
-    
+
         return $this;
     }
 
@@ -577,7 +577,7 @@ class Persona
     public function setHora($hora)
     {
         $this->hora = $hora;
-    
+
         return $this;
     }
 
@@ -600,7 +600,7 @@ class Persona
     public function setAsisteCelula($asisteCelula)
     {
         $this->asisteCelula = $asisteCelula;
-    
+
         return $this;
     }
 
@@ -623,7 +623,7 @@ class Persona
     public function setIdIglesia(\AE\DataBundle\Entity\Iglesia $idIglesia = null)
     {
         $this->idIglesia = $idIglesia;
-    
+
         return $this;
     }
 
@@ -646,7 +646,7 @@ class Persona
     public function setLugar(\AE\DataBundle\Entity\Lugar $lugar = null)
     {
         $this->lugar = $lugar;
-    
+
         return $this;
     }
 
@@ -669,7 +669,7 @@ class Persona
     public function setRed(\AE\DataBundle\Entity\Red $red = null)
     {
         $this->red = $red;
-    
+
         return $this;
     }
 
@@ -692,7 +692,7 @@ class Persona
     public function setIdUbicacion(\AE\DataBundle\Entity\Ubicacion $idUbicacion = null)
     {
         $this->idUbicacion = $idUbicacion;
-    
+
         return $this;
     }
 

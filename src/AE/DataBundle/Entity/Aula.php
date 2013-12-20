@@ -34,7 +34,7 @@ class Aula
      *
      * @ORM\Column(name="activo", type="boolean", nullable=true)
      */
-    private $activo;
+    private $activo = 'true';
 
     /**
      * @var \DateTime
@@ -71,7 +71,7 @@ class Aula
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -94,7 +94,7 @@ class Aula
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -117,7 +117,7 @@ class Aula
     public function setCreado($creado)
     {
         $this->creado = $creado;
-    
+
         return $this;
     }
 
@@ -140,7 +140,7 @@ class Aula
     public function setCapacidad($capacidad)
     {
         $this->capacidad = $capacidad;
-    
+
         return $this;
     }
 

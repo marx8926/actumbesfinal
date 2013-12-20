@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AplicacionCelula
  *
- * @ORM\Table(name="aplicacion_celula")
+ * @ORM\Table(name="aplicacion_celula", indexes={@ORM\Index(name="IDX_BF237CFD4A4DABFB", columns={"celula_id"}), @ORM\Index(name="IDX_BF237CFD79C7128D", columns={"tema_celula"}), @ORM\Index(name="IDX_BF237CFD9F3209E9", columns={"ofrenda_id"})})
  * @ORM\Entity
  */
 class AplicacionCelula
@@ -108,7 +108,7 @@ class AplicacionCelula
     public function setInicio($inicio)
     {
         $this->inicio = $inicio;
-    
+
         return $this;
     }
 
@@ -131,7 +131,7 @@ class AplicacionCelula
     public function setLimite($limite)
     {
         $this->limite = $limite;
-    
+
         return $this;
     }
 
@@ -154,7 +154,7 @@ class AplicacionCelula
     public function setAplicacion($aplicacion)
     {
         $this->aplicacion = $aplicacion;
-    
+
         return $this;
     }
 
@@ -177,7 +177,7 @@ class AplicacionCelula
     public function setDetalle($detalle)
     {
         $this->detalle = $detalle;
-    
+
         return $this;
     }
 
@@ -200,7 +200,7 @@ class AplicacionCelula
     public function setInvitados($invitados)
     {
         $this->invitados = $invitados;
-    
+
         return $this;
     }
 
@@ -223,7 +223,7 @@ class AplicacionCelula
     public function setCelula(\AE\DataBundle\Entity\Celula $celula = null)
     {
         $this->celula = $celula;
-    
+
         return $this;
     }
 
@@ -246,7 +246,7 @@ class AplicacionCelula
     public function setTemaCelula(\AE\DataBundle\Entity\TemaCelula $temaCelula = null)
     {
         $this->temaCelula = $temaCelula;
-    
+
         return $this;
     }
 
@@ -269,7 +269,7 @@ class AplicacionCelula
     public function setOfrenda(\AE\DataBundle\Entity\Ofrendas $ofrenda = null)
     {
         $this->ofrenda = $ofrenda;
-    
+
         return $this;
     }
 

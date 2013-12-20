@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Matricula
  *
- * @ORM\Table(name="matricula")
+ * @ORM\Table(name="matricula", indexes={@ORM\Index(name="fki_detalle_pca", columns={"detalle_pca"}), @ORM\Index(name="IDX_15DF188559590C39", columns={"estudiante_id"})})
  * @ORM\Entity
  */
 class Matricula
@@ -41,7 +41,7 @@ class Matricula
      *
      * @ORM\Column(name="estado", type="boolean", nullable=true)
      */
-    private $estado;
+    private $estado = 'true';
 
     /**
      * @var \Persona
@@ -84,7 +84,7 @@ class Matricula
     public function setFechaInicio($fechaInicio)
     {
         $this->fechaInicio = $fechaInicio;
-    
+
         return $this;
     }
 
@@ -107,7 +107,7 @@ class Matricula
     public function setFechaFin($fechaFin)
     {
         $this->fechaFin = $fechaFin;
-    
+
         return $this;
     }
 
@@ -130,7 +130,7 @@ class Matricula
     public function setEstado($estado)
     {
         $this->estado = $estado;
-    
+
         return $this;
     }
 
@@ -153,7 +153,7 @@ class Matricula
     public function setEstudiante(\AE\DataBundle\Entity\Persona $estudiante = null)
     {
         $this->estudiante = $estudiante;
-    
+
         return $this;
     }
 
@@ -176,7 +176,7 @@ class Matricula
     public function setDetallePca(\AE\DataBundle\Entity\DetallePca $detallePca = null)
     {
         $this->detallePca = $detallePca;
-    
+
         return $this;
     }
 

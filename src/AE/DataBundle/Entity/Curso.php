@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Curso
  *
- * @ORM\Table(name="curso")
+ * @ORM\Table(name="curso", indexes={@ORM\Index(name="fki_requisito_curso", columns={"requisito_id"})})
  * @ORM\Entity
  */
 class Curso
@@ -48,7 +48,7 @@ class Curso
      *
      * @ORM\Column(name="activo", type="boolean", nullable=false)
      */
-    private $activo;
+    private $activo = 'true';
 
     /**
      * @var string
@@ -95,7 +95,7 @@ class Curso
     public function setFechaCreacion($fechaCreacion)
     {
         $this->fechaCreacion = $fechaCreacion;
-    
+
         return $this;
     }
 
@@ -118,7 +118,7 @@ class Curso
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
@@ -141,7 +141,7 @@ class Curso
     public function setNumeroSesiones($numeroSesiones)
     {
         $this->numeroSesiones = $numeroSesiones;
-    
+
         return $this;
     }
 
@@ -164,7 +164,7 @@ class Curso
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -187,7 +187,7 @@ class Curso
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-    
+
         return $this;
     }
 
@@ -210,7 +210,7 @@ class Curso
     public function setAbreviatura($abreviatura)
     {
         $this->abreviatura = $abreviatura;
-    
+
         return $this;
     }
 
@@ -233,7 +233,7 @@ class Curso
     public function setRequisito(\AE\DataBundle\Entity\Curso $requisito = null)
     {
         $this->requisito = $requisito;
-    
+
         return $this;
     }
 

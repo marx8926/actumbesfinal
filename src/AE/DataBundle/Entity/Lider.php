@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Lider
  *
- * @ORM\Table(name="lider")
+ * @ORM\Table(name="lider", indexes={@ORM\Index(name="IDX_359139D6F5F88DB9", columns={"persona_id"}), @ORM\Index(name="IDX_359139D68BBE8922", columns={"red_id"})})
  * @ORM\Entity
  */
 class Lider
@@ -112,7 +112,7 @@ class Lider
     public function setIntLider12($intLider12)
     {
         $this->intLider12 = $intLider12;
-    
+
         return $this;
     }
 
@@ -135,7 +135,7 @@ class Lider
     public function setIntLider144($intLider144)
     {
         $this->intLider144 = $intLider144;
-    
+
         return $this;
     }
 
@@ -158,7 +158,7 @@ class Lider
     public function setIntLider1728($intLider1728)
     {
         $this->intLider1728 = $intLider1728;
-    
+
         return $this;
     }
 
@@ -181,7 +181,7 @@ class Lider
     public function setIntLider20736($intLider20736)
     {
         $this->intLider20736 = $intLider20736;
-    
+
         return $this;
     }
 
@@ -204,7 +204,7 @@ class Lider
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
-    
+
         return $this;
     }
 
@@ -227,7 +227,7 @@ class Lider
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -250,7 +250,7 @@ class Lider
     public function setDependencia($dependencia)
     {
         $this->dependencia = $dependencia;
-    
+
         return $this;
     }
 
@@ -273,7 +273,7 @@ class Lider
     public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
     {
         $this->persona = $persona;
-    
+
         return $this;
     }
 
@@ -296,7 +296,7 @@ class Lider
     public function setRed(\AE\DataBundle\Entity\Red $red = null)
     {
         $this->red = $red;
-    
+
         return $this;
     }
 

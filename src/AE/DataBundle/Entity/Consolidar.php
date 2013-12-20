@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Consolidar
  *
- * @ORM\Table(name="consolidar")
+ * @ORM\Table(name="consolidar", indexes={@ORM\Index(name="IDX_2C1C570FD19E5F94", columns={"consolidado_id"}), @ORM\Index(name="IDX_2C1C570FA87E1342", columns={"consolidador_id"})})
  * @ORM\Entity
  */
 class Consolidar
@@ -84,7 +84,7 @@ class Consolidar
     public function setInicio($inicio)
     {
         $this->inicio = $inicio;
-    
+
         return $this;
     }
 
@@ -107,7 +107,7 @@ class Consolidar
     public function setFin($fin)
     {
         $this->fin = $fin;
-    
+
         return $this;
     }
 
@@ -130,7 +130,7 @@ class Consolidar
     public function setPausa($pausa)
     {
         $this->pausa = $pausa;
-    
+
         return $this;
     }
 
@@ -153,7 +153,7 @@ class Consolidar
     public function setConsolidado(\AE\DataBundle\Entity\Persona $consolidado = null)
     {
         $this->consolidado = $consolidado;
-    
+
         return $this;
     }
 
@@ -176,7 +176,7 @@ class Consolidar
     public function setConsolidador(\AE\DataBundle\Entity\Persona $consolidador = null)
     {
         $this->consolidador = $consolidador;
-    
+
         return $this;
     }
 
