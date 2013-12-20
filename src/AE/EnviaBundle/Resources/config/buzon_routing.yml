@@ -1,0 +1,11 @@
+buzon_envia_view:
+    pattern:  /buzon_view
+    defaults: { _controller: AEEnviaBundle:Buzon:view }
+    requirements:
+        _method: GET
+        
+buzon_envia_asistencia:
+    pattern:  /buzon_asistencia
+    defaults: { _controller: AEEnviaBundle:Buzon:asistencia }
+    requirements:
+        _method: POST

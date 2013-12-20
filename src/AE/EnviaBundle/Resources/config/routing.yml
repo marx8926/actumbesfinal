@@ -7,3 +7,6 @@ tema_envia_routing:
     
 admincelula_envia_routing:
     resource: "@AEEnviaBundle/Resources/config/admincelula_routing.yml"
+    
+buzon_envia_routing:
+    resource: "@AEEnviaBundle/Resources/config/buzon_routing.yml"
