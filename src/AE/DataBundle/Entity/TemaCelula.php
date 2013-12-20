@@ -58,6 +58,13 @@ class TemaCelula
     private $tipo;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="distribuido", type="date", nullable=true)
+     */
+    private $distribuido;
+
+    /**
      * @var \Archivo
      *
      * @ORM\ManyToOne(targetEntity="Archivo")
@@ -192,6 +199,29 @@ class TemaCelula
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set distribuido
+     *
+     * @param \DateTime $distribuido
+     * @return TemaCelula
+     */
+    public function setDistribuido($distribuido)
+    {
+        $this->distribuido = $distribuido;
+    
+        return $this;
+    }
+
+    /**
+     * Get distribuido
+     *
+     * @return \DateTime 
+     */
+    public function getDistribuido()
+    {
+        return $this->distribuido;
     }
 
     /**

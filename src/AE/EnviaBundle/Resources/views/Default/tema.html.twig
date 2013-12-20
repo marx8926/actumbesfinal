@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
         <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/chosen.css">
         <!-- Scripts -->
-                 
+        <style>
+            .datepicker {z-index: 1151;}
+        </style>
         {% endblock %}
         
 {% block content %}
@@ -104,6 +106,8 @@
                                 <form id="form_distribuir" name="form_distribuir" >
                                     <input type="hidden" id="tema_id" name="tema_id" >
                                     <input type="hidden" id="tip1_id" name="tip1_id" >
+                                    <input type="hidden" id="distribuyo" name="distribuyo" value="0">
+                                    
                                      <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">×</button>
                                         <h3>Confirmación</h3>
@@ -112,7 +116,21 @@
                                     <div class="modal-body">
                                         <p >Desea distribuir el tema de célula</p>
                                                                                 
-                                        
+                                        <div class="row-fluid form-horizontal">
+                                            <div class="control-group span3" style="margin-right: 100px;">
+                                                <label class="controls">Inicio</label>
+                                                <div class="controls">
+                                                    <input type="text" class="datepick input-small" id="inicio" name="inicio" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="control-group span3">
+                                                <label class="controls">Limite</label>
+                                                <div class="controls">
+                                                    <input type="text" class="datepick input-small" id="limite" name="limite" required>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     
                                     <div class="modal-footer">
@@ -261,16 +279,26 @@
             
                     $(nRow).find('.share_row').click(function(event){
                         
+                        $("#tema_id").val(aData.id);
+                        $("#tip1_id").val(0);
+                        
+                        if(aData.distribuido==null)
+                          $("#distribuyo").val(1);
+                        else
+                          $("#distribuyo").val(0);
+
                     });
                     $(nRow).find('.delete_row').click(function(event){
-                        
+                        $("#tem_id").val(aData.id);
+                        $("#tip2_id").val(0);
+                         if(aData.distribuido==null)
+                          $("#distribuyo").val(1);
+                        else
+                          $("#distribuyo").val(0);
                     });
              
                 };
 
-        
-        
-        
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
                             "formulario": $("#form_tema").serializeObject()
@@ -304,20 +332,36 @@
          
 	$(document).ready(function() {
        
-       
-           
-           
         TemaTable = crearDataTable("temas_tabla",root.SourceTServicio, FormatoTable, null, TemaRowCB);
            
             $("#form_tema").submit(function(event){
                 
                  event.preventDefault();
                  PrepararDatos();
-                 console.log(root.DatosEnviar);
                  return enviar('{{path('tema_save')}}', root.DatosEnviar, SuccessFunction, null);
             });
        
+            $("#guardar_distribuir").click(function(event){
+                event.preventDefault();
+                datos = { "formulario": $("#form_distribuir").serializeObject()};
+                
+                if($("#distribuyo").val() == 1)
+                  enviar('{{path('tema_distribuir')}}', datos, SuccessFunction, null);
+                 else alert("Tema ya distribuido");
+            });
             
+            $("#guardar_eliminar").click(function(event){
+                event.preventDefault();
+                datos = { "formulario": $("#form_eliminar").serializeObject()};
+                
+                if($("#distribuyo").val() == 1)
+                {
+                    enviar('{{path('tema_delete')}}', datos, SuccessFunction, null);
+                }
+                else
+                    alert("Tema ya distribuido");  
+                
+            });
         } );
 
        </script>

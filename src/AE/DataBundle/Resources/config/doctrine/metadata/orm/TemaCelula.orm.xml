@@ -9,6 +9,7 @@
     <field name="descripcion" type="text" column="descripcion" nullable="false"/>
     <field name="fecha" type="date" column="fecha" nullable="true"/>
     <field name="tipo" type="string" column="tipo" length="20" nullable="true"/>
+    <field name="distribuido" type="date" column="distribuido" nullable="true"/>
     <many-to-one field="archivo" target-entity="Archivo">
       <join-columns>
         <join-column name="archivo_id" referenced-column-name="id"/>

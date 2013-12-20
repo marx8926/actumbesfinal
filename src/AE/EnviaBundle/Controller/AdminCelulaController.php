@@ -62,8 +62,8 @@ class AdminCelulaController extends Controller {
             }
             
             //por eliminar
-            $eliminar = array_diff($enr, $en_rolado);
-            echo $eliminar;
+           // $eliminar = array_diff($enr, $en_rolado);
+            $eliminar = [];
             if(count($eliminar)>0)
             {
                 //procedimiento para eliminar

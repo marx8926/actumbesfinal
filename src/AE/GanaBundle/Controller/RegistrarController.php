@@ -58,8 +58,7 @@ class RegistrarController  extends Controller {
                 $red = $datos['red_lista'];              
             
                 $fechaConv_b = $datos['inputFechaConversion'];            
-                $fechaConv_a = explode('/', $fechaConv_b, 3);
-            
+                $fechaConv_a = explode('/', $fechaConv_b, 3);            
                 $fechaConv = $fechaConv_a[2].'-'.$fechaConv_a[1].'-'.$fechaConv_a[0];            
             
                 $lugar = $datos['lugar'];       
@@ -171,7 +170,7 @@ class RegistrarController  extends Controller {
                 
                 $det->setActivo(TRUE);
                 $det->setRed($redU);
-                $det->setPersonaId($persona->getId());
+                $det->setPersona($persona);
                 $det->setConvertido(new \DateTime($fechaConv));
                 
                 

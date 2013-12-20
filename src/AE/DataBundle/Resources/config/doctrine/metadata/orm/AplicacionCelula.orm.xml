@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AplicacionCelula" table="aplicacion_celula">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="inicio" type="date" column="inicio" nullable="true"/>
+    <field name="limite" type="date" column="limite" nullable="true"/>
+    <field name="aplicacion" type="date" column="aplicacion" nullable="true"/>
+    <field name="detalle" type="string" column="detalle" length="150" nullable="true"/>
+    <field name="invitados" type="integer" column="invitados" nullable="true"/>
+    <many-to-one field="ofrenda" target-entity="Ofrendas">
+      <join-columns>
+        <join-column name="ofrenda_id" referenced-column-name="int_ofrenda_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="temaCelula" target-entity="TemaCelula">
+      <join-columns>
+        <join-column name="tema_celula" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="celula" target-entity="Celula">
+      <join-columns>
+        <join-column name="celula_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

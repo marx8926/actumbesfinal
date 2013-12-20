@@ -51,13 +51,6 @@ class DetalleMiembro
     private $ganadoPor;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="persona_id", type="bigint", nullable=true)
-     */
-    private $personaId;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="convertido", type="date", nullable=true)
@@ -93,6 +86,16 @@ class DetalleMiembro
      * })
      */
     private $celulaDis;
+
+    /**
+     * @var \Persona
+     *
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+     * })
+     */
+    private $persona;
 
 
 
@@ -199,29 +202,6 @@ class DetalleMiembro
     }
 
     /**
-     * Set personaId
-     *
-     * @param integer $personaId
-     * @return DetalleMiembro
-     */
-    public function setPersonaId($personaId)
-    {
-        $this->personaId = $personaId;
-    
-        return $this;
-    }
-
-    /**
-     * Get personaId
-     *
-     * @return integer 
-     */
-    public function getPersonaId()
-    {
-        return $this->personaId;
-    }
-
-    /**
      * Set convertido
      *
      * @param \DateTime $convertido
@@ -311,5 +291,28 @@ class DetalleMiembro
     public function getCelulaDis()
     {
         return $this->celulaDis;
+    }
+
+    /**
+     * Set persona
+     *
+     * @param \AE\DataBundle\Entity\Persona $persona
+     * @return DetalleMiembro
+     */
+    public function setPersona(\AE\DataBundle\Entity\Persona $persona = null)
+    {
+        $this->persona = $persona;
+    
+        return $this;
+    }
+
+    /**
+     * Get persona
+     *
+     * @return \AE\DataBundle\Entity\Persona 
+     */
+    public function getPersona()
+    {
+        return $this->persona;
     }
 }

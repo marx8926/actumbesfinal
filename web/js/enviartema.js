@@ -21,7 +21,7 @@ function crearDataTable(idTable,UrlaDTable,FormatoDTable, DrawCallBackFunction, 
 		"bDestroy": true,
 		"sAjaxSource": UrlaDTable,	  
 		"aoColumns": FormatoDTable,				             
-	 	//"aaSorting": [ [0, 'asc'], [1, 'asc'] ], 
+	 	"aaSorting": [ [4, 'desc'] ], 
                 "sPaginationType": "full_numbers",
 	 	"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
 	 		if(typeof(RowCallBackFunction)!= 'undefined' && RowCallBackFunction != null)

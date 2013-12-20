@@ -199,7 +199,7 @@ class EditarController extends Controller {
                 
                 $det->setActivo(TRUE);
                 $det->setRed($redU);
-                $det->setPersonaId($persona->getId());
+                $det->setPersona($persona);
                 $det->setConvertido(new \DateTime($fechaConv));
                 
                 
