@@ -79,3 +79,17 @@ fos_user:
         user_manager:           fos_user.user_manager.default
     template:
         engine: twig
+        
+        
+ps_pdf:
+    nodes_file: ~
+    fonts_file: ~
+    complex_attributes_file: ~
+    colors_file: ~
+    use_cache_in_stylesheet: ~
+    cache:
+      type: ~
+      options: ~
+    markdown_stylesheet_filepath: ~
+    markdown_document_template_filepath: ~
+    document_parser_type: ~

@@ -1,3 +1,5 @@
 ae_tool_homepage:
     pattern:  /hello/{name}
-    defaults: { _controller: AEToolBundle:Default:index }
+    defaults: { _controller: AEToolBundle:Default:index, _format: pdf }
+    requirements:
+        _format: pdf
