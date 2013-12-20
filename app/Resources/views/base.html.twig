@@ -84,46 +84,11 @@
 						<ul class='collapsed-nav closed dentro'>
 							
                                                         
-                                                        {% if (is_granted('ROLE_LIDER_RED') ) %}
-
-                                                        <li>
-                                                            <a href="{{path('ganar_informe_por_lider')}}" >
-                                                             Informe de 12 del Pastor@
-                                                            </a>
-                                                        </li>
-                                                        {% endif %}
-                                                        
-                                                        {% if (is_granted('ROLE_LIDER12'))%}
-                                                        <li>
-                                                            <a href="{{path('ganar_informe_por_lider12')}}">
-                                                             Informe de 144 del Pastor@
-                                                            </a>
-                                                        </li>
-                                                        {% endif %}
-                                                        
-                                                        {% if(is_granted('ROLE_LIDER144')) %}
-                                                         <li>
-                                                            <a href="{{path('ganar_informe_por_lider144')}}">
-                                                             Informe de 1728 del Pastor@
-                                                            </a>
-                                                        </li>
-                                                        {% endif %}
-                                                        
-                                                        {% if is_granted('ROLE_LIDER1728') %}
-                                                         <li>
-                                                            <a href="{{path('ganar_informe_por_lider_1728')}}">
-                                                             Informe de 20736 del Pastor@
-                                                            </a>
-                                                        </li>
-                                                        
-                                                        {% endif %}
-                                                        {% if(is_granted('ROLE_GANAR')) %}
-                                                        <li>
-                                                            <a href="{{path('ganar_informe_semanal_ganar')}}">
-                                                             Informe Semanal Ganar
-                                                            </a>
-                                                        </li>
-                                                        {% endif %}
+                                                    <li>
+                                                        <a href="#">
+                                                            Informe Semanal de Ganar
+                                                        </a>
+                                                    </li>
 						</ul>
 					</li>
 				

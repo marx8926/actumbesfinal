@@ -11,6 +11,9 @@ gana_editar_routing:
 gana_eliminar_routing:    
     resource: "@AEGanaBundle/Resources/config/eliminar_routing.yml"
     
+gana_informes_routing:    
+    resource: "@AEGanaBundle/Resources/config/informes_routing.yml"
+    
 ae_gana_busqueda:
     pattern: /busqueda
     defaults: { _controller: AEGanaBundle:Default:busqueda}
@@ -18,3 +21,5 @@ ae_gana_busqueda:
 ae_gana_persona_vista:
     pattern: /vista_persona/{id}
     defaults: {_controller: AEGanaBundle:Default:view}
+    
+

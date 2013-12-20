@@ -1,0 +1,3 @@
+ae_gana_informe_semanal:
+    pattern: /informe_semanal
+    defaults: {_controller: AEGanaBundle:Informe:semanal}
