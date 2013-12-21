@@ -1,0 +1,17 @@
+informe_resumido_view:
+    pattern:  /informe_resumido_view
+    defaults: { _controller: AEConsolidaBundle:Informe:resumido_view }
+    requirements:
+        _method: GET
+
+informe_detallado_view:
+    pattern:  /informe_detallado_view
+    defaults: { _controller: AEConsolidaBundle:Informe:detallado_view }
+    requirements:
+        _method: GET
+        
+informe_anual_tri_view:
+    pattern:  /informe_anual_tri_view
+    defaults: { _controller: AEConsolidaBundle:Informe:anual_tri_view }
+    requirements:
+        _method: GET

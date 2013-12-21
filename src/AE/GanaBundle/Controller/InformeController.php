@@ -246,6 +246,15 @@ class InformeController extends Controller {
         }
         return $row;
     }
+    private function serie_semana($ini, $fin)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sql = "select * from get_semanas_serie(:ini,:fin)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':ini'=>$ini,':fin'=>$fin));
+        
+        return $smt->fetchAll();
+    }
     public function informe_tri_anual_serviceAction()
     {
             // ask the service for a Excel5
@@ -254,7 +263,8 @@ class InformeController extends Controller {
         $tipo =$request->request->get('tipo');
         $red = $request->request->get('red_lista');
         $desde = $request->request->get('desde');
-        $hasta = $request->request->get('hasta');
+        $year = $request->request->get('year');
+        
         $em = $this->getDoctrine()->getManager();
         
         $meses_lista = array('ENE','FEB','MAR','ABR','MAY', 'JUN', 'JUL', 'AGO','SET', 'OCT','NOV','DIC','TOTAL');
@@ -269,13 +279,26 @@ class InformeController extends Controller {
        
        $todos = array();
        
-       $fech_b = $desde;
-       $fech_a =explode('/', $fech_b,3);
-       $inicio = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0];  
        
-       $fech_b = $hasta;
-       $fech_a =explode('/', $fech_b,3);
-       $fin = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0]; 
+       if($desde == '1')
+       {
+           $inicio = $year.'-01-01';
+           $fin = $year.'-03-31';
+       }
+       elseif ($desde == '2') {
+           $inicio = $year.'-04-01';
+           $fin = $year.'-06-30';
+       }
+       elseif ($desde=='3') {
+           $inicio = $year.'-07-01';
+           $fin = $year.'-09-30';
+       }
+       else{
+           $inicio = $year.'-10-01';
+           $fin = $year.'-12-31';
+       }
+      
+      $semana_serie = $this->serie_semana($inicio, $fin);
        
       if($red != -1 && strlen($tipo)>0) 
       {    
@@ -289,8 +312,7 @@ class InformeController extends Controller {
             
             if($tipo == 'anual')
             {
-                $fecha = new \DateTime();
-                $year = $fecha->format('Y');
+                
                 $ini = $year.'-01-01';
                 $fin = $year.'-12-31';
                 
@@ -320,7 +342,10 @@ class InformeController extends Controller {
             }
             if($tipo=='tri')
             {
-                $semanas = $this->init_fila(53);
+                $n = count($semana_serie);
+                
+                $semanas = $this->init_fila($n);
+                
                 $sql = "select * from get_informe_ganados_por_semana(:ini, :fin,:id)";       
                 $smt1 = $em->getConnection()->prepare($sql);
                 $smt1->execute(array(':ini'=>$inicio,':fin'=>$fin, ':id'=>$item['id']));
@@ -328,13 +353,14 @@ class InformeController extends Controller {
                 if(count($resultado)> 0){
                     foreach ($resultado as $i)
                     {
-                        $semanas[$i['semana']-1] = $i['ganados'];
+                        $semanas[$i['semana']-$semana_serie[0]['semana']] = $i['ganados'];
                     }
                 }
-                $semanas[52] = array_sum($semanas);
                 
-                if($semanas[52]==0)
-                    $semanas[52]='0';
+                $semanas[$n] = array_sum($semanas);
+                
+                if($semanas[$n]==0)
+                    $semanas[$n]='0';
                 
                 $fila = $item;
                 foreach ($semanas as $s) {
@@ -357,11 +383,14 @@ class InformeController extends Controller {
        
        if($tipo == 'anual')
        {
-           $meses_lista[] = 'Total';
            $phpExcelObject->getActiveSheet()->fromArray($meses_lista, NULL, 'D2');
        }
        else {
-           $semanas_lista = range(1,52);
+           $semanas_lista = array();
+           
+           foreach ($semana_serie as $s) {
+               $semanas_lista[]=$s['fecha'];
+           }
            $semanas_lista[] = 'Total';
            $phpExcelObject->getActiveSheet()->fromArray($semanas_lista, NULL, 'D2');
 
