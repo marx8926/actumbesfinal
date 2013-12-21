@@ -40,7 +40,16 @@ class InformeController extends Controller {
        $phpExcelObject->setActiveSheetIndex(0)
            ->setCellValue('A1', 'Hello')
            ->setCellValue('B2', 'world!');
-       $phpExcelObject->getActiveSheet()->setTitle('Simple');
+       
+       //$phpExcelObject->getActiveSheet()->setTitle('Simple');
+       //
+       $sql = "select * from persona";
+       $em = $this->getDoctrine()->getManager();
+       $smt = $em->getConnection()->prepare($sql);
+       $smt->execute();
+       $todos = $smt->fetchAll();
+       
+       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A1');
        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
        $phpExcelObject->setActiveSheetIndex(0);
 

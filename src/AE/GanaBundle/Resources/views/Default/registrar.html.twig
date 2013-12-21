@@ -17,7 +17,8 @@
         <form class="form-horizontal" action="{{path('ae_gana_persona')}}" method="POST" id="form_persona" name="form_persona">
            
             <fieldset>
-                <legend>Datos Personales</legend>        
+                <legend>Datos Personales</legend>
+                <input type="hidden" id="duplicado" name="duplicado" value="0">
                 <div class="span9">
                     <div class="control-group" >
                         <label class="control-label"> Nombres (*) </label>
@@ -124,7 +125,7 @@
                         <div class="control-group">
                             <label class="control-label" >Teléfono</label>
                             <div class="controls">
-                                <input type="text" class="input-medium" placeholder="Telefono" id="inputTelefono" name="inputTelefono" pattern="[0-9]{9}"/>
+                                <input type="text" class="input-medium" placeholder="Telefono" id="inputTelefono" name="inputTelefono" />
                                 <p class="help-block">0codigonúmero</p>
                             </div>
                         </div>
@@ -485,17 +486,16 @@
                  //cambiar red
                  $("#red_lista").change(function(){
                      //cambiar célula
-                     
-                     //cambiar ganadores x red
-                     
+                    
                      ganador_autocomplete_red();
                  });
                 
                  $("#form_persona").submit(function(event) {
                     event.preventDefault();
                     PrepararDatos();
-                    console.log(root.DatosEnviar);
-                    return enviar('{{path('ae_gana_persona')}}', root.DatosEnviar, SuccessFunction, null);
+
+                    
+                    enviar('{{path('ae_gana_persona')}}', root.DatosEnviar, SuccessFunction, null);
   
                 });
 

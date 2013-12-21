@@ -41,14 +41,14 @@ class EditarController extends Controller {
         
         if($persona->getGanadoPor() != NULL)
         {
-            $ganado = $repo->find($persona->getGanadoPor);
+            $ganado = $repo->find($persona->getGanadoPor());
             $gan = $ganado->getNombre()." ".$ganado->getApellidos();
         }
         else $gan = "";
         
         $distrito= $persona->getIdUbicacion()->getUbigeo();
         
-        $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+        $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('persona'=>$id));
             
         $prev_ubi = $em->getRepository('AEDataBundle:Ubigeos');
         $provincia = $prev_ubi->findOneBy(array('intUbigeoId'=>$distrito->getIntUbigeoDependencia()));
@@ -133,7 +133,7 @@ class EditarController extends Controller {
                 
                 //guardar detalle miembro
                 
-                $det = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+                $det = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('persona'=>$id));
                 
                 //persona           
                 
