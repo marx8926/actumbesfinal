@@ -1,1 +1,176 @@
-{# empty Twig template #}
+{% extends "::base.html.twig" %}
+
+{% block titulo %} Informe detallado del Area de Consolidar - {% endblock %}
+
+{% block stylesheets %}
+        <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
+       <style type="text/css">
+    
+           #form_reporte {
+            margin-top: 15px;
+            padding: 0px;
+            }
+            
+            
+        </style>
+        
+{% endblock %}                 
+
+{% block content %} 
+        
+<div class="container-fluid">
+    <div class="content">
+     <div class="row-fluid">
+	<div class="span12">
+
+            <div class="box">
+                
+		<div class="box-head tabs">
+                    <h3>Reporte semanal detallado  </h3>
+                </div>
+       
+
+                <div class="box-content box-nomargin">
+        
+        <form id="form_reporte" name="form_reporte" method="POST" class="form-horizontal" action="{{path('informe_anual_tri_service')}}" >
+         <div class="control-group span3">
+             <label class="control-label" style="width:auto; margin-left: 40px;" >Red</label>
+            <div class="controls" style="margin-left: 90px;">
+                <select id="red_lista" name="red_lista" class="rango input-small" >
+                   
+                </select>
+            </div>
+        </div>
+            
+          <div class="control-group span3">
+                <label class="control-label" style="width:auto;">
+                            Filtro
+                        </label>
+                    <div class="controls" style="width:auto; margin-left: -40px;">
+                        <select id="tipo" name="tipo" class="input-small">
+                            <option value="anual">Anual</option>
+                            <option value="tri">Trimestral</option>
+                        </select>
+                    </div>
+                </div>
+                <!--<div class="control-group span2">
+                    <div class="controls" style="width:auto; margin-left: -40px;">
+                        <label class="radio">
+                            <input type="radio" id="tipo" name="tipo" value="tri"> Trimestral
+                        </label>
+                        
+                    </div>        
+                </div>-->
+                
+         <div class="control-group span3" > 
+            <label class="control-label"  style="width:auto; margin-left: -10px;" >
+                Año</label>
+            <div class="controls" style="margin-left: 35px;">
+                <input id="year" name="year" class="input-small" type="number">
+            </div>
+        </div>
+         <div class="control-group span3" id="desde_block" name="desde_block" style="display:none;" > 
+            <label class="control-label"  style="width:auto; margin-left: -10px;" >
+                Desde</label>
+            <div class="controls" style="margin-left: 35px;">
+                <select id="desde" name="desde" class="input-medium">
+                    <option value="1">Enero-Marzo</option>
+                    <option value="2">Abril-Junio</option>
+                    <option value="3">Julio-Septiembre</option>
+                    <option value="4">Octubre-Diciembre</option>
+                </select>
+            </div>
+        </div>
+        
+        
+         <div class="control-group span3">
+            
+            <div class="controls"  style="width:auto; margin-left: -10px; " >
+                <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
+            </div>
+        </div>
+        </form>
+        
+ 
+                </div>
+            </div>
+        
+	
+     </div>
+    </div>
+</div>    
+        
+     </div>
+        
+    </div>
+</div>
+{% endblock %}
+      
+ {%block javascript %}
+            
+        <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-typeahead.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-collapse.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-button.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tooltip.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tab.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>    
+            <script src="{{asset('js/custom.js')}}"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="{{asset('js/html5.js')}}"></script><![endif]-->
+            <script src="{{asset('js/jquery/jquery.ui.core.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.widget.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.position.min.js')}}"></script>
+            <script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+            <script src="https://www.google.com/jsapi"></script>
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js')}}"></script><![endif]-->           
+            <script src="{{asset('js/jquery.sparkline.js')}}"> </script>
+            <script src="{{asset('js/jquery.dataTables.js')}}"> </script>
+            <script src="{{asset('js/custom-tables.js')}}"> </script>
+            
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
+            <script src="{{asset('js/util/datatable_plugins.js')}}"></script>
+            
+          
+ 
+ 
+    <script type="text/javascript">
+        
+        radioFunction  = function(){
+                if(this.value === 'anual')
+                {
+                   $("#desde_block").css("display","none");
+                }
+                if(this.value === 'tri')
+                {
+                    $("#desde_block").css("display","block");
+                }
+               
+            };
+        
+	$(document).ready(function() {
+            
+          
+            
+            var d = new Date();
+            $("#year").val(d.getFullYear());
+          
+                  
+            {% if is_granted('ROLE_GANAR') %}
+                redes = getAjaxObject('{{path('services_red')}}');              
+                cargarSelect(redes, "red_lista", "int_red_id", "id"); 
+                                     
+            {% else %}                      
+                  
+            {% endif%}
+        
+             $("#tipo").change(radioFunction);
+
+	 });
+  
+       
+      
+       </script>
+{%endblock %} 

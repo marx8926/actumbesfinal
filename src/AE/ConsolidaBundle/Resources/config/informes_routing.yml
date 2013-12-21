@@ -21,3 +21,9 @@ informe_anual_tri_view:
     defaults: { _controller: AEConsolidaBundle:Informe:anual_tri_view }
     requirements:
         _method: GET
+        
+informe_anual_tri_service:
+    pattern:  /informe_anual_tri_service
+    defaults: { _controller: AEConsolidaBundle:Informe:anual_tri_service }
+    requirements:
+        _method: POST
