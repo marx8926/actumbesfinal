@@ -1,3 +1,15 @@
 ae_gana_informe_semanal:
     pattern: /informe_semanal
     defaults: {_controller: AEGanaBundle:Informe:semanal}
+    
+ae_gana_informe_detallado_view:
+    pattern: /informe_detallado_view
+    defaults: {_controller: AEGanaBundle:Informe:detallado_view}
+    requirements:
+        _method: GET
+        
+ae_gana_informe_detallado_service:
+    pattern: /informe_detallado_service
+    defaults: {_controller: AEGanaBundle:Informe:detallado_service}
+    requirements:
+        _method: POST

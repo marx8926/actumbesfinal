@@ -1,0 +1,156 @@
+{% extends "::base.html.twig" %}
+
+{% block titulo %} Informe detallado del Area de Ganar - {% endblock %}
+
+{% block stylesheets %}
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" rel="stylesheet" type="text/css">
+        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+       <style type="text/css">
+    
+           #form_busqueda {
+            margin-top: 15px;
+            padding: 0px;
+            }
+            
+            
+        </style>
+        
+{% endblock %}                 
+
+{% block content %} 
+        
+<div class="container-fluid">
+    <div class="content">
+     <div class="row-fluid">
+	<div class="span12">
+
+            <div class="box">
+                
+		<div class="box-head tabs">
+                    <h3>Filtro de busqueda </h3>
+                </div>
+       
+
+                <div class="box-content box-nomargin">
+        
+        <form id="form_reporte" name="form_reporte" method="POST" class="form-horizontal" action="{{path('ae_gana_informe_detallado_service')}}" >
+         <div class="control-group span3">
+             <label class="control-label" style="width:auto; margin-left: 40px;" >Red</label>
+            <div class="controls" style="margin-left: 90px;">
+                <select id="red_lista" name="red_lista" class="rango input-small" >
+                   
+                </select>
+            </div>
+        </div>
+         <div class="control-group span3" id="desde_block" name="desde_block" >
+             
+             
+            <label class="control-label"  style="width:auto; margin-left: -10px;" >
+                Desde</label>
+            <div class="controls" style="margin-left: 35px;">
+                <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly">
+            </div>
+        </div>
+        
+        
+         <div class="control-group span3" id="hasta_block" name="hasta_block">
+            <label class="control-label"  style="width:auto; margin-left: -10px; " >
+                Hasta</label>
+            <div class="controls" style="margin-left: 35px;">
+                <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly">
+            </div>
+        </div>
+        
+         <div class="control-group span3">
+            
+            <div class="controls"  style="width:auto; margin-left: -10px; " >
+                <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
+            </div>
+        </div>
+        </form>
+        
+ 
+                </div>
+            </div>
+        
+	
+     </div>
+    </div>
+</div>    
+        
+     </div>
+        
+    </div>
+</div>
+{% endblock %}
+      
+ {%block javascript %}
+            
+        <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
+            <script src="https://www.google.com/jsapi"></script>
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->           
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/tiempo.js"></script>        
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.sparkline.js"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
+            
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
+            
+          
+ 
+ 
+    <script type="text/javascript">
+ 
+         var trselected; 
+	 var oTable;
+         urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
+         
+        var values = [];
+        root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
+        root.SourceTServicio = '{{path('services_personas_init')}}';
+      
+        var FormatoPersonaTable, PersonaRowCB, PersonaTable;
+        
+       
+   
+      
+	$(document).ready(function() {
+            
+            FechaActualT('desde');
+            FechaActualT('hasta');
+            
+
+            
+                  
+            {% if is_granted('ROLE_GANAR') %}
+                redes = getAjaxObject('{{path('services_red')}}');              
+                cargarSelect(redes, "red_lista", "int_red_id", "id"); 
+                $("<option value='0'>Todos</option>").appendTo('#red_lista');
+                                     
+            {% else %}                      
+                  
+            {% endif%}
+        
+            
+	 });
+  
+       
+      
+       </script>
+{%endblock %} 
