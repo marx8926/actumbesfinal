@@ -3,6 +3,12 @@ informe_resumido_view:
     defaults: { _controller: AEConsolidaBundle:Informe:resumido_view }
     requirements:
         _method: GET
+        
+informe_resumido_service:
+    pattern:  /informe_resumido_service
+    defaults: { _controller: AEConsolidaBundle:Informe:resumido_service }
+    requirements:
+        _method: POST
 
 informe_detallado_view:
     pattern:  /informe_detallado_view

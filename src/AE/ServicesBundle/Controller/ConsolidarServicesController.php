@@ -150,6 +150,38 @@ class ConsolidarServicesController extends Controller {
         return $resultado;
     }
     
+    private function asistencia_consolidados($array)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $tabla = array();
+        foreach ($array as $row) {
+            $sql="select * from get_asistencia_por_consolidado(:id)";
+            $smt = $em->getConnection()->prepare($sql);
+            $smt->execute(array(':id'=>$row['id']));
+            
+            $asistencias = $smt->fetchAll();
+            
+            $fila = $row;
+            $j = 1;
+            foreach ($asistencias as $i) {
+                if($i['fin'] != NULL)
+                {
+                    $fila['L'.strval($j)] = '&#10004<br>'.$i['fin'];
+                }
+                else {
+                    $fila['L'.strval($j)] = '';
+
+                }
+                
+                $j++;
+            }
+            $tabla[]=$fila;
+                        
+        }
+        return $tabla;
+    }
+    
     public function lista_consolidando_red_consolidadorAction($red , $consolidador)
     {
         $em = $this->getDoctrine()->getManager();
@@ -160,7 +192,9 @@ class ConsolidarServicesController extends Controller {
         $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador));
         $result = $smt->fetchAll();
         
-        $resultado= new JsonResponse(array('aaData' =>$result));
+        $final = $this->asistencia_consolidados($result);
+                
+        $resultado= new JsonResponse(array('aaData' =>$final));
         return $resultado;
         
     }
@@ -175,7 +209,9 @@ class ConsolidarServicesController extends Controller {
         $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador, ':ini' => $inicio, ':fin' => $fin));
         $result = $smt->fetchAll();
         
-        $resultado= new JsonResponse(array('aaData' =>$result));
+         $final = $this->asistencia_consolidados($result);
+                
+        $resultado= new JsonResponse(array('aaData' =>$final));
         return $resultado;
         
     }
@@ -190,7 +226,9 @@ class ConsolidarServicesController extends Controller {
         $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador));
         $result = $smt->fetchAll();
         
-        $resultado= new JsonResponse(array('aaData' =>$result));
+        $final = $this->asistencia_consolidados($result);
+                
+        $resultado= new JsonResponse(array('aaData' =>$final));
         return $resultado;
     }
     
@@ -204,7 +242,9 @@ class ConsolidarServicesController extends Controller {
         $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador, ':ini'=>$inicio, ':fin' => $fin));
         $result = $smt->fetchAll();
         
-        $resultado= new JsonResponse(array('aaData' =>$result));
+        $final = $this->asistencia_consolidados($result);
+                
+        $resultado= new JsonResponse(array('aaData' =>$final));
         return $resultado;
     }
     
@@ -218,7 +258,9 @@ class ConsolidarServicesController extends Controller {
         $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador));
         $result = $smt->fetchAll();
         
-        $resultado= new JsonResponse(array('aaData' =>$result));
+        $final = $this->asistencia_consolidados($result);
+                
+        $resultado= new JsonResponse(array('aaData' =>$final));
         return $resultado;
     }
     
@@ -232,7 +274,9 @@ class ConsolidarServicesController extends Controller {
         $smt->execute(array(':red'=>$red, ':consolidador' => $consolidador, ':ini'=>$inicio, ':fin'=>$fin));
         $result = $smt->fetchAll();
         
-        $resultado= new JsonResponse(array('aaData' =>$result));
+        $final = $this->asistencia_consolidados($result);
+                
+        $resultado= new JsonResponse(array('aaData' =>$final));
         return $resultado;
     }
     

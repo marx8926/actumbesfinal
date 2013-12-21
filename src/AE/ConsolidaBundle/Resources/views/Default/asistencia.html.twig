@@ -326,15 +326,19 @@
             		<thead id='lol'>
                 		<tr>
 		                    <th>Nombres</th>	
-                                    <th width="6%">Red</th>
-		                    <th width="5%">Edad</th>		                    
+                                    <th width="3%">Red</th>
+		                    <th width="3%">Edad</th>		                    
 		                    <th width="8%">Conversión</th>
                                     <th>Inicio</th>
-                                    <th>Pausa</th>
+                                    <th>Descartar</th>
                                     <th>Fin</th>
                                     <th>Dirección</th>
                                     <th> Telefono</th>
                                     <th>Acciones</th>
+                                    {% for i in 1..8 %}
+                                        <th>{{ i }} </th>
+                                    {% endfor %}
+                                    
 		                </tr>
 			</thead>
                 </table>
@@ -512,7 +516,9 @@
         SuccessAsignadoFunction = function(data) {
                
                     if(data.responseCode===200 ){          
-                      alert('Registro Completado');                       
+                      alert('Registro Completado'); 
+                      AsignadoTable.fnReloadAjax(root.SourceAsignadoServicio);
+
                       
                     }
                     else if(data.responseCode===300){//bad request
@@ -593,40 +599,50 @@
         urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
         FormatoAsignadoTable = [
             {
-                "sWidth": "30%",
                 "mDataProp": "nombres"
             },
             {
-                "sWidth": "10%",
                 "mDataProp": "red"
             },
             {
-                "sWidth": "10%",
                 "mDataProp": "edad"
             }
             , {
-                "sWidth": "10%",
                 "mDataProp": "convertido"
             },{
-                "sWidth": "5%",
                 "mDataProp": "inicio"
             },{
-                "sWidth": "5%",
                 "mDataProp": "pausa"
             },{
-                "sWidth": "5%",
                 "mDataProp": "fin"
             },            
             {
-                "sWidth": "20%",
                 "mDataProp": "direccion"
             },{
-                "sWidth": "12%",
                 "mDataProp": "telefono"
             },
             {
-                "sWidth": "15%",
                 "mDataProp": "acciones"                
+            },{
+                "mDataProp": "L1"
+            },
+            {
+                "mDataProp": "L2"
+            },{
+                "mDataProp": "L3"
+            },
+                    {
+                "mDataProp": "L4"
+            },
+                    {
+                "mDataProp": "L5"
+            },
+                    {
+                "mDataProp": "L6"
+            },{
+                "mDataProp": "L7"
+            },{
+                "mDataProp": "L8"
             }
        ];
               

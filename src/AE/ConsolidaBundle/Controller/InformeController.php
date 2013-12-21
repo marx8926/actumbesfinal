@@ -26,7 +26,12 @@ class InformeController extends Controller {
         return $this->render('AEEnviaBundle:Default:informeresumido.html.twig');
     }
     
-    public function detallado_viewAction()
+    public function resumido_serviceAction()
+    {
+        
+    }
+
+        public function detallado_viewAction()
     {
         return $this->render('AEEnviaBundle:Default:informedetallado.html.twig');
     }

@@ -76,7 +76,7 @@ class AsignarConsolidadorController extends Controller {
             
             //actualizamos detalle de miembro
             
-            $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+            $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('persona'=>$id));
             
             $detalle->setConsolidadorId($consolidador_id);
             

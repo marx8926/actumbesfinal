@@ -150,7 +150,7 @@ class AsistenciaController extends Controller {
             
             //$consolidar = new Consolidar();
             
-            $consolidar->setPausa(new \DateTime());
+            //$consolidar->setPausa(new \DateTime());
             $consolidar->setConsolidador($consolidador_objeto);
             
             $em->persist($consolidar);
@@ -158,7 +158,7 @@ class AsistenciaController extends Controller {
             
             //actualizar detalle miembro
             
-            $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+            $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('persona'=>$id));
             
             $detalle->setConsolidadorId($consolidador);
             
@@ -202,11 +202,9 @@ class AsistenciaController extends Controller {
             $consolidar->setPausa(NULL);
             $consolidar->setConsolidador($consolidador_objeto);
             
-            
-            
             //actualizar detalle miembro
             
-            $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+            $detalle = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('persona'=>$id));
             
             $detalle->setConsolidadorId($consolidador);
             
