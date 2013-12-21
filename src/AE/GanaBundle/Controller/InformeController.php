@@ -231,4 +231,160 @@ class InformeController extends Controller {
         return $response; 
         
     }
+    
+    public function informe_tri_anual_viewAction()
+    {
+        return $this->render('AEGanaBundle:Default:informetri_anual.html.twig');
+    }
+    
+    private function init_fila($n)
+    {
+        $row = array();
+        
+        for ($i = 0; $i < $n; $i++) {
+            $row[] = '0';
+        }
+        return $row;
+    }
+    public function informe_tri_anual_serviceAction()
+    {
+            // ask the service for a Excel5
+        
+        $request = $this->get('request');
+        $tipo =$request->request->get('tipo');
+        $red = $request->request->get('red_lista');
+        $desde = $request->request->get('desde');
+        $hasta = $request->request->get('hasta');
+        $em = $this->getDoctrine()->getManager();
+        
+        $meses_lista = array('ENE','FEB','MAR','ABR','MAY', 'JUN', 'JUL', 'AGO','SET', 'OCT','NOV','DIC','TOTAL');
+        
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+
+       $phpExcelObject->getProperties()->setCreator("AdminChurch.com")
+           ->setLastModifiedBy("AdminChurch.com")
+           ->setTitle("AdminChurch.com 2005 XLSX Document")
+           ->setSubject("AdminChurch.com 2005 XLSX  Document")
+           ->setCategory("AdminChurch.com report");
+       
+       $todos = array();
+       
+       $fech_b = $desde;
+       $fech_a =explode('/', $fech_b,3);
+       $inicio = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0];  
+       
+       $fech_b = $hasta;
+       $fech_a =explode('/', $fech_b,3);
+       $fin = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0]; 
+       
+      if($red != -1 && strlen($tipo)>0) 
+      {    
+        //recuperamos a los lideres 
+        $sql = "select * from get_informe_ganar_lideres(:red)";       
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $todos = $smt->fetchAll();
+        $matriz = array();
+        foreach ($todos as $item) {
+            
+            if($tipo == 'anual')
+            {
+                $fecha = new \DateTime();
+                $year = $fecha->format('Y');
+                $ini = $year.'-01-01';
+                $fin = $year.'-12-31';
+                
+                $meses = $this->init_fila(13);
+                
+                $sql = "select * from get_informe_ganados_por_mes(:ini, :fin,:id)";       
+                $smt = $em->getConnection()->prepare($sql);
+                $smt->execute(array(':ini'=>$ini,':fin'=>$fin, ':id'=>$item['id']));
+                $resultado = $smt->fetchAll();
+                if(count($resultado)> 0){
+                    foreach ($resultado as $i)
+                    {
+                        $meses[$i['mes']-1] = $i['ganados'];
+                        
+                        
+                    }
+                }
+                $meses[12] = array_sum($meses);
+                if($meses[12]==0)
+                    $meses[12]='0';
+                
+                $fila = $item;
+                foreach ($meses as $m) {
+                    $fila[] = $m;
+                }
+                $matriz[] = $fila;
+            }
+            if($tipo=='tri')
+            {
+                $semanas = $this->init_fila(53);
+                $sql = "select * from get_informe_ganados_por_semana(:ini, :fin,:id)";       
+                $smt1 = $em->getConnection()->prepare($sql);
+                $smt1->execute(array(':ini'=>$inicio,':fin'=>$fin, ':id'=>$item['id']));
+                $resultado = $smt1->fetchAll();
+                if(count($resultado)> 0){
+                    foreach ($resultado as $i)
+                    {
+                        $semanas[$i['semana']-1] = $i['ganados'];
+                    }
+                }
+                $semanas[52] = array_sum($semanas);
+                
+                if($semanas[52]==0)
+                    $semanas[52]='0';
+                
+                $fila = $item;
+                foreach ($semanas as $s) {
+                    $fila[] = $s;
+                }
+                $matriz[] = $fila;
+            }
+        }
+       
+       
+        $phpExcelObject->setActiveSheetIndex(0)
+               ->setCellValue('A1', 'Semana del '.$inicio.' al '.$fin)
+               ->setCellValue('C1','Red: '.$red)
+           ->setCellValue('A2', 'N°')
+               ->setCellValue('B2', 'NOMBRE DEL LIDER')
+               ->setCellValue('C2','TELEFONO')
+              ;
+       
+       $phpExcelObject->getActiveSheet()->setTitle('INFORME');
+       
+       if($tipo == 'anual')
+       {
+           $meses_lista[] = 'Total';
+           $phpExcelObject->getActiveSheet()->fromArray($meses_lista, NULL, 'D2');
+       }
+       else {
+           $semanas_lista = range(1,52);
+           $semanas_lista[] = 'Total';
+           $phpExcelObject->getActiveSheet()->fromArray($semanas_lista, NULL, 'D2');
+
+       }
+       
+       $phpExcelObject->getActiveSheet()->fromArray($matriz, NULL, 'A3');
+       
+      
+      }
+       
+       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response; 
+    }
 }
