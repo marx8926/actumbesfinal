@@ -1,0 +1,5 @@
+informe_semanal_view:
+    pattern:  /informe_semanal_view
+    defaults: { _controller: AEEnviaBundle:Informe:informe_semanal_view }
+    requirements:
+        _method: GET

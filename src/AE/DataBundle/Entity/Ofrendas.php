@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Ofrendas
  *
- * @ORM\Table(name="ofrendas", indexes={@ORM\Index(name="fki_celula_ofrenda", columns={"celula_id"}), @ORM\Index(name="index_ofrendas_on_turno_id", columns={"servicio_id"}), @ORM\Index(name="fki_sesion_pca", columns={"sesion_pca"})})
+ * @ORM\Table(name="ofrendas", indexes={@ORM\Index(name="fki_celula_ofrenda", columns={"celula_id"}), @ORM\Index(name="index_ofrendas_on_turno_id", columns={"servicio_id"}), @ORM\Index(name="fki_sesion_pca", columns={"sesion_pca"}), @ORM\Index(name="fki_aplicacion_celula", columns={"aplicacion_celula"})})
  * @ORM\Entity
  */
 class Ofrendas
@@ -37,6 +37,13 @@ class Ofrendas
     private $decOfrendaFecharegistro;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="celula_id", type="bigint", nullable=true)
+     */
+    private $celulaId;
+
+    /**
      * @var \Servicios
      *
      * @ORM\ManyToOne(targetEntity="Servicios")
@@ -57,14 +64,14 @@ class Ofrendas
     private $sesionPca;
 
     /**
-     * @var \Celula
+     * @var \AplicacionCelula
      *
-     * @ORM\ManyToOne(targetEntity="Celula")
+     * @ORM\ManyToOne(targetEntity="AplicacionCelula")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="celula_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="aplicacion_celula", referencedColumnName="id")
      * })
      */
-    private $celula;
+    private $aplicacionCelula;
 
 
 
@@ -125,6 +132,29 @@ class Ofrendas
     }
 
     /**
+     * Set celulaId
+     *
+     * @param integer $celulaId
+     * @return Ofrendas
+     */
+    public function setCelulaId($celulaId)
+    {
+        $this->celulaId = $celulaId;
+
+        return $this;
+    }
+
+    /**
+     * Get celulaId
+     *
+     * @return integer 
+     */
+    public function getCelulaId()
+    {
+        return $this->celulaId;
+    }
+
+    /**
      * Set servicio
      *
      * @param \AE\DataBundle\Entity\Servicios $servicio
@@ -171,25 +201,25 @@ class Ofrendas
     }
 
     /**
-     * Set celula
+     * Set aplicacionCelula
      *
-     * @param \AE\DataBundle\Entity\Celula $celula
+     * @param \AE\DataBundle\Entity\AplicacionCelula $aplicacionCelula
      * @return Ofrendas
      */
-    public function setCelula(\AE\DataBundle\Entity\Celula $celula = null)
+    public function setAplicacionCelula(\AE\DataBundle\Entity\AplicacionCelula $aplicacionCelula = null)
     {
-        $this->celula = $celula;
+        $this->aplicacionCelula = $aplicacionCelula;
 
         return $this;
     }
 
     /**
-     * Get celula
+     * Get aplicacionCelula
      *
-     * @return \AE\DataBundle\Entity\Celula 
+     * @return \AE\DataBundle\Entity\AplicacionCelula 
      */
-    public function getCelula()
+    public function getAplicacionCelula()
     {
-        return $this->celula;
+        return $this->aplicacionCelula;
     }
 }

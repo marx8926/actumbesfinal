@@ -8,8 +8,8 @@
     <id name="intAsistenciaId" type="integer" column="int_asistencia_id">
       <generator strategy="SEQUENCE"/>
     </id>
-    <field name="datAsistenciaFecregistro" type="datetime" column="dat_asistencia_fecregistro" nullable="true"/>
-    <field name="datAsistenciaFecasistencia" type="datetime" column="dat_asistencia_fecasistencia" nullable="true"/>
+    <field name="datAsistenciaFecregistro" type="date" column="dat_asistencia_fecregistro" nullable="true"/>
+    <field name="datAsistenciaFecasistencia" type="date" column="dat_asistencia_fecasistencia" nullable="true"/>
     <field name="intAsistenciaCantidad" type="integer" column="int_asistencia_cantidad" nullable="true"/>
     <many-to-one field="red" target-entity="Red">
       <join-columns>

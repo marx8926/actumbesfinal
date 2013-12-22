@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AplicacionCelula
  *
- * @ORM\Table(name="aplicacion_celula", indexes={@ORM\Index(name="IDX_BF237CFD4A4DABFB", columns={"celula_id"}), @ORM\Index(name="IDX_BF237CFD79C7128D", columns={"tema_celula"}), @ORM\Index(name="IDX_BF237CFD9F3209E9", columns={"ofrenda_id"})})
+ * @ORM\Table(name="aplicacion_celula", indexes={@ORM\Index(name="IDX_BF237CFD4A4DABFB", columns={"celula_id"}), @ORM\Index(name="IDX_BF237CFD79C7128D", columns={"tema_celula"})})
  * @ORM\Entity
  */
 class AplicacionCelula
@@ -76,16 +76,6 @@ class AplicacionCelula
      * })
      */
     private $temaCelula;
-
-    /**
-     * @var \Ofrendas
-     *
-     * @ORM\ManyToOne(targetEntity="Ofrendas")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ofrenda_id", referencedColumnName="int_ofrenda_id")
-     * })
-     */
-    private $ofrenda;
 
 
 
@@ -258,28 +248,5 @@ class AplicacionCelula
     public function getTemaCelula()
     {
         return $this->temaCelula;
-    }
-
-    /**
-     * Set ofrenda
-     *
-     * @param \AE\DataBundle\Entity\Ofrendas $ofrenda
-     * @return AplicacionCelula
-     */
-    public function setOfrenda(\AE\DataBundle\Entity\Ofrendas $ofrenda = null)
-    {
-        $this->ofrenda = $ofrenda;
-
-        return $this;
-    }
-
-    /**
-     * Get ofrenda
-     *
-     * @return \AE\DataBundle\Entity\Ofrendas 
-     */
-    public function getOfrenda()
-    {
-        return $this->ofrenda;
     }
 }

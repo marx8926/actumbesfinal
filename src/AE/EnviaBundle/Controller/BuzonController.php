@@ -67,6 +67,7 @@ class BuzonController extends Controller {
             $aplicacion->setAplicacion(new \DateTime($fecha));
             $aplicacion->setOfrenda($ofrenda);
             $aplicacion->setInvitados($invitados);
+            
             $em->persist($aplicacion);
             $em->flush();
             

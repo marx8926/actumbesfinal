@@ -4,7 +4,6 @@
     <indexes>
       <index name="IDX_BF237CFD4A4DABFB" columns="celula_id"/>
       <index name="IDX_BF237CFD79C7128D" columns="tema_celula"/>
-      <index name="IDX_BF237CFD9F3209E9" columns="ofrenda_id"/>
     </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
@@ -14,11 +13,6 @@
     <field name="aplicacion" type="date" column="aplicacion" nullable="true"/>
     <field name="detalle" type="string" column="detalle" length="150" nullable="true"/>
     <field name="invitados" type="integer" column="invitados" nullable="true"/>
-    <many-to-one field="ofrenda" target-entity="Ofrendas">
-      <join-columns>
-        <join-column name="ofrenda_id" referenced-column-name="int_ofrenda_id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="temaCelula" target-entity="TemaCelula">
       <join-columns>
         <join-column name="tema_celula" referenced-column-name="id"/>

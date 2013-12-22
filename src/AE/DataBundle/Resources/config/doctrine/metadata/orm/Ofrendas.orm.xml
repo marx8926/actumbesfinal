@@ -5,15 +5,17 @@
       <index name="fki_celula_ofrenda" columns="celula_id"/>
       <index name="index_ofrendas_on_turno_id" columns="servicio_id"/>
       <index name="fki_sesion_pca" columns="sesion_pca"/>
+      <index name="fki_aplicacion_celula" columns="aplicacion_celula"/>
     </indexes>
     <id name="intOfrendaId" type="bigint" column="int_ofrenda_id">
       <generator strategy="SEQUENCE"/>
     </id>
     <field name="decOfrendaMonto" type="decimal" column="dec_ofrenda_monto" precision="18" scale="2" nullable="true"/>
     <field name="decOfrendaFecharegistro" type="datetime" column="dec_ofrenda_fecharegistro" nullable="true"/>
-    <many-to-one field="celula" target-entity="Celula">
+    <field name="celulaId" type="bigint" column="celula_id" nullable="true"/>
+    <many-to-one field="aplicacionCelula" target-entity="AplicacionCelula">
       <join-columns>
-        <join-column name="celula_id" referenced-column-name="id"/>
+        <join-column name="aplicacion_celula" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="sesionPca" target-entity="SesionPca">

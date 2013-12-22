@@ -25,14 +25,14 @@ class Asistencia
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dat_asistencia_fecregistro", type="datetime", nullable=true)
+     * @ORM\Column(name="dat_asistencia_fecregistro", type="date", nullable=true)
      */
     private $datAsistenciaFecregistro;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dat_asistencia_fecasistencia", type="datetime", nullable=true)
+     * @ORM\Column(name="dat_asistencia_fecasistencia", type="date", nullable=true)
      */
     private $datAsistenciaFecasistencia;
 

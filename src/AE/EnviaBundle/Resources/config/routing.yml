@@ -10,3 +10,6 @@ admincelula_envia_routing:
     
 buzon_envia_routing:
     resource: "@AEEnviaBundle/Resources/config/buzon_routing.yml"
+    
+informe_envia_routing:
+    resource: "@AEEnviaBundle/Resources/config/informe_routing.yml"
