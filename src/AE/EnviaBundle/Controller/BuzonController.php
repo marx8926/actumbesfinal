@@ -45,7 +45,7 @@ class BuzonController extends Controller {
         
         try{
             
-            $id = $datos['asistencia_d'];
+            $id = $datos['asistencia_id'];
             
             $fech_b = $datos['aplicacion'];            
             $fech_a =explode('/', $fech_b,3);
@@ -73,9 +73,9 @@ class BuzonController extends Controller {
             foreach ($asistencias as $as) {
                 if($as['asistio'])
                 {
-                    $sql = "UPDATE asistencia_celula  asistio=true WHERE aplicacion_cell_id=:id";
+                    $sql = "UPDATE asistencia_celula set asistio = :ast WHERE aplicacion_cell_id = :id";
                     $smt = $em->getConnection()->prepare($sql);
-                    $smt->execute(array(':id'=>$as['id']));
+                    $smt->execute(array(':id'=>$as['id'],':ast'=>TRUE));
                 }
             }
             $em->commit();
