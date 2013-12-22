@@ -64,3 +64,10 @@ services_aplicacion_asistencia:
     defaults: {_controller: AEServicesBundle:EnviarServices:aplicacion_asistencia}
     requirements:
         _method: GET
+        
+        
+services_lidered_xred_option:
+    pattern: /lidered_xred_option/{red}
+    defaults: {_controller: AEServicesBundle:EnviarServices:lidered_xred_option}
+    requirements:
+        _method: GET

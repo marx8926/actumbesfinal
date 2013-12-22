@@ -3,8 +3,8 @@
   <entity name="Celula" table="celula">
     <indexes>
       <index name="fki_celula_red" columns="id_red"/>
+      <index name="fki_lider" columns="lider_id"/>
       <index name="IDX_BE47B30F5C20309F" columns="id_ubicacion"/>
-      <index name="IDX_BE47B30F66C9A2EF" columns="lider_id"/>
     </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
@@ -16,9 +16,9 @@
     <field name="activo" type="boolean" column="activo" nullable="true"/>
     <field name="dia" type="string" column="dia" length="25" nullable="true"/>
     <field name="hora" type="string" column="hora" length="10" nullable="true"/>
-    <many-to-one field="lider" target-entity="Persona">
+    <many-to-one field="lider" target-entity="Lider">
       <join-columns>
-        <join-column name="lider_id" referenced-column-name="id"/>
+        <join-column name="lider_id" referenced-column-name="int_lider_id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="idUbicacion" target-entity="Ubicacion">

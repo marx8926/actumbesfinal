@@ -88,7 +88,7 @@ class CelulaController extends Controller {
             if($datos['lider_id'] != '-1')
             {
                 
-                $c->setLider($em->getRepository('AEDataBundle:Persona')->find($datos['lider_id']));
+                $c->setLider($em->getRepository('AEDataBundle:Lider')->find($datos['lider_id']));
              
             }
            

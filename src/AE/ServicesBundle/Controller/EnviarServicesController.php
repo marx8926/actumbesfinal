@@ -152,4 +152,15 @@ class EnviarServicesController extends Controller {
         $resultado= new JsonResponse(array('aaData'=>$result));            
         return $resultado;
     }
+    
+    public function lidered_xred_optionAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_lideres_xred(:red)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);            
+        return $resultado;
+    }
 }

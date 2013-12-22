@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Celula
  *
- * @ORM\Table(name="celula", indexes={@ORM\Index(name="fki_celula_red", columns={"id_red"}), @ORM\Index(name="IDX_BE47B30F5C20309F", columns={"id_ubicacion"}), @ORM\Index(name="IDX_BE47B30F66C9A2EF", columns={"lider_id"})})
+ * @ORM\Table(name="celula", indexes={@ORM\Index(name="fki_celula_red", columns={"id_red"}), @ORM\Index(name="fki_lider", columns={"lider_id"}), @ORM\Index(name="IDX_BE47B30F5C20309F", columns={"id_ubicacion"})})
  * @ORM\Entity
  */
 class Celula
@@ -92,11 +92,11 @@ class Celula
     private $idUbicacion;
 
     /**
-     * @var \Persona
+     * @var \Lider
      *
-     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\ManyToOne(targetEntity="Lider")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lider_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="lider_id", referencedColumnName="int_lider_id")
      * })
      */
     private $lider;
@@ -323,10 +323,10 @@ class Celula
     /**
      * Set lider
      *
-     * @param \AE\DataBundle\Entity\Persona $lider
+     * @param \AE\DataBundle\Entity\Lider $lider
      * @return Celula
      */
-    public function setLider(\AE\DataBundle\Entity\Persona $lider = null)
+    public function setLider(\AE\DataBundle\Entity\Lider $lider = null)
     {
         $this->lider = $lider;
 
@@ -336,7 +336,7 @@ class Celula
     /**
      * Get lider
      *
-     * @return \AE\DataBundle\Entity\Persona 
+     * @return \AE\DataBundle\Entity\Lider 
      */
     public function getLider()
     {

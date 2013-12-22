@@ -2,8 +2,10 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Persona" table="persona">
     <indexes>
-      <index name="fki_ubicacion" columns="id_ubicacion"/>
+      <index name="idx_apellidos" columns="apellidos"/>
       <index name="fk_ganado_por" columns="ganado_por"/>
+      <index name="idx_nombres" columns="nombre"/>
+      <index name="fki_ubicacion" columns="id_ubicacion"/>
       <index name="IDX_51E5B69BC0298A8E" columns="id_iglesia"/>
       <index name="IDX_51E5B69BB5A3803B" columns="lugar_id"/>
       <index name="IDX_51E5B69B8BBE8922" columns="red_id"/>

@@ -1,1 +1,165 @@
-{# empty Twig template #}
+{% extends "::base.html.twig" %}
+
+{% block titulo %} Informe detallado del Area de Consolidar - {% endblock %}
+
+{% block stylesheets %}
+        <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
+       <style type="text/css">
+    
+           #form_reporte {
+            margin-top: 15px;
+            padding: 0px;
+            }
+            
+            
+        </style>
+        
+{% endblock %}                 
+
+{% block content %} 
+        
+<div class="container-fluid">
+    <div class="content">
+     <div class="row-fluid">
+	<div class="span12">
+
+            <div class="box">
+                
+		<div class="box-head tabs">
+                    <h3>Reporte semanal detallado  </h3>
+                </div>
+       
+
+                <div class="box-content box-nomargin">
+        
+        <form id="form_reporte" name="form_reporte" method="POST" class="form-horizontal" action="{{path('informe_detallado_service')}}" >
+         <div class="control-group span3">
+             <label class="control-label" style="width:auto; margin-left: 40px;" >Red</label>
+            <div class="controls" style="margin-left: 90px;">
+                <select id="red_lista" name="red_lista" class="rango input-small" required>
+                   
+                </select>
+            </div>
+        </div>
+            
+          <div class="control-group span3">
+                <label class="control-label" style="width:auto;">
+                            Lider
+                        </label>
+                    <div class="controls" style="width:auto; margin-left: -40px;">
+                        <select id="lider" name="lider" class="input-medium" required>
+                            
+                        </select>
+                    </div>
+                </div>
+         
+                
+         <div class="control-group span3" id="desde_block" name="desde_block" >
+             
+             
+            <label class="control-label"  style="width:auto; margin-left: -10px;" >
+                Desde</label>
+            <div class="controls" style="margin-left: 35px;">
+                <input type="text" class="datepick rango input-small" id="desde" name="desde" required >
+            </div>
+        </div>
+        
+        
+         <div class="control-group span3" id="hasta_block" name="hasta_block">
+            <label class="control-label"  style="width:auto; margin-left: -10px; " >
+                Hasta</label>
+            <div class="controls" style="margin-left: 35px;">
+                <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required>
+            </div>
+        </div>
+        
+        
+         <div class="control-group span3">
+            
+            <div class="controls"  style="width:auto; margin-left: -10px; " >
+                <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
+            </div>
+        </div>
+        </form>
+        
+ 
+                </div>
+            </div>
+        
+	
+     </div>
+    </div>
+</div>    
+        
+     </div>
+        
+    </div>
+</div>
+{% endblock %}
+      
+ {%block javascript %}
+            
+        <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-typeahead.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-collapse.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-button.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tooltip.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tab.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>    
+            <script src="{{asset('js/custom.js')}}"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="{{asset('js/html5.js')}}"></script><![endif]-->
+            <script src="{{asset('js/jquery/jquery.ui.core.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.widget.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.position.min.js')}}"></script>
+            <script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+            <script src="https://www.google.com/jsapi"></script>
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js')}}"></script><![endif]-->           
+            <script src="{{asset('js/jquery.sparkline.js')}}"> </script>
+            <script src="{{asset('js/jquery.dataTables.js')}}"> </script>
+            <script src="{{asset('js/custom-tables.js')}}"> </script>
+            <script src="http://d19k46zntalu3t.cloudfront.net/js/tiempo.js"></script>        
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
+            <script src="{{asset('js/util/datatable_plugins.js')}}"></script>
+            
+          
+ 
+ 
+    <script type="text/javascript">
+        FechaActualT('desde');
+            FechaActualT('hasta');
+       
+        
+	$(document).ready(function() {
+            
+         
+                  
+            {% if is_granted('ROLE_GANAR') %}
+                redes = getAjaxObject('{{path('services_red')}}');              
+                cargarSelect(redes, "red_lista", "int_red_id", "id"); 
+                                     
+            {% else %}                      
+                  
+            {% endif%}
+        
+             $("#red_lista").change(function(){
+                 
+                 red = $("#red_lista").val();
+                 if(red != '-1')
+                 {
+                     url = "{{path('services_lidered_xred_option',{'red':':net'})}}";
+                     url = url.replace(':net',red);
+                     
+                     lideres= getAjaxObject(url);              
+                    cargarSelect(lideres, "lider", "id", "nombres");
+                 }
+             });
+
+	 });
+  
+       
+      
+       </script>
+{%endblock %} 

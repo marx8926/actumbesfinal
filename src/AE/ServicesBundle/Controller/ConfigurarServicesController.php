@@ -60,13 +60,13 @@ class ConfigurarServicesController extends Controller {
     {
         $em = $this->getDoctrine()->getManager();
         
-        $sql = "select * from get_niveles_complete_red(:red,:esc,:est)";
+        $sql = "select * from get_lider_complete_red(:red,:flag)";
         
         $smt = $em->getConnection()->prepare($sql);
         
         // redes , escala, estado
         
-        $smt->execute(array(':red' => $red, ':esc' => '1', ':est' => '1'));
+        $smt->execute(array(':red' => $red, ':flag' => TRUE));
         
         $result = $smt->fetchAll();        
         $resultado= new JsonResponse($result);

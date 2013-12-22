@@ -65,7 +65,8 @@ class InformeController extends Controller {
             
             //$fila[] = $r['int_red_id'];
         }
-     
+        
+        $em->close();
         return $tabla;
     }
     
@@ -147,7 +148,7 @@ class InformeController extends Controller {
 
         public function detallado_viewAction()
     {
-        return $this->render('AEEnviaBundle:Default:informedetallado.html.twig');
+        return $this->render('AEConsolidaBundle:Default:informedetallado.html.twig');
     }
     
     public function anual_tri_viewAction()
@@ -334,4 +335,113 @@ class InformeController extends Controller {
 
         return $response; 
     }
+
+    
+    private function construir_fila_detalla($item)
+    {
+        $id_consolidador = array_shift($item);
+        $id_consolidado = array_shift($item);
+        
+        
+        $em = $this->getDoctrine()->getManager();
+       
+        $sql="select * from get_asistencia_por_consolidado(:id)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':id'=>$id_consolidado));
+            
+        $asistencias = $smt->fetchAll();
+            
+        $fila = $item;
+        $j = 1;
+        foreach ($asistencias as $i) {
+          if($i['fin'] != NULL)
+          {
+                $fila['L'.strval($j)] = '&#10004<br>'.$i['fin'];
+          }
+          else {
+                $fila['L'.strval($j)] = '';
+
+          }
+                
+           $j++;
+         }
+                        
+        
+        return $fila;
+        
+    }
+    
+    public function detallado_serviceAction()
+    {
+        
+         $request = $this->get('request');
+        $lider =$request->request->get('lider');
+        $red = $request->request->get('red_lista');
+        $desde = $request->request->get('desde');
+        $hasta = $request->request->get('hasta');
+        
+        $fech_b = $desde;
+       $fech_a =explode('/', $fech_b,3);
+       $inicio = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0];  
+       
+       $fech_b = $hasta;
+       $fech_a =explode('/', $fech_b,3);
+       $fin = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0]; 
+     
+        //construyamos la tabla gogogo!!!
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        //recuperamos a los consolidadores x lider
+        $sql = "select * from  get_consolidador_detalle_lider(:lider,:ini,:fin)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':lider'=>$lider, ':ini'=>$inicio,':fin'=>$fin));
+        $consolidadores = $smt->fetchAll();
+        
+        $tabla = [];
+        
+        foreach ($consolidadores as $item) {
+            
+            $fila = $this->construir_fila_detalla($item);
+            
+            $tabla[] = $fila;
+        }
+        
+        
+         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+
+       $phpExcelObject->getProperties()->setCreator("AdminChurch.com")
+           ->setLastModifiedBy("AdminChurch.com")
+           ->setTitle("AdminChurch.com 2005 XLSX Document")
+           ->setSubject("AdminChurch.com 2005 XLSX  Document")
+           ->setCategory("AdminChurch.com report");
+
+       $phpExcelObject->setActiveSheetIndex(0)
+               ->setCellValue('A1', 'Semana del '.$inicio.' al '.$fin)
+               ->setCellValue('C1','Red: '.$red)
+           ->setCellValue('A2', 'N°')
+               ->setCellValue('B2', 'NOMBRE DEL CONSOLIDADOR')
+              ;
+       
+       $phpExcelObject->getActiveSheet()->setTitle('INFORME');
+       
+       
+       $phpExcelObject->getActiveSheet()->fromArray($tabla, NULL, 'A3');
+       
+       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response; 
+       
+     }
 }
