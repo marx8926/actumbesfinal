@@ -54,13 +54,14 @@ class EliminarController extends Controller {
                 $em->remove($ubicacion);
                 $em->remove($persona);
                 
-                $det = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('personaId'=>$id));
+                $det = $em->getRepository('AEDataBundle:DetalleMiembro')->findOneBy(array('persona'=>$id));
 
                 $em->remove($det);
                 
                 $em->flush();
                 
                 $em->commit();
+                $em->clear();
                 
                  $return=array("responseCode"=>200, "greeting"=>"OK");
                 
