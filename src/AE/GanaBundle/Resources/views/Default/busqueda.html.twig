@@ -157,8 +157,8 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
             
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
+            <script src="{{asset('js/util/datatable_plugins.js')}}"></script>
             
           
  
@@ -249,14 +249,17 @@
            
         
         PersonaRowCB = function(nRow, aData, iDisplayIndex) {
+            
             var acciones, index;
-            index = $(PersonaTable.fnGetData()).getIndexObj(aData, 'id');
+            /*index = $(PersonaTable.fnGetData()).getIndexObj(aData, 'id');
             {% if is_granted('ROLE_GANAR')  %}
                 acciones = getActionButtons("111");
             {% else %}
                 acciones = getActionButtons("010");
             {% endif %}
+             
             PersonaTable.fnUpdate(acciones, index, 6);
+                    */
             $(nRow).find('a').tooltip('hide');
             $(nRow).find('.delete-row').click(function(event) {
                     event.preventDefault();

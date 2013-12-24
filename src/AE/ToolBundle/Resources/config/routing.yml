@@ -3,3 +3,9 @@ ae_tool_homepage:
     defaults: { _controller: AEToolBundle:Default:index, _format: pdf }
     requirements:
         _format: pdf
+
+ae_tool_cargar_data:
+    pattern: /cargar_data/{nombre}
+    defaults: {_controller: AEToolBundle:Default:cargar_data}
+    requirements:
+        _method: GET

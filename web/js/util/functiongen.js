@@ -47,11 +47,11 @@ jQuery.fn.enable = function () {
 function getActionButtons(conf){
   actions = "<p>"
   if(conf.substring(0,1)==1)
-    actions += '<a class="ver_row actions-icons" data-original-title="Ver" href="#"><img alt="ver" class="icons" src="http://d9i0z8gxqnxp1.cloudfront.net/img/edit-icon.png"></a>';
+    actions += '<a class="ver_row actions-icons" data-original-title="Ver" href="#"><img alt="ver" class="icons" src="http://d19k46zntalu3t.cloudfront.net/img/edit-icon.png"></a>';
   if(conf.substring(1,2)==1)
-    actions += '<a class="edit_row actions-icons" data-original-title="Editar" href="#"><img alt="edit" class="icons" src="/assets/view.png"></a>';
+    actions += '<a class="edit_row actions-icons" data-original-title="Editar" href="#"><img alt="edit" class="icons" src="http://d19k46zntalu3t.cloudfront.net/img/view.png"></a>';
   if(conf.substring(2,3)==1)
-    actions += '<a class="delete-row actions-icons" data-original-title="Eliminar" href="#"><img alt="trash" src="http://d9i0z8gxqnxp1.cloudfront.net/img/trash-icon.png"></a>';
+    actions += '<a class="delete-row actions-icons" data-original-title="Eliminar" href="#"><img alt="trash" src="http://d19k46zntalu3t.cloudfront.net/img/trash-icon.png"></a>';
   actions += '</p>'
   return actions;
 }
@@ -255,7 +255,7 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, DrawCallBackFunction,
 		"bDestroy": true,
 		"sAjaxSource": UrlaDTable,	  
 		"aoColumns": FormatoDTable,				             
-	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ], 
+	 	//"aaSorting": [ [0, 'asc'], [1, 'asc'] ], 
     	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
     	"sPaginationType": "full_numbers",
     	"oLanguage": {
