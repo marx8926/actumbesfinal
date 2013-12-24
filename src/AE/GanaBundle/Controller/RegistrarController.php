@@ -242,33 +242,11 @@ class RegistrarController  extends Controller {
     
     public function nuevoAction()
     {
-        $securityContext = $this->get('security.context');
-        
-        if($securityContext->isGranted('ROLE_LIDER'))
-        {
-        $ganador = $securityContext->getToken()->getUser()->getIdPersona();
-        $red = NULL;
-        $em = $this->getDoctrine()->getManager();
-        
-        if($ganador != NULL)
-        {
-            $sql = "select * from get_red_persona(:id)";
-            $smt = $em->getConnection()->prepare($sql);
-            $smt->execute(array(':id'=>$ganador->getId()));
-            $req = $smt->fetch();
-            
-            $red = $req['red'];
-        }
-
-          $result = $this->render('AEGanaBundle:Default:registrar.html.twig', array('red'=>$red));
-          $result->setMaxAge(100);
-          
-        }
-        else{ $result = $this->render('AEGanaBundle:Default:sinacceso.html.twig');
-            $result->setPublic();
-            $result->setMaxAge(100);
-        }
-        
+       
+        $result = $this->render('AEGanaBundle:Default:registrar.html.twig');
+        $result->setMaxAge(100);      
+        $result->setPublic();
+       
         return $result;
     }
 }

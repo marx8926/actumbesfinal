@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use AE\DataBundle\Entity\Persona;
+use AE\DataBundle\Entity\Red;
 
 class GanarServicesController extends Controller
 {
@@ -14,20 +16,31 @@ class GanarServicesController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         	
-                $securityContext = $this->get('security.context');
+       $securityContext = $this->get('security.context');
         
-                if($securityContext->isGranted('ROLE_ASIST_ALM') )
-                {}
-        $sql = "select * from red where activo=true order by id asc";
+       if($securityContext->isGranted('ROLE_GANAR') )
+       {
+           $sql = "select * from red where activo=true order by id asc";
         
-        $smt = $em->getConnection()->prepare($sql);
-        $smt->execute();
+           $smt = $em->getConnection()->prepare($sql);
+           $smt->execute();
+           $redes = $smt->fetchAll();
+
+           
+       }
+       else {
+            $persona = $securityContext->getToken()->getUser()->getIdPersona();
+            $redes = array();
+            $red = $persona->getRed();
+            if($red != NULL)
+                $redes[] = array("int_red_id" => $red->getIntRedId(), "id"=>$red->getId());
+       }
  
         $result = [];
-        $item = array("int_red_id" => -1, "id"=>"sin red");
+
+        $item = array("int_red_id" => -1, "id"=>'Sin Red');
         
         array_push($result,$item);
-        $redes = $smt->fetchAll();
         
         foreach ($redes as $value) {
           array_push($result, $value);  
@@ -54,7 +67,7 @@ class GanarServicesController extends Controller
         $redes = $smt->fetchAll();
         
         $resultado= new JsonResponse($redes);
-        $resultado->setMaxAge(60);
+        $resultado->setMaxAge(120);
         $resultado->setPublic();
        
         return $resultado;
