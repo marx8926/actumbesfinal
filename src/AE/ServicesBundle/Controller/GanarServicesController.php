@@ -13,6 +13,11 @@ class GanarServicesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
+        	
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_ALM') )
+                {}
         $sql = "select * from red where activo=true order by id asc";
         
         $smt = $em->getConnection()->prepare($sql);
@@ -31,6 +36,8 @@ class GanarServicesController extends Controller
         $resultado= new JsonResponse($result);
         $resultado->setMaxAge(60);
         $resultado->setPublic();
+        
+        $em->clear();
        
         return $resultado;
     }
