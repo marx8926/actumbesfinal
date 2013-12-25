@@ -121,14 +121,11 @@
             FechaActualT('desde');
             FechaActualT('hasta');
           
-                  
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
-                cargarSelect(redes, "red_lista", "int_red_id", "id"); 
-                $("<option value='0'>Todos</option>").appendTo('#red_lista');
-                                     
-            {% else %}                      
-                  
+            redes = getAjaxObject('{{path('services_red')}}');              
+            cargarSelect(redes, "red_lista", "int_red_id", "id");      
+            
+            {% if is_granted('ROLE_GANAR') %}                 
+                $("<option value='0'>Todos</option>").appendTo('#red_lista');     
             {% endif%}
         
             

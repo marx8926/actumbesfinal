@@ -56,14 +56,7 @@
                         </select>
                     </div>
                 </div>
-                <!--<div class="control-group span2">
-                    <div class="controls" style="width:auto; margin-left: -40px;">
-                        <label class="radio">
-                            <input type="radio" id="tipo" name="tipo" value="tri"> Trimestral
-                        </label>
-                        
-                    </div>        
-                </div>-->
+              
                 
          <div class="control-group span3" > 
             <label class="control-label"  style="width:auto; margin-left: -10px;" >
@@ -157,14 +150,9 @@
             var d = new Date();
             $("#year").val(d.getFullYear());
           
-                  
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
-                cargarSelect(redes, "red_lista", "int_red_id", "id"); 
-                                     
-            {% else %}                      
-                  
-            {% endif%}
+            redes = getAjaxObject('{{path('services_red')}}');              
+            cargarSelect(redes, "red_lista", "int_red_id", "id");       
+            
         
              $("#tipo").change(radioFunction);
 
