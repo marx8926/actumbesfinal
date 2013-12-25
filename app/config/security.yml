@@ -55,6 +55,7 @@ security:
         - { path: ^/demo/secured/hello/admin/, roles: ROLE_ADMIN }
         - { path: /main , roles: ROLE_USER}
         - { path: /services/* , roles: ROLE_USER}
+        - { path: ^/gana/busqueda , roles: ROLE_LIDER_RED}
         - { path: /gana/* , roles: ROLE_USER}
         - { path: /consolida/* , roles: ROLE_USER}
         - { path: /discipula/*, roles: ROLE_USER}
