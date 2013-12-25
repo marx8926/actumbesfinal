@@ -59,7 +59,7 @@ security:
         - { path: ^/gana/informe_detallado_view , roles: ROLE_LIDER_RED}
         - { path: ^/gana/informe_semanal_view , roles: ROLE_GANAR}
         - { path: ^/gana/informe_tri_anual_view , roles: ROLE_LIDER_RED}
-
+        - { path: ^/gana/dashboard_view , roles: ROLE_LIDER_RED}
         - { path: /gana/* , roles: ROLE_USER}
         - { path: /consolida/* , roles: ROLE_USER}
         - { path: /discipula/*, roles: ROLE_USER}

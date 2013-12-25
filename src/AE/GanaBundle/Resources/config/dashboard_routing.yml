@@ -1,0 +1,3 @@
+gana_dashboard_vista:
+    pattern: /dashboard_view
+    defaults: {_controller: AEGanaBundle:Dashboard:view}

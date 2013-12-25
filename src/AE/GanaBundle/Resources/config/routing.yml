@@ -22,4 +22,5 @@ ae_gana_persona_vista:
     pattern: /vista_persona/{id}
     defaults: {_controller: AEGanaBundle:Default:view}
     
-
+gana_dashboard_routing:
+    resource: "@AEGanaBundle/Resources/config/dashboard_routing.yml"
