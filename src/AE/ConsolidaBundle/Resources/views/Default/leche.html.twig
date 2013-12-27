@@ -4,9 +4,6 @@
         <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
-
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/chosen.css">
         <!-- Scripts -->
                  
         {% endblock %}
@@ -96,6 +93,29 @@
                             
                         </div>
                     </div>
+                
+                    <div  class="box">
+                        <div class="box-head">
+                            <h3>Clases de Leche Espiritual</h3>
+                        </div>
+                        <div class="box-content box-nomargin">
+                            <table id="tabla_leche" name="tabla_leche" class='table table-striped dataTable table-bordered'>
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+					<th>Creación</th>
+					<th>Resumén</th>
+					<th>Clases</th>
+					<th>Acciones</th>
+                                    </tr>
+				</thead>
+				<tbody>
+												
+						
+				</tbody>
+                           </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>  
@@ -114,10 +134,6 @@
             <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
             <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/bbq.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/chosen.jquery.min.js"> </script>
@@ -255,14 +271,11 @@
             }
         });
 
-          
-            $("#form_leche").submit(function(event){
-                
+            $("#form_leche").submit(function(event){                
                  event.preventDefault();
                  PrepararDatos();
                  console.log(root.DatosEnviar);
-                 return enviar('{{path('leche_save')}}', root.DatosEnviar, SuccessFunction, null);
-  
+                 return enviar('{{path('leche_save')}}', root.DatosEnviar, SuccessFunction, null);  
             });
        
             

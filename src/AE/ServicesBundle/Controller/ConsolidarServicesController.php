@@ -290,4 +290,16 @@ class ConsolidarServicesController extends Controller {
         $result = $smt->fetchAll();        
         return new JsonResponse($result);
     }
+    
+    public function temas_leche_tablaAction()
+    {
+        $em = $this->getDoctrine()->getManager();     
+        
+        $leches = $em->getRepository('AEDataBundle:LecheEspiritual')->findAll();
+        
+        $todo = array();
+        
+             
+        return new JsonResponse($todo);
+    }
 }

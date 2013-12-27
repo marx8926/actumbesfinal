@@ -95,3 +95,10 @@ services_temas_leche_consolidado:
     defaults: {_controller: AEServicesBundle:ConsolidarServices:temas_leche_consolidado}
     requirements:
         _method: GET
+        
+        
+services_temas_leche_tabla:
+    pattern: /temas_leche_tabla
+    defaults: {_controller: AEServicesBundle:ConsolidarServices:temas_leche_tabla}
+    requirements:
+        _method: GET

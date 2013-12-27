@@ -115,11 +115,14 @@
                                 <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             <ul class="collapsed-nav closed">
+                             {% if ( is_granted('ROLE_CONSOLIDAR') )%}
+
                                 <li>
                                     <a href="{{path('leche_view')}}">
                                       Crear Leche Espiritual
                                     </a>
                                 </li>
+                             {% endif %}
                                 <li>
                                     <a href="{{path('consolidador_view')}}">
                                       Administrar Consolidador

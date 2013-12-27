@@ -6,7 +6,6 @@
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
        <style type="text/css">
     
            #form_busqueda {
@@ -156,9 +155,6 @@
             <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
             <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
             <script src="https://www.google.com/jsapi"></script>
             <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->           
@@ -167,7 +163,7 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
             
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
             <script src="{{asset('js/otherfunctiondatatable.js')}}"></script>
             
@@ -186,12 +182,11 @@
         root.SourceMiembroServicio = '{{path('services_miembro_init_no_consolidador')}}';
         root.SourceConsolidadorServicio = '{{path('services_consolidador_init')}}';
         root.idPersona = -1;
+        root.aData = null;
       
-        var FormatoMiembroTable, MiembroRowCB, MiembroTable;
-        var FormatoConsolidadorTable, ConsolidadorRowCB, ConsolidadorTable;
-        
-        
-    
+        var FormatoMiembroTable, MiembroRowCB, MiembroTable=null;
+        var FormatoConsolidadorTable, ConsolidadorRowCB, ConsolidadorTable=null;
+  
         generardata = function()
         {
             var red = $("#red_lista").val()
@@ -200,8 +195,16 @@
                 root.SourceConsolidadorServicio = "{{path('services_consolidador_all')}}";
                 root.SourceMiembroServicio = "{{path('services_miembro_all_no_consolidador')}}";
                 
-                MiembroTable.fnReloadAjax(root.SourceMiembroServicio);
-                ConsolidadorTable.fnReloadAjax(root.SourceConsolidadorServicio);
+                
+                if(ConsolidadorTable == null)
+                    ConsolidadorTable = createDataTable("consolidador", root.SourceConsolidadorServicio, FormatoConsolidadorTable, null, ConsolidadorRowCB);
+                else
+                    ConsolidadorTable.fnReloadAjax(root.SourceConsolidadorServicio);
+
+                if(MiembroTable == null)    
+                    MiembroTable = createDataTable("miembro", root.SourceMiembroServicio, FormatoMiembroTable, null, MiembroRowCB);
+                else
+                    MiembroTable.fnReloadAjax(root.SourceMiembroServicio);
                 
             }    
             else if( red != '-1')
@@ -216,12 +219,18 @@
                 url1 = url1.replace('net', red);  
                 
                 root.SourceConsolidadorServicio = url;
-                root.SourceMiembroServicio = url1;
+                root.SourceMiembroServicio = url1;                
                 
-                
+                if(ConsolidadorTable == null)
+                    ConsolidadorTable = createDataTable("consolidador", root.SourceConsolidadorServicio, FormatoConsolidadorTable, null, ConsolidadorRowCB);
+                else
+                    ConsolidadorTable.fnReloadAjax(root.SourceConsolidadorServicio);
 
-                MiembroTable.fnReloadAjax(root.SourceMiembroServicio);
-                ConsolidadorTable.fnReloadAjax(root.SourceConsolidadorServicio); 
+                if(MiembroTable == null)    
+                    MiembroTable = createDataTable("miembro", root.SourceMiembroServicio, FormatoMiembroTable, null, MiembroRowCB);
+                else
+                    MiembroTable.fnReloadAjax(root.SourceMiembroServicio);
+                 
             }
             
         };
@@ -267,6 +276,7 @@
 
            
         MiembroRowCB = function(nRow, aData, iDisplayIndex) {
+            /*
             var acciones, index;
             index = $(MiembroTable.fnGetData()).getIndexObj(aData, 'id');
             {% if is_granted('ROLE_GANAR')  %}
@@ -274,13 +284,12 @@
             
             {% endif %}
             MiembroTable.fnUpdate(acciones, index, 5);
+            */
             $(nRow).find('a').tooltip('hide');
             
             $(nRow).find('.add_row').click(function(event) {
                 event.preventDefault();
                 
-                //return enviar('{{path('ae_elimina_persona')}}', { "formulario": aData.id }, SuccessFunction, null);
-
                 root.idPersona = aData.id ;
                 $("#posible_miembro").text('Desear agregar a '+ aData.nombres+' como consolidador?');
             });
@@ -314,7 +323,6 @@
         };
 
         
-        urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
         FormatoConsolidadorTable = [
             {
                 "sWidth": "35%",
@@ -346,39 +354,15 @@
        
       
 	$(document).ready(function() {
-            
-           
-            
-            ConsolidadorTable = createDataTable("consolidador", root.SourceConsolidadorServicio, FormatoConsolidadorTable, null, ConsolidadorRowCB);
-            MiembroTable = createDataTable("miembro", root.SourceMiembroServicio, FormatoMiembroTable, null, MiembroRowCB);
-
-
-            var rede = '-1';
+         
+            redes = getAjaxObject('{{path('services_red')}}');              
+            cargarSelect(redes, "red_lista", "int_red_id", "id");
                   
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
-                cargarSelect(redes, "red_lista", "int_red_id", "id"); 
-                $("<option value='0'>Todos</option>").appendTo('#red_lista');
-                                     
-            {% else %}                      
-                      
-                      if(rede.length ===0)
-                      $("<option value='-1'>Sin red </option>").appendTo('#red_lista');
-                      else $("<option value='"+rede+"'>"+rede+"</option>").appendTo('#red_lista');
-
-                      $("<option value='-1'>Sin  Celula </option>").appendTo('#celula_lista');
-
+            {% if is_granted('ROLE_CONSOLIDAR') %}                 
+                $("<option value='0'>Todos</option>").appendTo('#red_lista');                                     
             {% endif%}
        
-
-            $("#excelbutton").click(function(event) {
-            	$("#content").val("<table>" + $("#persona").html() + "</table>");
-		$("#form").attr("action", "{{asset('extensiones/exportexcel.php')}}");
-		$("#form").submit();
-            });
-        
-            $("#btnGenerar").click(generardata);
-            
+            $("#btnGenerar").click(generardata);            
             
             $("#guardarcambios").click(function(event){
                 event.preventDefault();
@@ -388,7 +372,6 @@
             });
             
 	 });
-  
        
       
        </script>
