@@ -53,6 +53,7 @@
                         <select id="tipo" name="tipo" class="input-small">
                             <option value="anual">Anual</option>
                             <option value="tri">Trimestral</option>
+                            <option value="mensual">Mensual</option>
                         </select>
                     </div>
                 </div>
@@ -85,6 +86,8 @@
                 <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
             </div>
         </div>
+            
+            
         </form>
         
  
@@ -125,6 +128,7 @@
             
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
+            <script src="{{asset('js/ganar_dashboard.js')}}"></script>
             
           
  
@@ -138,7 +142,13 @@
                 }
                 if(this.value === 'tri')
                 {
+                    $("#desde_block").css("display","block");                               
+                    cargarSelect(trimestres, "desde", "id", "mes"); 
+                }
+                if(this.value === 'mensual')
+                {
                     $("#desde_block").css("display","block");
+                    cargarSelect(meses, "desde", "id", "mes");
                 }
                
             };
