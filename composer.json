@@ -22,7 +22,8 @@
         "liuggio/ExcelBundle": "2.0.*@dev",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "amazonwebservices/aws-sdk-for-php": "*",
-        "psliwa/pdf-bundle": "dev-master"
+        "psliwa/pdf-bundle": "dev-master",
+        "phpoffice/phpexcel": "1.7.9"
     },
     "scripts": {
         "post-install-cmd": [
