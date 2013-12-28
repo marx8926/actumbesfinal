@@ -163,26 +163,19 @@ class InformeController extends Controller {
     }
     
     public function semanal_serviceAction()
-    {
-          // ask the service for a Excel5
-        
+    {    
         $request = $this->get('request');
         $tipo =$request->request->get('tipo_red');
         $desde = $request->request->get('desde');
         $hasta = $request->request->get('hasta');
         $em = $this->getDoctrine()->getManager();
         
-        
-       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+       getcwd();
+       chdir('report\ganar');
+       $path = getcwd()."\informe_resumen.xls";
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
 
-       $phpExcelObject->getProperties()->setCreator("AdminChurch.com")
-           ->setLastModifiedBy("AdminChurch.com")
-           ->setTitle("AdminChurch.com 2005 XLSX Document")
-           ->setSubject("AdminChurch.com 2005 XLSX  Document")
-           ->setCategory("AdminChurch.com report");
-       
-       $todos = array();
-       
+       $todos = array();       
        $fech_b = $desde;
        $fech_a =explode('/', $fech_b,3);
        $inicio = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0];  
@@ -191,52 +184,43 @@ class InformeController extends Controller {
        $fech_a =explode('/', $fech_b,3);
        $fin = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0]; 
        
+       $phpExcelObject->getActiveSheet()->getColumnDimension('A')->setAutoSize('true');
+       $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setAutoSize('true');
+       $phpExcelObject->getActiveSheet()->getColumnDimension('C')->setAutoSize('true');
+       $phpExcelObject->getActiveSheet()->getColumnDimension('D')->setAutoSize('true');
+       $phpExcelObject->getActiveSheet()->getColumnDimension('E')->setAutoSize('true');
+       $phpExcelObject->getActiveSheet()->getColumnDimension('F')->setAutoSize('true');
+       $phpExcelObject->setActiveSheetIndex(0)
+           ->setCellValue('G5', $inicio)
+           ->setCellValue('G6', $fin);
+       
        //recuperar x redes
        $sql = "SELECT * from get_informe_ganar_todos_semanal_tipo(:ini,:fin,:tipo)";
        $smt = $em->getConnection()->prepare($sql);
        $smt->execute(array(':ini'=>$inicio, ':fin'=>$fin,':tipo'=>$tipo));
-       $todos = $smt->fetchAll();
+       $todos = $smt->fetchAll();       
        
-       
-       $phpExcelObject->setActiveSheetIndex(0)
-               ->setCellValue('A1', 'Semana del '.$inicio.' al '.$fin)
-           ->setCellValue('A2', 'RED')
-               ->setCellValue('B2', 'LIDERES DE RED')
-               ->setCellValue('C2','META POR RED')
-               ->setCellValue('D2','GANADOS')
-               ->setCellValue('E2','DESCARTADOS')
-               ->setCellValue('F2','LUGAR DONDE SE GANARON LAS ALMAS');
-       
-       $phpExcelObject->getActiveSheet()->setTitle('Ganados');
-       
-       
-       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A3');
-       
-       
+       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A9');
+
        //recuperar cantidad x lugares
        $sql1 = "select * from get_informe_ganar_todos_semanal_por_lugar(:ini,:fin)";
        $smt1 = $em->getConnection()->prepare($sql1);
        $smt1->execute(array(':ini'=>$inicio, ':fin'=>$fin));
        $lugares = $smt1->fetchAll();
        
-       $phpExcelObject->getActiveSheet()->fromArray($lugares, NULL, 'F3');
-
-       
-       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-       $phpExcelObject->setActiveSheetIndex(0);
+       $phpExcelObject->getActiveSheet()->fromArray($lugares, NULL, 'G9');
 
         // create the writer
-        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
         // create the response
         $response = $this->get('phpexcel')->createStreamedResponse($writer);
         // adding headers
         $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xls');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte_resumido.xlsx');
         $response->headers->set('Pragma', 'public');
         $response->headers->set('Cache-Control', 'maxage=1');
 
-        return $response; 
-        
+        return $response;         
     }
     
     public function informe_tri_anual_viewAction()
@@ -273,20 +257,20 @@ class InformeController extends Controller {
         $year = $request->request->get('year');
         
         $em = $this->getDoctrine()->getManager();
+                
+        getcwd();
+        chdir('report\ganar');
         
-        $meses_lista = array('ENE','FEB','MAR','ABR','MAY', 'JUN', 'JUL', 'AGO','SET', 'OCT','NOV','DIC','TOTAL');
-        
-       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        if($tipo == 'anual')
+            $path = getcwd()."\informe_anual.xls";
+        else 
+            $path = getcwd()."\informe_semanal.xls";
 
-       $phpExcelObject->getProperties()->setCreator("AdminChurch.com")
-           ->setLastModifiedBy("AdminChurch.com")
-           ->setTitle("AdminChurch.com 2005 XLSX Document")
-           ->setSubject("AdminChurch.com 2005 XLSX  Document")
-           ->setCategory("AdminChurch.com report");
-       
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+        $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setAutoSize('true');
+
        $todos = array();
-       
-       
+
        if($desde == '1')
        {
            $inicio = $year.'-01-01';
@@ -309,6 +293,10 @@ class InformeController extends Controller {
        
       if($red != -1 && strlen($tipo)>0) 
       {    
+          
+          //recuperamos la red
+        $net = $em->getRepository('AEDataBundle:Red')->find($red);
+        
         //recuperamos a los lideres 
         $sql = "select * from get_informe_ganar_lideres(:red)";       
         $smt = $em->getConnection()->prepare($sql);
@@ -318,33 +306,26 @@ class InformeController extends Controller {
         foreach ($todos as $item) {
             
             if($tipo == 'anual')
-            {
-                
+            {                
                 $ini = $year.'-01-01';
-                $fin = $year.'-12-31';
-                
-                $meses = $this->init_fila(13);
-                
+                $fin = $year.'-12-31';                
+                $meses = $this->init_fila(13);                
                 $sql = "select * from get_informe_ganados_por_mes(:ini, :fin,:id)";       
                 $smt = $em->getConnection()->prepare($sql);
                 $smt->execute(array(':ini'=>$ini,':fin'=>$fin, ':id'=>$item['id']));
                 $resultado = $smt->fetchAll();
                 if(count($resultado)> 0){
                     foreach ($resultado as $i)
-                    {
-                        $meses[$i['mes']-1] = $i['ganados'];
-                        
-                        
-                    }
+                       $meses[$i['mes']-1] = $i['ganados'];                                        
                 }
                 $meses[12] = array_sum($meses);
                 if($meses[12]==0)
                     $meses[12]='0';
                 
                 $fila = $item;
-                foreach ($meses as $m) {
+                foreach ($meses as $m) 
                     $fila[] = $m;
-                }
+
                 $matriz[] = $fila;
             }
             if($tipo=='tri')
@@ -359,9 +340,7 @@ class InformeController extends Controller {
                 $resultado = $smt1->fetchAll();
                 if(count($resultado)> 0){
                     foreach ($resultado as $i)
-                    {
                         $semanas[$i['semana']-$semana_serie[0]['semana']] = $i['ganados'];
-                    }
                 }
                 
                 $semanas[$n] = array_sum($semanas);
@@ -377,47 +356,46 @@ class InformeController extends Controller {
             }
         }
        
-       
-        $phpExcelObject->setActiveSheetIndex(0)
-               ->setCellValue('A1', 'Semana del '.$inicio.' al '.$fin)
-               ->setCellValue('C1','Red: '.$red)
-           ->setCellValue('A2', 'N°')
-               ->setCellValue('B2', 'NOMBRE DEL LIDER')
-               ->setCellValue('C2','TELEFONO')
-              ;
-       
-       $phpExcelObject->getActiveSheet()->setTitle('INFORME');
-       
        if($tipo == 'anual')
        {
-           $phpExcelObject->getActiveSheet()->fromArray($meses_lista, NULL, 'D2');
+           //$phpExcelObject->getActiveSheet()->fromArray($meses_lista, NULL, 'D2');
        }
        else {
-           $semanas_lista = array();
-           
+           $semanas_lista = array();           
            foreach ($semana_serie as $s) {
                $semanas_lista[]=$s['fecha'];
            }
            $semanas_lista[] = 'Total';
-           $phpExcelObject->getActiveSheet()->fromArray($semanas_lista, NULL, 'D2');
+           $phpExcelObject->getActiveSheet()->fromArray($semanas_lista, NULL, 'D10');
+           
+           
+           $head = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => 'thin',            
+                ),
+            ),
+        );       
+       
+         $phpExcelObject->getActiveSheet()->getStyle('D10:'.chr(count($semanas_lista)+67).'10')->applyFromArray($head);
 
        }
-       
-       $phpExcelObject->getActiveSheet()->fromArray($matriz, NULL, 'A3');
-       
+       $phpExcelObject->setActiveSheetIndex(0)
+           ->setCellValue('M5', $inicio)
+           ->setCellValue('M6', $fin)
+           ->setCellValue('P5',$net->getId());
+       $phpExcelObject->getActiveSheet()->fromArray($matriz, NULL, 'A11');      
       
-      }
-       
+      }       
        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
        $phpExcelObject->setActiveSheetIndex(0);
-
         // create the writer
-        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
         // create the response
         $response = $this->get('phpexcel')->createStreamedResponse($writer);
         // adding headers
         $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xls');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte.xlsx');
         $response->headers->set('Pragma', 'public');
         $response->headers->set('Cache-Control', 'maxage=1');
 
