@@ -172,9 +172,9 @@
                                     <th width="6%">Red</th>
 		                    <th width="5%">Edad</th>		                    
 		                    <th width="8%">Conversión</th>
+                                    <th>Inicio</th>
                                     <th >Dirección</th>
                                     <th> Telefono</th>
-                                    <th>Acciones</th>
 		                </tr>
                         </thead>
 					
@@ -218,13 +218,10 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
             
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
             <script src="{{asset('js/otherfunctiondatatable.js')}}"></script>
-            
-          
- 
- 
+     
     <script type="text/javascript">
  
          var trselected; 
@@ -240,6 +237,7 @@
         root.Leches = null;
         root.Consolidadores = null;
         root.DatosEnviar = null;
+        root.aData = null;
       
         var FormatoSinConsolidarTable, SinConsolidarRowCB, SinConsolidarTable;
         var FormatoConsolidandoTable, ConsolidandoRowCB, ConsolidandoTable;
@@ -285,7 +283,7 @@
                
                     if(data.responseCode===200 ){          
                       alert('Registro Completado');                       
-                      SinConsolidarTable.fnReloadAjax(root.SourceSinConsolidarServicio);
+                      SinConsolidarTable.fnDeleteRow(root.aData);
                       ConsolidandoTable.fnReloadAjax(root.SourceConsolidandoServicio);
                     }
                     else if(data.responseCode===400){//bad request
@@ -297,7 +295,7 @@
                             alert('Error bad request');
                         }
                         else alert("An unexpeded error occured.");
-                        }                    
+                        }                 
         };
 
         
@@ -322,13 +320,7 @@
 
            
         SinConsolidarRowCB = function(nRow, aData, iDisplayIndex) {
-            var acciones, index;
-            index = $(SinConsolidarTable.fnGetData()).getIndexObj(aData, 'id');
-            {% if is_granted('ROLE_LIDER_RED')  %}
-                acciones = getOtherActionButtons("100","modal_sinconsolidar", "","");
             
-            {% endif %}
-            SinConsolidarTable.fnUpdate(acciones, index, 6);
             $(nRow).find('a').tooltip('hide');
             
             $(nRow).find('.add_row').click(function(event) {
@@ -336,18 +328,18 @@
                 
                 root.idPersona = aData.id ;
                 $("#persona_id").val(aData.id );
+                root.aData = $(SinConsolidarTable.fnGetData()).getIndexObj(aData, 'id');
                 
                 $("#posible_consolidado").text('Desear asignarle a '+ aData.nombres+' un consolidador?');
             });
         };
         
         ConsolidandoRowCB = function(nRow, aData, iDisplayIndex) {
-            var acciones, index;
+            var acciones, index;/*
             index = $(ConsolidandoTable.fnGetData()).getIndexObj(aData, 'id');
             {% if is_granted('ROLE_GANAR')  %}
-                acciones = getOtherActionButtons("000");
-            {% else %}
-                acciones = getOtherActionButtons("000");
+                acciones = getOtherActionButtons("010");
+           
             {% endif %}
             ConsolidandoTable.fnUpdate(acciones, index,6);
             $(nRow).find('a').tooltip('hide');
@@ -359,12 +351,10 @@
             return $(nRow).find('.add_row').click(function(event) {
                 event.preventDefault();
                 
-            });
+            });*/
         };
 
-        
-        urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
-        FormatoConsolidandoTable = [
+        FormatoSinConsolidarTable = [
             {
                 "sWidth": "35%",
                 "mDataProp": "nombres"
@@ -394,7 +384,35 @@
             }
        ];
        
-        FormatoSinConsolidarTable = FormatoConsolidandoTable;
+       FormatoConsolidandoTable  = [
+            {
+                "sWidth": "35%",
+                "mDataProp": "nombres"
+            },
+            {
+                "sWidth": "10%",
+                "mDataProp": "red"
+            },
+            {
+                "sWidth": "10%",
+                "mDataProp": "edad"
+            }
+            , {
+                "sWidth": "10%",
+                "mDataProp": "convertido"
+            },
+            {
+                "sWidth": "10%",
+                "mDataProp": "inicio"
+                
+            },{
+                "sWidth": "20%",
+                "mDataProp": "direccion"
+            },{
+                "sWidth": "12%",
+                "mDataProp": "telefono"
+            }
+       ];
        
       
 	$(document).ready(function() {
@@ -410,26 +428,10 @@
             
             var rede = '-1';
                   
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
-                cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
-            {% else %}                      
-                      
-                      if(rede.length ===0)
-                      $("<option value='-1'>Sin red </option>").appendTo('#red_lista');
-                      else $("<option value='"+rede+"'>"+rede+"</option>").appendTo('#red_lista');
-
-                      $("<option value='-1'>Sin  Celula </option>").appendTo('#celula_lista');
-
-            {% endif%}
+            redes = getAjaxObject('{{path('services_red')}}');              
+            cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
+            
        
-
-            $("#excelbutton").click(function(event) {
-            	$("#content").val("<table>" + $("#persona").html() + "</table>");
-		$("#form").attr("action", "{{asset('extensiones/exportexcel.php')}}");
-		$("#form").submit();
-            });
-        
             $("#btnGenerar").click(generardata);
             
             
