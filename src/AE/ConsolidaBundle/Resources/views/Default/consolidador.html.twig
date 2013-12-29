@@ -239,8 +239,8 @@
                
                     if(data.responseCode===200 ){          
                       alert('Registro Completado');                       
-                      MiembroTable.fnReloadAjax(root.SourceMiembroServicio);
-                      ConsolidadorTable.fnReloadAjax(root.SourceConsolidadorServicio);
+                      ConsolidadorTable.fnReloadAjax(root.SourceConsolidadorServicio);                      
+                      MiembroTable.fnDeleteRow(root.aData);
                     }
                     else if(data.responseCode===400){//bad request
                        alert('Error bad request');
@@ -290,6 +290,8 @@
             $(nRow).find('.add_row').click(function(event) {
                 event.preventDefault();
                 
+                root.aData = $(MiembroTable.fnGetData()).getIndexObj(aData, 'id');
+
                 root.idPersona = aData.id ;
                 $("#posible_miembro").text('Desear agregar a '+ aData.nombres+' como consolidador?');
             });
@@ -298,12 +300,7 @@
         ConsolidadorRowCB = function(nRow, aData, iDisplayIndex) {
             var acciones, index;
             index = $(ConsolidadorTable.fnGetData()).getIndexObj(aData, 'id');
-            {% if is_granted('ROLE_GANAR')  %}
-                acciones = getOtherActionButtons("111");
-            {% else %}
-                acciones = getOtherActionButtons("010");
-            {% endif %}
-            ConsolidadorTable.fnUpdate(acciones, index,5);
+            
             $(nRow).find('a').tooltip('hide');
             $(nRow).find('.delete-row').click(function(event) {
                     event.preventDefault();

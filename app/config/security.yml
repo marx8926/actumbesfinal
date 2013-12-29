@@ -62,6 +62,7 @@ security:
         - { path: ^/gana/dashboard_view , roles: ROLE_LIDER_RED}
         - { path: /gana/* , roles: ROLE_USER}
         - { path: ^/consolida/leche_view , roles: ROLE_CONSOLIDAR}
+        - { path: ^/consolida/consolidador_view, roles: ROLE_CONSOLIDAR}
         - { path: /consolida/* , roles: ROLE_USER}
         - { path: /discipula/*, roles: ROLE_USER}
         - { path: /envia/* , roles: ROLE_USER}
