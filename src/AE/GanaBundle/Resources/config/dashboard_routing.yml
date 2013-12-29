@@ -1,3 +1,12 @@
 gana_dashboard_vista:
     pattern: /dashboard_view
     defaults: {_controller: AEGanaBundle:Dashboard:view}
+    requirements:
+        _methods: GET
+        
+gana_dashboard_service:
+    pattern: /dashboard_service
+    defaults: {_controller: AEGanaBundle:Dashboard:service}
+    requirements:
+        _methods: POST
+    
