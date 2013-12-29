@@ -295,11 +295,34 @@ class ConsolidarServicesController extends Controller {
     {
         $em = $this->getDoctrine()->getManager();     
         
-        $leches = $em->getRepository('AEDataBundle:LecheEspiritual')->findAll();
+        $sql = "SELECT *  FROM view_get_leche";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $leches = $smt->fetchAll();
         
-        $todo = array();
+        $matriz = array();
         
+        foreach ($leches as $item) {
+         
+            //consultamos los temas de cada tema
+            
+            $sql2 = "select * from get_temas_leche(:id)";
+            $smt2 = $em->getConnection()->prepare($sql2);
+            $smt2->execute(array(':id'=>$item['id']));
+            $temas = $smt2->fetchAll();
+            
+            $fila = $item;
+            
+            $lecciones = "";
+            //recorremos los temas
+            foreach($temas as $i) {
+                $lecciones = $lecciones.$i['titulo']."<br>";
+            }
+            $fila['lecciones'] = $lecciones;
+            $fila['acciones'] = "";
+            $matriz[] = $fila;
+        }
              
-        return new JsonResponse($todo);
+        return new JsonResponse(array('aaData'=>$matriz));
     }
 }

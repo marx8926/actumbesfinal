@@ -85,5 +85,19 @@ class LecheController extends Controller {
     public function deleteAction()
     {
         
+        $request = $this->get('request');
+        $id =$request->request->get('id');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $leche = $em->getRepository('AEDataBundle:LecheEspiritual')->find($id);
+        
+        $leche->setEstado(!$leche->getEstado());
+        
+        $em->persist($leche);
+        $em->flush();
+        
+        $return=array("responseCode"=>200, "greeting"=>"Ok");
+        return new JsonResponse($return);         
     }
 }

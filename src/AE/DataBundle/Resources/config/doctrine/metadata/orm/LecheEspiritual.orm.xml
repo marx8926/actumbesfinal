@@ -7,5 +7,6 @@
     <field name="nombre" type="string" column="nombre" length="100" nullable="false"/>
     <field name="resumen" type="text" column="resumen" nullable="false"/>
     <field name="fechaCreacion" type="date" column="fecha_creacion" nullable="false"/>
+    <field name="estado" type="boolean" column="estado" nullable="true"/>
   </entity>
 </doctrine-mapping>

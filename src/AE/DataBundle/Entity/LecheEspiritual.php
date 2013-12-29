@@ -43,6 +43,13 @@ class LecheEspiritual
      */
     private $fechaCreacion;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="estado", type="boolean", nullable=true)
+     */
+    private $estado = 'true';
+
 
 
     /**
@@ -122,5 +129,28 @@ class LecheEspiritual
     public function getFechaCreacion()
     {
         return $this->fechaCreacion;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param boolean $estado
+     * @return LecheEspiritual
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return boolean 
+     */
+    public function getEstado()
+    {
+        return $this->estado;
     }
 }

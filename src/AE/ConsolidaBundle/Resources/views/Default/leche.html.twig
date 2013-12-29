@@ -1,12 +1,11 @@
 {% extends "::base.html.twig" %}
-        {% block stylesheets %}
+   {% block stylesheets %}
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
-       <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
-        <!-- Scripts -->
-                 
-        {% endblock %}
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+        <!-- Scripts -->                 
+   {% endblock %}
         
 {% block content %}
 
@@ -99,12 +98,13 @@
                             <h3>Clases de Leche Espiritual</h3>
                         </div>
                         <div class="box-content box-nomargin">
-                            <table id="tabla_leche" name="tabla_leche" class='table table-striped dataTable table-bordered'>
+                            <table id="tabla_leche" name="tabla_leche" class='table table-striped table-bordered'>
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
 					<th>Creación</th>
 					<th>Resumén</th>
+                                        <th>Estado</th>
 					<th>Clases</th>
 					<th>Acciones</th>
                                     </tr>
@@ -145,7 +145,7 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
             
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
             
             
@@ -156,14 +156,35 @@
                 $redes = null;
                 root = typeof exports !== "undefined" && exports !== null ? exports : this;
                 var leccionTabla;
+                var temas_leche = null;
 
-                root.SourceTServicio = "/recuperar_personas_inicio";
+                root.SourceTServicio = "{{path('services_temas_leche_tabla')}}";
 
                 root.DatosEnviar = null;
                 root.count = 0;
                 personas = null;
                 
-                urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt"
+                urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
+                
+                
+                columnas_lecciones = [
+                {
+                    "mDataProp": "nombre"
+                }, {
+                    "mDataProp": "creacion"
+                }, {
+                    "mDataProp": "resumen"
+                },
+                {
+                    "mDataProp": "activo"
+                },
+                {
+                    "mDataProp": "lecciones"
+                },
+                {
+                    "mDataProp": "acciones"
+                }
+                ];
         
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
@@ -179,6 +200,7 @@
                        $("#form_leche").reset();                      
                         alert('Registro Completado');
                         leccionTabla.fnClearTable();
+                        temas_leche.fnReloadAjax(root.SourceTServicio);
                         
                     }
                     else if(data.responseCode===400){//bad request
@@ -195,41 +217,29 @@
                 };
                 
             
-             persona_autocomplete_red = function()
-             {
-                 
-                 if($("#red_lista").val() == '-1')
-                 {
-                    // personas = getAjaxObject('{{path('services_ganadores_autocomplete_all')}}');
-                 }
-                 else
-                 {
-                     //recargar celula
-                     //recargar ganador
-                     //nuevo convertido
-                     
-                     url = '{{path( 'services_ganadores_autocomplete_red', {'red':'cod'} )}}';
-                     url = url.replace('cod',$("#red_lista").val());
-             
-                     personas = getAjaxObject(url);
-                     
-                     $("#persona").autocomplete({
-                        source: personas,
-                        select: function(event, ui) {
-                            $("#persona_id").val(ui.item.id);
-                            $("#persona").val(ui.item.label);
-                            return false;
-                        }
-                    });
-                    
-                    $("#persona_id").val(-1);
-                 }
-                 
-             };
-      
+        rowcb = function(nRow, aData, iDisplayIndex) {
+          
+          var index;
+          index = $(temas_leche.fnGetData()).getIndexObj(aData, 'id');
+          acciones = getActionButtons("001");
+                
+          temas_leche.fnUpdate(acciones, index, 5);
+          
+          return $(nRow).find('.delete-row').click(function(e) {
+                
+                //return temas_leche.fnDeleteRow(index);
+               {% if is_granted('ROLE_CONSOLIDAR') %}                 
+
+                enviar('{{path('leche_delete')}}', {'id': aData.id}, SuccessFunction, null);
+
+                {% endif %}
+             });
+            };
 	$(document).ready(function() {
             
 
+         temas_leche = createDataTable("tabla_leche",root.SourceTServicio,columnas_lecciones,null,rowcb);
+        
         leccionTabla = $('#table_leccion').dataTable({
             "aoColumns": [
             {
@@ -243,7 +253,8 @@
             "bPaginate": false,
             "sDom": "<r>t<'row-fluid'>",
             "fnCreatedRow": function(nRow, aData, iDisplayIndex) {
-            $(nRow).find('a').tooltip('hide');
+
+       
             return $(nRow).find('.delete-row').click(function(e) {
                 var index;
                 index = $(leccionTabla.fnGetData()).getIndexObj(aData, 'numero');
