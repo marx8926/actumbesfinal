@@ -52,13 +52,27 @@ class ConsolidarServicesController extends Controller {
     public function lista_consolidador_redAction($red)
     {
         $em = $this->getDoctrine()->getManager();
+       
+        $securityContext = $this->get('security.context');
         
-        $sql = "select * from get_consolidador_red(:red)";
+        $result = array();
+        
+       if($securityContext->isGranted('ROLE_CONSOLIDAR') || $securityContext->isGranted('ROLE_LIDER_RED'))
+       {
+        $sql = "select * from get_consolidador_red_option(:red)";
         
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute(array(':red'=>$red));
         $result = $smt->fetchAll();
-        
+       }
+       elseif($securityContext->isGranted('ROLE_CONSOLIDADOR')) {
+           $persona = $securityContext->getToken()->getUser()->getIdPersona();
+            $result = array();
+            $nombres = $persona->getNombre()." ".$persona->getApellidos();
+            $id = $persona->getId();
+            if($red != NULL)
+                $result[] = array("id" => $id, "nombres"=>$nombres);
+        }
         $resultado= new JsonResponse(array('aaData' =>$result));
         return $resultado;
     }

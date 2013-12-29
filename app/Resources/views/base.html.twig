@@ -122,24 +122,27 @@
                                       Crear Leche Espiritual
                                     </a>
                                 </li>
-                             {% endif %}
+                             
                                 <li>
                                     <a href="{{path('consolidador_view')}}">
                                       Administrar Consolidador
                                     </a>
                                 </li>
-                                
+                            {% endif %} 
+                            {% if ( is_granted('ROLE_LIDER_RED') )%}
                                 <li>
                                     <a href="{{path('asignarconsolidador_view')}}">
                                       Asignar Consolidador
                                     </a>
                                 </li>
-                                
+                            {% endif %}
+                            {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
                                 <li>
                                     <a href="{{path('asistencia_leche_view')}}">
                                         Administrar Consolidados
                                     </a>
-                                </li>
+                                </li>                                
+                            {% endif %}
                                 <li>
 						<a href="#" class='light toggle-collapsed'>
 							Informes

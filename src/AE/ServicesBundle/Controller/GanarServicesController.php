@@ -14,8 +14,7 @@ class GanarServicesController extends Controller
     public function lista_redAction()
     {
         $em = $this->getDoctrine()->getManager();
-        
-        	
+	
        $securityContext = $this->get('security.context');
         
        if($securityContext->isGranted('ROLE_GANAR') || $securityContext->isGranted('ROLE_CONSOLIDAR'))

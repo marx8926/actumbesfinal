@@ -596,7 +596,6 @@
             });
         };
         
-        urlES = "https://s3.amazonaws.com/acfinal/dt_ES.txt";
         FormatoAsignadoTable = [
             {
                 "mDataProp": "nombres"
@@ -682,39 +681,17 @@
       
 	$(document).ready(function() {
             
-            
             init_asistencia();
-            var rede = '-1';
                   
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
-                cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
-            {% else %}                      
-                      
-                      if(rede.length ===0)
-                      $("<option value='-1'>Sin red </option>").appendTo('#red_lista');
-                      else $("<option value='"+rede+"'>"+rede+"</option>").appendTo('#red_lista');
-
-                      $("<option value='-1'>Sin  Celula </option>").appendTo('#celula_lista');
-
-            {% endif%}
-       
-
-            $("#excelbutton").click(function(event) {
-            	$("#content").val("<table>" + $("#persona").html() + "</table>");
-		$("#form").attr("action", "{{asset('extensiones/exportexcel.php')}}");
-		$("#form").submit();
-            });
-        
+            redes = getAjaxObject('{{path('services_red')}}');              
+            cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
+           
             $("#btnGenerar").click(generardata);
             
-            
-            $("#guardar_asistencia").click(function(event){
-                
+            $("#guardar_asistencia").click(function(event){                
                 event.preventDefault();
                 PrepararDatos(); 
                 enviar('{{path('asistencia_leche_save')}}', root.DatosEnviar, SuccessAsignadoFunction, null);
-
             });
            
             $("#guardar_descartar").click(function(event){
@@ -733,8 +710,7 @@
             
              $("#guardar_editar_descartar").click(function(event){
              
-                event.preventDefault();                
-                
+                event.preventDefault();         
                 enviar('{{path('asistencia_leche_descartar_editar')}}',{"formulario": $("#form_editar_descartar").serializeObject() } , SuccessAsignadoFunction, null);
                 
             });
@@ -745,7 +721,5 @@
             
 	 });
   
-       
-      
        </script>
 {%endblock %} 
