@@ -166,10 +166,7 @@
             <script src="{{asset('js/util/functiongen.js')}}"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
             <script src="{{asset('js/otherfunctiondatatable.js')}}"></script>
-            
-          
- 
- 
+
     <script type="text/javascript">
  
          var trselected; 
@@ -179,8 +176,8 @@
         var values = [];
         root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
-        root.SourceMiembroServicio = '{{path('services_miembro_init_no_consolidador')}}';
-        root.SourceConsolidadorServicio = '{{path('services_consolidador_init')}}';
+        root.SourceMiembroServicio = '';
+        root.SourceConsolidadorServicio = '';
         root.idPersona = -1;
         root.aData = null;
       
@@ -193,8 +190,7 @@
             if(red=='0')
             {
                 root.SourceConsolidadorServicio = "{{path('services_consolidador_all')}}";
-                root.SourceMiembroServicio = "{{path('services_miembro_all_no_consolidador')}}";
-                
+                root.SourceMiembroServicio = "{{path('services_miembro_all_no_consolidador')}}";                
                 
                 if(ConsolidadorTable == null)
                     ConsolidadorTable = createDataTable("consolidador", root.SourceConsolidadorServicio, FormatoConsolidadorTable, null, ConsolidadorRowCB);
@@ -212,8 +208,7 @@
                
 
                 url = '{{path('services_consolidador_red',{'red':'net'})}}';
-                url = url.replace('net', red);                 
-                   
+                url = url.replace('net', red);                                    
                    
                 url1 = '{{path('services_miembro_red_no_consolidador',{'red':'net'})}}';
                 url1 = url1.replace('net', red);  
@@ -276,17 +271,7 @@
 
            
         MiembroRowCB = function(nRow, aData, iDisplayIndex) {
-            /*
-            var acciones, index;
-            index = $(MiembroTable.fnGetData()).getIndexObj(aData, 'id');
-            {% if is_granted('ROLE_GANAR')  %}
-                acciones = getOtherActionButtons("100","modal_miembro", "","");
-            
-            {% endif %}
-            MiembroTable.fnUpdate(acciones, index, 5);
-            */
-            $(nRow).find('a').tooltip('hide');
-            
+                       
             $(nRow).find('.add_row').click(function(event) {
                 event.preventDefault();
                 
@@ -299,7 +284,7 @@
         
         ConsolidadorRowCB = function(nRow, aData, iDisplayIndex) {
             var acciones, index;
-            index = $(ConsolidadorTable.fnGetData()).getIndexObj(aData, 'id');
+            //index = $(ConsolidadorTable.fnGetData()).getIndexObj(aData, 'id');
             
             $(nRow).find('a').tooltip('hide');
             $(nRow).find('.delete-row').click(function(event) {
