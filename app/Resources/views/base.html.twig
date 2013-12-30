@@ -179,9 +179,10 @@
                                 <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             <ul class="collapsed-nav closed">
+                                {% if ( is_granted('ROLE_DISCIPULAR') ) %}
                                 <li>
                                     <a href="{{path('curso_view')}}">
-                                      Administrar Curso
+                                      Crear Curso
                                     </a>
                                 </li>
                                 <li>
@@ -189,6 +190,7 @@
                                         Administrar Docente
                                     </a>
                                 </li>
+                                {% endif %}
                                 <li>
                                     <a href="{{path('estudiante_view')}}">
                                         Administrar Estudiante

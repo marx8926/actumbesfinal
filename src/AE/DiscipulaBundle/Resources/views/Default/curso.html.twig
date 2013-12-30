@@ -195,13 +195,12 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/chosen.jquery.min.js"> </script>
             <script src="https://www.google.com/jsapi"></script>
             <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->           
-            
-        
+
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.sparkline.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
             
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
             <script src="{{asset('js/otherfunctiondatatable.js')}}"></script>
 
@@ -277,17 +276,16 @@
         ]; 
         
         CursoRowCB = function(nRow, aData, iDisplayIndex) {
-            var acciones, index;
+           /* var acciones, index;
             index = $(CursosTable.fnGetData()).getIndexObj(aData, 'id');
        
             {% if is_granted('ROLE_DISCIPULAR')  %}
                 acciones =  cambiar_estado("delete_modal");         
             {% endif %}
             CursosTable.fnUpdate(acciones, index, 6);
+            */
             $(nRow).find('a').tooltip('hide');
-            
            
-            
             $(nRow).find('.estado-row').click(function(event){
                 
                 event.preventDefault();

@@ -69,6 +69,8 @@ security:
         - { path: ^/consolida/informe_resumido_view, roles: ROLE_CONSOLIDAR}
         - { path: ^/consolida/informe_anual_tri_view, roles: ROLE_LIDER_RED}
         - { path: /consolida/* , roles: ROLE_USER}
+        - { path: ^/discipula/curso_view , roles: ROLE_DISCIPULAR}
+        - { path: ^/discipula/docente_view , roles: ROLE_DISCIPULAR}
         - { path: /discipula/*, roles: ROLE_USER}
         - { path: /envia/* , roles: ROLE_USER}
         - { path: /secretaria/* , roles: ROLE_USER}

@@ -3,12 +3,9 @@
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
-       <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
-
+        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
         <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
-
-        <!-- Scripts -->
-                 
+        <!-- Scripts -->                 
         {% endblock %}
         
 {% block content %}
@@ -58,12 +55,8 @@
                                                     name="fecha" required/>
                                                 <p class="help-block">Día/Mes/Año</p>  
                                             </div>
-                                        </div>
-                                    
-                                                                            
-                                </div>
-                                
-                                
+                                        </div>                                          
+                                </div>  
                             </div>
                                 <div class="form-actions">
                                     <input type="submit" class='btn btn-primary' value="Añadir" id="btnGuardarCelula" name="btnGuardarCelula">
@@ -134,8 +127,7 @@
     </div>
         
 {% endblock %}
-      
-               
+     
       {%block javascript %}
             <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
             <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
@@ -146,7 +138,6 @@
             <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
             <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
@@ -157,7 +148,7 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
             
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
+            <script src="{{asset('js/util/functiongen.js')}}"></script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
             <script src="{{asset('js/otherfunctiondatatable.js')}}"></script>
       
@@ -193,18 +184,17 @@
                 
                 ProfesorRowCB = function(nRow, aData, iDisplayIndex) {
                     var acciones, index;
+                    /*
                     index = $(ProfesorTable.fnGetData()).getIndexObj(aData, 'id');
        
                     {% if is_granted('ROLE_DISCIPULAR')  %}
                         acciones =  cambiar_ver_estado("delete_modal", "");         
                     {% endif %}
                     ProfesorTable.fnUpdate(acciones, index, 4);
+                            */
                     $(nRow).find('a').tooltip('hide');
-            
-           
-            
+
                     $(nRow).find('.estado-row').click(function(event){
-                
                         event.preventDefault();
                         if(aData.activo == true)
                             $("#posible_descarte").text("Desea desactivar al profesor "+ aData.nombres + "?");                
@@ -215,17 +205,13 @@
                     });
                     
                     $(nRow).find('.ver-row').click(function(event){
-                
                         event.preventDefault();
-                        
                         //resumen de curso
                         $("#descartar_id").val(aData.niv_id);
                     });
       
                 };
-        
-      
-                
+
                 PrepararDatos = function() {
                     return root.DatosEnviar = {
                             "formulario": $("#form_docente").serializeObject()
@@ -239,14 +225,13 @@
                        $("#form_docente").reset();                       
                        //cargarSelect(redes, "red_lista", "int_red_id", "id");                        
                         alert('Registro Completado');
-                        /*personas.clear();              
+                                     
                         $("#persona_id").val(-1);
-                        $('#persona').reset();
-                        
-                        
+                        $('#persona').val("");
+                        $('#persona').text("");
                         ProfesorTable.fnReloadAjax('{{path('services_profesor_all_table')}}');
-                        */
-                           location.reload();
+                        
+                         //  location.reload();
                     }
                     else if(data.responseCode===400){//bad request
                         alert('Error bad request');
@@ -277,7 +262,6 @@
                         }
                         else alert("An unexpeded error occured.");
                         }
-                    
                 };
 
     
@@ -304,30 +288,22 @@
         };
         
 	$(document).ready(function() {
-            
-                 
-            redes = getAjaxObject('{{path('services_red')}}');
-                          
-            cargarSelect(redes, "red_lista", "int_red_id", "id");
-            
+                             
+            redes = getAjaxObject('{{path('services_red')}}');                          
+            cargarSelect(redes, "red_lista", "int_red_id", "id");            
             ProfesorTable = createDataTable("tabla_docente", '{{path('services_profesor_all_table')}}', FormatoProfesorTable, null, ProfesorRowCB);
-
                      
-            $("#form_docente").submit(function(event){
-                
+            $("#form_docente").submit(function(event){                
                  event.preventDefault();
-                 PrepararDatos();
-                 
+                 PrepararDatos();                 
                  if($("#persona_id").val() != '-1')
                     return enviar('{{path('docente_save')}}', root.DatosEnviar, SuccessFunction, null);
-                else alert('Seleccione una persona');
-  
+                else alert('Seleccione una persona');  
             });
             
             $("#red_lista").change(persona_cambio_red);
         
-             $("#guardar_descartar").click(function(event){
-             
+             $("#guardar_descartar").click(function(event){             
                  enviar('{{path('docente_delete')}}', {'formulario': $("#descartar_id").val()}, SuccessTablaFunction, null);
             });
         } );
