@@ -9,3 +9,9 @@ discipula_informe_docentes:
     defaults: {_controller: AEDiscipulaBundle:Informe:informe_docentes_all}
     requirements:
         _method: POST
+        
+discipula_informe_aula:
+    pattern: /informe_aula_all
+    defaults: {_controller: AEDiscipulaBundle:Informe:informe_aula_all}
+    requirements:
+        _method: POST

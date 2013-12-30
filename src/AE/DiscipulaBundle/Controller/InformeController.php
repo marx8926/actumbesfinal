@@ -111,4 +111,36 @@ class InformeController extends Controller {
 
         return $response; 
     }
+
+    
+    public function informe_aula_allAction()
+    {
+        getcwd();
+       chdir('report\discipular');
+       $path = getcwd()."\informe_aulas.xls";
+       
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+
+       $sql = "SELECT  nombre, creado, capacidad, activo  FROM view_get_all_aulas";
+       $em = $this->getDoctrine()->getManager();
+       $smt = $em->getConnection()->prepare($sql);
+       $smt->execute();
+       $todos = $smt->fetchAll();
+       
+       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A9');
+       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=aulas.xlsx');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response; 
+    }
 }

@@ -79,8 +79,20 @@
 
                     <div class="box">
                 
-                        <div class="box-head tabs">
-                            <h3>Aulas registradas</h3>                    
+                        <div class="box-head">
+                            <h3>Aulas registradas</h3>
+                             <div class="actions">
+				<ul>                                                       
+                                   <li>
+                                        <form id="reporte_form" name="reporte_form" method="POST" action="{{path('discipula_informe_aula')}}">                                          
+                                            <button type="submit" id='excelbutton' class="btn btn-mini btn-square tip">
+                                                 <i class="icon-hdd"></i>
+                                                  Guardar
+                                            </button>
+                                        </form>
+                                   </li>
+				</ul>	
+                            </div>
                         </div>       
 
                         <div class="box-content box-nomargin">                            
