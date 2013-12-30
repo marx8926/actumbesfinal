@@ -182,27 +182,25 @@
                                 {% if ( is_granted('ROLE_DISCIPULAR') ) %}
                                 <li>
                                     <a href="{{path('curso_view')}}">
-                                      Crear Curso
+                                      Crear Cursos
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{path('docente_view')}}">
-                                        Administrar Docente
+                                        Docentes
                                     </a>
                                 </li>
-                                {% endif %}
                                 <li>
                                     <a href="{{path('estudiante_view')}}">
                                         Administrar Estudiante
                                     </a>
                                 </li>
-                                
                                 <li>
                                     <a href="{{path('aula_view')}}">
                                         Administrar Aula
                                     </a>
                                 </li>
-                                
+                                 {% endif %}
                                 <li>
                                     <a href="{{path('asignacion_view')}}">
                                         Asignación Curso / Profesor

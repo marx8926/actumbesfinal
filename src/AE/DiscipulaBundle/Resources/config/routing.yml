@@ -22,3 +22,6 @@ matricula_discipula_routing:
     
 asignacion_discipula_routing:
     resource: "@AEDiscipulaBundle/Resources/config/asignacion_routing.yml"
+    
+informe_discipula_routing:
+    resource: "@AEDiscipulaBundle/Resources/config/informe_routing.yml"

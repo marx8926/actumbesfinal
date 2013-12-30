@@ -1,0 +1,11 @@
+discipula_informe_estudiantes_red:
+    pattern: /informe_estudiantes_red
+    defaults: {_controller: AEDiscipulaBundle:Informe:informe_estudiantes_red}
+    requirements:
+        _method: POST
+        
+discipula_informe_docentes:
+    pattern: /informe_docentes_all
+    defaults: {_controller: AEDiscipulaBundle:Informe:informe_docentes_all}
+    requirements:
+        _method: POST
