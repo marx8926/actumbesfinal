@@ -53,13 +53,6 @@ class ConsolidadoAsistencia
     /**
      * @var integer
      *
-     * @ORM\Column(name="interes", type="integer", nullable=true)
-     */
-    private $interes;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="celula", type="integer", nullable=true)
      */
     private $celula = '0';
@@ -207,29 +200,6 @@ class ConsolidadoAsistencia
     public function getDetalle()
     {
         return $this->detalle;
-    }
-
-    /**
-     * Set interes
-     *
-     * @param integer $interes
-     * @return ConsolidadoAsistencia
-     */
-    public function setInteres($interes)
-    {
-        $this->interes = $interes;
-
-        return $this;
-    }
-
-    /**
-     * Get interes
-     *
-     * @return integer 
-     */
-    public function getInteres()
-    {
-        return $this->interes;
     }
 
     /**

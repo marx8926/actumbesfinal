@@ -52,22 +52,31 @@ class AsistenciaController extends Controller {
             $asistencia = $em->getRepository('AEDataBundle:ConsolidadoAsistencia')->find($leccion);
             
             //$asistencia = new ConsolidadoAsistencia();            
-            $iglesia = FALSE;
+            $iglesia = 0;
             if($datos['iglesia']=='si')
-                $iglesia = TRUE;            
-            $celula = FALSE;            
+                $iglesia = 1;            
+            $celula = 0;            
             if($datos['celula'] == 'si')
-                $celula = TRUE;
+                $celula = 1;
             
-            $interes = $datos['interes'];
+            $visita = 0;            
+            if($datos['visita'] == 'si')
+                $visita = 1;
+            
+            $contacto = 0;            
+            if($datos['contacto'] == 'si')
+                $contacto = 1;
+            
             $detalle = $datos['detalle'];           
             
             $num_leccion = $datos['num_lecciones'];
             
             $asistencia->setCelula($celula);
             $asistencia->setDetalle($detalle);
+            $asistencia->setContacto($contacto);
+            $asistencia->setVisita($visita);
+            $asistencia->setIglesia($iglesia);
             $asistencia->setFin(new \DateTime($aplicacion));
-            $asistencia->setInteres($interes);
             $asistencia->setDetalle($detalle);
             
             $em->persist($asistencia);

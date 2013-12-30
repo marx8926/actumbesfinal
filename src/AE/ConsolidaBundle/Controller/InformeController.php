@@ -332,9 +332,9 @@ class InformeController extends Controller {
        }
        
        $phpExcelObject->setActiveSheetIndex(0)
-           ->setCellValue('M5', $inicio)
-           ->setCellValue('M6', $fin)
-           ->setCellValue('P5',$net->getId());
+           ->setCellValue('K5', $inicio)
+           ->setCellValue('K6', $fin)
+           ->setCellValue('O5',$net->getId());
        
        $phpExcelObject->getActiveSheet()->fromArray($matriz, NULL, 'A11');
        
