@@ -70,6 +70,34 @@ class InformeController extends Controller {
         return $tabla;
     }
     
+    
+    private function consolidados($ini, $fin, $tipo)
+    {
+        
+        $em = $this->getDoctrine()->getManager();
+       
+        $sql = "select * from red where activo=true and tipo=:tip order by id asc";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':tip'=>$tipo));
+        $redes = $smt->fetchAll();
+        
+        $matriz = array();
+        
+        foreach ($redes as $value) {
+            $sql = "select c.int_consolidar_id from consolidar c inner join consolidado_asistencia ca on c.int_consolidar_id = ca.consolidar_id and ca.fin is not null and
+            ca.fin between :ini  and :fin inner join detalle_miembro d on d.red_id=:net and d.persona_id=c.consolidado_id
+            group by c.int_consolidar_id ";
+            
+            $smt2 = $em->getConnection()->prepare($sql);
+            $smt2->execute(array(':ini'=>$ini,':fin'=>$fin,':net'=>$value['int_red_id']));
+            $result = $smt2->fetchAll();
+            
+            $matriz[] = array('consolidados'=>  (empty($result )?'0':count($result)));
+        }
+        $em->clear();
+        return $matriz;
+    }
     public function resumido_serviceAction()
     {
              // ask the service for a Excel5
@@ -81,13 +109,10 @@ class InformeController extends Controller {
         $em = $this->getDoctrine()->getManager();
         
         
-       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
-
-       $phpExcelObject->getProperties()->setCreator("AdminChurch.com")
-           ->setLastModifiedBy("AdminChurch.com")
-           ->setTitle("AdminChurch.com  XLSX Document")
-           ->setSubject("AdminChurch.com  XLSX  Document")
-           ->setCategory("AdminChurch.com report");
+       getcwd();
+       chdir('report\consolidar');
+       $path = getcwd()."\informe_resumen.xls";
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
        
        $todos = array();
        
@@ -99,47 +124,39 @@ class InformeController extends Controller {
        $fech_a =explode('/', $fech_b,3);
        $fin = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0]; 
        
+       $consolidados = $this->consolidados($inicio, $fin, $tipo);
+
        //recuperar x redes
        $sql = "SELECT * from get_informe_consolidar_por_semana(:ini,:fini,:tipo,:byear)";
        $smt = $em->getConnection()->prepare($sql);
        $smt->execute(array(':ini'=>$inicio, ':fini'=>$fin,':tipo'=>$tipo,':byear'=> ($fech_a[2].'-01-01')));
        $todos = $smt->fetchAll();
        
+       $phpExcelObject->getActiveSheet()->setTitle('CONSOLIDACION');     
        
-       $phpExcelObject->setActiveSheetIndex(0)
-               ->setCellValue('A1', 'Semana del '.$inicio.' al '.$fin)
-           ->setCellValue('A2', 'RED')
-               ->setCellValue('B2', 'LIDER DE 12')
-               ->setCellValue('C2','PERSONAS POR CONSOLIDAR')
-               ->setCellValue('D2','PERSONAS CONSOLIDADOS')
-               ->setCellValue('E2','DESCARTADOS')
-               ->setCellValue('F2','NO CONSOLIDADOS')
-               ->setCellValue('G2','PREPARDO PARA EL ENCUENTRO');
-       
-       $phpExcelObject->getActiveSheet()->setTitle('CONSOLIDACION');
-       
-       
-       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A3');
-       
+       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A9');  
+       $phpExcelObject->getActiveSheet()->fromArray($consolidados, NULL, 'G9');       
+
        
        //no consolidados en el rango
        
-       $no_con = $this->no_consolidados($inicio, $fin, $tipo);
-       
-        $phpExcelObject->getActiveSheet()->fromArray($no_con, NULL, 'F3');
-
-       
+       $no_con = $this->no_consolidados($inicio, $fin, $tipo);       
+        $phpExcelObject->getActiveSheet()->fromArray($no_con, NULL, 'F9');       
        
        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
        $phpExcelObject->setActiveSheetIndex(0);
+       
+        $phpExcelObject->setActiveSheetIndex(0)
+               ->setCellValue('G5', $inicio)
+               ->setCellValue('G6', $fin);
 
         // create the writer
-        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
         // create the response
         $response = $this->get('phpexcel')->createStreamedResponse($writer);
         // adding headers
         $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xls');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xlsx');
         $response->headers->set('Pragma', 'public');
         $response->headers->set('Cache-Control', 'maxage=1');
 
@@ -186,19 +203,18 @@ class InformeController extends Controller {
         $year = $request->request->get('year');
         
         $em = $this->getDoctrine()->getManager();
+                
+        getcwd();
+        chdir('report\consolidar');
         
-        $meses_lista = array('ENE','FEB','MAR','ABR','MAY', 'JUN', 'JUL', 'AGO','SET', 'OCT','NOV','DIC','TOTAL');
+        if($tipo == 'anual')
+            $path = getcwd()."\informe_anual.xls";
+        else 
+            $path = getcwd()."\informe_semanal.xls";
         
-       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
-
-       $phpExcelObject->getProperties()->setCreator("AdminChurch.com")
-           ->setLastModifiedBy("AdminChurch.com")
-           ->setTitle("AdminChurch.com 2005 XLSX Document")
-           ->setSubject("AdminChurch.com 2005 XLSX  Document")
-           ->setCategory("AdminChurch.com report");
-       
-       $todos = array();
-       
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+ 
+       $todos = array();       
        
        if($desde == '1')
        {
@@ -222,6 +238,8 @@ class InformeController extends Controller {
        
       if($red != -1 && strlen($tipo)>0) 
       {    
+        $net = $em->getRepository('AEDataBundle:Red')->find($red);
+
         //recuperamos a los consolidadores
           
         $sql = "select * from get_consolidador_red(:red)";       
@@ -254,7 +272,9 @@ class InformeController extends Controller {
                 if($meses[12]==0)
                     $meses[12]='0';
                 
-                $fila = $item;
+                $fila = array();
+                $fila[] = $item['nombres'];
+
                 foreach ($meses as $m) {
                     $fila[] = $m;
                 }
@@ -282,7 +302,8 @@ class InformeController extends Controller {
                 if($semanas[$n]==0)
                     $semanas[$n]='0';
                 
-                $fila = $item;
+                $fila = array();
+                $fila[] = $item['nombres'];
                 foreach ($semanas as $s) {
                     $fila[] = $s;
                 }
@@ -291,18 +312,13 @@ class InformeController extends Controller {
         }
        
        
-        $phpExcelObject->setActiveSheetIndex(0)
-               ->setCellValue('A1', 'Semana del '.$inicio.' al '.$fin)
-               ->setCellValue('C1','Red: '.$red)
-           ->setCellValue('A2', 'N°')
-               ->setCellValue('B2', 'NOMBRE DEL CONSOLIDADOR')
-              ;
+        
        
        $phpExcelObject->getActiveSheet()->setTitle('INFORME');
        
        if($tipo == 'anual')
        {
-           $phpExcelObject->getActiveSheet()->fromArray($meses_lista, NULL, 'C2');
+          // $phpExcelObject->getActiveSheet()->fromArray($meses_lista, NULL, 'I2');
        }
        else {
            $semanas_lista = array();
@@ -311,11 +327,16 @@ class InformeController extends Controller {
                $semanas_lista[]=$s['fecha'];
            }
            $semanas_lista[] = 'Total';
-           $phpExcelObject->getActiveSheet()->fromArray($semanas_lista, NULL, 'C2');
+           $phpExcelObject->getActiveSheet()->fromArray($semanas_lista, NULL, 'B10');
 
        }
        
-       $phpExcelObject->getActiveSheet()->fromArray($matriz, NULL, 'A3');
+       $phpExcelObject->setActiveSheetIndex(0)
+           ->setCellValue('M5', $inicio)
+           ->setCellValue('M6', $fin)
+           ->setCellValue('P5',$net->getId());
+       
+       $phpExcelObject->getActiveSheet()->fromArray($matriz, NULL, 'A11');
        
       
       }
@@ -324,12 +345,12 @@ class InformeController extends Controller {
        $phpExcelObject->setActiveSheetIndex(0);
 
         // create the writer
-        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
         // create the response
         $response = $this->get('phpexcel')->createStreamedResponse($writer);
         // adding headers
         $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xls');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xlsx');
         $response->headers->set('Pragma', 'public');
         $response->headers->set('Cache-Control', 'maxage=1');
 
@@ -353,10 +374,19 @@ class InformeController extends Controller {
             
         $fila = $item;
         $j = 1;
+        $fila[] = '';
+        $fila[] = '';
+        $fila[] = '';
+        $fila[] = '';
+
+        $celula = 0; $iglesia = 0;
+        $visita = 0; $contacto = 0;
+        
         foreach ($asistencias as $i) {
           if($i['fin'] != NULL)
           {
-                $fila['L'.strval($j)] = '&#10004<br>'.$i['fin'];
+                $fila['L'.strval($j)] = '✓'.' '.$i['fin'];
+                
           }
           else {
                 $fila['L'.strval($j)] = '';
@@ -364,9 +394,21 @@ class InformeController extends Controller {
           }
                 
            $j++;
+           $celula += $i['celula'];
+           $iglesia += $i['iglesia'];
+           $visita += $i['visita'];
+           $contacto += $i['contacto'];
          }
-                        
         
+         if($contacto > 0)
+             $fila[0] = '✓';
+         if($visita > 0)
+             $fila[1] = '✓';
+         if($celula > 0)
+             $fila[2] = '✓';
+         if($iglesia > 0)
+             $fila[3] = '✓'; 
+
         return $fila;
         
     }
@@ -400,44 +442,30 @@ class InformeController extends Controller {
         
         $tabla = [];
         
-        foreach ($consolidadores as $item) {
-            
-            $fila = $this->construir_fila_detalla($item);
-            
+        foreach ($consolidadores as $item) {            
+            $fila = $this->construir_fila_detalla($item);            
             $tabla[] = $fila;
         }
         
-        
-         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
-
-       $phpExcelObject->getProperties()->setCreator("AdminChurch.com")
-           ->setLastModifiedBy("AdminChurch.com")
-           ->setTitle("AdminChurch.com 2005 XLSX Document")
-           ->setSubject("AdminChurch.com 2005 XLSX  Document")
-           ->setCategory("AdminChurch.com report");
-
-       $phpExcelObject->setActiveSheetIndex(0)
-               ->setCellValue('A1', 'Semana del '.$inicio.' al '.$fin)
-               ->setCellValue('C1','Red: '.$red)
-           ->setCellValue('A2', 'N°')
-               ->setCellValue('B2', 'NOMBRE DEL CONSOLIDADOR')
-              ;
+       getcwd();
+       chdir('report\consolidar');
+       $path = getcwd()."\informe_detallado.xls";
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
        
-       $phpExcelObject->getActiveSheet()->setTitle('INFORME');
+       $phpExcelObject->getActiveSheet()->setTitle('INFORME');       
        
-       
-       $phpExcelObject->getActiveSheet()->fromArray($tabla, NULL, 'A3');
+       $phpExcelObject->getActiveSheet()->fromArray($tabla, NULL, 'B12');
        
        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
        $phpExcelObject->setActiveSheetIndex(0);
 
         // create the writer
-        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
         // create the response
         $response = $this->get('phpexcel')->createStreamedResponse($writer);
         // adding headers
         $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-'.$inicio.'_'.$fin.'.xls');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte-consolidar.xlsx');
         $response->headers->set('Pragma', 'public');
         $response->headers->set('Cache-Control', 'maxage=1');
 

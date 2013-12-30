@@ -51,25 +51,39 @@ class ConsolidadoAsistencia
     private $detalle;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="celula", type="boolean", nullable=true)
-     */
-    private $celula = 'true';
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="iglesia", type="boolean", nullable=true)
-     */
-    private $iglesia = 'true';
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="interes", type="integer", nullable=true)
      */
     private $interes;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="celula", type="integer", nullable=true)
+     */
+    private $celula = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="iglesia", type="integer", nullable=true)
+     */
+    private $iglesia = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="visita", type="integer", nullable=true)
+     */
+    private $visita = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="contacto", type="integer", nullable=true)
+     */
+    private $contacto = '0';
 
     /**
      * @var \TemaLeche
@@ -196,52 +210,6 @@ class ConsolidadoAsistencia
     }
 
     /**
-     * Set celula
-     *
-     * @param boolean $celula
-     * @return ConsolidadoAsistencia
-     */
-    public function setCelula($celula)
-    {
-        $this->celula = $celula;
-
-        return $this;
-    }
-
-    /**
-     * Get celula
-     *
-     * @return boolean 
-     */
-    public function getCelula()
-    {
-        return $this->celula;
-    }
-
-    /**
-     * Set iglesia
-     *
-     * @param boolean $iglesia
-     * @return ConsolidadoAsistencia
-     */
-    public function setIglesia($iglesia)
-    {
-        $this->iglesia = $iglesia;
-
-        return $this;
-    }
-
-    /**
-     * Get iglesia
-     *
-     * @return boolean 
-     */
-    public function getIglesia()
-    {
-        return $this->iglesia;
-    }
-
-    /**
      * Set interes
      *
      * @param integer $interes
@@ -262,6 +230,98 @@ class ConsolidadoAsistencia
     public function getInteres()
     {
         return $this->interes;
+    }
+
+    /**
+     * Set celula
+     *
+     * @param integer $celula
+     * @return ConsolidadoAsistencia
+     */
+    public function setCelula($celula)
+    {
+        $this->celula = $celula;
+
+        return $this;
+    }
+
+    /**
+     * Get celula
+     *
+     * @return integer 
+     */
+    public function getCelula()
+    {
+        return $this->celula;
+    }
+
+    /**
+     * Set iglesia
+     *
+     * @param integer $iglesia
+     * @return ConsolidadoAsistencia
+     */
+    public function setIglesia($iglesia)
+    {
+        $this->iglesia = $iglesia;
+
+        return $this;
+    }
+
+    /**
+     * Get iglesia
+     *
+     * @return integer 
+     */
+    public function getIglesia()
+    {
+        return $this->iglesia;
+    }
+
+    /**
+     * Set visita
+     *
+     * @param integer $visita
+     * @return ConsolidadoAsistencia
+     */
+    public function setVisita($visita)
+    {
+        $this->visita = $visita;
+
+        return $this;
+    }
+
+    /**
+     * Get visita
+     *
+     * @return integer 
+     */
+    public function getVisita()
+    {
+        return $this->visita;
+    }
+
+    /**
+     * Set contacto
+     *
+     * @param integer $contacto
+     * @return ConsolidadoAsistencia
+     */
+    public function setContacto($contacto)
+    {
+        $this->contacto = $contacto;
+
+        return $this;
+    }
+
+    /**
+     * Get contacto
+     *
+     * @return integer 
+     */
+    public function getContacto()
+    {
+        return $this->contacto;
     }
 
     /**

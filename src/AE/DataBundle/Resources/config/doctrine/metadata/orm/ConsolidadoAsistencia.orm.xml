@@ -12,9 +12,11 @@
     <field name="fin" type="date" column="fin" nullable="true"/>
     <field name="pausa" type="date" column="pausa" nullable="true"/>
     <field name="detalle" type="string" column="detalle" length="300" nullable="true"/>
-    <field name="celula" type="boolean" column="celula" nullable="true"/>
-    <field name="iglesia" type="boolean" column="iglesia" nullable="true"/>
     <field name="interes" type="integer" column="interes" nullable="true"/>
+    <field name="celula" type="integer" column="celula" nullable="true"/>
+    <field name="iglesia" type="integer" column="iglesia" nullable="true"/>
+    <field name="visita" type="integer" column="visita" nullable="true"/>
+    <field name="contacto" type="integer" column="contacto" nullable="true"/>
     <many-to-one field="consolidar" target-entity="Consolidar">
       <join-columns>
         <join-column name="consolidar_id" referenced-column-name="int_consolidar_id"/>
