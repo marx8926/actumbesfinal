@@ -65,6 +65,9 @@ security:
         - { path: ^/consolida/consolidador_view, roles: ROLE_CONSOLIDAR}
         - { path: ^/consolida/asignarconsolidador_view, roles: ROLE_LIDER_RED}
         - { path: ^/consolida/asistencia_leche_view, roles: ROLE_CONSOLIDADOR}
+        - { path: ^/consolida/informe_detallado_view, roles: ROLE_LIDER_RED}
+        - { path: ^/consolida/informe_resumido_view, roles: ROLE_CONSOLIDAR}
+        - { path: ^/consolida/informe_anual_tri_view, roles: ROLE_LIDER_RED}
         - { path: /consolida/* , roles: ROLE_USER}
         - { path: /discipula/*, roles: ROLE_USER}
         - { path: /envia/* , roles: ROLE_USER}

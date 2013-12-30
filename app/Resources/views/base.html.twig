@@ -150,7 +150,8 @@
 						</a>
 						<ul class='collapsed-nav closed dentro'>
 							
-                                                        
+                             {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
+                          
                                                     <li>
                                                         <a href="{{path('informe_detallado_view')}}">
                                                             Informe Semanal detallado
@@ -168,6 +169,7 @@
                                                     </li>
 						</ul>
 					</li>
+                             {% endif %}
                             </ul>
                         </li>
                         
