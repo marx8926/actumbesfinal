@@ -76,6 +76,12 @@ services_curso_profesor_tabla:
     requirements:
         _method: GET
         
+services_detalle_pca_all_tabla:
+    pattern: /detalle_pca_all_tabla
+    defaults: {_controller: AEServicesBundle:DiscipularServices:detalle_pca_all_tabla}
+    requirements:
+        _method: GET
+        
 services_matriculados_detalle:
     pattern: /matriculados_detalle/{detalle}
     defaults: {_controller: AEServicesBundle:DiscipularServices:matriculados_detalle}
@@ -84,6 +90,8 @@ services_matriculados_detalle:
 services_table_matriculados_detalle:
     pattern: /table_matriculados_detalle/{detalle}/{num_lecciones}
     defaults: {_controller: AEServicesBundle:DiscipularServices:table_matriculados_detalle}
+    requirements:
+        _method: GET
     
 services_option_sin_aplicar_detalle_pca:
     pattern: /option_sin_aplicar_detalle_pca/{detalle}

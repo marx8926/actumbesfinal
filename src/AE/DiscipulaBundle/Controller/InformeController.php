@@ -115,7 +115,7 @@ class InformeController extends Controller {
     
     public function informe_aula_allAction()
     {
-        getcwd();
+       getcwd();
        chdir('report\discipular');
        $path = getcwd()."\informe_aulas.xls";
        

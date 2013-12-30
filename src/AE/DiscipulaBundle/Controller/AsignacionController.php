@@ -104,5 +104,37 @@ class AsignacionController extends Controller {
     public function deleteAction()
     {
         
+        $request = $this->get('request');
+        $id =$request->request->get('formulario');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+            
+            $detalle = $em->getRepository('AEDataBundle:DetallePca')->find(strval($id));            
+            //$curso = new Curso();            
+            
+            $sesiones = $em->getRepository('AEDataBundle:SesionPca')->findBy(array('detallePca'=>$id));
+            foreach ($sesiones as $value) {
+                $em->remove($value);
+                
+            }
+            $em->remove($detalle);
+            
+            $em->flush();            
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            
+            $em->clear();
+            $em->close();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        
+        return new JsonResponse($return);  
     }
 }

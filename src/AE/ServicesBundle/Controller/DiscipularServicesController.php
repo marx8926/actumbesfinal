@@ -215,6 +215,18 @@ class DiscipularServicesController extends Controller {
         
     }
     
+    
+    public function detalle_pca_all_tablaAction()
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "SELECT * FROM view_get_all_detalle_pca";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute();
+        $result = $smt->fetchAll();       
+        
+        $resultado= new JsonResponse(array('aaData'=>$result));      
+        return $resultado;
+    }
     public function matriculados_detalleAction($detalle)
     {        
         $em = $this->getDoctrine()->getManager(); 
@@ -232,7 +244,7 @@ class DiscipularServicesController extends Controller {
         //select * from get_asistencia_detalle(1);
         
         $em = $this->getDoctrine()->getManager(); 
-        $sql = "select * from get_asistencia_detalle(:detalle)";
+        $sql = "select * from get_asistencia_detalle_discipular(:detalle)";
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute(array(':detalle'=>$detalle));
         $result = $smt->fetchAll();       

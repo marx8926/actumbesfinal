@@ -168,8 +168,9 @@
                                                         </a>
                                                     </li>
 						</ul>
-					</li>
+					
                              {% endif %}
+                             </li>
                             </ul>
                         </li>
                         
@@ -179,7 +180,7 @@
                                 <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             <ul class="collapsed-nav closed">
-                                {% if ( is_granted('ROLE_DISCIPULAR') ) %}
+                            {% if ( is_granted('ROLE_DISCIPULAR') ) %}
                                 <li>
                                     <a href="{{path('curso_view')}}">
                                       Crear Cursos
@@ -192,26 +193,55 @@
                                 </li>
                                 <li>
                                     <a href="{{path('estudiante_view')}}">
-                                        Administrar Estudiante
+                                        Estudiantes
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{path('aula_view')}}">
-                                        Administrar Aula
+                                        Aulas
                                     </a>
                                 </li>
-                                 {% endif %}
+                             
                                 <li>
                                     <a href="{{path('asignacion_view')}}">
                                         Asignación Curso / Profesor
                                     </a>
                                 </li>
-                                
+                              {% endif %}  
                                 <li>
                                     <a href="{{path('matricula_view')}}">
                                         Matricular
                                     </a>
                                 </li>
+                                
+                                  <li>
+						<a href="#" class='light toggle-collapsed'>
+							Informes
+							<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
+						</a>
+						<ul class='collapsed-nav closed dentro'>
+							
+                             {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
+                          
+                                                    <li>
+                                                        <a href="{{path('informe_detallado_view')}}">
+                                                            Informe Semanal detallado
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{path('informe_resumido_view')}}">
+                                                            Informe Semana resumido
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{path('informe_anual_tri_view')}}">
+                                                            Informe Trimestral / Anual
+                                                        </a>
+                                                    </li>
+						</ul>
+					
+                             {% endif %}
+                             </li>
                             </ul>
                         </li>
                         

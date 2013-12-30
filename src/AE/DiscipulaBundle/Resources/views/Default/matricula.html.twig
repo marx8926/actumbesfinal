@@ -7,8 +7,7 @@
         <link rel="stylesheet" href="{{asset('css/smooth/jquery-ui-1.8.16.custom.css')}}" >
         <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
         <!-- Scripts -->
-                 
-       
+
         <style type="text/css">
     
            #form_asignacion {
@@ -244,7 +243,29 @@
                     <div class="box">
                         
                         <div clas="box-head tabs">
-                            <h3></h3>
+                            <h3>Asistencias de asignación</h3>
+                            <div class="actions">
+				<ul>                                                       
+                                   <li>
+                                        <form id="reporte_form" name="reporte_form" method="POST" action="{{path('discipula_informe_aula')}}">                                          
+                                            <input type="hidden" id="nombre" name="nombre">
+                                            <input type="hidden" id="dia" name="dia">
+                                            <input type="hidden" id="inicio" name="inicio">
+                                            <input type="hidden" id="fin" name="fin">
+                                            <input type="hidden" id="hinicio" name="hinicio">
+                                            <input type="hidden" id="hfin" name="hfin">
+                                            <input type="hidden" id="estado" name="estado">
+                                            <input type="hidden" id="clases" name="clases">
+                                            <input type="hidden" id="requisito" name="requisito">
+                                            
+                                            <button type="submit" id='excelbutton' class="btn btn-mini btn-square tip">
+                                                 <i class="icon-hdd"></i>
+                                                  Guardar
+                                            </button>
+                                        </form>
+                                   </li>
+				</ul>	
+                            </div>
                         </div>
                         
                         <div class="box-content box-nomargin">
