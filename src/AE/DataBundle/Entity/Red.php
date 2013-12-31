@@ -58,6 +58,13 @@ class Red
     private $tipo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=10, nullable=true)
+     */
+    private $color = '#41690';
+
+    /**
      * @var \Persona
      *
      * @ORM\ManyToOne(targetEntity="Persona")
@@ -202,6 +209,29 @@ class Red
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return Red
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string 
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 
     /**

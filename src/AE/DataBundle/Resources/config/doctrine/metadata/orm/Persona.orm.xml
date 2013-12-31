@@ -3,9 +3,10 @@
   <entity name="Persona" table="persona">
     <indexes>
       <index name="idx_apellidos" columns="apellidos"/>
+      <index name="fki_foto" columns="foto"/>
+      <index name="fki_ubicacion" columns="id_ubicacion"/>
       <index name="fk_ganado_por" columns="ganado_por"/>
       <index name="idx_nombres" columns="nombre"/>
-      <index name="fki_ubicacion" columns="id_ubicacion"/>
       <index name="IDX_51E5B69BC0298A8E" columns="id_iglesia"/>
       <index name="IDX_51E5B69BB5A3803B" columns="lugar_id"/>
       <index name="IDX_51E5B69B8BBE8922" columns="red_id"/>
@@ -31,6 +32,11 @@
     <field name="dia" type="string" column="dia" length="30" nullable="true"/>
     <field name="hora" type="string" column="hora" length="10" nullable="true"/>
     <field name="asisteCelula" type="boolean" column="asiste_celula" nullable="true"/>
+    <many-to-one field="foto" target-entity="Archivo">
+      <join-columns>
+        <join-column name="foto" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="idUbicacion" target-entity="Ubicacion">
       <join-columns>
         <join-column name="id_ubicacion" referenced-column-name="id"/>

@@ -13,3 +13,6 @@ buzon_envia_routing:
     
 informe_envia_routing:
     resource: "@AEEnviaBundle/Resources/config/informe_routing.yml"
+    
+liderazgo_envia_routing:
+    resource: "@AEEnviaBundle/Resources/config/liderazgo_routing.yml"

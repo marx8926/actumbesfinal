@@ -170,8 +170,10 @@ class InformeController extends Controller {
         $fechas['nro'] = ''; $ofrendas['nro'] = '';
         $ofrendas['nro'] = '';
         $fechas['nombres'] = 'Aplicado'; $ofrendas['nombres'] = 'Ofrendas';
-
-        
+        $fechas[] = ''; $ofrendas[] = '';
+        $fechas[] = ''; $ofrendas[] = '';
+        $fechas[] = ''; $ofrendas[] = '';
+        $fechas[] = ''; $ofrendas[] = '';
         $y = 1;
         foreach ($asistencias as $value) {
             
@@ -193,7 +195,12 @@ class InformeController extends Controller {
             
             $item = array();
             $item['nro'] = strval($i+1);
-            $item['nombres'] = $result[$i*$num_lecciones]['nombres'];
+            $item['nombres'] = $result[$i*$num_lecciones]['nombres'];            
+            $item['tel1'] = $result[$i*$num_lecciones]['tel1'];
+            $item['lider'] = $result[$i*$num_lecciones]['lider'];
+            $item['tel2'] = $result[$i*$num_lecciones]['tel2'];
+            $item['net'] = $result[$i*$num_lecciones]['net'];
+
             
             for($j = 0; $j<$num_lecciones; $j++)
             {
@@ -217,7 +224,7 @@ class InformeController extends Controller {
     
     public function informe_asignacion_detalleAction()
     {
-        getcwd();
+       getcwd();
        chdir('report\discipular');
        $path = getcwd()."\informe_asignacion.xls";
        
@@ -250,7 +257,7 @@ class InformeController extends Controller {
             $patron = "L".strval($y);             
             $fila[] = $patron;
         }
-        $phpExcelObject->getActiveSheet()->fromArray(array($fila), NULL, 'C11');
+        $phpExcelObject->getActiveSheet()->fromArray(array($fila), NULL, 'G11');
 
         
        // Set active sheet index to the first sheet, so Excel opens this as the first sheet

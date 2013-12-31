@@ -1,0 +1,6 @@
+liderazgo_envia_view:
+    pattern:  /liderazgo_view
+    defaults: { _controller: AEEnviaBundle:Liderazgo:view }
+    requirements:
+        _method: GET
+        

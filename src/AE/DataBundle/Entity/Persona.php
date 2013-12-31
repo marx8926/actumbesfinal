@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Persona
  *
- * @ORM\Table(name="persona", indexes={@ORM\Index(name="idx_apellidos", columns={"apellidos"}), @ORM\Index(name="fk_ganado_por", columns={"ganado_por"}), @ORM\Index(name="idx_nombres", columns={"nombre"}), @ORM\Index(name="fki_ubicacion", columns={"id_ubicacion"}), @ORM\Index(name="IDX_51E5B69BC0298A8E", columns={"id_iglesia"}), @ORM\Index(name="IDX_51E5B69BB5A3803B", columns={"lugar_id"}), @ORM\Index(name="IDX_51E5B69B8BBE8922", columns={"red_id"})})
+ * @ORM\Table(name="persona", indexes={@ORM\Index(name="idx_apellidos", columns={"apellidos"}), @ORM\Index(name="fki_foto", columns={"foto"}), @ORM\Index(name="fki_ubicacion", columns={"id_ubicacion"}), @ORM\Index(name="fk_ganado_por", columns={"ganado_por"}), @ORM\Index(name="idx_nombres", columns={"nombre"}), @ORM\Index(name="IDX_51E5B69BC0298A8E", columns={"id_iglesia"}), @ORM\Index(name="IDX_51E5B69BB5A3803B", columns={"lugar_id"}), @ORM\Index(name="IDX_51E5B69B8BBE8922", columns={"red_id"})})
  * @ORM\Entity
  */
 class Persona
@@ -187,6 +187,16 @@ class Persona
      * })
      */
     private $idUbicacion;
+
+    /**
+     * @var \Archivo
+     *
+     * @ORM\ManyToOne(targetEntity="Archivo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="foto", referencedColumnName="id")
+     * })
+     */
+    private $foto;
 
 
 
@@ -704,5 +714,28 @@ class Persona
     public function getIdUbicacion()
     {
         return $this->idUbicacion;
+    }
+
+    /**
+     * Set foto
+     *
+     * @param \AE\DataBundle\Entity\Archivo $foto
+     * @return Persona
+     */
+    public function setFoto(\AE\DataBundle\Entity\Archivo $foto = null)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return \AE\DataBundle\Entity\Archivo 
+     */
+    public function getFoto()
+    {
+        return $this->foto;
     }
 }

@@ -1,0 +1,93 @@
+{% extends "::base.html.twig" %}
+
+{% block titulo %}Buzon de clases de célula - {% endblock %}
+
+{% block stylesheets %}
+    <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset('js/jquery-tree/ui-lightness/jquery-ui-1.10.2.custom.css')}}" />
+    <link href="{{asset('css/primitives.latest.css')}}" media="screen" rel="stylesheet" type="text/css" />
+
+{%endblock %}    
+
+{% block content %} 
+    <div class="container-fluid">
+    <div class="content">
+     <div class="row-fluid">
+	<div class="span12">
+            <div id="basicdiagram" style="width: 800px; height: 600px; border-style: dotted; border-width: 1px;"/>
+        </div>
+        </div>
+     </div>
+    </div>
+    </div>
+
+    
+{% endblock %}
+    
+ {%block javascript %}
+    <script type="text/javascript" src="{{asset('js/jquery-tree/jquery-1.9.1.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/jquery-tree/jquery-ui-1.10.2.custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/primitives.min.js')}}"></script>
+
+    <script type='text/javascript'>//<![CDATA[ 
+        
+        var treeItems = {};
+
+        $(window).load(function () {
+            var options = new primitives.orgdiagram.Config();
+
+            var items = [
+                new primitives.orgdiagram.ItemConfig({
+                    id: 0,
+                    parent: null,
+                    itemTitleColor: "#4169e1",
+                    title: "Scott Aasrud",
+                    description: "VP, Public Sector"
+                }),
+                new primitives.orgdiagram.ItemConfig({
+                    id: 1,
+                    parent: 0,
+                    title: "Ted Lucas",
+                    itemTitleColor: "#4b0082",
+                    description: "VP, Human Resources"
+                }),
+                new primitives.orgdiagram.ItemConfig({
+                    id: 2,
+                    parent: 0,
+                    title: "Joao Stuger",
+                    description: "Business Solutions, US"
+                })
+            ];
+
+            /* Create hash table where key = id & value = ItemConfig */
+            for (var index = 0, len = items.length; index < len; index += 1) {
+                treeItems[items[index].id] = items[index];
+            }
+
+            options.items = items;
+            options.cursorItem = 0;
+            options.hasSelectorCheckbox = primitives.common.Enabled.True
+            options.onSelectionChanged = function (e, data) {
+                console.log(data);
+                var selectedItems = $("#basicdiagram").orgDiagram("option", "selectedItems");
+                var message = "";
+                for (var index = 0; index < selectedItems.length; index++) {
+                    var itemId = selectedItems[index];
+                    var itemConfig = treeItems[itemId];
+                    if (message != "") {
+                        message += ", ";
+                    }
+                    message += "<b>'" + itemConfig.title + "'</b>";
+                }
+                jQuery("#message").empty().append("User selected next items: " + message);
+            };
+
+            jQuery("#basicdiagram").orgDiagram(options);
+            
+            $(".bp-selectioncheckbox").css("display","none");
+        });//]]>  
+
+    </script>
+{% endblock %}
