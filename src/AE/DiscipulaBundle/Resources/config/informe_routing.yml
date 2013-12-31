@@ -15,3 +15,9 @@ discipula_informe_aula:
     defaults: {_controller: AEDiscipulaBundle:Informe:informe_aula_all}
     requirements:
         _method: POST
+        
+discipula_informe_asignacion_detalle:
+    pattern: /informe_asignacion_detalle
+    defaults: {_controller: AEDiscipulaBundle:Informe:informe_asignacion_detalle}
+    requirements:
+        _method: POST

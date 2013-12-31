@@ -242,12 +242,12 @@
                     
                     <div class="box">
                         
-                        <div clas="box-head tabs">
+                        <div class="box-head">
                             <h3>Asistencias de asignación</h3>
                             <div class="actions">
 				<ul>                                                       
                                    <li>
-                                        <form id="reporte_form" name="reporte_form" method="POST" action="{{path('discipula_informe_aula')}}">                                          
+                                        <form id="reporte_form" name="reporte_form" method="POST" action="{{path('discipula_informe_asignacion_detalle')}}">                                          
                                             <input type="hidden" id="nombre" name="nombre">
                                             <input type="hidden" id="dia" name="dia">
                                             <input type="hidden" id="inicio" name="inicio">
@@ -257,6 +257,8 @@
                                             <input type="hidden" id="estado" name="estado">
                                             <input type="hidden" id="clases" name="clases">
                                             <input type="hidden" id="requisito" name="requisito">
+                                            <input type="hidden" id="docente" name="docente">
+                                            <input type="hidden" id="id_detalle" name="id_detalle">
                                             
                                             <button type="submit" id='excelbutton' class="btn btn-mini btn-square tip">
                                                  <i class="icon-hdd"></i>
@@ -418,10 +420,21 @@
                     $(nRow).find('.ver_row').click(function(event){
                 
                         root.count++;
-                        
                         if(root.count == 10)
-                            locatio.reload();
-                        event.preventDefault();                        
+                            location.reload();
+                        event.preventDefault(); 
+                        
+                        $("#nombre").val(aData.titulo);
+                        $("#dia").val(aData.dia);
+                        $("#inicio").val(aData.inicio);
+                        $("#fin").val(aData.fin);
+                        $("#hinicio").val(aData.hora_inicio);
+                        $("#hfin").val(aData.hora_fin);
+                        $("#estado").val(aData.estado_nombre);
+                        $("#clases").val(aData.numero_sesiones);
+                        $("#requisito").val(aData.requisito);
+                        $("#id_detalle").val(aData.id_detalle);
+                        $("#docente").val($("#profesor option:selected").text());
                         //resumen de curso
                         
                         url = '{{path('services_table_matriculados_detalle',{'detalle':':dit',

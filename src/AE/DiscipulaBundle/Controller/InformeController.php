@@ -143,4 +143,142 @@ class InformeController extends Controller {
 
         return $response; 
     }
+    
+    private function asignacion_detalle_tabla($detalle, $num_lecciones)
+    {
+        //select * from get_asistencia_detalle(1);
+        
+        $em = $this->getDoctrine()->getManager(); 
+        $sql = "select * from get_asistencia_detalle_discipular(:detalle)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':detalle'=>$detalle));
+        $result = $smt->fetchAll();       
+        
+        $num_total = count($result);        
+        $grupos = $num_total/$num_lecciones;        
+        $resultado = array();
+        
+        //recuperar ofrendas asistencia
+        $sql2 = "select * from get_ofrenda_aplicacion_detalle(:detalle)";
+        $smt2 = $em->getConnection()->prepare($sql2);
+        $smt2->execute(array(':detalle'=>$detalle));
+        $asistencias = $smt2->fetchAll();
+        
+        $fechas = array();
+        $ofrendas = array();
+        
+        $fechas['nro'] = ''; $ofrendas['nro'] = '';
+        $ofrendas['nro'] = '';
+        $fechas['nombres'] = 'Aplicado'; $ofrendas['nombres'] = 'Ofrendas';
+
+        
+        $y = 1;
+        foreach ($asistencias as $value) {
+            
+            $patron = "L".strval($y); 
+            
+            if(strlen($value['aplicacion']) > 0)
+                $fechas[$patron] = $value['aplicacion'];
+            else
+                $fechas[$patron] = "";
+            
+            $ofrendas[$patron] = $value['ofrenda'] ;
+            
+            $y++;
+        }
+        $resultado[] = $fechas;
+        $resultado[] = $ofrendas;
+        
+        for ($i = 0; $i< $grupos; $i++) {
+            
+            $item = array();
+            $item['nro'] = strval($i+1);
+            $item['nombres'] = $result[$i*$num_lecciones]['nombres'];
+            
+            for($j = 0; $j<$num_lecciones; $j++)
+            {
+                $patron = "L".strval($j+1);                
+                $p = "";
+                //asistencia
+                if($result[$j+$i*$num_lecciones]['asistencia'])
+                    $p = "✓";
+               else if($result[$j+$i*$num_lecciones]['aplicacion']!= NULL)
+                   $p = "x ";
+               else $p = " ";
+                //nota                   
+                $p = $p.$result[$j+$i*$num_lecciones]['nota'];                
+                $item[$patron] = $p;                
+            }
+            $resultado[] = $item;
+        }
+        
+        return  $resultado; 
+    }
+    
+    public function informe_asignacion_detalleAction()
+    {
+        getcwd();
+       chdir('report\discipular');
+       $path = getcwd()."\informe_asignacion.xls";
+       
+       $request = $this->get('request');
+       $curso =$request->request->get('nombre');
+       $dia = $request->request->get('dia');
+       $inicio =$request->request->get('inicio');
+       $fin =$request->request->get('fin');
+       $hinicio =$request->request->get('hinicio');
+       $hfin =$request->request->get('hfin');
+       $estado =$request->request->get('estado');
+       $clases =$request->request->get('clases');
+       $requisito =$request->request->get('requisito');
+       $detalle =$request->request->get('id_detalle');
+       $docente =$request->request->get('docente');                
+       
+       
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+
+       
+       $todos = $this->asignacion_detalle_tabla($detalle, $clases);
+       
+       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A12');
+       
+       //creamos los patrones 
+       $y = 1;
+       $fila = array();
+       for ($y = 1; $y <= $clases; $y++) {
+      
+            $patron = "L".strval($y);             
+            $fila[] = $patron;
+        }
+        $phpExcelObject->getActiveSheet()->fromArray(array($fila), NULL, 'C11');
+
+        
+       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->setActiveSheetIndex(0);
+       
+       //agregamos otros datos a la tabla
+       
+       $phpExcelObject->setActiveSheetIndex(0)
+           ->setCellValue('D5', $curso)
+           ->setCellValue('H5', $requisito)
+           ->setCellValue('L5', $docente)
+           ->setCellValue('D7', $dia)
+           ->setCellValue('H7', $hinicio)
+           ->setCellValue('L7', $hfin)
+           ->setCellValue('D9', $estado)
+           ->setCellValue('H9', $inicio)
+           ->setCellValue('L9', $fin);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte_asignacion.xlsx');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response; 
+    }
 }
