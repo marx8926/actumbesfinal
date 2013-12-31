@@ -208,12 +208,14 @@
                                     </a>
                                 </li>
                               {% endif %}  
+                              {% if ( is_granted('ROLE_PROFESOR') ) %}
+
                                 <li>
                                     <a href="{{path('matricula_view')}}">
                                         Matricular
                                     </a>
                                 </li>
-                                
+                                 {% endif %} 
                                   <li>
 						<a href="#" class='light toggle-collapsed'>
 							Informes

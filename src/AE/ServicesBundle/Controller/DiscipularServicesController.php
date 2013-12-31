@@ -167,11 +167,29 @@ class DiscipularServicesController extends Controller {
     
     public function profesor_optionAction()
     {
-        $em = $this->getDoctrine()->getManager(); 
+        $em = $this->getDoctrine()->getManager();
+        $securityContext = $this->get('security.context');
+        
+        $result = array();
+        
+        if( $securityContext->isGranted('ROLE_DISCIPULAR'))
+       {
         $sql = "SELECT * FROM view_get_profesores_all_option";
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute();
-        $result = $smt->fetchAll();       
+        $result = $smt->fetchAll(); 
+       }
+        else
+        {
+            if($securityContext->isGranted('ROLE_PROFESOR'))
+            {
+                $persona = $securityContext->getToken()->getUser()->getIdPersona();
+           
+                $result[] = array("id" => $persona->getId(), "nombre"=>($persona->getNombre()." ".$persona->getApellidos()));
+            }
+        }
+       
+              
         
         $resultado= new JsonResponse($result);      
         return $resultado;

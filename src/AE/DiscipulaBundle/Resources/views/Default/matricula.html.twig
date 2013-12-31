@@ -429,11 +429,12 @@
        
                     {% if is_granted('ROLE_DISCIPULAR')  %}
                         acciones =  acciones_materia("#matricular_modal", "#asistencia_modal", "ver", "#terminar");        
+                    {% else %}
+                        acciones =  acciones_materia("", "#asistencia_modal", "ver", "");        
+
                     {% endif %}
                     MatriculaTable.fnUpdate(acciones, index, 10);
                     $(nRow).find('a').tooltip('hide');
-            
-           
             
                     $(nRow).find('.matricula_row').click(function(event){
                 
@@ -527,6 +528,7 @@
                 {
                     url = "{{path('services_table_matriculados_detalle_pca',{'detalle':':dit'})}}";
                     url = url.replace(':dit',$("#asistencia_id").val());
+                    console.log(url);
                     
                     if(MatriculadosTable == null)
                     {
@@ -617,14 +619,9 @@
             {
                 url = "{{path('services_estudiante_activo_red_table',{'red':'net'})}}";
                 url = url.replace('net', red);
-                
-                
-                estudiantes = getAjaxObject(url);                  
-                    
+                estudiantes = getAjaxObject(url);                                      
                 cargarSelect(estudiantes['aaData'],"estudiantes","id","nombres");
-                
-                
-            
+
             }
         };
       

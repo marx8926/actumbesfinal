@@ -72,7 +72,7 @@ security:
         - { path: ^/discipula/curso_view , roles: ROLE_DISCIPULAR}
         - { path: ^/discipula/docente_view , roles: ROLE_DISCIPULAR}
         - { path: ^/discipula/asignacion_view , roles: ROLE_DISCIPULAR}
-        - { path: ^/discipula/matricula_view , roles: ROLE_DISCIPULAR}
+        - { path: ^/discipula/matricula_view , roles: ROLE_PROFESOR}
         - { path: /discipula/*, roles: ROLE_USER}
         - { path: /envia/* , roles: ROLE_USER}
         - { path: /secretaria/* , roles: ROLE_USER}

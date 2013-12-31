@@ -4,13 +4,11 @@ services_miembros_nodocente_autocomplete_red:
     requirements:
         _method: GET
         
-        
 services_persona_noestudiante_autocomplete_red:
     pattern: /persona_noestudiante_autocomplete_red/{red}
     defaults: {_controller: AEServicesBundle:DiscipularServices:persona_noestudiante_autocomplete_red}
     requirements:
         _method: GET
-        
 
 services_cursos_option_all:
     pattern: /cursos_option_all
@@ -36,7 +34,6 @@ services_estudiante_red_table:
     requirements:
         _method: GET
         
-        
 services_estudiante_activo_red_table:
     pattern: /estudiante_activo_red/{red}
     defaults: {_controller: AEServicesBundle:DiscipularServices:estudiante_activo_red_table}
@@ -60,8 +57,7 @@ services_curso_option:
     pattern: /curso_option
     defaults: {_controller: AEServicesBundle:DiscipularServices:curso_option}
     requirements:
-        _method: GET
-        
+        _method: GET        
 #aula activa
 
 services_aula_option:
@@ -85,8 +81,7 @@ services_detalle_pca_all_tabla:
 services_matriculados_detalle:
     pattern: /matriculados_detalle/{detalle}
     defaults: {_controller: AEServicesBundle:DiscipularServices:matriculados_detalle}
-    
-    
+  
 services_table_matriculados_detalle:
     pattern: /table_matriculados_detalle/{detalle}/{num_lecciones}
     defaults: {_controller: AEServicesBundle:DiscipularServices:table_matriculados_detalle}
