@@ -121,7 +121,7 @@ class MatriculaController extends Controller {
             $em->clear();
             $return=array("responseCode"=>400, "greeting"=>"Ok");
         }
-        
+        $em->clear();
         return new JsonResponse($return);
         
     }
@@ -167,8 +167,8 @@ class MatriculaController extends Controller {
                 //actualizar detalle pca
                 $detalle = $em->getRepository('AEDataBundle:DetallePca')->find($id);
                 //$detalle = new \AE\DataBundle\Entity\DetallePca();
-                $detalle->setFechaFin(new \DateTime($fecha));
-                $detalle->setEstado(3);
+                //$detalle->setFechaFin(new \DateTime($fecha));
+                $detalle->setEstado(2);
                 $em->persist($detalle);
                 $em->flush();
             }
@@ -201,8 +201,56 @@ class MatriculaController extends Controller {
             $em->clear();
             $return=array("responseCode"=>400, "greeting"=>"Ok");
         }
-        
+        $em->clear();
         return new JsonResponse($return);
         
     }
+
+    public function terminarAction()
+    {
+         $request = $this->get('request');
+        $datos = $request->request->get('formulario'); 
+        $tabla = $request->request->get('terminados');
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->beginTransaction();
+        
+        try{
+       
+            $id = $datos['terminar_id'];
+           
+         
+            //si es la asistencia de la última lección
+           
+                //actualizar detalle pca
+             $detalle = $em->getRepository('AEDataBundle:DetallePca')->find($id);
+                //$detalle = new \AE\DataBundle\Entity\DetallePca();
+             $detalle->setEstado(3);
+             $em->persist($detalle);
+             $em->flush();
+            
+            foreach ($tabla as $item) {
+                
+                if($item['asistencia_val']== TRUE)
+                {
+                     $sql2 = "UPDATE matricula SET  aprobado= true WHERE  id =:idx";
+                    $smt2 = $em->getConnection()->prepare($sql2);
+                    $smt2->execute(array(':idx'=>$item['id_det']));
+                }
+              
+                
+            }
+            $em->commit();
+            
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+        } catch (Exception $ex) {
+            $em->rollback();
+            $em->close();
+            $em->clear();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        $em->clear();
+        return new JsonResponse($return);
+    }
+    
 }

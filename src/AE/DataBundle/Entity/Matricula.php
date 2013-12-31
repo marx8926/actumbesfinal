@@ -44,6 +44,13 @@ class Matricula
     private $estado = 'true';
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="aprobado", type="boolean", nullable=true)
+     */
+    private $aprobado = 'false';
+
+    /**
      * @var \Persona
      *
      * @ORM\ManyToOne(targetEntity="Persona")
@@ -142,6 +149,29 @@ class Matricula
     public function getEstado()
     {
         return $this->estado;
+    }
+
+    /**
+     * Set aprobado
+     *
+     * @param boolean $aprobado
+     * @return Matricula
+     */
+    public function setAprobado($aprobado)
+    {
+        $this->aprobado = $aprobado;
+
+        return $this;
+    }
+
+    /**
+     * Get aprobado
+     *
+     * @return boolean 
+     */
+    public function getAprobado()
+    {
+        return $this->aprobado;
     }
 
     /**

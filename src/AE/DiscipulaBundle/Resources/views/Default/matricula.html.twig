@@ -82,7 +82,7 @@
 
                         <div class="box-content box-nomargin">                            
                             
-                            <div class="modal hide" id="matricular_modal">                            
+                            <div class="modal hide" id="matricular_modal" style="width:auto;">                            
                                 <form id="form_matricular" name="form_matricular" >                                
                                     <input type="hidden" id="matricular_id" name="matricular_id">
                                     <div class="modal-header">
@@ -115,7 +115,7 @@
                                             <div class="control-group span2">
                                                 <label class="control-label">Estudiantes</label>
                                                 <div class="controls" style="margin-right: 20px;">
-                                                    <select id="estudiantes" name="estudiantes" class="input-medium" multiple="true">
+                                                    <select id="estudiantes" name="estudiantes" class="input-medium" multiple="true" size="10">
                                                         
                                                     </select>
                                                 </div>
@@ -130,7 +130,7 @@
                                             <div class="control-group span2">
                                                 <label class="control-label">Matricular</label>
                                                 <div class="controls">
-                                                    <select id="matricular" name="matricular" class="input-medium" multiple="true">
+                                                    <select id="matricular" name="matricular" class="input-medium" multiple="true" size="10">
                                                         
                                                     </select>
                                                 </div>
@@ -208,6 +208,42 @@
                                                              
                                         <a href="#" class="btn" data-dismiss="modal">Descartar</a>
                                         <input type="button" value="Guardar cambios" id="guardar_asistencia" name="guardar_asistencia" class="btn btn-primary" data-dismiss="modal" >
+                                    </div>
+                                </form>
+                            </div>
+  
+                            <div class="modal hide" id="terminar">                            
+                                <form id="form_terminar" name="form_terminar" >                                
+                                    <input type="hidden" id="terminar_id" name="terminar_id">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                        <h3>Confirmación</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p id="posible_descarte"></p>
+                                   
+                                        <div class="box">
+                                            
+                                            <div class="box-content box-nomargin" >
+                                                
+                                                <table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left"  id="tabla_terminar" name="tabla_terminar">
+                                                    <thead id='lol'>
+                                                        <tr>
+                                                            <th>Nombres</th>
+                                                            <th>Red</th>
+                                                            <th>Aprobo</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+               
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                                             
+                                        <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                        <input type="button" value="Guardar cambios" id="guardar_terminar" name="guardar_terminar" class="btn btn-primary" data-dismiss="modal" >
                                     </div>
                                 </form>
                             </div>
@@ -324,18 +360,18 @@
                 root.count_enroll = 0;
                 root.matriculados = null;
                 root.asistencia = true;
+                root.terminar = true;
+                root.estado = 0;
                 personas = null;
                 
                 
-                var MatriculaTable;
-                var EstudiantesTable;
-                var MatriculadosTable;
-                
+                var MatriculaTable = null;
+                var EstudiantesTable = null;
+                var MatriculadosTable = null;
+                var TerminadoTable = null;
                 
                 urlES = "{{asset('js/dt_ES.txt')}}";
             
-                
-               
                 function cargar_matriculados()
                 {
                     //cargar matriculados
@@ -347,8 +383,7 @@
                         cargarSelect(matriculados,"matricular","id","nombres");
                         root.matriculados = matriculados;
                 }
-                
-               
+
                  MatriculadosRowCB = function(nRow, aData, iDisplayIndex) {
                      var acciones, index;
                      
@@ -372,12 +407,28 @@
                     });
                     
                  };
+                 
+                  TerminadoRowCB = function(nRow, aData, iDisplayIndex) {
+                     var acciones, index;
+                     
+                     index = $(TerminadoTable.fnGetData()).getIndexObj(aData, 'id_det');
+                     acciones = check();
+                     TerminadoTable.fnUpdate("<input type=\"checkbox\" id=\"termino\" name=\"termino\" value=\"si\" >", index, 2);
+                     
+                     $(nRow).find('input[type=checkbox]').change(function(){
+                        if($(this).prop("checked"))
+                           aData.asistencia_val = true;
+                        else
+                           aData.asistencia_val = false;
+                    });
+                 };
+                 
                  MatriculaRowCB = function(nRow, aData, iDisplayIndex) {
                     var acciones, index;
                     index = $(MatriculaTable.fnGetData()).getIndexObj(aData, 'id_detalle');
        
                     {% if is_granted('ROLE_DISCIPULAR')  %}
-                        acciones =  acciones_materia("#matricular_modal", "#asistencia_modal", "ver", "terminar");        
+                        acciones =  acciones_materia("#matricular_modal", "#asistencia_modal", "ver", "#terminar");        
                     {% endif %}
                     MatriculaTable.fnUpdate(acciones, index, 10);
                     $(nRow).find('a').tooltip('hide');
@@ -411,11 +462,25 @@
                             alert('Curso finalizado');
                         else
                         {
-                            cargarSelect(lecciones,"leccion","id","sesion");
-                       
+                            cargarSelect(lecciones,"leccion","id","sesion");                       
                             cargar_matriculados_asistencia();
                         }
                     });
+                    
+                    $(nRow).find('.terminar_row').click(function(event){                
+                        event.preventDefault();                        
+                        $("#terminar_id").val(aData.id_detalle); 
+                        
+                        root.estado = aData.estado;
+                        
+                        if(aData.estado != 3)
+                          cargar_matriculados_terminar();
+                        else
+                        {
+                            if(TerminadoTable != null)
+                                TerminadoTable.fnClearTable();
+                        }
+                });
                     
                     $(nRow).find('.ver_row').click(function(event){
                 
@@ -463,15 +528,28 @@
                     url = "{{path('services_table_matriculados_detalle_pca',{'detalle':':dit'})}}";
                     url = url.replace(':dit',$("#asistencia_id").val());
                     
-                    if(root.asistencia)
+                    if(MatriculadosTable == null)
                     {
-                        root.asistencia = false;
-                        
+                        root.asistencia = false;                        
                         MatriculadosTable = createDataTable("tabla_asistencia", url , FormatoEMTable, null, MatriculadosRowCB);
-
                     }
                     else{
                         MatriculadosTable.fnReloadAjax(url);
+                    }                    
+                }
+                
+                function cargar_matriculados_terminar()
+                {
+                    url = "{{path('services_table_matriculados_detalle_pca',{'detalle':':dit'})}}";
+                    url = url.replace(':dit',$("#terminar_id").val());
+                    
+                    if(TerminadoTable == null)
+                    {
+                        root.terminar = false;                        
+                        TerminadoTable = createDataTable("tabla_terminar", url , FormatoTTable, null, TerminadoRowCB);
+                    }
+                    else{
+                        TerminadoTable.fnReloadAjax(url);
                     }
                     
                 }
@@ -517,7 +595,6 @@
             if(root.count == 0)
             {
                 MatriculaTable = createDataTable("tabla_asignado", url , FormatoMatriculaTable, null, MatriculaRowCB);
-
             }
             else
             {
@@ -526,7 +603,7 @@
             
             $('#vista_curso').empty();
             if(MatriculadosTable != null)
-                MatriculadosTable.fnDestroy();
+                MatriculadosTable.fnClearTable();
             $("#curso_asignado_tabla").empty();
             $("#curso_asignado_tabla").html('<table cellpadding="0" cellspacing="0" border="0" class="data-table table table-condensed table-striped table-hover table-bordered pull-left" id="vista_curso"></table>');
 
@@ -579,9 +656,7 @@
             });
        
              $("#guardar_matricular").click(function(event){
-             
-                console.log($("#form_matricular").serializeObject());
-                console.log(root);
+                 event.preventDefault();
                 datos ={
                     'formulario': $("#form_matricular").serializeObject(),
                     'matriculados': root.matriculados 
@@ -601,6 +676,19 @@
                 
                 enviar('{{path('matricula_asistencia')}}', datos , SuccessFunction, null);
                 
+            });
+            
+            $("#guardar_terminar").click(function(event){
+                 event.preventDefault();
+                 if(root.estado != 3 )
+                 {
+                    datos ={
+                        'formulario': $("#form_terminar").serializeObject(),
+                        'terminados': TerminadoTable.fnGetData() 
+                    };
+                
+                    enviar('{{path('matricula_terminar')}}', datos , SuccessFunction, null);
+                }
             });
             
         } );

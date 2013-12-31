@@ -63,7 +63,7 @@ function acciones_materia(matricula, asistencia, ver, terminar)
     actions += '<a class="matricula_row  actions-icons" data-original-title="Matricular" data-toggle="modal" href="'+matricula+'"><img alt="edit" class="icons" src="http://d19k46zntalu3t.cloudfront.net/img/save.png"></a>';
     actions += '<a class="asistencia_row  actions-icons" data-original-title="Asistencia" data-toggle="modal" href="'+asistencia+'"><img alt="trash" src="http://d19k46zntalu3t.cloudfront.net/img/select2.png"></a>';
     actions += '<a class="ver_row  actions-icons" data-original-title="Ver" href="'+ver+'"><img alt="trash" src="http://d19k46zntalu3t.cloudfront.net/img/view.png"></a>';
-    actions += '<a class="terminar_row  actions-icons" data-original-title="Terminar" href="'+terminar+'"><img alt="trash" src="http://d19k46zntalu3t.cloudfront.net/img/star-off.png"></a>';
+    actions += '<a class="terminar_row  actions-icons" data-original-title="Terminar" data-toggle="modal" href="'+terminar+'"><img alt="trash" src="http://d19k46zntalu3t.cloudfront.net/img/star-off.png"></a>';
 
 
 

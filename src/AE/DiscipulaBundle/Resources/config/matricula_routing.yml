@@ -22,3 +22,9 @@ matricula_asistencia:
     defaults: { _controller: AEDiscipulaBundle:Matricula:asistencia }
     requirements:
         _method: POST
+        
+matricula_terminar:
+    pattern:  /matricula_terminar
+    defaults: { _controller: AEDiscipulaBundle:Matricula:terminar }
+    requirements:
+        _method: POST

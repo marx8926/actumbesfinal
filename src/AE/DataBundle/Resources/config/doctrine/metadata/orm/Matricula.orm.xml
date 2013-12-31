@@ -11,6 +11,7 @@
     <field name="fechaInicio" type="date" column="fecha_inicio" nullable="true"/>
     <field name="fechaFin" type="date" column="fecha_fin" nullable="true"/>
     <field name="estado" type="boolean" column="estado" nullable="true"/>
+    <field name="aprobado" type="boolean" column="aprobado" nullable="true"/>
     <many-to-one field="detallePca" target-entity="DetallePca">
       <join-columns>
         <join-column name="detalle_pca" referenced-column-name="id"/>

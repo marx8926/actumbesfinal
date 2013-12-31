@@ -29,7 +29,14 @@
                     },{
                         "mDataProp": "nota"
                     }];
-                
+                 FormatoTTable = [
+                    {
+                        "mDataProp": "nombres"
+                    },{
+                        "mDataProp": "red"
+                    },{
+                        "mDataProp": "asistencia"
+                    }];
                 FormatoMatriculaTable = [
                 {                
                     "mDataProp": "abreviatura"
