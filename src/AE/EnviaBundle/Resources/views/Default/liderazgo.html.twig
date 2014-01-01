@@ -160,10 +160,10 @@ margin-left: 0px;
                             </div>
                             <div class="modal-body">
                                 <p id="posible_eliminar"></p>
-                                <div class="form-horizontal" id="eliminar_cuerpo" name="eliminar_cuerpo" style="display:none;">
+                                <div class="form-horizontal" id="eliminar_cuerpo" name="eliminar_cuerpo" style="display:none;" >
                                     
                                      <div class="control-group" >                                            
-                                            <label class="control-label"></label>
+                                            <label class="control-label">Lider a reemplazar</label>
                                             <div class="controls">
                                                 
                                                 <select id="lideres_asignados" name="lideres_asignados" required >
@@ -180,51 +180,34 @@ margin-left: 0px;
 			     </div>
                             </form> 
                         </div>
-                        
-    
-                       
-                         <div class="modal hide" id="modal_subir">
-                            <form id="form_subir" name="form_subir" method="POST" class="form-horizontal">
-                            <input type="hidden" id="subir_id" name="subir_id">
+                     
+                         <div class="modal hide" id="modal_cambiar">
+                            <form id="form_cambiar" name="form_cambiar" method="POST" class="form-horizontal">
+                            <input type="hidden" id="cambiar_id" name="cambiar_id">
+                            <input type="hidden" id="tipo_cambiar" name="tipo_cambiar">
+
                             <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				 <h3>Confirmación</h3>
                             </div>
                             <div class="modal-body">
-                                <p id="posible_subir"></p>
-                                <div class="form-horizontal">
+                                <p id="posible_cambiar"></p>
+                                <div class="form-horizontal" id="cambiar_cuerpo" name="cambiar_cuerpo" style="display:none;">
                                     
-                                  
+                                  <div class="control-group" >                                            
+                                            <label class="control-label">Nuevo Lider</label>
+                                            <div class="controls">                                                
+                                                <select id="lideres_cambiar" name="lideres_cambiar" required >
+                                                    
+                                                </select>
+                                            </div>                                          
+                                    </div>
                                 </div>
                               </div>
 			    <div class="modal-footer">
                                                              
                                 <a href="#" class="btn" data-dismiss="modal">Descartar</a>
-                                <input type="button" value="Guardar cambios" id="guardarcambios_subir" name="guardarcambios_subir" class="btn btn-primary" data-dismiss="modal" >
-			     </div>
-                            </form> 
-                        </div>
-                        
-    
-                       
-                         <div class="modal hide" id="modal_cambiar_lider">
-                            <form id="form_cambiar_lider" name="form_cambiar_lider" method="POST" class="form-horizontal">
-                            <input type="hidden" id="cambiar_lider_id" name="cambiar_lider_id">
-                            <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				 <h3>Confirmación</h3>
-                            </div>
-                            <div class="modal-body">
-                                <p id="posible_cambiar_lider"></p>
-                                <div class="form-horizontal">
-                                    
-                                  
-                                </div>
-                              </div>
-			    <div class="modal-footer">
-                                                             
-                                <a href="#" class="btn" data-dismiss="modal">Descartar</a>
-                                <input type="button" value="Guardar cambios" id="guardarcambios_cambiar_lider" name="guardarcambios_cambiar_lider" class="btn btn-primary" data-dismiss="modal" >
+                                <input type="button" value="Guardar cambios" id="guardarcambios_cambiar" name="guardarcambios_cambiar" class="btn btn-primary" data-dismiss="modal" >
 			     </div>
                             </form> 
                         </div>
@@ -290,7 +273,7 @@ margin-left: 0px;
 
             bootStrapVerticalButtonsGroup.append('<p><a href="#modal_agregar" data-toggle="modal" class=" add btn2 btn-small2" data-original-title="Show details" data-buttonname="add" ><i class="icon-user"></i></a></p>');
             bootStrapVerticalButtonsGroup.append('<p><a href="#modal_eliminar" data-toggle="modal"  class=" delete btn2 btn-small2" data-original-title="Show details" data-buttonname="eliminar" type="button"><i class="icon-remove"></i></a></p>');
-            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_cambiar_lider" data-toggle="modal" class=" change btn2 btn-small2" data-buttonname="cambiar_lider" type="button"><i class="icon-magnet"></i></a></p>');
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_cambiar" data-toggle="modal" class=" change btn2 btn-small2" data-buttonname="cambiar_lider" type="button"><i class="icon-magnet"></i></a></p>');
 
             cursorTemplate.append(bootStrapVerticalButtonsGroup);
 
@@ -323,8 +306,6 @@ margin-left: 0px;
             else if(target.hasClass("delete") || target.parent(".delete").length > 0 )
             {
                 $("#eliminar_id").val(data.context.id);
-                
-                console.log(data);
 
                 if( (n = data.context.description.search('144')) != -1)
                 {
@@ -341,10 +322,10 @@ margin-left: 0px;
                     $("#posible_eliminar").text("Desee eliminar al lider "+data.context.title+"?");
                     lideres = getAjaxObject(servicio);                 
                     cargarSelect(lideres, "lideres_asignados", "id", "title");
-            }    
-                else if((n = data.context.description.search('20376')) != -1)
+              }    
+                else if((n = data.context.description.search('20736')) != -1)
                 {                
-                    $("#tipo_eliminar").val(20376);
+                    $("#tipo_eliminar").val(20736);
                    $("#eliminar_cuerpo").css({"display":"none"});
                     $("#posible_eliminar").text("Desee eliminar al lider "+data.context.title+"?");
                 }
@@ -354,12 +335,38 @@ margin-left: 0px;
 
                     $("#posible_eliminar").text("No se puede eliminar a un lider de red");
                 }
-            
+            }
             else if(target.hasClass("change") || target.parent(".change").length > 0 )
             {
-                console.log('change');
+                $("#cambiar_id").val(data.context.id);
+                if( (n = data.context.description.search('144')) != -1)
+                {
+                    $("#tipo_cambiar").val(144);
+                    $("#posible_cambiar").text("No se puede cambiar a un lider de red");
+                }
+                else if((n = data.context.description.search('1728')) != -1)
+                {
+                    $("#tipo_cambiar").val(1728);
+                   $("#cambiar_cuerpo").css({"display":"block"});
+                    $("#posible_cambiar").text("Desee cambiar de lider "+data.context.title+"?");
+                    lideres = getAjaxObject(servicio);                 
+                    cargarSelect(lideres, "lideres_cambiar", "id", "title");
+              }    
+                else if((n = data.context.description.search('20736')) != -1)
+                {                
+                    $("#tipo_cambiar").val(20736);
+                   $("#cambiar_cuerpo").css({"display":"block"});
+                    $("#posible_cambiar").text("Desee cambiar de lider "+data.context.title+"?");
+                    lideres = getAjaxObject(servicio);                 
+                    cargarSelect(lideres, "lideres_cambiar", "id", "title");
+                }
+                else if((n = data.context.description.search('12')) != -1)
+                {
+                    $("#tipo_cambiar").val(12);
+                    $("#posible_cambiar").text("No se puede cambiar a un lider de red");
+                } 
             }
-        }
+        
     }
     
         function parse_items($lideres)
@@ -489,7 +496,7 @@ margin-left: 0px;
                    {
                       enviar('{{path('eliminar_lider_save')}}', { "formulario": $("#form_eliminar").serializeObject() }, SuccessEFunction, null);
                    }
-                   else if(tipo==20376)
+                   else if(tipo==20736)
                    {
                         enviar('{{path('eliminar_lider_save')}}', { "formulario": $("#form_eliminar").serializeObject() }, SuccessEFunction, null);
 
@@ -497,7 +504,33 @@ margin-left: 0px;
                }
                else
                {
-                   $("#eliminar_cuerpo").css("display","none");
+                   $("#eliminar_cuerpo").css({"display":"none"});
+               }
+           });
+           
+           
+            $("#guardarcambios_cambiar").click(function(event){
+               event.preventDefault();
+               console.log($("#form_cambiar").serializeObject());
+               if((tipo=$("#tipo_cambiar").val()) != '12')
+               {
+                    if(tipo==1728)
+                   {
+                      $("#cambiar_cuerpo").css({"display":"block"});
+
+                      enviar('{{path('cambiar_lider_save')}}', { "formulario": $("#form_cambiar").serializeObject() }, SuccessEFunction, null);
+                   }
+                   else if(tipo==20736)
+                   {
+                        $("#cambiar_cuerpo").css({"display":"block"});
+
+                        enviar('{{path('cambiar_lider_save')}}', { "formulario": $("#form_cambiar").serializeObject() }, SuccessEFunction, null);
+
+                   }
+               }
+               else
+               {
+                   $("#cambiar_cuerpo").css({"display":"none"});
                }
            });
        });

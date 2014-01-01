@@ -16,3 +16,9 @@ eliminar_lider_save:
     requirements:
         _method: POST
         
+        
+cambiar_lider_save:
+    pattern:  /cambiar_lider_save
+    defaults: { _controller: AEEnviaBundle:Liderazgo:cambiar_lider_save }
+    requirements:
+        _method: POST

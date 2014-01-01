@@ -153,7 +153,7 @@ class LiderazgoController extends Controller {
         $repo_lider = $em->getRepository('AEDataBundle:Lider');
         $padre = $repo_lider->find($reemplazo);
         
-        if($tipo == 144 && ($padre->getIntLider1728()==1 || $padre->getIntLider20736()))
+        if($tipo == 144 && ($padre->getIntLider1728()==1 || $padre->getIntLider20736()== 1))
         {
             $return=array("responseCode"=>300, "mensaje"=>"Operación no permitida");
             $em->clear();
@@ -230,5 +230,90 @@ class LiderazgoController extends Controller {
         $em->clear();
         
         return new JsonResponse($return);
+    }
+
+    
+    public function cambiar_lider_saveAction()
+    {
+          $request = $this->get('request');
+        $datos =$request->request->get('formulario');
+        $id = $datos['cambiar_id'];
+        $reemplazo = $datos['lideres_cambiar'];
+        $tipo = intval($datos['tipo_cambiar']);
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $repo_lider = $em->getRepository('AEDataBundle:Lider');
+        $padre = $repo_lider->find($reemplazo);
+        
+        if($tipo == 144 && ($padre->getIntLider1728()==1 || $padre->getIntLider20736()==1))
+        {
+            $return=array("responseCode"=>300, "mensaje"=>"Operación no permitida");
+            $em->clear();
+            return new JsonResponse($return);
+        }
+        elseif ($tipo == 1728 && ( $padre->getIntLider20736()==1)) {
+            $return=array("responseCode"=>300, "mensaje"=>"Operación no permitida");
+            $em->clear();
+            return new JsonResponse($return);
+        }
+        elseif ($tipo == 20736 && ( $padre->getIntLider20736()==1)) {
+            $return=array("responseCode"=>300, "mensaje"=>"Operación no permitida");
+            $em->clear();
+            return new JsonResponse($return);
+        }
+        $em->beginTransaction();
+        try {
+            
+            if($tipo == 20376)
+            {
+                $lider = $repo_lider->find($id);
+                $lider->setDependencia($reemplazo);
+                
+                if($padre->getIntLider12()==1)
+                {
+                    $lider->setIntLider144(1); $lider->setIntLider1728(0); $lider->setIntLider20736(0);
+                }
+                elseif ($padre->getIntLider144()==1) {
+                    $lider->setIntLider144(0); $lider->setIntLider1728(1); $lider->setIntLider20736(0);
+                }
+                elseif ($padre->getIntLider1728()==1) {
+                    $lider->setIntLider144(0); $lider->setIntLider1728(0); $lider->setIntLider20736(1);
+                }
+                $em->persist($lider);
+                $em->flush();
+            }
+            elseif ($tipo == 1728) {
+            
+                $lider = $repo_lider->find($id);
+                $lider->setDependencia($reemplazo);
+                $lider->setIntLider144(1); $lider->setIntLider1728(0); $lider->setIntLider20736(0);
+
+               
+                
+                $sql = "select update_lideres_dependencia(:cien, :mil, :veinte,:depen,:nuevo)";
+                if($padre->getIntLider12()==1)
+                {
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute(array(':cien'=>0,':mil'=>1,':veinte'=>0,':depen'=>$id,':nuevo'=>$id));
+                }
+                 $em->persist($lider);
+                $em->flush();
+            }
+           
+            $em->commit();
+      
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+
+        
+         } catch (Exception $exc) {
+             $em->rollback();
+            echo $exc->getTraceAsString();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        $em->clear();
+        
+        return new JsonResponse($return);
+        
     }
 }
