@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block titulo %}Buzon de clases de célula - {% endblock %}
+{% block titulo %}Liderazgo- {% endblock %}
 
 {% block stylesheets %}
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
@@ -8,12 +8,104 @@
     <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{asset('js/jquery-tree/ui-lightness/jquery-ui-1.10.2.custom.css')}}" />
     <link href="{{asset('css/primitives.latest.css')}}" media="screen" rel="stylesheet" type="text/css" />
-
+    <style type="text/css">
+           #form_busqueda {
+            margin-top: 15px;
+            padding: 0px;
+            }
+            
+            .btn-small2 {
+                font-size: 11px;
+                line-height: 16px;
+            }
+            p {
+margin: 0 0 1px;
+margin-top: 0px;
+margin-right: 0px;
+margin-bottom: 1px;
+margin-left: 0px;
+}
+            .btn2 {
+  display: inline-block;
+  *display: inline;
+  padding: 2px 10px 2px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 13px;
+  line-height: 18px;
+  *line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+    </style>
 {%endblock %}    
 
 {% block content %} 
     <div class="container-fluid">
     <div class="content">
+            <div class="row-fluid">
+	<div class="span12">
+
+            <div class="box">
+                
+		<div class="box-head tabs">
+                    <h3>Filtro de busqueda </h3>
+                </div>
+       
+
+                <div class="box-content box-nomargin">
+        
+        <form id="form_busqueda" name="form_busqueda" method="POST" class="form-horizontal" >
+         <div class="control-group span3">
+             <label class="control-label" style="width:auto; margin-left: 40px;" >Red</label>
+            <div class="controls" style="margin-left: 90px;">
+                <select id="red_lista" name="red_lista" class="rango input-small" >
+                   
+                </select>
+            </div>
+        </div>
+
+         <div class="control-group span3">
+            
+            <div class="controls"  style="width:auto; margin-left: -10px; " >
+                <input type="button" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
+            </div>
+        </div>
+        </form>
+        
+ 
+                </div>
+            </div>
+        
+	
+     </div>
+    </div>
      <div class="row-fluid">
 	<div class="span12">
             <div id="basicdiagram" style="width: 800px; height: 600px; border-style: dotted; border-width: 1px;"/>
@@ -23,71 +115,199 @@
     </div>
     </div>
 
+                       
+                         <div class="modal hide" id="modal_sinconsolidar">
+                            <form id="form_consolidado" name="form_consolidado" method="POST" class="form-horizontal">
+                            <input type="hidden" id="persona_id" name="persona_id">
+                            <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				 <h3>Confirmación</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p id="posible_consolidado"></p>
+                                <div class="form-horizontal">
+                                    
+                                    <div class="control-group" >
+                                        <label class="control-label">Consolidadores</label>
+                                        <div class="controls" >
+                                            <select id="consolidadores" name="consolidadores">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="control-group">
+                                        <label class="control-label">Fecha de inicio</label>
+                                        <div class="controls">
+                                            <input type="text" id="inicio" name="inicio" class="datepick input-small" >
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="control-group">
+                                        <label class="control-label">Leche Espiritual</label>
+                                        <div class="controls">
+                                            <select id="leche" name="leche">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+			    <div class="modal-footer">
+                                                             
+                                <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                <input type="button" value="Guardar cambios" id="guardarcambios" name="guardarcambios" class="btn btn-primary" data-dismiss="modal" >
+			     </div>
+                            </form> 
+                        </div>
+                        
     
 {% endblock %}
     
  {%block javascript %}
+    
     <script type="text/javascript" src="{{asset('js/jquery-tree/jquery-1.9.1.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/jquery-tree/jquery-ui-1.10.2.custom.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/primitives.min.js')}}"></script>
-
+       <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
+            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
+            <script type="text/javascript" src="{{asset('js/custom_liderazgo.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/util/functiongen.js')}}"> </script>
     <script type='text/javascript'>//<![CDATA[ 
         
         var treeItems = {};
+        var options = null;
+        var buttons = [];
+        var arbol = null;
+        buttons.push(new primitives.orgdiagram.ButtonConfig("add", "ui-icon-person", "Añadir"));
+        buttons.push(new primitives.orgdiagram.ButtonConfig("cambiar_red", "ui-icon-flag", "Cambiar Red"));
+        buttons.push(new primitives.orgdiagram.ButtonConfig("eliminar", "ui-icon-close", "Eliminar"));
+        buttons.push(new primitives.orgdiagram.ButtonConfig("subir", "ui-icon-circle-triangle-n", "Subir Nivel"));
+        buttons.push(new primitives.orgdiagram.ButtonConfig("cambiar_lider", "ui-icon-pin-s", "Cambiar Lider"));
+
 
         $(window).load(function () {
-            var options = new primitives.orgdiagram.Config();
-
-            var items = [
-                new primitives.orgdiagram.ItemConfig({
-                    id: 0,
-                    parent: null,
-                    itemTitleColor: "#4169e1",
-                    title: "Scott Aasrud",
-                    description: "VP, Public Sector"
-                }),
-                new primitives.orgdiagram.ItemConfig({
-                    id: 1,
-                    parent: 0,
-                    title: "Ted Lucas",
-                    itemTitleColor: "#4b0082",
-                    description: "VP, Human Resources"
-                }),
-                new primitives.orgdiagram.ItemConfig({
-                    id: 2,
-                    parent: 0,
-                    title: "Joao Stuger",
-                    description: "Business Solutions, US"
-                })
-            ];
-
-            /* Create hash table where key = id & value = ItemConfig */
-            for (var index = 0, len = items.length; index < len; index += 1) {
-                treeItems[items[index].id] = items[index];
-            }
-
-            options.items = items;
-            options.cursorItem = 0;
-            options.hasSelectorCheckbox = primitives.common.Enabled.True
-            options.onSelectionChanged = function (e, data) {
-                console.log(data);
-                var selectedItems = $("#basicdiagram").orgDiagram("option", "selectedItems");
-                var message = "";
-                for (var index = 0; index < selectedItems.length; index++) {
-                    var itemId = selectedItems[index];
-                    var itemConfig = treeItems[itemId];
-                    if (message != "") {
-                        message += ", ";
-                    }
-                    message += "<b>'" + itemConfig.title + "'</b>";
-                }
-                jQuery("#message").empty().append("User selected next items: " + message);
-            };
-
-            jQuery("#basicdiagram").orgDiagram(options);
+          
             
-            $(".bp-selectioncheckbox").css("display","none");
         });//]]>  
+        
+        
+        
+        function getCursorTemplate() {
+            var result = new primitives.orgdiagram.TemplateConfig();
+            result.name = "CursorTemplate";
+
+            result.itemSize = new primitives.common.Size(120, 100);
+            result.minimizedItemSize = new primitives.common.Size(3, 3);
+            result.highlightPadding = new primitives.common.Thickness(2, 2, 2, 2);
+            result.cursorPadding = new primitives.common.Thickness(3, 3, 50, 8);
+
+            var cursorTemplate = jQuery("<div></div>")
+            .css({
+                position: "absolute",
+                overflow: "hidden",
+                width: (result.itemSize.width + result.cursorPadding.left + result.cursorPadding.right) + "px",
+                height: (result.itemSize.height + result.cursorPadding.top + result.cursorPadding.bottom) + "px"
+            });
+
+            var cursorBorder = jQuery("<div></div>")
+            .css({
+                width: (result.itemSize.width + result.cursorPadding.left + 4) + "px",
+                height: (result.itemSize.height + result.cursorPadding.top + 14) + "px"
+            }).addClass("bp-item bp-corner-all bp-cursor-frame");
+            cursorTemplate.append(cursorBorder);
+
+            var bootStrapVerticalButtonsGroup = jQuery("<div></div>")
+            .css({
+                position: "absolute",
+                overflow: "hidden",
+                top: result.cursorPadding.top + "px",
+                left: (result.itemSize.width + result.cursorPadding.left + 10) + "px",
+                width: "35px",
+                height: (result.itemSize.height + 1) + "px"
+            }).addClass("btn-group btn-group-vertical");
+
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_sinconsolidar" data-toggle="modal" class="btn2 btn-small2" data-original-title="Show details" data-buttonname="add" ><i class="icon-user"></i></a></p>');
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_sinconsolidar" data-toggle="modal"  class="btn2 btn-small2" data-original-title="Show details" data-buttonname="eliminar" type="button"><i class="icon-remove"></i></a></p>');
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_sinconsolidar" data-toggle="modal"  class="btn2 btn-small2" data-buttonname="subir" type="button"><i class="icon-chevron-up"></i></a></p>');
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_sinconsolidar" data-toggle="modal" class="btn2 btn-small2" data-buttonname="cambiar_lider" type="button"><i class="icon-magnet"></i></a></p>');
+
+            cursorTemplate.append(bootStrapVerticalButtonsGroup);
+
+            result.cursorTemplate = cursorTemplate.wrap('<div>').parent().html();
+
+            return result;
+        }
+
+        function onMouseClick(event, data) {
+            
+            console.log(data);
+            
+            var target = jQuery(event.originalEvent.target);
+            if (target.hasClass("btn2") || target.parent(".btn2").length > 0) {
+                var button = target.hasClass("btn2") ? target : target.parent(".btn2");
+                var buttonname = button.data("buttonname");
+
+                var message = "User clicked '" + buttonname + "' button for item '" + data.context.title + "'.";
+                message += (data.parentItem != null ? " Parent item '" + data.parentItem.title + "'" : "");
+                //alert(message);
+
+                data.cancel = true;
+            }
+        }
+    
+        function generardata()
+        {
+            var red = $("#red_lista").val();
+                        
+            if( red != '-1'){
+                options = new primitives.orgdiagram.Config();
+                url = '{{path('services_arbol_liderazgo_xred',{'red':':net'})}}';
+                url = url.replace(':net',red);
+                lideres = getAjaxObject(url); 
+                
+                var items = [];
+                for (var i=0; i<lideres.length; i++)
+                    items.push(new primitives.orgdiagram.ItemConfig(lideres[i]));
+
+                /* Create hash table where key = id & value = ItemConfig */;
+                treeItems = [];
+                for (var index = 0, len = items.length; index < len; index += 1) {
+                    treeItems[items[index].id] = items[index];
+                }
+
+            
+                options.items = items;
+                options.cursorItem = 0;
+
+                options.templates = [getCursorTemplate()];
+            options.defaultTemplateName = "CursorTemplate";
+                options.hasButtons = primitives.common.Enabled.True;
+                options.hasSelectorCheckbox = primitives.common.Enabled.False;
+            
+                options.onSelectionChanged = function (e, data) {
+                    console.log(data);
+               
+                };
+                           options.onMouseClick = onMouseClick;
+
+                arbol = jQuery("#basicdiagram").orgDiagram(options);
+                console.log(arbol);
+            }
+                         
+            
+        }
+       $(document).ready(function() {
+           redes = getAjaxObject('{{path('services_red')}}');              
+           cargarSelect(redes, "red_lista", "int_red_id", "id");
+            
+           $("#btnGenerar").click(generardata);
+
+       });
 
     </script>
 {% endblock %}

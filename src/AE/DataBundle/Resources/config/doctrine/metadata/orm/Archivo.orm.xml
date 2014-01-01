@@ -2,19 +2,14 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Archivo" table="archivo">
     <indexes>
-      <index name="indireccion" columns="direccion"/>
-      <index name="indnombre" columns="nombre"/>
       <index name="fki_curso" columns="curso_id"/>
+      <index name="indireccion" columns="direccion"/>
     </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
     <field name="direccion" type="text" column="direccion" nullable="false"/>
-    <field name="peso" type="bigint" column="peso" nullable="true"/>
-    <field name="tipo" type="string" column="tipo" length="25" nullable="true"/>
-    <field name="extension" type="string" column="extension" length="10" nullable="true"/>
-    <field name="nombre" type="text" column="nombre" nullable="true"/>
-    <field name="fecha" type="date" column="fecha" nullable="true"/>
+    <field name="fecha" type="datetime" column="fecha" nullable="true"/>
     <many-to-one field="curso" target-entity="Curso">
       <join-columns>
         <join-column name="curso_id" referenced-column-name="id"/>

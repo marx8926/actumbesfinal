@@ -71,3 +71,9 @@ services_lidered_xred_option:
     defaults: {_controller: AEServicesBundle:EnviarServices:lidered_xred_option}
     requirements:
         _method: GET
+ 
+services_arbol_liderazgo_xred:
+    pattern: /arbol_liderazgo_xred/{red}
+    defaults: {_controller: AEServicesBundle:EnviarServices:arbol_liderazgo_xred}
+    requirements:
+        _method: GET

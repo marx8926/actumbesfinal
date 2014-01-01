@@ -163,4 +163,15 @@ class EnviarServicesController extends Controller {
         $resultado= new JsonResponse($result);            
         return $resultado;
     }
+    
+    public function arbol_liderazgo_xredAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_arbol_liderazgo_red(:red)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse($result);            
+        return $resultado;
+    }
 }

@@ -18,7 +18,7 @@ class GanarServicesController extends Controller
        $securityContext = $this->get('security.context');
         
        if($securityContext->isGranted('ROLE_GANAR') || $securityContext->isGranted('ROLE_CONSOLIDAR')
-                || $securityContext->isGranted('ROLE_DISCIPULAR'))
+                || $securityContext->isGranted('ROLE_DISCIPULAR') || $securityContext->isGranted('ROLE_ENVIAR'))
        {
            $sql = "select * from red where activo=true order by id asc";
         

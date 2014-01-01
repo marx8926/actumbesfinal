@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Archivo
  *
- * @ORM\Table(name="archivo", indexes={@ORM\Index(name="indireccion", columns={"direccion"}), @ORM\Index(name="indnombre", columns={"nombre"}), @ORM\Index(name="fki_curso", columns={"curso_id"})})
+ * @ORM\Table(name="archivo", indexes={@ORM\Index(name="fki_curso", columns={"curso_id"}), @ORM\Index(name="indireccion", columns={"direccion"})})
  * @ORM\Entity
  */
 class Archivo
@@ -30,39 +30,11 @@ class Archivo
     private $direccion;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="peso", type="bigint", nullable=true)
-     */
-    private $peso;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tipo", type="string", length=25, nullable=true)
-     */
-    private $tipo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="extension", type="string", length=10, nullable=true)
-     */
-    private $extension;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="text", nullable=true)
-     */
-    private $nombre;
-
-    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="date", nullable=true)
+     * @ORM\Column(name="fecha", type="datetime", nullable=true)
      */
-    private $fecha;
+    private $fecha = 'now()';
 
     /**
      * @var \Curso
@@ -107,98 +79,6 @@ class Archivo
     public function getDireccion()
     {
         return $this->direccion;
-    }
-
-    /**
-     * Set peso
-     *
-     * @param integer $peso
-     * @return Archivo
-     */
-    public function setPeso($peso)
-    {
-        $this->peso = $peso;
-
-        return $this;
-    }
-
-    /**
-     * Get peso
-     *
-     * @return integer 
-     */
-    public function getPeso()
-    {
-        return $this->peso;
-    }
-
-    /**
-     * Set tipo
-     *
-     * @param string $tipo
-     * @return Archivo
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-
-        return $this;
-    }
-
-    /**
-     * Get tipo
-     *
-     * @return string 
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
-     * Set extension
-     *
-     * @param string $extension
-     * @return Archivo
-     */
-    public function setExtension($extension)
-    {
-        $this->extension = $extension;
-
-        return $this;
-    }
-
-    /**
-     * Get extension
-     *
-     * @return string 
-     */
-    public function getExtension()
-    {
-        return $this->extension;
-    }
-
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     * @return Archivo
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
     }
 
     /**
