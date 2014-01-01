@@ -151,7 +151,19 @@ class LiderazgoController extends Controller {
         $em = $this->getDoctrine()->getManager();
         
         $repo_lider = $em->getRepository('AEDataBundle:Lider');
+        $padre = $repo_lider->find($reemplazo);
         
+        if($tipo == 144 && ($padre->getIntLider1728()==1 || $padre->getIntLider20736()))
+        {
+            $return=array("responseCode"=>300, "mensaje"=>"Operación no permitida");
+            $em->clear();
+            return new JsonResponse($return);
+        }
+        elseif ($tipo == 1728 && ( $padre->getIntLider20736())) {
+            $return=array("responseCode"=>300, "mensaje"=>"Operación no permitida");
+            $em->clear();
+            return new JsonResponse($return);
+        }
         $em->beginTransaction();
         try {
             
@@ -169,8 +181,22 @@ class LiderazgoController extends Controller {
                 $em->persist($lider);
                 $em->flush();
                 
-                $padre = $repo_lider->find($reemplazo);
-                
+                $sql = "select update_lideres_dependencia(:cien, :mil, :veinte,:depen,:nuevo)";
+                if($padre->getIntLider1728()== 1)
+                {
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute(array(':cien'=>0,':mil'=>0,':veinte'=>1,':depen'=>$id,':nuevo'=>$reemplazo));
+                }
+                elseif ($padre->getIntLider144()==1) {
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute(array(':cien'=>0,':mil'=>1,':veinte'=>0,':depen'=>$id,':nuevo'=>$reemplazo));
+                }
+                elseif($padre->getIntLider12()==1)
+                {
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute(array(':cien'=>1,':mil'=>0,':veinte'=>0,':depen'=>$id,':nuevo'=>$reemplazo));
+                }
+                $em->flush();
             }
             elseif ($tipo == 144) {
                 
@@ -178,6 +204,17 @@ class LiderazgoController extends Controller {
                 $lider->setActivo(FALSE);
                 $em->persist($lider);
                 $em->flush();
+                
+                $sql = "select update_lideres_dependencia(:cien, :mil, :veinte,:depen,:nuevo)";
+                if ($padre->getIntLider144()==1) {
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute(array(':cien'=>0,':mil'=>1,':veinte'=>0,':depen'=>$id,':nuevo'=>$reemplazo));
+                }
+                elseif($padre->getIntLider12()==1)
+                {
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute(array(':cien'=>1,':mil'=>0,':veinte'=>0,':depen'=>$id,':nuevo'=>$reemplazo));
+                }
             }
        
             $em->commit();

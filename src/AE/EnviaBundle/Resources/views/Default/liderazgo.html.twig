@@ -290,7 +290,6 @@ margin-left: 0px;
 
             bootStrapVerticalButtonsGroup.append('<p><a href="#modal_agregar" data-toggle="modal" class=" add btn2 btn-small2" data-original-title="Show details" data-buttonname="add" ><i class="icon-user"></i></a></p>');
             bootStrapVerticalButtonsGroup.append('<p><a href="#modal_eliminar" data-toggle="modal"  class=" delete btn2 btn-small2" data-original-title="Show details" data-buttonname="eliminar" type="button"><i class="icon-remove"></i></a></p>');
-            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_subir" data-toggle="modal"  class="up btn2 btn-small2" data-buttonname="subir" type="button"><i class="icon-chevron-up"></i></a></p>');
             bootStrapVerticalButtonsGroup.append('<p><a href="#modal_cambiar_lider" data-toggle="modal" class=" change btn2 btn-small2" data-buttonname="cambiar_lider" type="button"><i class="icon-magnet"></i></a></p>');
 
             cursorTemplate.append(bootStrapVerticalButtonsGroup);
@@ -324,24 +323,29 @@ margin-left: 0px;
             else if(target.hasClass("delete") || target.parent(".delete").length > 0 )
             {
                 $("#eliminar_id").val(data.context.id);
+                
+                console.log(data);
 
                 if( (n = data.context.description.search('144')) != -1)
                 {
                     $("#tipo_eliminar").val(144);
-                    $("#eliminar_cuerpo").css("display","block");
-                    $("#posible_eliminar").text("No se puede eliminar a un lider de red");
+                    $("#eliminar_cuerpo").css({"display":"block"});
+                    $("#posible_eliminar").text("Desee eliminar al lider "+data.context.title+"?");
+                    lideres = getAjaxObject(servicio);                 
+                    cargarSelect(lideres, "lideres_asignados", "id", "title");
                 }
                 else if((n = data.context.description.search('1728')) != -1)
                 {
                     $("#tipo_eliminar").val(1728);
-                   $("#eliminar_cuerpo").css("display","block");
-                    $("#posible_eliminar").text("No se puede eliminar a un lider de red");
-
+                   $("#eliminar_cuerpo").css({"display":"block"});
+                    $("#posible_eliminar").text("Desee eliminar al lider "+data.context.title+"?");
+                    lideres = getAjaxObject(servicio);                 
+                    cargarSelect(lideres, "lideres_asignados", "id", "title");
             }    
                 else if((n = data.context.description.search('20376')) != -1)
                 {                
                     $("#tipo_eliminar").val(20376);
-                   $("#eliminar_cuerpo").css("display","none");
+                   $("#eliminar_cuerpo").css({"display":"none"});
                     $("#posible_eliminar").text("Desee eliminar al lider "+data.context.title+"?");
                 }
                 else if((n = data.context.description.search('12')) != -1)
@@ -350,10 +354,7 @@ margin-left: 0px;
 
                     $("#posible_eliminar").text("No se puede eliminar a un lider de red");
                 }
-            else if(target.hasClass("up") || target.parent(".up").length > 0 )
-            {
-                console.log('up');
-            }
+            
             else if(target.hasClass("change") || target.parent(".change").length > 0 )
             {
                 console.log('change');
@@ -448,8 +449,8 @@ margin-left: 0px;
                       items = parse_items(lideres);
                       update_draw();
                   }
-                    else if(data.responseCode===400){//bad request
-                       alert('Error bad request');
+                    else if(data.responseCode === 300){//bad request
+                       alert(data.mensaje);
                         }
                     else{                        
                         if(data.responseCode===500)
@@ -479,6 +480,7 @@ margin-left: 0px;
                event.preventDefault();
                if((tipo=$("#tipo_eliminar").val()) != '12')
                {
+                   console.log($("#form_eliminar").serializeObject());
                    if(tipo == 144)
                    {
                       enviar('{{path('eliminar_lider_save')}}', { "formulario": $("#form_eliminar").serializeObject() }, SuccessEFunction, null);
