@@ -4,3 +4,9 @@ liderazgo_envia_view:
     requirements:
         _method: GET
         
+agregar_lider_save:
+    pattern:  /agregar_lider_save
+    defaults: { _controller: AEEnviaBundle:Liderazgo:agregar_lider_save }
+    requirements:
+        _method: POST
+        

@@ -85,6 +85,7 @@ margin-left: 0px;
          <div class="control-group span3">
              <label class="control-label" style="width:auto; margin-left: 40px;" >Red</label>
             <div class="controls" style="margin-left: 90px;">
+                <input id="net" name="net" type="hidden">
                 <select id="red_lista" name="red_lista" class="rango input-small" >
                    
                 </select>
@@ -116,47 +117,104 @@ margin-left: 0px;
     </div>
 
                        
-                         <div class="modal hide" id="modal_sinconsolidar">
-                            <form id="form_consolidado" name="form_consolidado" method="POST" class="form-horizontal">
-                            <input type="hidden" id="persona_id" name="persona_id">
+                         <div class="modal hide" id="modal_agregar">
+                            <form id="form_agregar" name="form_agregar" method="POST" class="form-horizontal">
+                            <input type="hidden" id="agregar_id" name="agregar_id">
                             <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				 <h3>Confirmación</h3>
                             </div>
                             <div class="modal-body">
-                                <p id="posible_consolidado"></p>
+                                <p id="posible_agregar"></p>
                                 <div class="form-horizontal">
                                     
-                                    <div class="control-group" >
-                                        <label class="control-label">Consolidadores</label>
-                                        <div class="controls" >
-                                            <select id="consolidadores" name="consolidadores">
+                                  <div class="control-group" >                                            
+                                            <label class="control-label"></label>
+                                            <div class="controls">
                                                 
-                                            </select>
+                                                <select id="lideres_sin" name="lideres_sin" required >
+                                                    
+                                                </select>
+                                            </div>                                          
                                         </div>
-                                    </div>
-                                    
-                                    <div class="control-group">
-                                        <label class="control-label">Fecha de inicio</label>
-                                        <div class="controls">
-                                            <input type="text" id="inicio" name="inicio" class="datepick input-small" >
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="control-group">
-                                        <label class="control-label">Leche Espiritual</label>
-                                        <div class="controls">
-                                            <select id="leche" name="leche">
-                                                
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
                               </div>
 			    <div class="modal-footer">
                                                              
                                 <a href="#" class="btn" data-dismiss="modal">Descartar</a>
-                                <input type="button" value="Guardar cambios" id="guardarcambios" name="guardarcambios" class="btn btn-primary" data-dismiss="modal" >
+                                <input type="button" value="Guardar cambios" id="guardarcambios_agregar" name="guardarcambios_agregar" class="btn btn-primary" data-dismiss="modal" >
+			     </div>
+                            </form> 
+                        </div>
+                        
+    
+                       
+                         <div class="modal hide" id="modal_eliminar">
+                            <form id="form_eliminar" name="form_eliminar" method="POST" class="form-horizontal">
+                            <input type="hidden" id="eliminar_id" name="eliminar_id">
+                            <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				 <h3>Confirmación</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p id="posible_eliminar"></p>
+                                <div class="form-horizontal">
+                                    
+                                  
+                                </div>
+                              </div>
+			    <div class="modal-footer">
+                                                             
+                                <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                <input type="button" value="Guardar cambios" id="guardarcambios_eliminar" name="guardarcambios_eliminar" class="btn btn-primary" data-dismiss="modal" >
+			     </div>
+                            </form> 
+                        </div>
+                        
+    
+                       
+                         <div class="modal hide" id="modal_subir">
+                            <form id="form_subir" name="form_subir" method="POST" class="form-horizontal">
+                            <input type="hidden" id="subir_id" name="subir_id">
+                            <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				 <h3>Confirmación</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p id="posible_subir"></p>
+                                <div class="form-horizontal">
+                                    
+                                  
+                                </div>
+                              </div>
+			    <div class="modal-footer">
+                                                             
+                                <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                <input type="button" value="Guardar cambios" id="guardarcambios_subir" name="guardarcambios_subir" class="btn btn-primary" data-dismiss="modal" >
+			     </div>
+                            </form> 
+                        </div>
+                        
+    
+                       
+                         <div class="modal hide" id="modal_cambiar_lider">
+                            <form id="form_cambiar_lider" name="form_cambiar_lider" method="POST" class="form-horizontal">
+                            <input type="hidden" id="cambiar_lider_id" name="cambiar_lider_id">
+                            <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				 <h3>Confirmación</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p id="posible_cambiar_lider"></p>
+                                <div class="form-horizontal">
+                                    
+                                  
+                                </div>
+                              </div>
+			    <div class="modal-footer">
+                                                             
+                                <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                <input type="button" value="Guardar cambios" id="guardarcambios_cambiar_lider" name="guardarcambios_cambiar_lider" class="btn btn-primary" data-dismiss="modal" >
 			     </div>
                             </form> 
                         </div>
@@ -181,21 +239,9 @@ margin-left: 0px;
         
         var treeItems = {};
         var options = null;
-        var buttons = [];
         var arbol = null;
-        buttons.push(new primitives.orgdiagram.ButtonConfig("add", "ui-icon-person", "Añadir"));
-        buttons.push(new primitives.orgdiagram.ButtonConfig("cambiar_red", "ui-icon-flag", "Cambiar Red"));
-        buttons.push(new primitives.orgdiagram.ButtonConfig("eliminar", "ui-icon-close", "Eliminar"));
-        buttons.push(new primitives.orgdiagram.ButtonConfig("subir", "ui-icon-circle-triangle-n", "Subir Nivel"));
-        buttons.push(new primitives.orgdiagram.ButtonConfig("cambiar_lider", "ui-icon-pin-s", "Cambiar Lider"));
+        var items = [];
 
-
-        $(window).load(function () {
-          
-            
-        });//]]>  
-        
-        
         
         function getCursorTemplate() {
             var result = new primitives.orgdiagram.TemplateConfig();
@@ -231,10 +277,10 @@ margin-left: 0px;
                 height: (result.itemSize.height + 1) + "px"
             }).addClass("btn-group btn-group-vertical");
 
-            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_sinconsolidar" data-toggle="modal" class="btn2 btn-small2" data-original-title="Show details" data-buttonname="add" ><i class="icon-user"></i></a></p>');
-            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_sinconsolidar" data-toggle="modal"  class="btn2 btn-small2" data-original-title="Show details" data-buttonname="eliminar" type="button"><i class="icon-remove"></i></a></p>');
-            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_sinconsolidar" data-toggle="modal"  class="btn2 btn-small2" data-buttonname="subir" type="button"><i class="icon-chevron-up"></i></a></p>');
-            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_sinconsolidar" data-toggle="modal" class="btn2 btn-small2" data-buttonname="cambiar_lider" type="button"><i class="icon-magnet"></i></a></p>');
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_agregar" data-toggle="modal" class=" add btn2 btn-small2" data-original-title="Show details" data-buttonname="add" ><i class="icon-user"></i></a></p>');
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_eliminar" data-toggle="modal"  class=" delete btn2 btn-small2" data-original-title="Show details" data-buttonname="eliminar" type="button"><i class="icon-remove"></i></a></p>');
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_subir" data-toggle="modal"  class="up btn2 btn-small2" data-buttonname="subir" type="button"><i class="icon-chevron-up"></i></a></p>');
+            bootStrapVerticalButtonsGroup.append('<p><a href="#modal_cambiar_lider" data-toggle="modal" class=" change btn2 btn-small2" data-buttonname="cambiar_lider" type="button"><i class="icon-magnet"></i></a></p>');
 
             cursorTemplate.append(bootStrapVerticalButtonsGroup);
 
@@ -243,26 +289,46 @@ margin-left: 0px;
             return result;
         }
 
+
+        function cargar_lideres_sin_asignar()
+        {
+             red = $("#net").val();
+             url = '{{path( 'service_get_lideres_celula_sinaginar',{'red':'nom'})}}';
+             url = url.replace('nom',red);
+             ciento = getAjaxObject(url);
+             cargarSelect(ciento,'lideres_sin','id','label');
+        }
         function onMouseClick(event, data) {
-            
-            console.log(data);
-            
+           
             var target = jQuery(event.originalEvent.target);
-            if (target.hasClass("btn2") || target.parent(".btn2").length > 0) {
-                var button = target.hasClass("btn2") ? target : target.parent(".btn2");
-                var buttonname = button.data("buttonname");
-
-                var message = "User clicked '" + buttonname + "' button for item '" + data.context.title + "'.";
-                message += (data.parentItem != null ? " Parent item '" + data.parentItem.title + "'" : "");
-                //alert(message);
-
-                data.cancel = true;
+          
+        
+            if(target.hasClass("add") || target.parent(".add").length > 0 )
+            {
+                $("#posible_agregar").text("Desea añadir una nueva persona a " + data.context.title);
+                $("#agregar_id").val(data.context.id);
+                cargar_lideres_sin_asignar();
+                
+            }
+            else if(target.hasClass("delete") || target.parent(".delete").length > 0 )
+            {
+                console.log('delete');
+            }
+            else if(target.hasClass("up") || target.parent(".up").length > 0 )
+            {
+                console.log('up');
+            }
+            else if(target.hasClass("change") || target.parent(".change").length > 0 )
+            {
+                console.log('change');
             }
         }
     
         function generardata()
         {
             var red = $("#red_lista").val();
+            
+            $("#net").val(red);
                         
             if( red != '-1'){
                 options = new primitives.orgdiagram.Config();
@@ -270,7 +336,7 @@ margin-left: 0px;
                 url = url.replace(':net',red);
                 lideres = getAjaxObject(url); 
                 
-                var items = [];
+                items = [];
                 for (var i=0; i<lideres.length; i++)
                     items.push(new primitives.orgdiagram.ItemConfig(lideres[i]));
 
@@ -290,23 +356,57 @@ margin-left: 0px;
                 options.hasSelectorCheckbox = primitives.common.Enabled.False;
             
                 options.onSelectionChanged = function (e, data) {
-                    console.log(data);
                
                 };
                            options.onMouseClick = onMouseClick;
 
                 arbol = jQuery("#basicdiagram").orgDiagram(options);
-                console.log(arbol);
             }
                          
             
         }
+        
+        function update_draw()
+        {
+             /* update items list in chart */
+                            jQuery("#basicdiagram").orgDiagram({
+                                items: items
+                            });
+                            jQuery("#basicdiagram").orgDiagram("update", /*Refresh: use fast refresh to update chart*/ primitives.orgdiagram.UpdateMode.Refresh);
+
+        }
+        SuccessFunction = function(data) {
+               
+                    if(data.responseCode===200 ){          
+                      alert('Registro Completado');                       
+                      items.push(new primitives.orgdiagram.ItemConfig(data.item));
+                      update_draw();
+
+                    }
+                    else if(data.responseCode===400){//bad request
+                       alert('Error bad request');
+                        }
+                    else{                        
+                        if(data.responseCode===500)
+                        {
+                            alert('Error bad request');
+                        }
+                        else alert("An unexpeded error occured.");
+                        }                    
+        };
        $(document).ready(function() {
            redes = getAjaxObject('{{path('services_red')}}');              
            cargarSelect(redes, "red_lista", "int_red_id", "id");
             
            $("#btnGenerar").click(generardata);
 
+
+           $("#guardarcambios_agregar").click(function(event){
+              event.preventDefault();
+              
+              enviar('{{path('agregar_lider_save')}}', { "formulario": $("#form_agregar").serializeObject() }, SuccessFunction, null);
+
+           });
        });
 
     </script>

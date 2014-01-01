@@ -223,16 +223,15 @@
 
                 SuccessFunction = function(data) {
                     
-                    console.log(data);
                     
                     if(data.responseCode===200 ){          
                       
                        $("#form_persona").reset();
                        
-                       cargarSelect(redes, "red_lista", "int_red_id", "id");
+                       //cargarSelect(redes, "red_lista", "int_red_id", "id");
                         
                         alert('Registro Completado');
-                       
+                       /*
                         $("#persona").autocomplete({
                             source: personas,
                             select: function(event, ui) {
@@ -240,7 +239,7 @@
                                 $("#persona").val(ui.item.label);
                             return false;
                             }
-                        });
+                        });*/
                         
                         $("#persona_id").val(-1);
                         $("#persona").val("");

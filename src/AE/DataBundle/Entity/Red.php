@@ -62,7 +62,7 @@ class Red
      *
      * @ORM\Column(name="color", type="string", length=10, nullable=true)
      */
-    private $color = '#41690';
+    private $color = '#4169e1';
 
     /**
      * @var \Persona

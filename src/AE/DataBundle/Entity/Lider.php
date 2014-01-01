@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Lider
  *
- * @ORM\Table(name="lider", uniqueConstraints={@ORM\UniqueConstraint(name="fk_unico_lider", columns={"persona_id"})}, indexes={@ORM\Index(name="IDX_359139D68BBE8922", columns={"red_id"})})
+ * @ORM\Table(name="lider", uniqueConstraints={@ORM\UniqueConstraint(name="fk_unico_lider", columns={"persona_id"})}, indexes={@ORM\Index(name="idx_dependencia_lider", columns={"dependencia"}), @ORM\Index(name="IDX_359139D68BBE8922", columns={"red_id"})})
  * @ORM\Entity
  */
 class Lider
@@ -27,28 +27,28 @@ class Lider
      *
      * @ORM\Column(name="int_lider_12", type="integer", nullable=true)
      */
-    private $intLider12;
+    private $intLider12 = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="int_lider_144", type="integer", nullable=true)
      */
-    private $intLider144;
+    private $intLider144 = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="int_lider_1728", type="integer", nullable=true)
      */
-    private $intLider1728;
+    private $intLider1728 = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="int_lider_20736", type="integer", nullable=true)
      */
-    private $intLider20736;
+    private $intLider20736 = '0';
 
     /**
      * @var \DateTime

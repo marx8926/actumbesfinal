@@ -118,8 +118,8 @@ class ConfigurarServicesController extends Controller {
         $smt->execute(array(':red' => $red));        
         $result = $smt->fetchAll();        
         $resultado= new JsonResponse($result);
-        $resultado->setMaxAge(60);
-        $resultado->setPublic();
+        //$resultado->setMaxAge(60);
+        //$resultado->setPublic();
        
         return $resultado;
     }
