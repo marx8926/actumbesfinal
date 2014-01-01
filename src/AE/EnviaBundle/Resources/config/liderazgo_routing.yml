@@ -10,3 +10,9 @@ agregar_lider_save:
     requirements:
         _method: POST
         
+eliminar_lider_save:
+    pattern:  /eliminar_lider_save
+    defaults: { _controller: AEEnviaBundle:Liderazgo:eliminar_lider_save }
+    requirements:
+        _method: POST
+        

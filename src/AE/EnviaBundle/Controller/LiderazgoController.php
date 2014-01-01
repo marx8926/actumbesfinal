@@ -42,7 +42,7 @@ class LiderazgoController extends Controller {
         
         $l_padre = $repo_lider->find($padre);
         
-        $l_hijo = $repo_lider->findBy(array('persona'=>$hijo));
+        $l_hijo = $repo_lider->findOneBy(array('persona'=>$hijo));
         $flag = TRUE;
         
         $tipo = 12;
@@ -83,9 +83,10 @@ class LiderazgoController extends Controller {
         }
         else
         {
-            $l_hijo->setActivo(TRUE);
+            //$l_hijo = new Lider();
             $l_hijo->setDependencia($l_padre->getIntLiderId());
-            $l_hijo->setRed($persona->getRed());
+            $l_hijo->setActivo(TRUE);
+            $l_hijo->setRed($l_padre->getRed());
             $l_hijo->setFecha(new \DateTime());
             $l_hijo->setIntLider12(0);
             $l_hijo->setIntLider144(0);
@@ -132,7 +133,64 @@ class LiderazgoController extends Controller {
          } catch (Exception $exc) {
              $em->rollback();
             echo $exc->getTraceAsString();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+
         }
+        
+        return new JsonResponse($return);
+    }
+    
+    public function eliminar_lider_saveAction()
+    {
+        $request = $this->get('request');
+        $datos =$request->request->get('formulario');
+        $id = $datos['eliminar_id'];
+        $reemplazo = $datos['lideres_asignados'];
+        $tipo = intval($datos['tipo_eliminar']);
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $repo_lider = $em->getRepository('AEDataBundle:Lider');
+        
+        $em->beginTransaction();
+        try {
+            
+            if($tipo == 20376)
+            {
+                $lider = $repo_lider->find($id);
+                $lider->setActivo(FALSE);
+                $em->persist($lider);
+                $em->flush();
+            }
+            elseif ($tipo == 1728) {
+            
+                $lider = $repo_lider->find($id);
+                $lider->setActivo(FALSE);
+                $em->persist($lider);
+                $em->flush();
+                
+                $padre = $repo_lider->find($reemplazo);
+                
+            }
+            elseif ($tipo == 144) {
+                
+                $lider = $repo_lider->find($id);
+                $lider->setActivo(FALSE);
+                $em->persist($lider);
+                $em->flush();
+            }
+       
+            $em->commit();
+      
+            $return=array("responseCode"=>200, "greeting"=>"Ok");
+
+        
+         } catch (Exception $exc) {
+             $em->rollback();
+            echo $exc->getTraceAsString();
+            $return=array("responseCode"=>400, "greeting"=>"Ok");
+        }
+        $em->clear();
         
         return new JsonResponse($return);
     }

@@ -136,7 +136,7 @@ margin-left: 0px;
                                                     
                                                 </select>
                                             </div>                                          
-                                        </div>
+                                  </div>
                                 </div>
                               </div>
 			    <div class="modal-footer">
@@ -152,15 +152,25 @@ margin-left: 0px;
                          <div class="modal hide" id="modal_eliminar">
                             <form id="form_eliminar" name="form_eliminar" method="POST" class="form-horizontal">
                             <input type="hidden" id="eliminar_id" name="eliminar_id">
+                            <input type="hidden" id="tipo_eliminar" name="tipo_eliminar">
+                            
                             <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				 <h3>Confirmación</h3>
                             </div>
                             <div class="modal-body">
                                 <p id="posible_eliminar"></p>
-                                <div class="form-horizontal">
+                                <div class="form-horizontal" id="eliminar_cuerpo" name="eliminar_cuerpo" style="display:none;">
                                     
-                                  
+                                     <div class="control-group" >                                            
+                                            <label class="control-label"></label>
+                                            <div class="controls">
+                                                
+                                                <select id="lideres_asignados" name="lideres_asignados" required >
+                                                    
+                                                </select>
+                                            </div>                                          
+                                    </div>
                                 </div>
                               </div>
 			    <div class="modal-footer">
@@ -241,6 +251,7 @@ margin-left: 0px;
         var options = null;
         var arbol = null;
         var items = [];
+        var servicio = null;
 
         
         function getCursorTemplate() {
@@ -312,8 +323,33 @@ margin-left: 0px;
             }
             else if(target.hasClass("delete") || target.parent(".delete").length > 0 )
             {
-                console.log('delete');
-            }
+                $("#eliminar_id").val(data.context.id);
+
+                if( (n = data.context.description.search('144')) != -1)
+                {
+                    $("#tipo_eliminar").val(144);
+                    $("#eliminar_cuerpo").css("display","block");
+                    $("#posible_eliminar").text("No se puede eliminar a un lider de red");
+                }
+                else if((n = data.context.description.search('1728')) != -1)
+                {
+                    $("#tipo_eliminar").val(1728);
+                   $("#eliminar_cuerpo").css("display","block");
+                    $("#posible_eliminar").text("No se puede eliminar a un lider de red");
+
+            }    
+                else if((n = data.context.description.search('20376')) != -1)
+                {                
+                    $("#tipo_eliminar").val(20376);
+                   $("#eliminar_cuerpo").css("display","none");
+                    $("#posible_eliminar").text("Desee eliminar al lider "+data.context.title+"?");
+                }
+                else if((n = data.context.description.search('12')) != -1)
+                {
+                    $("#tipo_eliminar").val(12);
+
+                    $("#posible_eliminar").text("No se puede eliminar a un lider de red");
+                }
             else if(target.hasClass("up") || target.parent(".up").length > 0 )
             {
                 console.log('up');
@@ -323,7 +359,16 @@ margin-left: 0px;
                 console.log('change');
             }
         }
+    }
     
+        function parse_items($lideres)
+        {
+            items = [];
+            for (var i=0; i<lideres.length; i++)
+               items.push(new primitives.orgdiagram.ItemConfig(lideres[i]));
+           
+            return items;
+        }
         function generardata()
         {
             var red = $("#red_lista").val();
@@ -334,11 +379,10 @@ margin-left: 0px;
                 options = new primitives.orgdiagram.Config();
                 url = '{{path('services_arbol_liderazgo_xred',{'red':':net'})}}';
                 url = url.replace(':net',red);
-                lideres = getAjaxObject(url); 
-                
-                items = [];
-                for (var i=0; i<lideres.length; i++)
-                    items.push(new primitives.orgdiagram.ItemConfig(lideres[i]));
+                servicio = url;
+                lideres = getAjaxObject(servicio);                 
+                cargarSelect(lideres, "lideres_asignados", "id", "title");
+                items = parse_items(lideres);
 
                 /* Create hash table where key = id & value = ItemConfig */;
                 treeItems = [];
@@ -394,6 +438,29 @@ margin-left: 0px;
                         else alert("An unexpeded error occured.");
                         }                    
         };
+        
+         SuccessEFunction = function(data) {
+               
+                    if(data.responseCode===200 ){          
+                      alert('Registro Completado');
+                      lideres = getAjaxObject(servicio);                 
+                      cargarSelect(lideres, "lideres_asignados", "id", "title");
+                      items = parse_items(lideres);
+                      update_draw();
+                  }
+                    else if(data.responseCode===400){//bad request
+                       alert('Error bad request');
+                        }
+                    else{                        
+                        if(data.responseCode===500)
+                        {
+                            alert('Error bad request');
+                        }
+                        else alert("An unexpeded error occured.");
+                        }                    
+        };
+        
+        
        $(document).ready(function() {
            redes = getAjaxObject('{{path('services_red')}}');              
            cargarSelect(redes, "red_lista", "int_red_id", "id");
@@ -406,6 +473,30 @@ margin-left: 0px;
               
               enviar('{{path('agregar_lider_save')}}', { "formulario": $("#form_agregar").serializeObject() }, SuccessFunction, null);
 
+           });
+           
+           $("#guardarcambios_eliminar").click(function(event){
+               event.preventDefault();
+               if((tipo=$("#tipo_eliminar").val()) != '12')
+               {
+                   if(tipo == 144)
+                   {
+                      enviar('{{path('eliminar_lider_save')}}', { "formulario": $("#form_eliminar").serializeObject() }, SuccessEFunction, null);
+                   }    
+                   else if(tipo==1728)
+                   {
+                      enviar('{{path('eliminar_lider_save')}}', { "formulario": $("#form_eliminar").serializeObject() }, SuccessEFunction, null);
+                   }
+                   else if(tipo==20376)
+                   {
+                        enviar('{{path('eliminar_lider_save')}}', { "formulario": $("#form_eliminar").serializeObject() }, SuccessEFunction, null);
+
+                   }
+               }
+               else
+               {
+                   $("#eliminar_cuerpo").css("display","none");
+               }
            });
        });
 
