@@ -253,28 +253,35 @@
                                 <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
                             </a>
                             <ul class="collapsed-nav closed">
+                             {% if ( is_granted('ROLE_LIDER') )%}
+
                                 <li>
                                     <a href="{{path('tema_view')}}">
-                                      Administrar Tema Célula
+                                      Temas de Célula
                                     </a>
                                 </li>
-                                
+                              {% endif %}
+                              {% if (is_granted('ROLE_ENVIAR')) %}
                                  <li>
                                     <a href="{{path('celula_view')}}">
                                              Crear células
                                     </a>                                            
                                  </li>
+                              {% endif %}
+                              {% if(is_granted('ROLE_LIDER_RED'))%}
                                  <li>
                                      <a href="{{path('admincelula_view')}}">
                                         Administrar Célula
                                      </a>
                                  </li>
+                              {% endif %}
+                              {% if(is_granted('ROLE_ENVIAR'))%}
                                  <li>
-                                   <a href="{{path('lider_view')}}">
+                                   <a href="{{path('liderazgo_envia_view')}}">
                                        Administrar Lideres
                                    </a>
                                  </li>
-                                 
+                              {% endif %}   
                                  <li>
                                      <a href="{{path('buzon_envia_view')}}">
                                        Buzon de consolidación

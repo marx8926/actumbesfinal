@@ -1,5 +1,5 @@
 celula_view:
-    pattern: /celula_view
+    pattern: /envia/celula_view
     defaults: { _controller: AEConfigurarBundle:Celula:view}
     requirements:
         _method: GET

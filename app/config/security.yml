@@ -74,6 +74,11 @@ security:
         - { path: ^/discipula/asignacion_view , roles: ROLE_DISCIPULAR}
         - { path: ^/discipula/matricula_view , roles: ROLE_PROFESOR}
         - { path: /discipula/*, roles: ROLE_USER}
+        - { path: ^/envia/tema_view , roles: ROLE_LIDER}
+        - { path: ^/envia/celula_view , roles: ROLE_ENVIAR}
+        - { path: ^/envia/admincelula_view , roles: ROLE_LIDER_RED}
+        - { path: ^/envia/liderazgo_view , roles: ROLE_ENVIAR}
+        
         - { path: /envia/* , roles: ROLE_USER}
         - { path: /secretaria/* , roles: ROLE_USER}
         - { path: /services/*, roles: ROLE_USER}
