@@ -65,7 +65,7 @@ class BuzonController extends Controller {
             //actualizamos la aplicacion
             $aplicacion = $em->getRepository('AEDataBundle:AplicacionCelula')->find($id);
             $aplicacion->setAplicacion(new \DateTime($fecha));
-            $aplicacion->setOfrenda($ofrenda);
+            //$aplicacion->setOfrenda($ofrenda);
             $aplicacion->setInvitados($invitados);
             
             $em->persist($aplicacion);
