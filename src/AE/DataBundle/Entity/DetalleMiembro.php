@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * DetalleMiembro
  *
- * @ORM\Table(name="detalle_miembro", indexes={@ORM\Index(name="fki_persona", columns={"persona_id"}), @ORM\Index(name="fki_celula_discipulado", columns={"celula_dis_id"}), @ORM\Index(name="fk_lider", columns={"lider_id"}), @ORM\Index(name="fki_celula_miembro", columns={"celula_id"}), @ORM\Index(name="IDX_3E1ED718BBE8922", columns={"red_id"})})
+ * @ORM\Table(name="detalle_miembro", indexes={@ORM\Index(name="fki_persona", columns={"persona_id"}), @ORM\Index(name="fki_bautizo", columns={"bautizo_id"}), @ORM\Index(name="fk_lider", columns={"lider_id"}), @ORM\Index(name="fki_celula_miembro", columns={"celula_id"}), @ORM\Index(name="fki_celula_discipulado", columns={"celula_dis_id"}), @ORM\Index(name="IDX_3E1ED718BBE8922", columns={"red_id"})})
  * @ORM\Entity
  */
 class DetalleMiembro
@@ -96,6 +96,16 @@ class DetalleMiembro
      * })
      */
     private $persona;
+
+    /**
+     * @var \Bautizo
+     *
+     * @ORM\ManyToOne(targetEntity="Bautizo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="bautizo_id", referencedColumnName="id")
+     * })
+     */
+    private $bautizo;
 
 
 
@@ -314,5 +324,28 @@ class DetalleMiembro
     public function getPersona()
     {
         return $this->persona;
+    }
+
+    /**
+     * Set bautizo
+     *
+     * @param \AE\DataBundle\Entity\Bautizo $bautizo
+     * @return DetalleMiembro
+     */
+    public function setBautizo(\AE\DataBundle\Entity\Bautizo $bautizo = null)
+    {
+        $this->bautizo = $bautizo;
+
+        return $this;
+    }
+
+    /**
+     * Get bautizo
+     *
+     * @return \AE\DataBundle\Entity\Bautizo 
+     */
+    public function getBautizo()
+    {
+        return $this->bautizo;
     }
 }

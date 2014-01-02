@@ -44,6 +44,13 @@ class Ofrendas
     private $celulaId;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_verificacion", type="datetime", nullable=true)
+     */
+    private $fechaVerificacion;
+
+    /**
      * @var \Servicios
      *
      * @ORM\ManyToOne(targetEntity="Servicios")
@@ -152,6 +159,29 @@ class Ofrendas
     public function getCelulaId()
     {
         return $this->celulaId;
+    }
+
+    /**
+     * Set fechaVerificacion
+     *
+     * @param \DateTime $fechaVerificacion
+     * @return Ofrendas
+     */
+    public function setFechaVerificacion($fechaVerificacion)
+    {
+        $this->fechaVerificacion = $fechaVerificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaVerificacion
+     *
+     * @return \DateTime 
+     */
+    public function getFechaVerificacion()
+    {
+        return $this->fechaVerificacion;
     }
 
     /**

@@ -13,6 +13,7 @@
     <field name="decOfrendaMonto" type="decimal" column="dec_ofrenda_monto" precision="18" scale="2" nullable="true"/>
     <field name="decOfrendaFecharegistro" type="datetime" column="dec_ofrenda_fecharegistro" nullable="true"/>
     <field name="celulaId" type="bigint" column="celula_id" nullable="true"/>
+    <field name="fechaVerificacion" type="datetime" column="fecha_verificacion" nullable="true"/>
     <many-to-one field="aplicacionCelula" target-entity="AplicacionCelula">
       <join-columns>
         <join-column name="aplicacion_celula" referenced-column-name="id"/>
