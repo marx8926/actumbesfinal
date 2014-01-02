@@ -50,26 +50,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="control-group span3" id="desde_block" name="desde_block" >
-             
-             
-                    <label class="control-label"  style="width:auto; margin-left: -10px;" >
-                    <input type="checkbox" id="desde_check" name="desde_check">
-                    Desde</label>
-                    <div class="controls" style="margin-left: 35px;">
-                        <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly">
-                    </div>
-                </div>
-        
-        
-                <div class="control-group span3" id="hasta_block" name="hasta_block">
-                    <label class="control-label"  style="width:auto; margin-left: -10px; " >
-                    <input type="checkbox" id="hasta_check" name="hasta_check">
-                        Hasta</label>
-                    <div class="controls" style="margin-left: 35px;">
-                        <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly">
-                    </div>
-                </div>
+               
         
                 <div class="control-group span3">
             
@@ -91,7 +72,7 @@
                 <div class="control-group span3">
                     <div class="controls">
                         <label class="radio">
-                            <input type="radio" id="nivel" name="nivel" value="doce"> 12
+                            <input type="radio" id="nivel" name="nivel" value="doce"> 144
                         </label>
                                                 
                         <select id="doce_lista" name="doce_lista" class="input-medium" style="display: none;">
@@ -101,7 +82,7 @@
                 <div class="control-group span3">
                     <div class="controls">
                         <label class="radio">
-                            <input type="radio" id="nivel" name="nivel" value="ciento"> 144
+                            <input type="radio" id="nivel" name="nivel" value="ciento"> 1728
                         </label>
                                                 
                         <select id="ciento_lista" name="ciento_lista" class="input-medium" style="display: none;">
@@ -112,7 +93,7 @@
                 <div class="control-group span3">
                     <div class="controls">
                         <label class="radio">
-                            <input type="radio" id="nivel" name="nivel" value="mil"> 1728
+                            <input type="radio" id="nivel" name="nivel" value="mil">  20736
                         </label>
                                                 
                         <select id="mil_lista" name="mil_lista" class="input-medium" style="display: none;">
@@ -389,7 +370,7 @@
             }else{
                  $("#doce_lista").css("display","none");
             }            
-            $("#mil_lista").css("display", "none");
+            $("#mil_lista").css({"display": "none"});
         };
         
         cargar_mil = function(){
@@ -401,43 +382,44 @@
             {
                 mil = getAjaxObject(url);                  
                 cargarSelect(mil,"mil_lista",'id','nombres');
-                $("#doce_lista").css("display","block");
-                $("#ciento_lista").css("display","block");
-                $("#mil_lista").css("display","block"); 
+                $("#doce_lista").css({"display":"block"});
+                $("#ciento_lista").css({"display":"block"});
+                $("#mil_lista").css({"display":"block"}); 
             }else{
-                 $("#mil_lista").css("display", "none");
+                 $("#mil_lista").css({"display":"none"});
             }            
             
         };
         
-        
+        vacia = function(){};
         radioFunction  = function(){
                 if(this.value === 'doce')
                 {
                    cargar_doce();
                    root.tipo = 12;
+                   $("#doce_lista").change(vacia);
+                    $("#ciento_lista").change(vacia);
                 }
                 if(this.value === 'ciento')
                 {
                     root.tipo = 144;
-                    cargar_doce();                    
-                    cargar_ciento();
-                    $("#ciento_lista").change(cargar_ciento);
+                    cargar_doce();    
+                    $("#doce_lista").change(cargar_ciento);
+                    $("#ciento_lista").change(vacia);
                 }
                 if(this.value === 'mil')
                 {
                     root.tipo = 1728;
                     cargar_doce();
-                    cargar_ciento();
-                    cargar_mil();
-                    $("#mil_lista").change(cargar_mil);
+                   
+                    $("#doce_lista").change(cargar_ciento);
+                    $("#ciento_lista").change(cargar_mil);
                 }
-                
                 if(this.value == 'todo')
                 {
-                    $("#doce_lista").css("display","none");
-                    $("#ciento_lista").css("display","none");
-                    $("#mil_lista").css("display", "none");   
+                    $("#doce_lista").css({"display":"none"});
+                    $("#ciento_lista").css({"display":"none"});
+                    $("#mil_lista").css({"display": "none"});   
                     root.tipo = 0;
                 }
             };
@@ -450,15 +432,17 @@
                 url = url.replace('net', red);
             
                 lider = getAjaxObject(url);
-                
-                console.log(lider);
+        
                 if(lider === false)
                 {
                     $("#fila_select").css("display","none");                    
                 }
                 else{
                     $("#lider_id").val(lider['lider']);
-                    $("#fila_select").css("display","block");
+                    $("#fila_select").css({"display":"block"});
+                    $("#doce_lista").css({"display":"none"});
+                   
+
                 }
             }
             else
@@ -486,7 +470,7 @@
             var acciones, index;
             
             index = $(InboxTable.fnGetData()).getIndexObj(aData, 'ids');
-            {% if is_granted('ROLE_GANAR')  %}
+            {% if is_granted('ROLE_ENVIAR')  %}
                 acciones = getCelulaActionButtons("111","asistencia_modal", "desactivar_modal", "view_modal");
             {% else %}
                 acciones = getActionButtons("010");
@@ -501,11 +485,9 @@
                         url = url.replace(':aps',aData.ids);
                         
                         $("#asistencia_id").val(aData.ids);
-                        
                         if(AsistenciaTable == null)
                         {
                             AsistenciaTable = createDataTable("tabla_asistencia", url , FormatoATable, null, AsistenciaRowCB);
-
                         }
                         else
                         {
@@ -519,13 +501,12 @@
          SentRowCB = function(nRow, aData, iDisplayIndex) {
             var acciones, index;
             index = $(SentTable.fnGetData()).getIndexObj(aData, 'ids');
-            {% if is_granted('ROLE_GANAR')  %}
+            {% if is_granted('ROLE_ENVIAR')  %}
                 acciones = getCelulaActionButtons("111","matricular_modal", "desactivar_modal", "view_modal");
             {% else %}
                 acciones = getActionButtons("010");
             {% endif %}
             SentTable.fnUpdate(acciones, index, 10);
-         
         };
 
         
@@ -563,31 +544,51 @@
                 {
                     url_inbox = "{{path('services_aplicacion_inbox_tema_red',{'red':':net'})}}";
                     url_inbox = url_inbox.replace(':net',red);
-                    
-                    console.log(url_inbox);
-                    
                     InboxTable = crear_actualizar(InboxTable, "tabla_inbox", url_inbox,FormatoTable, InboxRowCB);
-                    
-                    
-                   
+            
                     url_sent = "{{path('services_aplicacion_sent_tema_red',{'red':':net'})}}";
-                    url_sent = url_sent.replace(':net',red);
-                    console.log(url_sent);
-                    
+                    url_sent = url_sent.replace(':net',red);                    
                     SentTable = crear_actualizar(SentTable, "tabla_sent", url_sent,FormatoTable, SentRowCB);
                     
                 }
                 else if(root.tipo == 12)
                 {
-                    
+                    persona = $("#doce_lista").val();
+                    url_inbox = "{{path('services_aplicacion_inbox_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_inbox = url_inbox.replace(':net',red);
+                    url_inbox = url_inbox.replace(':per',persona);
+                    InboxTable = crear_actualizar(InboxTable, "tabla_inbox", url_inbox,FormatoTable, InboxRowCB);
+            
+                    url_sent = "{{path('services_aplicacion_sent_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_sent = url_sent.replace(':net',red);  
+                    url_sent = url_sent.replace(':per',persona);                    
+                    SentTable = crear_actualizar(SentTable, "tabla_sent", url_sent,FormatoTable, SentRowCB);
                 }
                 else if(root.tipo == 144)
                 {
-                    
+                    persona = $("#ciento_lista").val();
+                    url_inbox = "{{path('services_aplicacion_inbox_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_inbox = url_inbox.replace(':net',red);
+                    url_inbox = url_inbox.replace(':per',persona);
+                    InboxTable = crear_actualizar(InboxTable, "tabla_inbox", url_inbox,FormatoTable, InboxRowCB);
+            
+                    url_sent = "{{path('services_aplicacion_sent_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_sent = url_sent.replace(':net',red);  
+                    url_sent = url_sent.replace(':per',persona);                    
+                    SentTable = crear_actualizar(SentTable, "tabla_sent", url_sent,FormatoTable, SentRowCB);
                 }
                 else
                 {
-                    
+                    persona = $("#mil_lista").val();
+                    url_inbox = "{{path('services_aplicacion_inbox_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_inbox = url_inbox.replace(':net',red);
+                    url_inbox = url_inbox.replace(':per',persona);
+                    InboxTable = crear_actualizar(InboxTable, "tabla_inbox", url_inbox,FormatoTable, InboxRowCB);
+            
+                    url_sent = "{{path('services_aplicacion_sent_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_sent = url_sent.replace(':net',red);  
+                    url_sent = url_sent.replace(':per',persona);                    
+                    SentTable = crear_actualizar(SentTable, "tabla_sent", url_sent,FormatoTable, SentRowCB);
                 }
                     
              
@@ -615,67 +616,18 @@
         };
 
 	$(document).ready(function() {
-            
-            FechaActualT('desde');
-            FechaActualT('hasta');
-            
-
-            $("#desde_check").change(function(){
-                
-                if($('#desde_check').prop("checked"))
-                {
-                 $('#desde').attr("readonly",false);
-                }
-                else
-                 $('#desde').attr("readonly",true);
-            });
-            
-            $("#hasta_check").change(function(){
-                
-                if($('#hasta_check').prop("checked"))
-                {
-                 $('#hasta').attr("readonly",false);
-                }
-                else
-                 $('#hasta').attr("readonly",true);
-            });
-            
-                  
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
+               redes = getAjaxObject('{{path('services_red')}}');              
                 cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
-            {% else %}                      
-                      
-            {% endif%}
+           
         
             $("#red_lista").change(function()
             {
-                if($("#red_lista").val() == '0')
-                {
-                    $('#desde_block').css({'display':'none'});
-                    $('#hasta_block').css({'display':'none'});
-                }
-                else
-                {
-                    $('#desde_block').css({'display':'block'});
-                    $('#hasta_block').css({'display':'block'});
-                }
+               
                 cambio_red();
             });
              $('#select').css({'display':'none'});
-
-
-
-            $("#excelbutton").click(function(event) {
-            	$("#content").val("<table>" + $("#persona").html() + "</table>");
-		$("#form").attr("action", "{{asset('extensiones/exportexcel.php')}}");
-		$("#form").submit();
-            });
-        
             $("#btnGenerar").click(generardata);
             $("input[type=radio][name=nivel]").change(radioFunction);
-            
-            
             
             $("#guardar_asistencia").click(function(event){
              
@@ -684,7 +636,6 @@
                     'formulario': $("#form_asistencia").serializeObject(),
                     'en': AsistenciaTable.fnGetData()
                 };
-                 console.log(datos);
                 enviar('{{path('buzon_envia_asistencia')}}', datos , SuccessFunction, null);
             });
             

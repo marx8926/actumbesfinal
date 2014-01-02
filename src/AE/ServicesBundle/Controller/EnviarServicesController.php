@@ -59,6 +59,8 @@ class EnviarServicesController extends Controller {
         $smt->execute(array(':padre'=>$lider, ':tipo'=>$tipo));
         $result = $smt->fetchAll();        
         $resultado= new JsonResponse($result);
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
             
         return $resultado;
     }
@@ -71,7 +73,23 @@ class EnviarServicesController extends Controller {
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute(array(':red'=>$red));
         $result = $smt->fetchAll();        
-        $resultado= new JsonResponse(array('aaData'=>$result));            
+        $resultado= new JsonResponse(array('aaData'=>$result));
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
+        return $resultado;
+    }
+    
+    public function all_celulas_persona_tablaAction($persona)
+    {
+                
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_celulas_persona(:persona)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':persona'=>$persona));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse(array('aaData'=>$result));
+        $resultado->setMaxAge(60);
+        $resultado->setPublic();
         return $resultado;
     }
     
@@ -136,6 +154,28 @@ class EnviarServicesController extends Controller {
         $sql = "select * from get_sent_aplicaciones_celula_red(:red)";        
         $smt = $em->getConnection()->prepare($sql);
         $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse(array('aaData'=>$result));            
+        return $resultado;
+    }
+    
+    public function aplicacion_inbox_tema_red_personaAction($red, $persona)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_nuevas_aplicaciones_celula_red_persona(:red,:lid)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red, ':lid'=>$persona));
+        $result = $smt->fetchAll();        
+        $resultado= new JsonResponse(array('aaData'=>$result));            
+        return $resultado;
+    }
+    
+    public function aplicacion_sent_tema_red_personaAction($red, $persona)
+    {
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_sent_aplicaciones_celula_lider(:red,:lid)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red,':lid'=>$persona));
         $result = $smt->fetchAll();        
         $resultado= new JsonResponse(array('aaData'=>$result));            
         return $resultado;

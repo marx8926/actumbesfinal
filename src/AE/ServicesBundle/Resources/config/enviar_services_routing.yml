@@ -21,6 +21,12 @@ services_all_celulas_red_tabla:
     defaults: {_controller: AEServicesBundle:EnviarServices:all_celulas_red_tabla}
     requirements:
         _method: GET
+ 
+services_all_celulas_persona_tabla:
+    pattern: /all_celulas_persona_tabla/{persona}
+    defaults: {_controller: AEServicesBundle:EnviarServices:all_celulas_persona_tabla}
+    requirements:
+        _method: GET
         
 services_sin_celula_red:
     pattern: /sin_celula_red/{red}
@@ -58,6 +64,17 @@ services_aplicacion_sent_tema_red:
     requirements:
         _method: GET
         
+services_aplicacion_inbox_tema_red_persona:
+    pattern: /aplicacion_inbox_tema_red_persona/{red}/{persona}
+    defaults: {_controller: AEServicesBundle:EnviarServices:aplicacion_inbox_tema_red_persona}
+    requirements:
+        _method: GET
+        
+services_aplicacion_sent_tema_red_persona:
+    pattern: /aplicacion_sent_tema_red_persona/{red}/{persona}
+    defaults: {_controller: AEServicesBundle:EnviarServices:aplicacion_sent_tema_red_persona}
+    requirements:
+        _method: GET
         
 services_aplicacion_asistencia:
     pattern: /aplicacion_asistencia/{app}

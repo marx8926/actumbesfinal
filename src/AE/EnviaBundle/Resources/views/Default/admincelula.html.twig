@@ -13,8 +13,7 @@
             margin-top: 15px;
             padding: 0px;
             }
-            
-            
+
         </style>
         
 {% endblock %}                 
@@ -50,26 +49,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="control-group span3" id="desde_block" name="desde_block" >
-             
-             
-                    <label class="control-label"  style="width:auto; margin-left: -10px;" >
-                    <input type="checkbox" id="desde_check" name="desde_check">
-                    Desde</label>
-                    <div class="controls" style="margin-left: 35px;">
-                        <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly">
-                    </div>
-                </div>
-        
-        
-                <div class="control-group span3" id="hasta_block" name="hasta_block">
-                    <label class="control-label"  style="width:auto; margin-left: -10px; " >
-                    <input type="checkbox" id="hasta_check" name="hasta_check">
-                        Hasta</label>
-                    <div class="controls" style="margin-left: 35px;">
-                        <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly">
-                    </div>
-                </div>
         
                 <div class="control-group span3">
             
@@ -91,7 +70,7 @@
                 <div class="control-group span3">
                     <div class="controls">
                         <label class="radio">
-                            <input type="radio" id="nivel" name="nivel" value="doce"> 12
+                            <input type="radio" id="nivel" name="nivel" value="doce"> 144
                         </label>
                                                 
                         <select id="doce_lista" name="doce_lista" class="input-medium" style="display: none;">
@@ -101,7 +80,7 @@
                 <div class="control-group span3">
                     <div class="controls">
                         <label class="radio">
-                            <input type="radio" id="nivel" name="nivel" value="ciento"> 144
+                            <input type="radio" id="nivel" name="nivel" value="ciento"> 1728
                         </label>
                                                 
                         <select id="ciento_lista" name="ciento_lista" class="input-medium" style="display: none;">
@@ -112,7 +91,7 @@
                 <div class="control-group span3">
                     <div class="controls">
                         <label class="radio">
-                            <input type="radio" id="nivel" name="nivel" value="mil"> 1728
+                            <input type="radio" id="nivel" name="nivel" value="mil"> 20736
                         </label>
                                                 
                         <select id="mil_lista" name="mil_lista" class="input-medium" style="display: none;">
@@ -187,7 +166,7 @@
                                 </form>
                             </div>
                  
-                            <div class="modal hide" id="matricular_modal">                            
+                            <div class="modal hide" id="matricular_modal" style="width:auto;">                            
                                 <form id="form_matricular" name="form_matricular" >                                
                                     <input type="hidden" id="matricular_id" name="matricular_id">
                                     <input type="hidden" id="tipo_celula" name="tipo_celula" value="0">
@@ -203,7 +182,7 @@
                                             <div class="control-group span2">
                                                 <label class="control-label">Sin célula</label>
                                                 <div class="controls" style="margin-right: 20px;">
-                                                    <select id="sin_celula" name="sin_celula" class="input-medium" multiple="true">
+                                                    <select size="10" id="sin_celula" name="sin_celula" class="input-medium" multiple="true">
                                                         
                                                     </select>
                                                 </div>
@@ -218,7 +197,7 @@
                                             <div class="control-group span2">
                                                 <label class="control-label">En la célula</label>
                                                 <div class="controls">
-                                                    <select id="en_celula" name="en_celula" class="input-medium" multiple="true">
+                                                    <select size="10" id="en_celula" name="en_celula" class="input-medium" multiple="true">
                                                         
                                                     </select>
                                                 </div>
@@ -318,7 +297,8 @@
       
         var  CelulaRowCB, CelulaTable;
         
-        function cargar_sin_en_celula(red, id_cell, en_lista, sin_lista)
+      
+       function cargar_sin_en_celula(red, id_cell, en_lista, sin_lista)
         {
             url_s = "{{path('services_sin_celula_red',{'red':'net'})}}";
             url_s = url_s.replace('net',red);
@@ -374,9 +354,10 @@
             url = "{{path('services_hijos_de_lider_option',{'lider':':lid','tipo':'type'})}}";
             url = url.replace(':lid', padre);
             url = url.replace('type','20378');
+            console.log(url);
             if(padre!= null || padre!=false)
             {
-                mil = getAjaxObject(url);                  
+                mil = getAjaxObject(url);                 
                 cargarSelect(mil,"mil_lista",'id','nombres');
                 $("#doce_lista").css("display","block");
                 $("#ciento_lista").css("display","block");
@@ -387,27 +368,29 @@
             
         };
         
-        
+        vacia = function(){};
         radioFunction  = function(){
                 if(this.value === 'doce')
                 {
                    cargar_doce();
                    root.tipo = 12;
+                   $("#doce_lista").change(vacia);
+                    $("#ciento_lista").change(vacia);
                 }
                 if(this.value === 'ciento')
                 {
                     root.tipo = 144;
-                    cargar_doce();                    
-                    cargar_ciento();
-                    $("#ciento_lista").change(cargar_ciento);
+                    cargar_doce();    
+                    $("#doce_lista").change(cargar_ciento);
+                    $("#ciento_lista").change(vacia);
                 }
                 if(this.value === 'mil')
                 {
                     root.tipo = 1728;
                     cargar_doce();
-                    cargar_ciento();
-                    cargar_mil();
-                    $("#mil_lista").change(cargar_mil);
+                   
+                    $("#doce_lista").change(cargar_ciento);
+                    $("#ciento_lista").change(cargar_mil);
                 }
                 
                 if(this.value == 'todo')
@@ -428,7 +411,6 @@
             
                 lider = getAjaxObject(url);
                 
-                console.log(lider);
                 if(lider === false)
                 {
                     $("#fila_select").css("display","none");                    
@@ -436,6 +418,7 @@
                 else{
                     $("#lider_id").val(lider['lider']);
                     $("#fila_select").css("display","block");
+                    cargar_doce();
                 }
             }
             else
@@ -448,7 +431,7 @@
         CelulaRowCB = function(nRow, aData, iDisplayIndex) {
             var acciones, index;
             index = $(CelulaTable.fnGetData()).getIndexObj(aData, 'id');
-            {% if is_granted('ROLE_GANAR')  %}
+            {% if is_granted('ROLE_ENVIAR')  %}
                 acciones = getCelulaActionButtons("111","matricular_modal", "desactivar_modal", "view_modal");
             {% else %}
                 acciones = getActionButtons("010");
@@ -524,11 +507,17 @@
                 }
                 else if(root.tipo == 12)
                 {
-                    
+                    url = "{{path('services_all_celulas_persona_tabla',{'persona':':per'})}}";                    
+                    per = $("#doce_lista").val();
+                    url = url.replace(':per',per);
+                    crear_actualizar(CelulaTable, "tabla_celulas", url,FormatoTable, CelulaRowCB);
                 }
                 else if(root.tipo == 144)
                 {
-                    
+                    url = "{{path('services_all_celulas_persona_tabla',{'persona':':per'})}}";                    
+                    per = $("#ciento_lista").val();
+                    url = url.replace(':per',per);
+                    crear_actualizar(CelulaTable, "tabla_celulas", url,FormatoTable, CelulaRowCB);
                 }
                 else
                 {
@@ -560,78 +549,21 @@
         };
 
 	$(document).ready(function() {
-            
-            FechaActualT('desde');
-            FechaActualT('hasta');
-            
-
-            $("#desde_check").change(function(){
-                
-                if($('#desde_check').prop("checked"))
-                {
-                 $('#desde').attr("readonly",false);
-                }
-                else
-                 $('#desde').attr("readonly",true);
-            });
-            
-            $("#hasta_check").change(function(){
-                
-                if($('#hasta_check').prop("checked"))
-                {
-                 $('#hasta').attr("readonly",false);
-                }
-                else
-                 $('#hasta').attr("readonly",true);
-            });
-            
-            var rede = '{{red}}';
-                  
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
-                cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
-            {% else %}                      
-                      
-                      if(rede.length ===0)
-                      $("<option value='-1'>Sin red </option>").appendTo('#red_lista');
-                      else $("<option value='"+rede+"'>"+rede+"</option>").appendTo('#red_lista');
-
-                      $("<option value='-1'>Sin  Celula </option>").appendTo('#celula_lista');
-
-            {% endif%}
-        
+     
+            redes = getAjaxObject('{{path('services_red')}}');              
+            cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
+           
             $("#red_lista").change(function()
             {
-                if($("#red_lista").val() == '0')
-                {
-                    $('#desde_block').css({'display':'none'});
-                    $('#hasta_block').css({'display':'none'});
-                }
-                else
-                {
-                    $('#desde_block').css({'display':'block'});
-                    $('#hasta_block').css({'display':'block'});
-                }
                 cambio_red();
             });
              $('#select').css({'display':'none'});
 
-
-
-            $("#excelbutton").click(function(event) {
-            	$("#content").val("<table>" + $("#persona").html() + "</table>");
-		$("#form").attr("action", "{{asset('extensiones/exportexcel.php')}}");
-		$("#form").submit();
-            });
-        
             $("#btnGenerar").click(generardata);
             $("input[type=radio][name=nivel]").change(radioFunction);
-            
-            
-            
+    
             $("#guardar_matricular").click(function(event){
              
-                console.log($("#form_matricular").serializeObject());
                 datos ={
                     'formulario': $("#form_matricular").serializeObject(),
                     'en': root.encelula
