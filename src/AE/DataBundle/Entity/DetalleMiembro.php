@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * DetalleMiembro
  *
- * @ORM\Table(name="detalle_miembro", indexes={@ORM\Index(name="fki_persona", columns={"persona_id"}), @ORM\Index(name="fki_bautizo", columns={"bautizo_id"}), @ORM\Index(name="fk_lider", columns={"lider_id"}), @ORM\Index(name="fki_celula_miembro", columns={"celula_id"}), @ORM\Index(name="fki_celula_discipulado", columns={"celula_dis_id"}), @ORM\Index(name="IDX_3E1ED718BBE8922", columns={"red_id"})})
+ * @ORM\Table(name="detalle_miembro", indexes={@ORM\Index(name="fki_persona", columns={"persona_id"}), @ORM\Index(name="fki_bautizo", columns={"bautizo_id"}), @ORM\Index(name="fk_lider", columns={"lider_id"}), @ORM\Index(name="fki_celula_miembro", columns={"celula_id"}), @ORM\Index(name="fki_encuentro_miembro", columns={"encuentro_id"}), @ORM\Index(name="fki_celula_discipulado", columns={"celula_dis_id"}), @ORM\Index(name="IDX_3E1ED718BBE8922", columns={"red_id"})})
  * @ORM\Entity
  */
 class DetalleMiembro
@@ -106,6 +106,16 @@ class DetalleMiembro
      * })
      */
     private $bautizo;
+
+    /**
+     * @var \DetalleMiembro
+     *
+     * @ORM\ManyToOne(targetEntity="DetalleMiembro")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="encuentro_id", referencedColumnName="id")
+     * })
+     */
+    private $encuentro;
 
 
 
@@ -347,5 +357,28 @@ class DetalleMiembro
     public function getBautizo()
     {
         return $this->bautizo;
+    }
+
+    /**
+     * Set encuentro
+     *
+     * @param \AE\DataBundle\Entity\DetalleMiembro $encuentro
+     * @return DetalleMiembro
+     */
+    public function setEncuentro(\AE\DataBundle\Entity\DetalleMiembro $encuentro = null)
+    {
+        $this->encuentro = $encuentro;
+
+        return $this;
+    }
+
+    /**
+     * Get encuentro
+     *
+     * @return \AE\DataBundle\Entity\DetalleMiembro 
+     */
+    public function getEncuentro()
+    {
+        return $this->encuentro;
     }
 }

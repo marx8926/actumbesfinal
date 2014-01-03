@@ -6,6 +6,7 @@
       <index name="fki_bautizo" columns="bautizo_id"/>
       <index name="fk_lider" columns="lider_id"/>
       <index name="fki_celula_miembro" columns="celula_id"/>
+      <index name="fki_encuentro_miembro" columns="encuentro_id"/>
       <index name="fki_celula_discipulado" columns="celula_dis_id"/>
       <index name="IDX_3E1ED718BBE8922" columns="red_id"/>
     </indexes>
@@ -20,6 +21,11 @@
     <many-to-one field="bautizo" target-entity="Bautizo">
       <join-columns>
         <join-column name="bautizo_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="encuentro" target-entity="DetalleMiembro">
+      <join-columns>
+        <join-column name="encuentro_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="persona" target-entity="Persona">
