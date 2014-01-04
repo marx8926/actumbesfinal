@@ -288,4 +288,29 @@ class InformeController extends Controller {
 
         return $response; 
     }
+    
+    public function informe_semanal_indeli_viewAction()
+    {
+        return $this->render('AEDiscipulaBundle:Default:informe_semanal_indeli.html.twig');
+    }
+    
+     
+    public function informe_semanal_indeli_serviceAction()
+    {
+        
+    }
+    
+    
+    
+    public function informe_alumnos_indeli_viewAction()
+    {
+        return $this->render('AEDiscipulaBundle:Default:informe_alumnos_red_indeli.html.twig');
+    }
+    
+     
+    public function informe_alumnos_indeli_serviceAction()
+    {
+        
+    }
+    
 }

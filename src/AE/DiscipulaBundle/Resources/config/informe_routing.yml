@@ -21,3 +21,27 @@ discipula_informe_asignacion_detalle:
     defaults: {_controller: AEDiscipulaBundle:Informe:informe_asignacion_detalle}
     requirements:
         _method: POST
+        
+disciplina_informe_semanal_indeli_view:
+    pattern: /informe_semanal_indeli_view
+    defaults: {_controller: AEDiscipulaBundle:Informe:informe_semanal_indeli_view}
+    requirements:
+        _method: GET
+        
+disciplina_informe_semanal_indeli_service:
+    pattern: /informe_semanal_indeli_service
+    defaults: {_controller: AEDiscipulaBundle:Informe:informe_semanal_indeli_service}
+    requirements:
+        _method: POST
+        
+disciplina_informe_alumnos_indeli_view:
+    pattern: /informe_alumnos_indeli_view
+    defaults: {_controller: AEDiscipulaBundle:Informe:informe_alumnos_indeli_view}
+    requirements:
+        _method: GET
+        
+disciplina_informe_alumnos_indeli_service:
+    pattern: /informe_alumnos_indeli_service
+    defaults: {_controller: AEDiscipulaBundle:Informe:informe_semanal_alumnos_service}
+    requirements:
+        _method: POST
