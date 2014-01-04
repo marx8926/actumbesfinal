@@ -1,0 +1,5 @@
+informe_secretaria_view:
+    pattern:  /informes_secretaria_view
+    defaults: { _controller: AESecretariaBundle:Informe:view }
+    requirements:
+        _method: GET

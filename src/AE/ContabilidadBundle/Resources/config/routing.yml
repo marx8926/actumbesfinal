@@ -8,4 +8,8 @@ ofrenda_contabilidad_routing:
 diezmo_contabilidad_routing:    
     resource: "@AEContabilidadBundle/Resources/config/diezmo_routing.yml"
 
+buzon_contabilidad_routing:    
+    resource: "@AEContabilidadBundle/Resources/config/buzon_routing.yml"  
     
+informe_contabilidad_routing:    
+    resource: "@AEContabilidadBundle/Resources/config/informe_routing.yml"  

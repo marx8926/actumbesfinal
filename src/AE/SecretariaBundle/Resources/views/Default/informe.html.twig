@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block titulo %} Informe Contabilidad - {% endblock %}
+{% block titulo %} Informe Secretaria - {% endblock %}
 
 {% block stylesheets %}
         <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -29,7 +29,7 @@
             <div class="box">
                 
 		<div class="box-head tabs">
-                    <h3>Reporte semanal </h3>
+                    <h3>Reportes secretaria </h3>
                 </div>
        
 
@@ -39,61 +39,24 @@
          <div class="control-group span3">
              <label class="control-label" style="width:auto; margin-left: 40px;" >Tipo</label>
             <div class="controls" style="margin-left: 90px;">
-                <select id="tipo_red" name="tipo_red" required class="input-small">
-                                                        <option value="1">Ofrendas</option>
-                                                        <option value="2">Diezmos</option>
+                <select id="tipo" name="tipo" required class="input-small">
+                                                        <option value="1">Encuentros</option>
+                                                        <option value="2">Bautizos</option>
                 </select>
             </div>
         </div>
          
-         <div class="control-group span3" id="desde_block" name="desde_block" >
+         <div class="control-group span3" >
              
              
             <label class="control-label"  style="width:auto; margin-left: -10px;" >
-                Desde</label>
+                Año</label>
             <div class="controls" style="margin-left: 35px;">
-                <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly">
+                <input type="text" class="input-small" id="desde" name="desde" required>
             </div>
         </div>
         
-        
-         <div class="control-group span3" id="hasta_block" name="hasta_block">
-            <label class="control-label"  style="width:auto; margin-left: -10px; " >
-                Hasta</label>
-            <div class="controls" style="margin-left: 35px;">
-                <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly">
-            </div>
-        </div>
-            
-        <div class="control-group">
-            <label class="control-label">Filtro</label>
-            <div class="controls">
-                <select id="tipo_persona" name="tipo_persona">
-                    <option value="1">Todos</option>
-                    <option value="2">Lideres</option>
-                    <option value="3">Persona</option>
-                </select>
-            </div>
-        </div>
-        
-                                        <div class="control-group">
-                                            <label for="red_lista" class="control-label">Red</label>
-                                            <div class="controls">
-                                                <select id="red_lista" name="red_lista">
-                                                    
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label"> Persona</label>
-                                            <input id="persona_id" name="persona_id" type="hidden">
-
-                                            <div class="controls">
-                                                <input id="persona" name="persona" class="input-large" type="text" >
-                                                <input type="button" class="btn btn-small" value="+" id="add_persona" name="add_persona">
-                                            </div>
-                                        </div>
-            
+                              
          <div class="control-group span3">
             
             <div class="controls"  style="width:auto; margin-left: -10px; " >
@@ -143,18 +106,8 @@
         
 	$(document).ready(function() {
             
-            FechaActualT('desde');
-            FechaActualT('hasta');
-          
-                  
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
-                cargarSelect(redes, "red_lista", "int_red_id", "id"); 
-                $("<option value='0'>Todos</option>").appendTo('#red_lista');
-                                     
-            {% else %}                      
-                  
-            {% endif%}
+             var d = new Date();
+            $("#desde").val(d.getFullYear());
         
             
 	 });

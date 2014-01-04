@@ -10,3 +10,6 @@ encuentro_secretaria_routing:
     
 bautizo_secretaria_routing:
     resource: "@AESecretariaBundle/Resources/config/bautizo_routing.yml"
+    
+informe_secretaria_routing:
+    resource: "@AESecretariaBundle/Resources/config/informe_routing.yml"

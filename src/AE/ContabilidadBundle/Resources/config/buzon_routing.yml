@@ -1,0 +1,5 @@
+buzon_contabilidad_view:
+    pattern:  /buzon_contabilidad_view
+    defaults: { _controller: AEContabilidadBundle:Buzon:view }
+    requirements:
+        _method: GET
