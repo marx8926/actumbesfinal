@@ -3,3 +3,15 @@ informe_semanal_view:
     defaults: { _controller: AEEnviaBundle:Informe:informe_semanal_view }
     requirements:
         _method: GET
+        
+informe_celulograma_view:
+    pattern:  /informe_celulograma_view
+    defaults: { _controller: AEEnviaBundle:Informe:informe_celulograma_view }
+    requirements:
+        _method: GET
+        
+informe_lideres_celula_view:
+    pattern:  /informe_lideres_celula_view
+    defaults: { _controller: AEEnviaBundle:Informe:informe_lideres_celula_view }
+    requirements:
+        _method: GET

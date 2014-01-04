@@ -26,4 +26,15 @@ class InformeController extends Controller {
     {
         return $this->render('AEEnviaBundle:Default:informesemanal.html.twig');
     }
+    
+    public function informe_celulograma_viewAction()
+    {
+        return $this->render('AEEnviaBundle:Default:celulograma.html.twig');
+
+    }
+    
+    public function informe_lideres_celula_viewAction()
+    {
+        return $this->render('AEEnviaBundle:Default:informe_lideres_celula.html.twig');
+    }
 }

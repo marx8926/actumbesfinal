@@ -1,0 +1,532 @@
+{% extends "::base.html.twig" %}
+
+{% block titulo %}Célulograma - {% endblock %}
+
+{% block stylesheets %}
+        <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
+       <style type="text/css">
+    
+           #form_busqueda {
+            margin-top: 15px;
+            padding: 0px;
+            }
+            .datepicker {z-index: 1151;}           
+            
+        </style>
+        
+{% endblock %}                 
+
+{% block content %} 
+        
+<div class="container-fluid">
+    <div class="content">
+     <div class="row-fluid">
+	<div class="span12">
+
+            <div id="alerta">
+                
+            </div>
+            <div class="box">
+                
+		<div class="box-head tabs">
+                    <h3>Filtro de busqueda </h3>
+                </div>
+       
+
+                <div class="box-content box-nomargin">
+        
+        <form id="form_busqueda" name="form_busqueda" method="POST" class="form-horizontal" >
+            
+            <input type="hidden" id="lider_id" name="lider_id" value="-1">
+            <div class="row">
+                <div class="control-group span3">
+                    <label class="control-label" style="width:auto; margin-left: 40px;" >Red</label>
+                    <div class="controls" style="margin-left: 90px;">
+                        <select id="red_lista" name="red_lista" class="rango input-small" >
+                   
+                        </select>
+                    </div>
+                </div>
+               
+        
+                <div class="control-group span3">
+            
+                    <div class="controls"  style="width:auto; margin-left: -10px; " >
+                        <input type="button" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" style="display:none;" id="fila_select">
+                
+                <div class="control-group span1">
+                    <div class="controls" style="width:auto; margin-left: 40px;">
+                       <label class="radio">
+                            <input type="radio" id="nivel" name="nivel" value="todo"> Todos
+                        </label> 
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" id="nivel" name="nivel" value="doce"> 144
+                        </label>
+                                                
+                        <select id="doce_lista" name="doce_lista" class="input-medium" style="display: none;">
+                        </select>
+                    </div>        
+                </div>
+                <div class="control-group span3">
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" id="nivel" name="nivel" value="ciento"> 1728
+                        </label>
+                                                
+                        <select id="ciento_lista" name="ciento_lista" class="input-medium" style="display: none;">
+                        </select>
+                    </div>        
+                </div>
+                
+                <div class="control-group span3">
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" id="nivel" name="nivel" value="mil">  20736
+                        </label>
+                                                
+                        <select id="mil_lista" name="mil_lista" class="input-medium" style="display: none;">
+                        </select>
+                    </div>        
+                </div>
+                
+                <div class="control-group span3">
+                     
+                </div>
+                
+            </div>    
+        </form>
+        
+ 
+                </div>
+            </div>
+    
+        </div>
+    </div>
+      
+     </div>
+        
+    </div>
+</div>
+{% endblock %}
+      
+ {%block javascript %}
+            
+        <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-typeahead.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-collapse.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-button.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tooltip.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-tab.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>    
+            <script src="{{asset('js/custom.js')}}"></script>              
+            <!--[if lt IE 9]> <script type="text/javascript" src="{{asset('js/html5.js')}}"></script><![endif]-->
+            <script src="{{asset('js/jquery/jquery.ui.core.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.widget.min.js')}}"></script>
+            <script src="{{asset('js/jquery/jquery.ui.position.min.js')}}"></script>
+            <script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js')}}"></script><![endif]-->           
+            <script src="{{asset('js/tiempo.js')}}"></script>        
+            <script src="{{asset('js/jquery.sparkline.js')}}"> </script>
+            <script src="{{asset('js/jquery.dataTables.js')}}"> </script>
+            <script src="{{asset('js/custom-tables.js')}}"> </script>
+            
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
+            <script src="{{asset('js/util/datatable_plugins.js')}}"></script>
+            <script src="{{asset('js/admincelula.js')}}"></script>
+            
+    <script type="text/javascript">
+ 
+         var trselected; 
+	 var oTable;
+         urlES = "{{asset('js/dt_ES.txt')}}";
+         
+        var values = [];
+        root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
+        root.SourceCServicio = "";
+        root.tipo = -1;
+        root.creado = false;
+        root.encelula = null;
+        root.sincelula = null;
+      
+        var  CelulaRowCB, CelulaTable;
+        var InboxRowCB, SentRowCB;
+        var InboxTable=null, SentTable=null;
+        var AsistenciaTable = null;
+     
+        FormatoATable = [
+            {
+                "mDataProp": "nombres"
+            },
+            {
+                "mDataProp": "acciones"
+            }];
+        FormatoTable = [
+                    {
+                        "mDataProp": "ids"
+                    },
+                    {
+                        "mDataProp": "titulo"
+                    },{
+                        "mDataProp": "inicio"
+                    },{
+                        "mDataProp": "limite"
+                    },{
+                        "mDataProp": "aplicacion"
+                    },{
+                        "mDataProp": "red_id"
+                    },{
+                        "mDataProp": "id_cell"
+                    },{
+                        "mDataProp": "nombres"
+                    },{
+                        "mDataProp": "type"
+                    },{
+                        "mDataProp": "direccion"
+                    },{
+                        "mDataProp": "acciones"
+                    }];
+        
+        function cargar_sin_en_celula(red, id_cell, en_lista, sin_lista)
+        {
+            url_s = "{{path('services_sin_celula_red',{'red':'net'})}}";
+            url_s = url_s.replace('net',red);
+            
+            sin = getAjaxObject(url_s);
+            cargarSelect(sin,sin_lista,'id','nombres');
+            
+            url_c = "{{path('services_con_celula_red',{'red':'net','celula':'cell'})}}";
+            url_c = url_c.replace('net',red);
+            url_c = url_c.replace('cell',id_cell);
+            con = getAjaxObject(url_c);
+            root.encelula = con;
+            root.sincelula = sin;
+            
+            cargarSelect(con,en_lista,'id','nombres');
+            
+        }
+        function cargar_doce()
+        {
+            lider_red = $("#lider_id").val();
+                   
+            url = "{{path('services_hijos_de_lider_option',{'lider':':lid','tipo':'type'})}}";
+            url = url.replace(':lid', $("#lider_id").val());
+            url = url.replace('type','144');                   
+            doce = getAjaxObject(url);                  
+            cargarSelect(doce,"doce_lista",'id','nombres');
+            $("#doce_lista").css("display","block");
+            $("#ciento_lista").css("display","none");
+            $("#mil_lista").css("display", "none");
+        }
+        
+        cargar_ciento = function()
+        {
+                   
+            padre = $("#doce_lista").val();
+            url = "{{path('services_hijos_de_lider_option',{'lider':':lid','tipo':'type'})}}";
+            url = url.replace(':lid', padre);
+            url = url.replace('type','1728');
+            if(padre!= null || padre!=false)
+            {
+                ciento = getAjaxObject(url);                  
+                cargarSelect(ciento,"ciento_lista",'id','nombres');
+                $("#doce_lista").css("display","block");
+                $("#ciento_lista").css("display","block");                
+            }else{
+                 $("#doce_lista").css("display","none");
+            }            
+            $("#mil_lista").css({"display": "none"});
+        };
+        
+        cargar_mil = function(){
+            padre = $("#ciento_lista").val();
+            url = "{{path('services_hijos_de_lider_option',{'lider':':lid','tipo':'type'})}}";
+            url = url.replace(':lid', padre);
+            url = url.replace('type','20378');
+            if(padre!= null || padre!=false)
+            {
+                mil = getAjaxObject(url);                  
+                cargarSelect(mil,"mil_lista",'id','nombres');
+                $("#doce_lista").css({"display":"block"});
+                $("#ciento_lista").css({"display":"block"});
+                $("#mil_lista").css({"display":"block"}); 
+            }else{
+                 $("#mil_lista").css({"display":"none"});
+            }            
+            
+        };
+        
+        vacia = function(){};
+        radioFunction  = function(){
+                if(this.value === 'doce')
+                {
+                   cargar_doce();
+                   root.tipo = 12;
+                   $("#doce_lista").change(vacia);
+                    $("#ciento_lista").change(vacia);
+                }
+                if(this.value === 'ciento')
+                {
+                    root.tipo = 144;
+                    cargar_doce();    
+                    $("#doce_lista").change(cargar_ciento);
+                    $("#ciento_lista").change(vacia);
+                }
+                if(this.value === 'mil')
+                {
+                    root.tipo = 1728;
+                    cargar_doce();
+                   
+                    $("#doce_lista").change(cargar_ciento);
+                    $("#ciento_lista").change(cargar_mil);
+                }
+                if(this.value == 'todo')
+                {
+                    $("#doce_lista").css({"display":"none"});
+                    $("#ciento_lista").css({"display":"none"});
+                    $("#mil_lista").css({"display": "none"});   
+                    root.tipo = 0;
+                }
+            };
+        
+        cambio_red = function(){    
+            red = $("#red_lista").val();
+            if(red != '-1')
+            {
+                url = "{{path('services_check_lider_red',{'red':'net'})}}";
+                url = url.replace('net', red);
+            
+                lider = getAjaxObject(url);
+        
+                if(lider === false)
+                {
+                    $("#fila_select").css("display","none");                    
+                }
+                else{
+                    $("#lider_id").val(lider['lider']);
+                    $("#fila_select").css({"display":"block"});
+                    $("#doce_lista").css({"display":"none"});
+                   
+
+                }
+            }
+            else
+            {
+                $("#fila_select").css("display","none");
+            }
+            
+        };
+        
+        AsistenciaRowCB = function(nRow, aData, iDisplayIndex) {
+                     var index;
+                     
+                     index = $(AsistenciaTable.fnGetData()).getIndexObj(aData, 'id');
+                     AsistenciaTable.fnUpdate("<input type=\"checkbox\" id=\"asiste\" name=\"asiste\" value=\"si\" >", index, 1);
+                     
+                     $(nRow).find('input[type=checkbox]').change(function(){
+                        if($(this).prop("checked"))
+                           aData.asistio = true;
+                        else
+                           aData.asistio = false;                      
+                    });                    
+                 };
+        
+        InboxRowCB = function(nRow, aData, iDisplayIndex) {
+            var acciones, index;
+            
+            index = $(InboxTable.fnGetData()).getIndexObj(aData, 'ids');
+            {% if is_granted('ROLE_ENVIAR')  %}
+                acciones = getCelulaActionButtons("111","asistencia_modal", "desactivar_modal", "view_modal");
+            {% else %}
+                acciones = getActionButtons("010");
+            {% endif %}
+            InboxTable.fnUpdate(acciones, index, 10);
+            
+            $(nRow).find('.add_row').click(function(event){
+                
+                        event.preventDefault();
+                        
+                        url = "{{path('services_aplicacion_asistencia',{'app':':aps'})}}" ;
+                        url = url.replace(':aps',aData.ids);
+                        
+                        $("#asistencia_id").val(aData.ids);
+                        if(AsistenciaTable == null)
+                        {
+                            AsistenciaTable = createDataTable("tabla_asistencia", url , FormatoATable, null, AsistenciaRowCB);
+                        }
+                        else
+                        {
+                            AsistenciaTable.fnReloadAjax(url);
+                        }
+                       
+             });
+
+        };
+        
+         SentRowCB = function(nRow, aData, iDisplayIndex) {
+            var acciones, index;
+            index = $(SentTable.fnGetData()).getIndexObj(aData, 'ids');
+            {% if is_granted('ROLE_ENVIAR')  %}
+                acciones = getCelulaActionButtons("111","matricular_modal", "desactivar_modal", "view_modal");
+            {% else %}
+                acciones = getActionButtons("010");
+            {% endif %}
+            SentTable.fnUpdate(acciones, index, 10);
+        };
+
+        
+        
+        function crear_actualizar(Table, id, url,formato, row)
+        {
+            if(Table == null)
+            {
+                //crear tabla x primera vez
+                Table = createDataTable(id, url, formato, null, row);
+  
+            }
+            else
+            {
+                Table.fnReloadAjax(url);
+            }
+
+            
+            return Table;
+             
+        }
+       
+        generardata = function()
+        {
+            var red = $("#red_lista").val();
+            
+            if( red != '-1')
+            {     
+                
+                if(root.tipo == -1)
+                {
+                    
+                }
+                else if(root.tipo == 0)
+                {
+                    url_inbox = "{{path('services_aplicacion_inbox_tema_red',{'red':':net'})}}";
+                    url_inbox = url_inbox.replace(':net',red);
+                    InboxTable = crear_actualizar(InboxTable, "tabla_inbox", url_inbox,FormatoTable, InboxRowCB);
+            
+                    url_sent = "{{path('services_aplicacion_sent_tema_red',{'red':':net'})}}";
+                    url_sent = url_sent.replace(':net',red);                    
+                    SentTable = crear_actualizar(SentTable, "tabla_sent", url_sent,FormatoTable, SentRowCB);
+                    
+                }
+                else if(root.tipo == 12)
+                {
+                    persona = $("#doce_lista").val();
+                    url_inbox = "{{path('services_aplicacion_inbox_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_inbox = url_inbox.replace(':net',red);
+                    url_inbox = url_inbox.replace(':per',persona);
+                    InboxTable = crear_actualizar(InboxTable, "tabla_inbox", url_inbox,FormatoTable, InboxRowCB);
+            
+                    url_sent = "{{path('services_aplicacion_sent_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_sent = url_sent.replace(':net',red);  
+                    url_sent = url_sent.replace(':per',persona);                    
+                    SentTable = crear_actualizar(SentTable, "tabla_sent", url_sent,FormatoTable, SentRowCB);
+                }
+                else if(root.tipo == 144)
+                {
+                    persona = $("#ciento_lista").val();
+                    url_inbox = "{{path('services_aplicacion_inbox_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_inbox = url_inbox.replace(':net',red);
+                    url_inbox = url_inbox.replace(':per',persona);
+                    InboxTable = crear_actualizar(InboxTable, "tabla_inbox", url_inbox,FormatoTable, InboxRowCB);
+            
+                    url_sent = "{{path('services_aplicacion_sent_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_sent = url_sent.replace(':net',red);  
+                    url_sent = url_sent.replace(':per',persona);                    
+                    SentTable = crear_actualizar(SentTable, "tabla_sent", url_sent,FormatoTable, SentRowCB);
+                }
+                else
+                {
+                    persona = $("#mil_lista").val();
+                    url_inbox = "{{path('services_aplicacion_inbox_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_inbox = url_inbox.replace(':net',red);
+                    url_inbox = url_inbox.replace(':per',persona);
+                    InboxTable = crear_actualizar(InboxTable, "tabla_inbox", url_inbox,FormatoTable, InboxRowCB);
+            
+                    url_sent = "{{path('services_aplicacion_sent_tema_red_persona',{'red':':net','persona':':per'})}}";
+                    url_sent = url_sent.replace(':net',red);  
+                    url_sent = url_sent.replace(':per',persona);                    
+                    SentTable = crear_actualizar(SentTable, "tabla_sent", url_sent,FormatoTable, SentRowCB);
+                }
+                    
+            }
+        };
+        
+        
+        
+        SuccessFunction = function(data) {
+                    
+                    if(data.responseCode===200 ){          
+                      alert('Registro Completado');  
+                      
+                    }
+                    else if(data.responseCode===400){//bad request
+                       alert('Error bad request');
+                        }
+                    else{                        
+                        if(data.responseCode===500)
+                        {
+                            alert('Error bad request');
+                        }
+                        else alert("An unexpeded error occured.");
+                        }                    
+        };
+
+	$(document).ready(function() {
+               redes = getAjaxObject('{{path('services_red')}}');              
+                cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
+           
+        
+            $("#red_lista").change(function()
+            {
+               
+                cambio_red();
+            });
+             $('#select').css({'display':'none'});
+            $("#btnGenerar").click(generardata);
+            $("input[type=radio][name=nivel]").change(radioFunction);
+            
+            $("#guardar_asistencia").click(function(event){
+             
+                console.log($("#form_asistencia").serializeObject());
+                datos ={
+                    'formulario': $("#form_asistencia").serializeObject(),
+                    'en': AsistenciaTable.fnGetData()
+                };
+                enviar('{{path('buzon_envia_asistencia')}}', datos , SuccessFunction, null);
+            });
+            
+            
+            $("#guardar_desactivar").click(function(event){
+                datos= {
+                    'formulario': $("#form_desactivar").serializeObject()
+                };
+                
+                enviar('{{path('admincelula_desactivar')}}', datos, SuccessFunction, null);
+            });
+            
+	 });
+  
+       
+      
+       </script>
+{%endblock %} 
