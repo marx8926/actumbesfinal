@@ -4,3 +4,9 @@ ae_secretaria_homepage:
     
 membresia_secretaria_routing:
     resource: "@AESecretariaBundle/Resources/config/membresia_routing.yml"
+
+encuentro_secretaria_routing:
+    resource: "@AESecretariaBundle/Resources/config/encuentro_routing.yml"
+    
+bautizo_secretaria_routing:
+    resource: "@AESecretariaBundle/Resources/config/bautizo_routing.yml"

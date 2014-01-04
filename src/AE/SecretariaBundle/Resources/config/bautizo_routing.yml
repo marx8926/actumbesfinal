@@ -1,2 +1,5 @@
-## YAML Template.
----
+bautizo_view:
+    pattern:  /bautizo_view
+    defaults: { _controller: AESecretariaBundle:Bautizo:view }
+    requirements:
+        _method: GET

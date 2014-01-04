@@ -9,10 +9,11 @@
 namespace AE\SecretariaBundle\Controller;
 
 /**
- * Description of BautizoController
+ * Description of EncuentroController
  *
  * @author Marks-Calderon
  */
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +21,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class BautizoController extends Controller {
+class EncuentroController extends Controller {
     //put your code here
     
     public function viewAction()
     {
-       return $this->render('AESecretariaBundle:Default:bautizo.html.twig');
+        return $this->render('AESecretariaBundle:Default:encuentro.html.twig');
     }
 }

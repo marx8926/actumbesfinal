@@ -1,0 +1,5 @@
+encuentro_view:
+    pattern:  /encuentro_view
+    defaults: { _controller: AESecretariaBundle:Encuentro:view }
+    requirements:
+        _method: GET
