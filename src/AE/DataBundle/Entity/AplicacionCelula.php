@@ -58,6 +58,27 @@ class AplicacionCelula
     private $invitados;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="asistentes", type="integer", nullable=true)
+     */
+    private $asistentes = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nuevos_convertidos", type="integer", nullable=true)
+     */
+    private $nuevosConvertidos = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="asistencia_culto", type="integer", nullable=true)
+     */
+    private $asistenciaCulto = '0';
+
+    /**
      * @var \Celula
      *
      * @ORM\ManyToOne(targetEntity="Celula")
@@ -202,6 +223,75 @@ class AplicacionCelula
     public function getInvitados()
     {
         return $this->invitados;
+    }
+
+    /**
+     * Set asistentes
+     *
+     * @param integer $asistentes
+     * @return AplicacionCelula
+     */
+    public function setAsistentes($asistentes)
+    {
+        $this->asistentes = $asistentes;
+
+        return $this;
+    }
+
+    /**
+     * Get asistentes
+     *
+     * @return integer 
+     */
+    public function getAsistentes()
+    {
+        return $this->asistentes;
+    }
+
+    /**
+     * Set nuevosConvertidos
+     *
+     * @param integer $nuevosConvertidos
+     * @return AplicacionCelula
+     */
+    public function setNuevosConvertidos($nuevosConvertidos)
+    {
+        $this->nuevosConvertidos = $nuevosConvertidos;
+
+        return $this;
+    }
+
+    /**
+     * Get nuevosConvertidos
+     *
+     * @return integer 
+     */
+    public function getNuevosConvertidos()
+    {
+        return $this->nuevosConvertidos;
+    }
+
+    /**
+     * Set asistenciaCulto
+     *
+     * @param integer $asistenciaCulto
+     * @return AplicacionCelula
+     */
+    public function setAsistenciaCulto($asistenciaCulto)
+    {
+        $this->asistenciaCulto = $asistenciaCulto;
+
+        return $this;
+    }
+
+    /**
+     * Get asistenciaCulto
+     *
+     * @return integer 
+     */
+    public function getAsistenciaCulto()
+    {
+        return $this->asistenciaCulto;
     }
 
     /**

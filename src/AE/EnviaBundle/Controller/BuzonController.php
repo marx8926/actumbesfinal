@@ -68,6 +68,10 @@ class BuzonController extends Controller {
             //$aplicacion->setOfrenda($ofrenda);
             $aplicacion->setInvitados($invitados);
             
+            $aplicacion->setAsistentes($datos['asistentes']);
+            $aplicacion->setNuevosConvertidos($datos['nuevos']);
+            $aplicacion->setAsistenciaCulto($datos['culto']);
+            
             $em->persist($aplicacion);
             $em->flush();
             

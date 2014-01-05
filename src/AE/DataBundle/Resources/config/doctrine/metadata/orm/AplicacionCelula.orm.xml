@@ -13,6 +13,9 @@
     <field name="aplicacion" type="date" column="aplicacion" nullable="true"/>
     <field name="detalle" type="string" column="detalle" length="150" nullable="true"/>
     <field name="invitados" type="integer" column="invitados" nullable="true"/>
+    <field name="asistentes" type="integer" column="asistentes" nullable="true"/>
+    <field name="nuevosConvertidos" type="integer" column="nuevos_convertidos" nullable="true"/>
+    <field name="asistenciaCulto" type="integer" column="asistencia_culto" nullable="true"/>
     <many-to-one field="temaCelula" target-entity="TemaCelula">
       <join-columns>
         <join-column name="tema_celula" referenced-column-name="id"/>
