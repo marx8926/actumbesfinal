@@ -295,6 +295,41 @@ class InformeController extends Controller {
     }
     
      
+    private function fila_asistencia_ofrenda($todos, $inicio, $fin)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sql = "select  aplicacion, abreviatura, asistencia, ofrendas from get_asistencia_ofrenda_detalle(:pca,:ini,:fin)";
+        
+        $resultado = array();
+        
+        foreach ($todos as $item) {
+            
+            $fila = array();
+            $fila['titulo'] = $item['titulo'];
+            $fila['profesor'] = $item['profesor'];
+            $fila['aula'] = $item['aula'];
+            $fila['hora'] = $item['hora'];
+            $fila['alumnos'] = $item['alumnos'];
+  
+            $smt = $em->getConnection()->prepare($sql);
+            $smt->execute(array(':pca'=>$item['id'],':ini'=>$inicio,
+                ':fin'=>$fin
+                ));
+            $asist = $smt->fetchAll();
+            $i = 0;
+            foreach ($asist as $val) {
+                $fila['aplicacion'.$i] = $val['aplicacion'];
+                $fila['abreviatura'.$i] = $val['abreviatura'];
+                $fila['asistencia'.$i] = $val['asistencia'];
+                $fila['ofrendas'.$i] = $val['ofrendas'];
+                $i++;
+            }
+           
+            
+            $resultado[] = $fila;
+        }
+        return $resultado;
+    }
     public function informe_semanal_indeli_serviceAction()
     { 
         
@@ -323,7 +358,9 @@ class InformeController extends Controller {
        $smt->execute(array(':day'=>$dia,':ini'=>$inicio,':fin'=>$fin));
        $todos = $smt->fetchAll();
        
-       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A10');
+       $resultado = $this->fila_asistencia_ofrenda($todos, $inicio, $fin);
+       
+       $phpExcelObject->getActiveSheet()->fromArray($resultado, NULL, 'A10');
        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
        $phpExcelObject->setActiveSheetIndex(0);
 
