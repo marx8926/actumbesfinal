@@ -21,3 +21,9 @@ informe_lideres_celula_view:
     defaults: { _controller: AEEnviaBundle:Informe:informe_lideres_celula_view }
     requirements:
         _method: GET
+        
+informe_lideres_celula_service:
+    pattern:  /informe_lideres_celula_service
+    defaults: { _controller: AEEnviaBundle:Informe:informe_lideres_celula_service }
+    requirements:
+        _method: POST

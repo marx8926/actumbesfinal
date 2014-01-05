@@ -148,4 +148,108 @@ class InformeController extends Controller {
     {
         return $this->render('AEEnviaBundle:Default:informe_lideres_celula.html.twig');
     }
+    
+    private function init_($n)
+    {
+        $result = array();
+        for ($index = 0; $index < $n; $index++) {
+            $result['id'.$index] = 0;
+        }
+        
+        return $result;
+    }
+    
+    private function get_tabla_lideres_celula_enviar($lideres, $red)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $resultado = array();
+        $i = 0;
+        $vacio = $this->init_(9);
+        foreach ($lideres as $value) {
+            
+            $sql = "select * from get_celula_lider(:id,:red)";
+            $smt = $em->getConnection()->prepare($sql);
+            $smt->execute(array(':id'=>$value['id'],':red'=>$red));
+            $celulas = $smt->fetchAll();
+            if(count($celulas) >0)
+            {
+                
+                foreach ($celulas as $v) {
+                    $resultado[] = array_merge($value,  $v);
+                    
+                }
+            }
+            else
+            {
+               $resultado[] =  array_merge($value,  $vacio);
+            }
+            $i++;
+        }
+        
+        return $resultado;
+    }
+    
+    public function informe_lideres_celula_serviceAction()
+    {
+       $request = $this->get('request');
+       $red =$request->request->get('red_lista');
+       $nivel = $request->request->get('nivel');
+                
+        
+       
+       getcwd();
+       chdir('report\enviar');
+       $path = getcwd()."\informe_enviar.xls";
+       
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+       
+       $tipo = 144;
+       if($nivel == 'todo')
+       {
+           $padre = $request->request->get('lider_id');
+           $tipo = 144;
+       }
+       elseif ($nivel == 'doce') {
+       
+           $padre = $request->request->get('doce_lista');
+           $tipo = 1728;
+        }
+       else
+       {
+           $padre = $request->request->get('ciento_lista');
+           $tipo = 20736;
+       }
+       
+       //recuperamos lideres
+       
+        $em = $this->getDoctrine()->getManager();        
+        $sql = "select * from get_padre_hijo_nivel(:padre,:tipo)";        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':padre'=>$padre, ':tipo'=>$tipo));
+        $lideres = $smt->fetchAll();    
+        
+       
+       $resultado = $this->get_tabla_lideres_celula_enviar($lideres, $red);
+       
+       //$phpExcelObject->getActiveSheet()->fromArray($lideres, NULL, 'A8');
+           $phpExcelObject->getActiveSheet()->fromArray($resultado, NULL, 'A8');
+
+
+       
+// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=informe_semanal_celula.xlsx');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response; 
+    }
 }
