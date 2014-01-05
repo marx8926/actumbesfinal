@@ -384,10 +384,104 @@ class InformeController extends Controller {
         return $this->render('AEDiscipulaBundle:Default:informe_alumnos_red_indeli.html.twig');
     }
     
-     
-    public function informe_alumnos_indeli_serviceAction()
+    private function init_fila($redes)
     {
+        $row = array();
         
+        foreach ($redes as $value) {
+            $row[$value['id']] = '0';
+        }
+        return $row;
+    }
+    private function fila_matriculados_redes($todos, $inicio, $fin, $tipo)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $resultado = array();
+      
+        foreach ($todos as $item) {
+            
+            $fila = array();
+            $fila['titulo'] = $item['titulo'];
+            
+            $sql_c = "SELECT * from get_informe_disci_curso_red_fecha(:ini, :fin, :tipo,:curso)";
+            $smt1 = $em->getConnection()->prepare($sql_c);
+            $smt1->execute(array(':ini'=>$inicio,':fin'=>$fin,':tipo'=>$tipo, ':curso'=>$item['id']));
+            $alumnos = $smt1->fetchAll();
+            
+            $i = 0;
+            foreach ($alumnos as $value) {
+                //$fila['id'.$i] = $value['id'];
+                $fila['numero'.$i] = $value['numero'];
+                $i++;
+            }
+            
+            $resultado[] = $fila;
+            
+        }
+        
+        return $resultado;
+    }
+    public function informe_semanal_alumnos_serviceAction()
+   { 
+        
+        $request = $this->get('request');
+        $tipo =$request->request->get('tipo_red');
+        $desde = $request->request->get('desde');
+        $hasta = $request->request->get('hasta');
+                
+        $fech_b = $desde;
+       $fech_a =explode('/', $fech_b,3);
+       $inicio = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0];  
+       
+       $fech_b = $hasta;
+       $fech_a =explode('/', $fech_b,3);
+       $fin = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0]; 
+       
+       getcwd();
+       chdir('report\discipular');
+       $path = getcwd()."\informe_redes_indeli.xls";
+       
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+ 
+       $sql = "select * from view_get_cursos_all_activos";
+       $em = $this->getDoctrine()->getManager();
+       $smt = $em->getConnection()->prepare($sql);
+       $smt->execute();
+       $cursos = $smt->fetchAll();
+       
+       $resultado = $this->fila_matriculados_redes($cursos, $inicio, $fin, $tipo);
+       
+       $phpExcelObject->getActiveSheet()->fromArray($resultado, NULL, 'A10');
+       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->setActiveSheetIndex(0);
+       
+       $sql = "select * from get_redes_activas_tipo(:tipo)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':tipo'=>$tipo));
+        $redes = $smt->fetchAll();
+        
+        $cabezera = array();
+        $i = 0;
+        foreach ($redes as $value) {
+            $cabezera['id'.$i] = $value['id'];
+            $i++;
+        }
+        
+       $phpExcelObject->getActiveSheet()->fromArray($cabezera, NULL, 'B9');
+
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte_indeli_red_alumnos.xlsx');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response; 
     }
     
 }
