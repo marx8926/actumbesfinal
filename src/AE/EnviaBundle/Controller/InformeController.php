@@ -35,13 +35,50 @@ class InformeController extends Controller {
         
         foreach ($redes as $value) {
             
+            $fila = array();
+            $fila['id'] = $value['id'];
+            $fila['lider'] = $value['lider'];
+            
             $sql = "SELECT * from get_informe_ganar_resumen_por_rango_lider_celula(:net)";
             $smt = $em->getConnection()->prepare($sql);
             $smt->execute(array(':net'=>$value['int_red_id']));
+            $fill = $smt->fetch();
+            $fila['doce'] = $fill['doce'];
+            $fila['cien'] = $fill['cien'];
+            $fila['mil'] = $fill['mil'];
+            $fila['celulas']=$fill['num_cell'];
             
+            $resultado[] = $fila;
+           
         }
         
-        return $resultado;
+        //asistencias a celulas
+         $sql = "SELECT asistencias from get_informe_ganar_resumen_por_rango_asistencia_celula(:tipo,:ini,:fin)";
+         $smt1 = $em->getConnection()->prepare($sql);
+         $smt1->execute(array(':tipo'=>$tipo,':ini'=>$inicio,':fin'=>$fin));
+         $asist_celulas = $smt1->fetchAll();
+         
+         //asistencia servicio
+         
+         $sql = "SELECT asistencias from get_informe_ganar_resumen_por_rango_asistencia_servicio(:tipo,:ini,:fin)";
+         $smt1 = $em->getConnection()->prepare($sql);
+         $smt1->execute(array(':tipo'=>$tipo,':ini'=>$inicio,':fin'=>$fin));
+         $asist_servicio = $smt1->fetchAll();
+         
+         //nuevos convertidos  y celulas
+          $sql = "SELECT nuevos, celulas from get_informe_ganar_resumen_por_rango_nuevos_celula(:tipo,:ini,:fin)";
+         $smt1 = $em->getConnection()->prepare($sql);
+         $smt1->execute(array(':tipo'=>$tipo,':ini'=>$inicio,':fin'=>$fin));
+         $convertidos_celulas = $smt1->fetchAll();
+         
+         //ofrendas
+          $sql = "SELECT ofrendas from get_informe_ganar_resumen_por_rango_ofrendas(:tipo,:ini,:fin)";
+         $smt1 = $em->getConnection()->prepare($sql);
+         $smt1->execute(array(':tipo'=>$tipo,':ini'=>$inicio,':fin'=>$fin));
+         $ofrendas = $smt1->fetchAll();
+        
+        return array('primer'=>$resultado, 'celulas'=>$asist_celulas, 'servicio'=>$asist_servicio,
+            'nuevos'=>$convertidos_celulas, 'ofrendas'=>$ofrendas);
     }
     
     public function informe_semanal_serviceAction()
@@ -65,16 +102,26 @@ class InformeController extends Controller {
        
        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
 
-       $sql = "select * from get_redes_activas_tipo(:tipo)";
+       $sql = "select * from get_redes_con_lider_activas_tipo(:tipo)";
        $em = $this->getDoctrine()->getManager();
        $smt = $em->getConnection()->prepare($sql);
        $smt->execute(array(':tipo'=>$tipo));
        $redes = $smt->fetchAll();
        
+        $phpExcelObject->setActiveSheetIndex(0)
+           ->setCellValue('E5', $desde)
+           ->setCellValue('I5', $hasta);
+       
        $resultado = $this->get_tabla_semanal_enviar($redes, $inicio, $fin,$tipo);
        
-       $phpExcelObject->getActiveSheet()->fromArray($resultado, NULL, 'A9');
-       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->getActiveSheet()->fromArray($resultado['primer'], NULL, 'A8');
+       $phpExcelObject->getActiveSheet()->fromArray($resultado['celulas'], NULL, 'G8');
+       $phpExcelObject->getActiveSheet()->fromArray($resultado['servicio'], NULL, 'H8');
+       $phpExcelObject->getActiveSheet()->fromArray($resultado['nuevos'], NULL, 'I8');
+       $phpExcelObject->getActiveSheet()->fromArray($resultado['ofrendas'], NULL, 'J8');
+
+       
+// Set active sheet index to the first sheet, so Excel opens this as the first sheet
        $phpExcelObject->setActiveSheetIndex(0);
 
         // create the writer
@@ -83,7 +130,7 @@ class InformeController extends Controller {
         $response = $this->get('phpexcel')->createStreamedResponse($writer);
         // adding headers
         $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=estudiantes.xlsx');
+        $response->headers->set('Content-Disposition', 'attachment;filename=informe_semanal_celula.xlsx');
         $response->headers->set('Pragma', 'public');
         $response->headers->set('Cache-Control', 'maxage=1');
 
