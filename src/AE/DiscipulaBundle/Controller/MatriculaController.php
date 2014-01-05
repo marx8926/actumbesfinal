@@ -158,6 +158,7 @@ class MatriculaController extends Controller {
             
             $ofrenda->setDecOfrendaFecharegistro(new \DateTime($fecha));
             $ofrenda->setSesionPca($sesion);
+            $ofrenda->setDecOfrendaMonto($datos['ofrenda']);
             $em->persist($ofrenda);
             $em->flush();
             

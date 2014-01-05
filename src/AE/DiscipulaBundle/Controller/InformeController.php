@@ -296,8 +296,48 @@ class InformeController extends Controller {
     
      
     public function informe_semanal_indeli_serviceAction()
-    {
+    { 
         
+        $request = $this->get('request');
+        $dia =$request->request->get('dia');
+        $desde = $request->request->get('desde');
+        $hasta = $request->request->get('hasta');
+                
+        $fech_b = $desde;
+       $fech_a =explode('/', $fech_b,3);
+       $inicio = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0];  
+       
+       $fech_b = $hasta;
+       $fech_a =explode('/', $fech_b,3);
+       $fin = $fech_a[2].'-'.$fech_a[1].'-'.$fech_a[0]; 
+       
+       getcwd();
+       chdir('report\discipular');
+       $path = getcwd()."\informe_semanal_indeli.xls";
+       
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+ 
+       $sql = "select * from get_asignacion_discipilar_rango(:day,:ini,:fin)";
+       $em = $this->getDoctrine()->getManager();
+       $smt = $em->getConnection()->prepare($sql);
+       $smt->execute(array(':day'=>$dia,':ini'=>$inicio,':fin'=>$fin));
+       $todos = $smt->fetchAll();
+       
+       $phpExcelObject->getActiveSheet()->fromArray($todos, NULL, 'A10');
+       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=reporte_indeli_semanal.xlsx');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response; 
     }
     
     

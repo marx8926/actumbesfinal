@@ -35,7 +35,7 @@
 
                 <div class="box-content box-nomargin">
         
-        <form id="form_reporte" name="form_reporte" method="POST" class="form-horizontal" action="{{path('ae_gana_informe_semanal_service')}}" >
+        <form id="form_reporte" name="form_reporte" method="POST" class="form-horizontal" action="{{path('disciplina_informe_semanal_indeli_service')}}" >
          <div class="control-group span3">
              <label class="control-label" style="width:auto; margin-left: 40px;" >Día</label>
             <div class="controls" style="margin-left: 90px;">
@@ -49,14 +49,14 @@
                     <option value="Sabado">Sabado</option>
                </select>
             </div>
-        </div>
+         </div>
          <div class="control-group span3" id="desde_block" name="desde_block" >
              
              
             <label class="control-label"  style="width:auto; margin-left: 10px;" >
                 Desde</label>
             <div class="controls" style="margin-left: 15px;">
-                <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly">
+                <input type="text" class="datepick rango input-small" id="desde" name="desde" required>
             </div>
         </div>
         
@@ -65,7 +65,7 @@
             <label class="control-label"  style="width:auto; margin-left: -10px; " >
                 Hasta</label>
             <div class="controls" style="margin-left: 35px;">
-                <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly">
+                <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required >
             </div>
         </div>
         
@@ -117,18 +117,7 @@
             
             FechaActualT('desde');
             FechaActualT('hasta');
-          
-                  
-            {% if is_granted('ROLE_GANAR') %}
-                redes = getAjaxObject('{{path('services_red')}}');              
-                cargarSelect(redes, "red_lista", "int_red_id", "id"); 
-                $("<option value='0'>Todos</option>").appendTo('#red_lista');
-                                     
-            {% else %}                      
-                  
-            {% endif%}
-        
-            
+  
 	 });
   
        
