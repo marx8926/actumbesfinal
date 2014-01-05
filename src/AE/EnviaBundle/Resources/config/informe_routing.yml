@@ -4,6 +4,12 @@ informe_semanal_view:
     requirements:
         _method: GET
         
+informe_semanal_service:
+    pattern:  /informe_semanal_service
+    defaults: { _controller: AEEnviaBundle:Informe:informe_semanal_service }
+    requirements:
+        _method: POST
+        
 informe_celulograma_view:
     pattern:  /informe_celulograma_view
     defaults: { _controller: AEEnviaBundle:Informe:informe_celulograma_view }

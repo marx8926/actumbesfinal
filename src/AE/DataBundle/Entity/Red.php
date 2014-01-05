@@ -65,16 +65,6 @@ class Red
     private $color = '#4169e1';
 
     /**
-     * @var \Persona
-     *
-     * @ORM\ManyToOne(targetEntity="Persona")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lider", referencedColumnName="id")
-     * })
-     */
-    private $lider;
-
-    /**
      * @var \Ubicacion
      *
      * @ORM\ManyToOne(targetEntity="Ubicacion")
@@ -83,6 +73,16 @@ class Red
      * })
      */
     private $idUbicacion;
+
+    /**
+     * @var \Lider
+     *
+     * @ORM\ManyToOne(targetEntity="Lider")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lider", referencedColumnName="int_lider_id")
+     * })
+     */
+    private $lider;
 
 
 
@@ -235,29 +235,6 @@ class Red
     }
 
     /**
-     * Set lider
-     *
-     * @param \AE\DataBundle\Entity\Persona $lider
-     * @return Red
-     */
-    public function setLider(\AE\DataBundle\Entity\Persona $lider = null)
-    {
-        $this->lider = $lider;
-
-        return $this;
-    }
-
-    /**
-     * Get lider
-     *
-     * @return \AE\DataBundle\Entity\Persona 
-     */
-    public function getLider()
-    {
-        return $this->lider;
-    }
-
-    /**
      * Set idUbicacion
      *
      * @param \AE\DataBundle\Entity\Ubicacion $idUbicacion
@@ -278,5 +255,28 @@ class Red
     public function getIdUbicacion()
     {
         return $this->idUbicacion;
+    }
+
+    /**
+     * Set lider
+     *
+     * @param \AE\DataBundle\Entity\Lider $lider
+     * @return Red
+     */
+    public function setLider(\AE\DataBundle\Entity\Lider $lider = null)
+    {
+        $this->lider = $lider;
+
+        return $this;
+    }
+
+    /**
+     * Get lider
+     *
+     * @return \AE\DataBundle\Entity\Lider 
+     */
+    public function getLider()
+    {
+        return $this->lider;
     }
 }

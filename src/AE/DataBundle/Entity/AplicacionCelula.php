@@ -55,7 +55,7 @@ class AplicacionCelula
      *
      * @ORM\Column(name="invitados", type="integer", nullable=true)
      */
-    private $invitados;
+    private $invitados = '0';
 
     /**
      * @var integer
