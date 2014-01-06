@@ -425,6 +425,19 @@ class InformeController extends Controller {
        $phpExcelObject->getActiveSheet()->fromArray($week, NULL, chr(70+$n).'19');
 
        
+       //set cursos
+       
+       $sql = "select * from view_get_cursos_all_activos";
+       $smt = $em->getConnection()->prepare($sql);
+       $smt->execute();
+       $cursos = $smt->fetchAll();
+       
+       $cur = array();
+       foreach ($cursos as $c) {
+           $cur[$c['id']] = $c['titulo'];
+       }
+       
+       $phpExcelObject->getActiveSheet()->fromArray($cur, NULL, 'G19');
 
        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
        $phpExcelObject->setActiveSheetIndex(0);
