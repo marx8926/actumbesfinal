@@ -252,4 +252,195 @@ class InformeController extends Controller {
 
         return $response; 
     }
-}
+
+    private function set_cabezera_celulograma(&$phpExcelObject, $informacion)
+    {
+        $phpExcelObject->setActiveSheetIndex(0)
+           ->setCellValue('L5', $informacion['id'])
+           ->setCellValue('B15', $informacion['apertura'])
+           ->setCellValue('C11', $informacion['tipo'])
+            ->setCellValue('H13', $informacion['familia'])
+            ->setCellValue('B15', $informacion['apertura'])
+             ->setCellValue('B13', $informacion['direccion'])
+           ->setCellValue('E13', $informacion['tel_cell'])
+           ->setCellValue('H15', $informacion['hora'])
+           ->setCellValue('B9', $informacion['nombres'])
+           ->setCellValue('J9', $informacion['edad'])
+            ->setCellValue('H9', $informacion['dni'])
+            ->setCellValue('E9', $informacion['tel_lider'])
+           ->setCellValue('E15', $informacion['dia'])
+           ;
+        
+         $tipo = 0;
+         if($informacion['lider_12']==1)
+         {
+             $tipo= 12;
+         }
+         elseif ($informacion['lider_144']==1) {
+             $tipo = 144;
+        }
+         elseif ($informacion['lider_1728']==1) {
+             $tipo = 1728;
+        }
+         elseif ($informacion['lider_20736']==1) {
+             $tipo = 20736;
+        }
+        
+        $phpExcelObject->setActiveSheetIndex(0)
+           ->setCellValue('E7', $tipo);
+    }
+    
+    private function init_fila($n)
+    {
+        $row = array();
+        
+        for ($i = 0; $i < $n; $i++) {
+            $row[] = 0;
+        }
+        return $row;
+    }
+    private function serie_semana($ini, $fin)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sql = "select * from get_semanas_serie(:ini,:fin)";
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':ini'=>$ini,':fin'=>$fin));
+        
+        return $smt->fetchAll();
+    }
+    
+    private function rows_to_column($asistencias,  $n)
+    {
+        $semanas = $this->init_fila($n);
+        
+        foreach ($asistencias as $i) {
+            $semanas[$i['semana']-1] = $i['tick'];
+        }
+        
+        return $semanas;
+        
+    }
+
+    private function get_columnas($miembros, $inicio, $fin)
+    {
+        $crecimiento = array();
+        $asis_tabla = array();
+        
+        $em = $this->getDoctrine()->getManager();        
+        $serie = $this->serie_semana($inicio, $fin);        
+        $n = count($serie);
+        
+        foreach ($miembros as $i) {
+            
+            $fila = array();
+            $id = $i['id'];
+            
+            $sql = "select * from check_consolidado(:id)";
+            $smt = $em->getConnection()->prepare($sql);
+            $smt->execute(array(':id'=>$id));
+            
+            $fila['le'] = $smt->fetch();
+            
+            //check cursos
+            $sql = "select * from get_check_cursos_persona(:id)";
+            $smt1 = $em->getConnection()->prepare($sql);
+            $smt1->execute(array(':id'=>$id));
+            $cursos_tick = $smt1->fetchAll();
+            
+            foreach ($cursos_tick as $c) {
+                $fila['id'.$c['id']] = $c['tick'];
+            }
+
+            $crecimiento[] = $fila;
+            
+            //asistencia celulas
+            $sql2 = "select * from get_asistencia_celula_persona(:per,:ini,:fin)";
+            $smt2 = $em->getConnection()->prepare($sql2);
+            $smt2->execute(array( ':per'=> $id, ':ini'=>$inicio, ':fin'=>$fin));
+            $asistencias = $smt2->fetchAll();
+            
+            $asit_col = $this->rows_to_column($asistencias,  $n);
+            $asis_tabla[] = $asit_col;
+            
+        }
+        
+        return array('crecimiento'=>$crecimiento, 'asiste'=>$asis_tabla);
+    }
+    public function informe_celulograma_serviceAction($cell, $year)
+    {
+        /*
+        $request = $this->get('request');
+       $red =$request->request->get('red_lista');
+       $nivel = $request->request->get('nivel');
+                
+        */
+        
+        $inicio = $year.'-01-01';
+        $fin = $year.'-12-30';
+       
+       getcwd();
+       chdir('report\enviar');
+       $path = getcwd()."\informe_celulograma.xls";
+       
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+
+       $em = $this->getDoctrine()->getManager();
+       
+       //get informacion celula
+       $sql = "select * from get_info_celula(:cell)";
+       $smt = $em->getConnection()->prepare($sql);
+       $smt->execute(array(':cell'=>$cell));
+       
+       $informacion = $smt->fetch();
+       
+       $this->set_cabezera_celulograma($phpExcelObject, $informacion);
+       
+       //get informacion miembros célula
+       
+       $sql = "select * from get_miembros_cell(:cell)";
+       $smt = $em->getConnection()->prepare($sql);
+       $smt->execute(array(':cell'=>$cell));
+       $miembros = $smt->fetchAll();
+       
+       //get otras columnas
+       
+       $resultado = $this->get_columnas($miembros, $inicio, $fin);
+       
+      // $phpExcelObject->getActiveSheet()->fromArray($informacion, NULL, 'B6');
+       $phpExcelObject->getActiveSheet()->fromArray($miembros, NULL, 'A20');
+       
+       $phpExcelObject->getActiveSheet()->fromArray($resultado['crecimiento'], NULL, 'F20');
+       
+       $primero = $resultado['crecimiento'][0];
+       $n = count($primero);
+       
+       //set serie semana
+       $semanas = $this->serie_semana($inicio, $fin);
+       $week = array();
+       foreach ($semanas as $w) {
+           $week[$w['semana']] =$w['fecha'];
+       }
+       
+       $phpExcelObject->getActiveSheet()->fromArray($resultado['asiste'], NULL, chr(70+$n).'20');
+       $phpExcelObject->getActiveSheet()->fromArray($week, NULL, chr(70+$n).'19');
+
+       
+
+       // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+       $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=informe_celulograma.xlsx');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response; 
+    }
+
+    
+    }
