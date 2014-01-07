@@ -3,3 +3,10 @@ bautizo_view:
     defaults: { _controller: AESecretariaBundle:Bautizo:view }
     requirements:
         _method: GET
+        
+        
+bautizo_save:
+    pattern:  /bautizo_save
+    defaults: { _controller: AESecretariaBundle:Bautizo:save }
+    requirements:
+        _method: POST

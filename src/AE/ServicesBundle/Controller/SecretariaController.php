@@ -26,9 +26,9 @@ class SecretariaController extends Controller {
     public function sinbautizo_autocomplete_redAction($red)
     {
         $em = $this->getDoctrine()->getManager();        
-        $sql = "select * from get_sin_nivel_red(:red,:nivel)";        
+        $sql = "select * from get_sin_bautizar_option(:red)";        
         $smt = $em->getConnection()->prepare($sql);
-        $smt->execute(array(':red' => $red, ':nivel' => '0'));
+        $smt->execute(array(':red' => $red));
         $result = $smt->fetchAll();        
         $resultado= new JsonResponse($result);
         $resultado->setMaxAge(60);

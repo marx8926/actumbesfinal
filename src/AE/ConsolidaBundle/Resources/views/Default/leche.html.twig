@@ -20,9 +20,7 @@
                             <ul class="nav nav-tabs">
                                 <li class='active'>
                                     <a href="#basic" data-toggle='tab'>Información Básica</a>
-                                </li>
-                                
-                                
+                                </li>  
                             </ul>
                         </div>
                         
@@ -65,7 +63,6 @@
                                                 <input type="button" id="btnAddClase" name="btnAddClase"  class="btn btn-success" value="Añadir">
                                             </div>                                          
                                         </div>                                 
-                                                                                 
                                 </div>
                               
                             </div>
@@ -144,9 +141,8 @@
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.sparkline.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"> </script>
-            
-            <script src="{{asset('js/util/functiongen.js')}}"> </script>
             <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
+            <script src="{{asset('js/util/functiongen.js')}}"> </script>
             
             
 
@@ -285,7 +281,6 @@
             $("#form_leche").submit(function(event){                
                  event.preventDefault();
                  PrepararDatos();
-                 console.log(root.DatosEnviar);
                  return enviar('{{path('leche_save')}}', root.DatosEnviar, SuccessFunction, null);  
             });
        
