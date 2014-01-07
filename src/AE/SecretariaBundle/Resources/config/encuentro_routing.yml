@@ -3,3 +3,9 @@ encuentro_view:
     defaults: { _controller: AESecretariaBundle:Encuentro:view }
     requirements:
         _method: GET
+        
+encuentro_save:
+    pattern:  /encuentro_save
+    defaults: { _controller: AESecretariaBundle:Encuentro:save }
+    requirements:
+        _method: POST

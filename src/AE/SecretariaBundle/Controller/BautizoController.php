@@ -31,7 +31,7 @@ class BautizoController extends Controller {
     
     public function saveAction()
     {
-         $request = $this->get('request');
+        $request = $this->get('request');
         $datos =$request->request->get('formulario');
         $tabla = $request->request->get('tabla');
         

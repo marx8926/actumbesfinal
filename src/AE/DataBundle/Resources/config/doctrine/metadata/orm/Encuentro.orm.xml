@@ -9,5 +9,6 @@
     <field name="fechaFin" type="date" column="fecha_fin" nullable="true"/>
     <field name="horaFin" type="string" column="hora_fin" length="20" nullable="true"/>
     <field name="descripcion" type="text" column="descripcion" nullable="true"/>
+    <field name="lugar" type="string" column="lugar" length="200" nullable="true"/>
   </entity>
 </doctrine-mapping>
