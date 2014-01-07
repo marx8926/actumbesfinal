@@ -3,11 +3,11 @@
 {% block titulo %} Informe Contabilidad - {% endblock %}
 
 {% block stylesheets %}
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" rel="stylesheet" type="text/css">
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
-       <style type="text/css">
+<link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" rel="stylesheet" type="text/css">
+<link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
+<style type="text/css">
     
            #form_reporte {
             margin-top: 15px;
@@ -16,150 +16,120 @@
             
             
         </style>
-        
 {% endblock %}                 
 
-{% block content %} 
-        
+{% block content %}
 <div class="container-fluid">
     <div class="content">
-     <div class="row-fluid">
-	<div class="span12">
-
-            <div class="box">
-                
-		<div class="box-head tabs">
-                    <h3>Reporte semanal </h3>
-                </div>
-       
-
-                <div class="box-content box-nomargin">
-        
-        <form id="form_reporte" name="form_reporte" method="POST" class="form-horizontal" action="{{path('ae_gana_informe_semanal_service')}}" >
-         <div class="control-group span3">
-             <label class="control-label" style="width:auto; margin-left: 40px;" >Tipo</label>
-            <div class="controls" style="margin-left: 90px;">
-                <select id="tipo_red" name="tipo_red" required class="input-small">
-                                                        <option value="1">Ofrendas</option>
-                                                        <option value="2">Diezmos</option>
-                </select>
-            </div>
-        </div>
-         
-         <div class="control-group span3" id="desde_block" name="desde_block" >
-             
-             
-            <label class="control-label"  style="width:auto; margin-left: -10px;" >
-                Desde</label>
-            <div class="controls" style="margin-left: 35px;">
-                <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly">
-            </div>
-        </div>
-        
-        
-         <div class="control-group span3" id="hasta_block" name="hasta_block">
-            <label class="control-label"  style="width:auto; margin-left: -10px; " >
-                Hasta</label>
-            <div class="controls" style="margin-left: 35px;">
-                <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly">
-            </div>
-        </div>
-            
-        <div class="control-group">
-            <label class="control-label">Filtro</label>
-            <div class="controls">
-                <select id="tipo_persona" name="tipo_persona">
-                    <option value="1">Todos</option>
-                    <option value="2">Lideres</option>
-                    <option value="3">Persona</option>
-                </select>
-            </div>
-        </div>
-        
-                                        <div class="control-group">
-                                            <label for="red_lista" class="control-label">Red</label>
-                                            <div class="controls">
-                                                <select id="red_lista" name="red_lista">
-                                                    
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label"> Persona</label>
-                                            <input id="persona_id" name="persona_id" type="hidden">
-
-                                            <div class="controls">
-                                                <input id="persona" name="persona" class="input-large" type="text" >
-                                                <input type="button" class="btn btn-small" value="+" id="add_persona" name="add_persona">
-                                            </div>
-                                        </div>
-            
-         <div class="control-group span3">
-            
-            <div class="controls"  style="width:auto; margin-left: -10px; " >
-                <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
-            </div>
-        </div>
-        </form>
-        
- 
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="box">
+                    <div class="box-head tabs">
+                        <h3>Reporte semanal</h3>
+                    </div>
+                    <div class="box-content box-nomargin">
+                        <form id="form_reporte" name="form_reporte" method="POST" class="form-horizontal" action="{{path('ae_gana_informe_semanal_service')}}" >
+                            <div class="control-group span3">
+                                <label class="control-label" style="width:auto; margin-left: 40px;" >Tipo</label>
+                                <div class="controls" style="margin-left: 90px;">
+                                    <select id="tipo_red" name="tipo_red" required class="input-small">
+                                        <option value="1">Ofrendas</option>
+                                        <option value="2">Diezmos</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group span3" id="desde_block" name="desde_block" >
+                                <label class="control-label"  style="width:auto; margin-left: -10px;" >Desde</label>
+                                <div class="controls" style="margin-left: 35px;">
+                                    <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly"></div>
+                            </div>
+                            <div class="control-group span3" id="hasta_block" name="hasta_block">
+                                <label class="control-label"  style="width:auto; margin-left: -10px; " >Hasta</label>
+                                <div class="controls" style="margin-left: 35px;">
+                                    <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly"></div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Filtro</label>
+                                <div class="controls">
+                                    <select id="tipo_persona" name="tipo_persona">
+                                        <option value="1">Todos</option>
+                                        <option value="2">Lideres</option>
+                                        <option value="3">Persona</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="red_lista" class="control-label">Red</label>
+                                <div class="controls">
+                                    <select id="red_lista" name="red_lista"></select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Persona</label>
+                                <input id="persona_id" name="persona_id" type="hidden">
+                                <div class="controls">
+                                    <input id="persona" name="persona" class="input-large" type="text" >
+                                    <input type="button" class="btn btn-small" value="+" id="add_persona" name="add_persona"></div>
+                            </div>
+                            <div class="control-group span3">
+                                <div class="controls"  style="width:auto; margin-left: -10px; " >
+                                    <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar"></div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        
-	
-     </div>
-    </div>
-</div>    
-        
-     </div>
-        
+        </div>
     </div>
 </div>
 {% endblock %}
-      
- {%block javascript %}
-            
-        <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
-            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
-            <script src="https://www.google.com/jsapi"></script>
-            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js"></script><![endif]-->           
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/tiempo.js"></script>        
-           
-          
- 
- 
-    <script type="text/javascript">
-        
-	$(document).ready(function() {
+{%block javascript %}
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script>
+<![endif]-->
+<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.datepicker.js"></script>
+<script src="https://www.google.com/jsapi"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/net/public/js/html5.js"></script>
+<![endif]-->
+
+<script src="{{asset('js/jquery.dataTables.js')}}"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/tiempo.js"></script>
+<script src="{{asset('js/util/functiongen.js')}}"></script>
+<script src="{{asset('js/util/datatable_plugins.js')}}"></script>
+
+<script type="text/javascript">
+     
+    $(document).ready(function() {
             
             FechaActualT('desde');
-            FechaActualT('hasta');
-          
+            FechaActualT('hasta');          
                   
             {% if is_granted('ROLE_GANAR') %}
                 redes = getAjaxObject('{{path('services_red')}}');              
                 cargarSelect(redes, "red_lista", "int_red_id", "id"); 
                 $("<option value='0'>Todos</option>").appendTo('#red_lista');
+
                                      
             {% else %}                      
                   
             {% endif%}
         
             
-	 });
+     });
   
        
       
        </script>
-{%endblock %} 
+{%endblock %}
