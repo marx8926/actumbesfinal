@@ -366,14 +366,14 @@ class InformeController extends Controller {
         
         return array('crecimiento'=>$crecimiento, 'asiste'=>$asis_tabla);
     }
-    public function informe_celulograma_serviceAction($cell, $year)
+    public function informe_celulograma_serviceAction()
     {
-        /*
-        $request = $this->get('request');
-       $red =$request->request->get('red_lista');
-       $nivel = $request->request->get('nivel');
-                
-        */
+       
+       $request = $this->get('request');
+       $datos =$request->request->get('formulario');
+       
+       $year = $datos['year_cell'];
+       $cell = $datos['id_celula'];
         
         $inicio = $year.'-01-01';
         $fin = $year.'-12-30';

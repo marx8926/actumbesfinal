@@ -245,6 +245,39 @@
             
 	</div>
      </div>
+         
+         
+         
+                            <div class="modal hide" id="reporte_modal" style="width:auto;">                            
+                                <form id="form_reporte" name="form_reporte" >                                
+                                    <input type="hidden" id="id_celula" name="id_celula" value="-1">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                        <h3>Confirmación</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p id="posible_reporte">Desea generar celulograma?</p>
+                                                                                
+                                        <div class="form-horizontal">
+                                            <div class="control-group">
+                                                <label class="control-label">Año</label>
+                                                <div class="controls">
+                                                    <input type="number" name="year_cell" id="year_cell" class="input-small">
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                                             
+                                        <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                        <input type="button" value="Guardar cambios" id="guardar_reporte" name="guardar_reporte" class="btn btn-primary" data-dismiss="modal" >
+                                    </div>
+                                </form>
+                            </div>
+         
+                            
     </div>
 </div>    
         
@@ -279,6 +312,7 @@
             <script src="{{asset('js/util/functiongen.js')}}"> </script>
             <script src="{{asset('js/util/datatable_plugins.js')}}"></script>
             <script src="{{asset('js/admincelula.js')}}"></script>
+            <script src="{{asset('js/Scripts/jquery.fileDownload.js')}}"></script>
             
     <script type="text/javascript">
  
@@ -432,7 +466,7 @@
             var acciones, index;
             index = $(CelulaTable.fnGetData()).getIndexObj(aData, 'id');
             {% if is_granted('ROLE_ENVIAR')  %}
-                acciones = getCelulaActionButtons("111","matricular_modal", "desactivar_modal", "view_modal");
+                acciones = getCelulaActionButtons("111","matricular_modal", "desactivar_modal", "reporte_modal");
             {% else %}
                 acciones = getActionButtons("010");
             {% endif %}
@@ -459,13 +493,14 @@
                  url = url.replace('type','0');
                  nuevas_celulas = getAjaxObject(url);
                  
-                 cargarSelect(nuevas_celulas,"cambio_celula","id","celula");
-                 
+                 cargarSelect(nuevas_celulas,"cambio_celula","id","celula");                 
+                }); 
+              
+              $(nRow).find('.ver_row').click(function(event){
+                 event.preventDefault();
+                  $("#id_celula").val(aData.id);
                 });
-            
-        };
-
-        
+        };        
         
         function crear_actualizar(Table, id, url,formato, row)
         {
@@ -474,16 +509,12 @@
                 //crear tabla x primera vez
                 Table = createDataTable(id, url, formato, null, row);
                 root.creado = true;
-                
                 CelulaTable = Table;
-
             }
             else
             {
                 Table.fnReloadAjax(url);
-            }
-            
-             
+            }    
         }
        
         generardata = function()
@@ -550,6 +581,9 @@
 
 	$(document).ready(function() {
      
+            var d = new Date();
+            $("#year_cell").val(d.getFullYear());
+            
             redes = getAjaxObject('{{path('services_red')}}');              
             cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
            
@@ -580,6 +614,28 @@
                 enviar('{{path('admincelula_desactivar')}}', datos, SuccessFunction, null);
             });
             
+            $("#guardar_reporte").click(function(event){
+                formulario = $("#form_reporte").serializeObject();
+                /*
+                console.log(formulario);
+                evento = $.ajax({
+                    type: "POST",		
+                    url: "{{path('informe_celulograma_service')}}",
+                    data: {'formulario': formulario }
+                });
+                
+                evento.done(function(data){
+                    //console.log(data);
+                    var win = window.open();
+                    win.document.write(data);
+                });
+                */
+                   
+                $.fileDownload("{{path('informe_celulograma_service')}}", {
+                    httpMethod: "POST",
+                    data: {'formulario': formulario }
+                    });
+                });
 	 });
   
        

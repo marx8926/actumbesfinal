@@ -31,7 +31,7 @@ function getCelulaActionButtons(conf,add_modal, delete_modal, view_modal ){
   if(conf.substring(1,2)==1) //OFF
     actions += '<a class="delete_row  actions-icons" data-original-title="Desactivar" data-toggle="modal" href="#'+delete_modal+'"><img alt="desactivar" class="icons" src="http://d19k46zntalu3t.cloudfront.net/img/trash-icon.png"></a>';
   if(conf.substring(2,3)==1) //view
-    actions += '<a class="ver_row  actions-icons" data-original-title="Ver" href="#'+view_modal+'"><img alt="ver" src="http://d19k46zntalu3t.cloudfront.net/img/view.png"></a>';
+    actions += '<a class="ver_row  actions-icons" data-original-title="Ver" data-toggle="modal" href="#'+view_modal+'"><img alt="ver" src="http://d19k46zntalu3t.cloudfront.net/img/view.png"></a>';
   actions += '</p>'
   return actions;
 }         

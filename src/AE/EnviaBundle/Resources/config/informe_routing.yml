@@ -18,10 +18,10 @@ informe_celulograma_view:
         
         
 informe_celulograma_service:
-    pattern:  /informe_celulograma_service/{cell}/{year}
+    pattern:  /informe_celulograma_service
     defaults: { _controller: AEEnviaBundle:Informe:informe_celulograma_service }
     requirements:
-        _method: GET
+        _method: POST
         
         
 informe_lideres_celula_view:
