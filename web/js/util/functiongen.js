@@ -255,8 +255,7 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, DrawCallBackFunction,
 		"bDestroy": true,
 		"sAjaxSource": UrlaDTable,	  
 		"aoColumns": FormatoDTable,				       
-    	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
-    	"sPaginationType": "full_numbers",
+    	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
     	"oLanguage": {
     		"sUrl": urlES
     	},  
