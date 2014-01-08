@@ -1067,7 +1067,7 @@
 }
 html,
 body {
-  background: url('../img/subtlenet2.png') repeat;
+  background: white; /*url('../img/subtlenet2.png') repeat;*/
   height: 100%;
 }
 .style-toggler {
@@ -2716,4 +2716,8 @@ ul.steps li.active span {
   .login_body .wrap .login .pw input {
     width: 100px !important;
   }
+}
+/*-------------CUSTOM-----------------*/
+.formError .formErrorContent, .formError .formErrorArrow div {
+  background: #C53C3C;
 }
