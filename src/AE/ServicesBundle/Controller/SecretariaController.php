@@ -71,14 +71,28 @@ class SecretariaController extends Controller {
     {
         $em = $this->getDoctrine()->getEntityManager();
 	
-		$sql = "select * from view_get_all_encuentro";
+	$sql = "select * from view_get_all_encuentro";
 	
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+	$smt = $em->getConnection()->prepare($sql);
+	$smt->execute();
 	
-		$todo = $smt->fetchAll();
+	$todo = $smt->fetchAll();
 	                
-		return new JsonResponse(array('aaData'=>$todo));
+	return new JsonResponse(array('aaData'=>$todo));
+    }
+    
+    public function bautizo_idAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+	
+	$sql = "select * from get_bautizado_id(:id)";
+	
+	$smt = $em->getConnection()->prepare($sql);
+	$smt->execute(array(':id'=>$id));
+	
+	$todo = $smt->fetchAll();
+	                
+	return new JsonResponse(array('aaData'=>$todo));
     }
     
 }
