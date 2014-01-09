@@ -277,14 +277,7 @@
         ]; 
         
         CursoRowCB = function(nRow, aData, iDisplayIndex) {
-           /* var acciones, index;
-            index = $(CursosTable.fnGetData()).getIndexObj(aData, 'id');
-       
-            {% if is_granted('ROLE_DISCIPULAR')  %}
-                acciones =  cambiar_estado("delete_modal");         
-            {% endif %}
-            CursosTable.fnUpdate(acciones, index, 6);
-            */
+         
             $(nRow).find('a').tooltip('hide');
            
             $(nRow).find('.estado-row').click(function(event){

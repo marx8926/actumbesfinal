@@ -107,7 +107,7 @@ class DiscipularServicesController extends Controller {
             else
                 $item['estado']='Desactivo';
             
-            $item['acciones'] = '<p> <a class="estado-row  actions-icons" data-original-title="Cambiar Estado" data-toggle="modal" href="#delete_modal"><img alt="estado" class="icons" src="http://d19k46zntalu3t.cloudfront.net/img/sorting.png"></a>  <a class="ver_row  actions-icons" data-original-title="Ver Detalle" href="#modal_ver"><img alt="trash" src="http://d19k46zntalu3t.cloudfront.net/img/view.png"></a></p>';
+            $item['acciones'] = '<p> <a class="estado-row  actions-icons" data-original-title="Cambiar Estado" data-toggle="modal" href="#delete_modal"><img alt="estado" class="icons" src="http://d19k46zntalu3t.cloudfront.net/img/sorting.png"></a>  </p>';
             
             $result[] = $item;
         }

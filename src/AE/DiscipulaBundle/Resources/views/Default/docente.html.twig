@@ -78,7 +78,7 @@
                                         <form id="reporte_form" name="reporte_form" method="POST" action="{{path('discipula_informe_docentes')}}">                                          
                                             <button type="submit" id='excelbutton' class="btn btn-mini btn-square tip">
                                                  <i class="icon-hdd"></i>
-                                                  Guardar
+                                                  Reporte Docentes
                                             </button>
                                         </form>
                                    </li>
@@ -191,14 +191,15 @@
                 
                 ProfesorRowCB = function(nRow, aData, iDisplayIndex) {
                     var acciones, index;
-                    /*
+                   
                     index = $(ProfesorTable.fnGetData()).getIndexObj(aData, 'id');
        
                     {% if is_granted('ROLE_DISCIPULAR')  %}
-                        acciones =  cambiar_ver_estado("delete_modal", "");         
+                        acciones =  cambiar_estado("delete_modal", "");  
+                        ProfesorTable.fnUpdate(acciones, index, 4);
+
                     {% endif %}
-                    ProfesorTable.fnUpdate(acciones, index, 4);
-                            */
+                           
                     $(nRow).find('a').tooltip('hide');
 
                     $(nRow).find('.estado-row').click(function(event){

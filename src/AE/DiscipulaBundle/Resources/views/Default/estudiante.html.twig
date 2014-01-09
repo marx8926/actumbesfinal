@@ -84,7 +84,7 @@
                                             <input type="hidden" id="net_name" name="net_name">
                                             <button type="submit" id='excelbutton' class="btn btn-mini btn-square tip">
                                                  <i class="icon-hdd"></i>
-                                                  Guardar
+                                                  Informe Estudiantes
                                             </button>
                                         </form>
                                    </li>
@@ -205,10 +205,11 @@
                     index = $(ProfesorTable.fnGetData()).getIndexObj(aData, 'id');
        
                     {% if is_granted('ROLE_DISCIPULAR')  %}
-                        acciones =  cambiar_ver_estado("delete_modal", "");         
+                        acciones =  cambiar_estado("delete_modal", ""); 
+                        ProfesorTable.fnUpdate(acciones, index, 4);
+
                     {% endif %}
                         
-                    ProfesorTable.fnUpdate(acciones, index, 4);
                     $(nRow).find('a').tooltip('hide');
 
                     $(nRow).find('.estado-row').click(function(event){                
