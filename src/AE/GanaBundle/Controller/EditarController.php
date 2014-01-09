@@ -52,13 +52,20 @@ class EditarController extends Controller {
             
         $prev_ubi = $em->getRepository('AEDataBundle:Ubigeos');
         $provincia = $prev_ubi->findOneBy(array('intUbigeoId'=>$distrito->getIntUbigeoDependencia()));
+        
+        
+        $red = $persona->getRed();
+        if($red != NULL)
+        {
+            $red = $red->getIntRedId();
+        }
             
             
         $departamento = $prev_ubi->findOneBy(array('intUbigeoId'=>$provincia->getIntUbigeoDependencia()));
         
         return $this->render('AEGanaBundle:Default:editar.html.twig',array('persona'=>$persona,
             'distrito'=> $distrito, 'provincia'=>$provincia, 'departamento'=>$departamento, 'ganado' => $gan,
-            'detalle'=> $detalle));
+            'detalle'=> $detalle,'red'=>$red));
         
     }
     

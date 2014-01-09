@@ -23,14 +23,14 @@
                     <div class="control-group" >
                         <label class="control-label"> Nombres (*) </label>
                         <div class="controls">
-                            <input type="text" id="inputNombres" name="inputNombres"  placeholder="Nombres" value="{{persona.nombre}}" class="input-xxlarge" required="true" pattern="|^[a-zA-Z ñÑáéíóúüç]+$|" required />
+                            <input type="text" id="inputNombres" name="inputNombres"  placeholder="Nombres" value="{{persona.nombre}}" class="input-xxlarge" required="true"  required />
                         </div>
                     </div>
         
                     <div class="control-group" >
                         <label class="control-label">Apellidos (*)</label>
                         <div class="controls">
-                            <input type="text" id="inputApellidos" name="inputApellidos" placeholder="Apellidos" value="{{persona.apellidos}}" class="input-xxlarge" pattern="|^[a-zA-Z ñÑáéíóúüç]+$|" required />
+                            <input type="text" id="inputApellidos" name="inputApellidos" placeholder="Apellidos" value="{{persona.apellidos}}" class="input-xxlarge" required />
                         </div>
                     </div>
                 </div>
@@ -473,7 +473,13 @@
                  $("#select_Civil").val("{{persona.estadoCivil}}");
                  $("#select_Sexo").val("{{persona.sexo}}");
                  
-                 $("#red_lista").val({{persona.red.intRedId}});
+                 var rede = "{{red}}";
+                 if(rede.length > 0 )
+                 {
+                     $("#red_lista").val({{red}});
+                     ganador_autocomplete_red();
+                 }
+               
                  $("#lugar").val({{persona.lugar.intLugarId}});
                  $("#dia_lista").val("{{persona.dia}}");
                  

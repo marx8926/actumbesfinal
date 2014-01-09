@@ -96,7 +96,10 @@ class DefaultController extends Controller
             $dep = $prev_ubi->findOneBy(array('intUbigeoId'=>$prov->getIntUbigeoDependencia()));
             $departamento = $dep->getStringUbigeoDescripcion();
           
-            $red = $p->getRed()->getId();
+            if($p->getRed() != NULL)
+                $red = $p->getRed()->getId();
+            else
+                $red = "";
             
             $prev_nivel = $em->getRepository('AEDataBundle:NivelCrecimiento');
             $nivel = $prev_nivel->findOneBy(array('persona'=>$id));
