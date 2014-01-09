@@ -3,11 +3,11 @@
 {% block titulo %}Buzon de contabilidad - {% endblock %}
 
 {% block stylesheets %}
-        <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
-       <style type="text/css">
+<link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{{asset('css/bootstrap.datepicker.css')}}">
+<style type="text/css">
     
            #form_busqueda {
             margin-top: 15px;
@@ -16,193 +16,175 @@
             .datepicker {z-index: 1151;}           
             
         </style>
-        
 {% endblock %}                 
 
-{% block content %} 
-        
+{% block content %}
 <div class="container-fluid">
     <div class="content">
-    
+
         <div class="row-fluid">
             <div class="span12">
                 <div class="box">
-                
+
                     <div class="box-head tabs">
                         <h3>Diezmos/Ofrendas</h3>
-			<ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs">
                             <li class='active'>
-				<a href="#inbox" data-toggle="tab">Recibidos</a>
+                                <a href="#inbox" data-toggle="tab">Recibidos</a>
                             </li>
-                           
-			
+
                     </div>
-                    
-                    <div class="box-content">
-                        
-                        
-                            <div class="modal hide" id="aprobar_modal" style="width: auto;">                            
-                                <form id="form_asistencia" name="form_aprobar" >                                
-                                    <input type="hidden" id="aprobar_id" name="aprobar_id">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">×</button>
-                                        <h3>Confirmación</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p id="posible_descarte"></p>
-                                        
-                                        <div class="row form-horizontal">
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" >Origen</label>
-                                                <div class="controls">
-                                                    <input type = "text" id="origen" name="origen" class="input-large" readonly="true">
-                                                </div>
+
+                    <div class="box-content" style="padding:0;">
+
+                        <div class="modal hide" id="aprobar_modal" style="width: auto;">
+                            <form id="form_asistencia" name="form_aprobar" >
+                                <input type="hidden" id="aprobar_id" name="aprobar_id">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h3>Confirmación</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="posible_descarte"></p>
+
+                                    <div class="row form-horizontal">
+
+                                        <div class="control-group">
+                                            <label class="control-label" >Origen</label>
+                                            <div class="controls">
+                                                <input type = "text" id="origen" name="origen" class="input-large" readonly="true">
                                             </div>
-                                            
-                                            <div class="control-group" >
-                                                <label class="control-label">Monto</label>
-                                                <div class="controls">
-                                                    <input type="number"  name="ofrenda" id="ofrenda" class="input-small">
-                                                </div>
-                                            </div>
-                                            
-                                           
-                                         
                                         </div>
-                                       
-               
-                                        
-                                    </div>
-                                    <div class="modal-footer">
-                                                             
-                                        <a href="#" class="btn" data-dismiss="modal">Descartar</a>
-                                        <input type="button" value="Guardar cambios" id="guardar_asistencia" name="guardar_asistencia" class="btn btn-primary" data-dismiss="modal" >
-                                    </div>
-                                </form>
-                            </div>
-         
-                        
-                            <div class="modal hide" id="aprobar_modal" style="width: auto;">                            
-                                <form id="form_aprobar" name="form_aprobar" >                                
-                                    <input type="hidden" id="aprobar_id" name="aprobar_id">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">×</button>
-                                        <h3>Confirmación</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p id="posible_descarte"></p>
-                                        
-                                        <div class="row form-horizontal">
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" >Origen</label>
-                                                <div class="controls">
-                                                    <input type = "text" id="origen" name="origen" class="input-large" readonly="true">
-                                                </div>
+
+                                        <div class="control-group" >
+                                            <label class="control-label">Monto</label>
+                                            <div class="controls">
+                                                <input type="number"  name="ofrenda" id="ofrenda" class="input-small">
                                             </div>
-                                            
-                                            <div class="control-group" >
-                                                <label class="control-label">Monto</label>
-                                                <div class="controls">
-                                                    <input type="number"  name="ofrenda" id="ofrenda" class="input-small">
-                                                </div>
-                                            </div>
-                                            
-                                           
-                                         
                                         </div>
-                                       
-               
-                                        
+
                                     </div>
-                                    <div class="modal-footer">
-                                                             
-                                        <a href="#" class="btn" data-dismiss="modal">Descartar</a>
-                                        <input type="button" value="Guardar cambios" id="guardar_aprobar" name="guardar_aprobar" class="btn btn-primary" data-dismiss="modal" >
-                                    </div>
-                                </form>
-                            </div>
-         
-                  
-                            <div class="modal hide" id="eliminar_modal" style="width: auto;">                            
-                                <form id="form_eliminar" name="form_eliminar" >                                
-                                    <input type="hidden" id="eliminar_id" name="eliminar_id">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">×</button>
-                                        <h3>Confirmación</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p id="posible_descarte"></p>
-                                        
-                                    </div>
-                                    <div class="modal-footer">
-                                                             
-                                        <a href="#" class="btn" data-dismiss="modal">Descartar</a>
-                                        <input type="button" value="Guardar cambios" id="guardar_eliminar" name="guardar_eliminar" class="btn btn-primary" data-dismiss="modal" >
-                                    </div>
-                                </form>
-                            </div>
-         
-                  
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                    <input type="button" value="Guardar cambios" id="guardar_asistencia" name="guardar_asistencia" class="btn btn-primary" data-dismiss="modal" >
+                                </div>
+                            </form>
                         </div>
+
+                        <div class="modal hide" id="aprobar_modal" style="width: auto;">
+                            <form id="form_aprobar" name="form_aprobar" >
+                                <input type="hidden" id="aprobar_id" name="aprobar_id">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h3>Confirmación</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="posible_descarte"></p>
+
+                                    <div class="row form-horizontal">
+
+                                        <div class="control-group">
+                                            <label class="control-label" >Origen</label>
+                                            <div class="controls">
+                                                <input type = "text" id="origen" name="origen" class="input-large" readonly="true">
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group" >
+                                            <label class="control-label">Monto</label>
+                                            <div class="controls">
+                                                <input type="number"  name="ofrenda" id="ofrenda" class="input-small">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                    <input type="button" value="Guardar cambios" id="guardar_aprobar" name="guardar_aprobar" class="btn btn-primary" data-dismiss="modal" >
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal hide" id="eliminar_modal" style="width: auto;">
+                            <form id="form_eliminar" name="form_eliminar" >
+                                <input type="hidden" id="eliminar_id" name="eliminar_id">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h3>Confirmación</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="posible_descarte"></p>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <a href="#" class="btn" data-dismiss="modal">Descartar</a>
+                                    <input type="button" value="Guardar cambios" id="guardar_eliminar" name="guardar_eliminar" class="btn btn-primary" data-dismiss="modal" >
+                                </div>
+                            </form>
+                        </div>
+
+
                         <div class="tab-content">
                             <div class="tab-pane active table-with-action" id="inbox">
                                 <table cellpadding="0" cellspacing="0" border="0" class="data-table table table-has-pover table-striped table-hover table-bordered pull-left"  id="tabla_inbox" name="tabla_inbox">
                                     <thead id='lol'>
                                         <tr>
-                                            <th>Origén</th>
+                                            <th>Origen</th>
                                             <th>Fecha</th>
                                             <th>Monto</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                            </table>
+                                </table>
                             </div>
-                            
+                        </div>
                     </div>
-                
                 </div>
             </div>
         </div>
-
-    </div>    
-        
-     </div>
-        
     </div>
 </div>
 {% endblock %}
       
  {%block javascript %}
-            
-        <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
-            <script type="text/javascript" src="{{asset('js/bootstrap-typeahead.js')}}"></script>
-            <script type="text/javascript" src="{{asset('js/bootstrap-collapse.js')}}"></script>
-            <script type="text/javascript" src="{{asset('js/bootstrap-button.js')}}"></script>
-            <script type="text/javascript" src="{{asset('js/bootstrap-tooltip.js')}}"></script>
-            <script type="text/javascript" src="{{asset('js/bootstrap-tab.js')}}"></script>
-            <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>    
-            <script src="{{asset('js/custom.js')}}"></script>              
-            <!--[if lt IE 9]> <script type="text/javascript" src="{{asset('js/html5.js')}}"></script><![endif]-->
-            <script src="{{asset('js/jquery/jquery.ui.core.min.js')}}"></script>
-            <script src="{{asset('js/jquery/jquery.ui.widget.min.js')}}"></script>
-            <script src="{{asset('js/jquery/jquery.ui.position.min.js')}}"></script>
-            <script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
-            <!--[if lt IE 9]> <script type="text/javascript" src="/net/public/js/html5.js')}}"></script><![endif]-->           
-            <script src="{{asset('js/tiempo.js')}}"></script>        
-            <script src="{{asset('js/jquery.sparkline.js')}}"> </script>
-            <script src="{{asset('js/jquery.dataTables.js')}}"> </script>
-            <script src="{{asset('js/custom-tables.js')}}"> </script>
-            
-            <script src="{{asset('js/util/functiongen.js')}}"> </script>
-            <script src="{{asset('js/util/datatable_plugins.js')}}"></script>
-            <script src="{{asset('js/admincelula.js')}}"></script>
-            
-    <script type="text/javascript">
+<script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-typeahead.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-collapse.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-button.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-tooltip.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-tab.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
+<script src="{{asset('js/custom.js')}}"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="{{asset('js/html5.js')}}"></script>
+<![endif]-->
+<script src="{{asset('js/jquery/jquery.ui.core.min.js')}}"></script>
+<script src="{{asset('js/jquery/jquery.ui.widget.min.js')}}"></script>
+<script src="{{asset('js/jquery/jquery.ui.position.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.datepicker.js')}}"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/net/public/js/html5.js')}}"></script>
+<![endif]-->
+<script src="{{asset('js/tiempo.js')}}"></script>
+<script src="{{asset('js/jquery.sparkline.js')}}"></script>
+<script src="{{asset('js/jquery.dataTables.js')}}"></script>
+<script src="{{asset('js/custom-tables.js')}}"></script>
+
+<script src="{{asset('js/util/functiongen.js')}}"></script>
+<script src="{{asset('js/util/datatable_plugins.js')}}"></script>
+<script src="{{asset('js/admincelula.js')}}"></script>
+
+<script type="text/javascript">
  
          var trselected; 
-	 var oTable;
+     var oTable;
          urlES = "{{asset('js/dt_ES.txt')}}";
          
         var values = [];
@@ -544,7 +526,7 @@
                         }                    
         };
 
-	$(document).ready(function() {
+    $(document).ready(function() {
                redes = getAjaxObject('{{path('services_red')}}');              
                 cargarSelect(redes, "red_lista", "int_red_id", "id");                                      
            
@@ -577,9 +559,9 @@
                 enviar('{{path('admincelula_desactivar')}}', datos, SuccessFunction, null);
             });
             
-	 });
+     });
   
        
       
        </script>
-{%endblock %} 
+{%endblock %}
