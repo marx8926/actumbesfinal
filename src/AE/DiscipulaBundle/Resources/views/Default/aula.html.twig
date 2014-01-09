@@ -87,7 +87,7 @@
                                         <form id="reporte_form" name="reporte_form" method="POST" action="{{path('discipula_informe_aula')}}">                                          
                                             <button type="submit" id='excelbutton' class="btn btn-mini btn-square tip">
                                                  <i class="icon-hdd"></i>
-                                                  Guardar
+                                                  Informe Aulas
                                             </button>
                                         </form>
                                    </li>
@@ -206,7 +206,7 @@
                     index = $(ProfesorTable.fnGetData()).getIndexObj(aData, 'id');
        
                     {% if is_granted('ROLE_DISCIPULAR')  %}
-                        acciones =  cambiar_ver_estado("delete_modal", "");         
+                        acciones =  cambiar_estado("delete_modal");         
                     {% endif %}
                     ProfesorTable.fnUpdate(acciones, index, 4);
                     $(nRow).find('a').tooltip('hide');
@@ -217,9 +217,9 @@
                 
                         event.preventDefault();
                         if(aData.activo == true)
-                            $("#posible_descarte").text("Desea desactivar al profesor "+ aData.nombres + "?");                
+                            $("#posible_descarte").text("Desea activar el aula ?");                
                         else
-                            $("#posible_descarte").text("Desea activar al profesor "+ aData.nombres + "?");
+                            $("#posible_descarte").text("Desea desactivar el aula ?");
                
                         $("#descartar_id").val(aData.id);
                     });
