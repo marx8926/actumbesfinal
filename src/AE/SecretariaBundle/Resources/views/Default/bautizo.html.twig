@@ -44,7 +44,7 @@
                                             <div class="control-group">
                                                 <label for="h_inicio" class="control-label">Hora</label>
                                                 <div class="controls">
-                                                    <input type="time" class="input-small" id="h_inicio" name="h_inicio" required value="11:00"></div>
+                                                    <input type="text" class="input-small" id="h_inicio" name="h_inicio" required ></div>
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +90,8 @@
 
                             </div>
                             <div class="form-actions">
-                                <input type="submit" class='btn btn-primary' value="Guardar" id="btnGuardarCelula" name="btnGuardarCelula">
+                                <input type="submit" class='btn btn-primary' value="Registrar" id="btnGuardarCelula" name="btnGuardarCelula">
+                                <input type="button" class='btn btn-primary' value="Guardar" id="btnGuardarCambios">
                                 <input type="reset" class='btn btn-danger' value="Cancelar"></div>
                         </form>
 
@@ -101,7 +102,7 @@
                                         <th style='width:16%'>ID</th>
                                         <th style='width:43%'>Persona</th>
                                         <th style='width:17%'>Red</th>
-                                        <th class='hidden-phone' style='width:23%'>Acciones</th>
+                                        <th style='width:23%'>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -235,6 +236,13 @@
             }
         }
     };
+
+    var cargarDatosBautizo = function(data){
+        $("#f_inicio").val(data.fecha);
+        $("#h_inicio").val(data.hora);
+        $("#lugar").val(data.lugar);
+        $("#pastor").val(data.pastor);
+    }
         
     $(document).ready(function()
     {
@@ -260,6 +268,21 @@
             }
         });
 
+        var RowCBTBautismo = function(nRow, aData, iDisplayIndex)
+        {
+            $(nRow).find('.edit_row').click(function(event)
+            {
+                event.preventDefault();
+                cargarDatosBautizo(aData);
+            });
+        };
+
+        var SFGuardar = function(data){
+            $("form").reset();
+            bautismos.fnReloadAjax();
+        }
+
+
         $('#add_persona').click(function(event)
         {
             var num, leccion;
@@ -280,6 +303,12 @@
             }
         });
 
+        $('btnGuardarCambios').click(function(event)
+        {
+            event.preventDefault();
+            enviar("",{"formulario": $("#form_bautizo").serializeObject()},SFGuardar,null);
+        });
+
         $("#form_bautizo").submit(function(event)
         {
             event.preventDefault();
@@ -291,10 +320,9 @@
             else
                 alert('Seleccione una persona');
 
-        });            
+        });
         $("#red_lista").change(persona_cambio_red);
-        bautismos = createDataTable("tabla_bautizo",SourceTServicio,columnas_bautizmo,null,null);
+        bautismos = createDataTable("tabla_bautizo",SourceTServicio,columnas_bautizmo,null,RowCBTBautismo);
     });
-
 </script>
 {%endblock %}{# empty Twig template #}
