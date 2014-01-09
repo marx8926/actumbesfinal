@@ -1,211 +1,192 @@
 {% extends "::base.html.twig" %}
         {% block stylesheets %}
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
+<link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+<link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
+<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" >
 
-        <!-- Scripts -->
-                 
-        {% endblock %}
+<!-- Scripts -->
+{% endblock %}
         
 {% block content %}
+<div class="container-fluid">
+    <div class="content">
+        <div class="row-fluid">
+            <div class="span12">
 
-      <div  >
+                <div class="box">
 
-        <!--
-        <div class="box-head tabs">
-            <h3>Permisos</h3>	
+                    <div class="box-head tabs">
+                        <h3>Asignar Permisos</h3>
+                    </div>
+                    <div class="box-content box-nomargin">
+
+                        <form id="form_permiso" name="form_permiso" class="form-horizontal"  method="POST" action="{{path('permisos_save')}}" style="margin-top:15px;">
+                            <fieldset>
+                            <div class="control-group span12">
+                                <div class="control-group">
+                                    <label class="control-label">Red</label>
+                                    <div class="controls">
+                                        <select id="red_lista" name="red_lista" ></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Persona</label>
+                                <input id="persona_id" name="persona_id" type="hidden">
+
+                                <div class="controls">
+                                    <input id="persona" name="persona" class="input-large" type="text" ></div>
+                            </div>
+                            <div class="row">
+                                <div class="span10"></div>
+                            <div class="span10">
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="miembro" id="miembro">Miembro
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="lider" id="lider">Lider Célula</label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="lider_red" id="lider_red">Lider Red</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="span10">
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="consolidador" id="consolidador">Consolidador</label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="estudiante" id="estudiante">Estudiante</label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="docente" id="docente">Docente</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="span10">
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="ganar" id="ganar">Ganar</label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="consolidar" id="consolidar">Consolidar</label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="enviar" id="enviar">Enviar</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="span10">
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="discipular" id="discipular">Discipular</label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="tesoreria" id="tesoreria">Tesoreria</label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="pastor" id="pastor">Pastor</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="span10">
+
+                                <div class="control-group span4">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="admin" id="admin">Administrador</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </div>
+                            <div class="form-actions">
+                                <input id="btnGuardar" name="btnGuardar" type="submit" class="btn btn-primary" value="Guardar">
+                            </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
-      -->
-      <div >
-                  
-          <form id="form_permiso" name="form_permiso" class="form-horizontal "  method="POST" action="{{path('permisos_save')}}" >
-         
-                 
-                   <div class="control-group">
-                      <label class="control-label"> Red</label>
-                      <div class="controls">
-                        <select id="red_lista" name="red_lista" >
-                   
-                        </select>
-                      </div>
-                  </div>
-                  
-                  
-                  
-                  <div class="control-group">
-                      <label class="control-label"> Persona</label>
-                       <input id="persona_id" name="persona_id" type="hidden">
-
-                      <div class="controls">
-                          <input id="persona" name="persona" class="input-large" type="text" >
-                      </div>
-                  </div>
-              <div class="span9">
-
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                          <input id="btnGuardar" name="btnGuardar" type="submit" class="btn btn-primary" value="Guardar">
-                      </div>
-                  </div>
-              </div>
-              
-              <div class="span9">
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="miembro" id="miembro"> Miembro
-                        </label>
-                      </div>
-                  </div>
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="lider" id="lider"> Lider Célula
-                        </label>
-                      </div>
-                  </div>
-                  
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="lider_red" id="lider_red"> Lider Red
-                        </label>
-                      </div>
-                  </div>
-                  
-              </div>
-              
-              <div class="span9">
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="consolidador" id="consolidador"> Consolidador
-                        </label>
-                      </div>
-                  </div>
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="estudiante" id="estudiante"> Estudiante
-                        </label>
-                      </div>
-                  </div>
-                  
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="docente" id="docente"> Docente
-                        </label>
-                      </div>
-                  </div>
-                  
-              </div>
-              
-              <div class="span9">
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="ganar" id="ganar"> Ganar
-                        </label>
-                      </div>
-                  </div>
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="consolidar" id="consolidar"> Consolidar
-                        </label>
-                      </div>
-                  </div>
-                  
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="enviar" id="enviar"> Enviar
-                        </label>
-                      </div>
-                  </div>
-                  
-              </div>
-              
-              <div class="span9">
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="discipular" id="discipular"> Discipular
-                        </label>
-                      </div>
-                  </div>
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="tesoreria" id="tesoreria"> Tesoreria
-                        </label>
-                      </div>
-                  </div>
-                  
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="pastor" id="pastor"> Pastor
-                        </label>
-                      </div>
-                  </div>
-                  
-              </div>
-              
-              <div class="span9">
-                  
-                  <div class="control-group span2">
-                      <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="admin" id="admin"> Administrador
-                        </label>
-                      </div>
-                  </div>
-                  
-              </div>
-      
-        </form>
-        
-      </div>   
-
+    </div>
 </div>
 {% endblock %}
       
                
       {%block javascript %}
-      <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
-            <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>    
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>              
-            <!--[if lt IE 9]> <script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script><![endif]-->
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"> </script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
-            <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/jquery.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-collapse.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-button.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tooltip.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap-tab.js"></script>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/bootstrap.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/custom.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="http://d19k46zntalu3t.cloudfront.net/js/html5.js"></script>
+<![endif]-->
+<script src="http://d19k46zntalu3t.cloudfront.net/js/util/functiongen.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.core.min.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.widget.min.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.position.min.js"></script>
+<script src="http://d19k46zntalu3t.cloudfront.net/js/jquery/jquery.ui.autocomplete.min.js"></script>
 
-      
-      <script type="text/javascript">
+<script type="text/javascript">
           
                 $redes = null;
                 root = typeof exports !== "undefined" && exports !== null ? exports : this;
@@ -259,7 +240,7 @@
                 };
 
     
-	$(document).ready(function() {
+    $(document).ready(function() {
             
             redes = getAjaxObject('{{path('services_red')}}');
                           
@@ -318,4 +299,4 @@
         } );
 
        </script>
-      {%endblock %}
+{%endblock %}
