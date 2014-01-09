@@ -77,6 +77,34 @@ class ConsolidarServicesController extends Controller {
         return $resultado;
     }
     
+     public function lista_consolidador_red_tablaAction($red)
+    {
+        $em = $this->getDoctrine()->getManager();
+       
+        $securityContext = $this->get('security.context');
+        
+        $result = array();
+        
+       if($securityContext->isGranted('ROLE_CONSOLIDAR') || $securityContext->isGranted('ROLE_LIDER_RED'))
+       {
+        $sql = "select * from get_consolidador_red(:red)";
+        
+        $smt = $em->getConnection()->prepare($sql);
+        $smt->execute(array(':red'=>$red));
+        $result = $smt->fetchAll();
+       }
+       elseif($securityContext->isGranted('ROLE_CONSOLIDADOR')) {
+           $persona = $securityContext->getToken()->getUser()->getIdPersona();
+            $result = array();
+            $nombres = $persona->getNombre()." ".$persona->getApellidos();
+            $id = $persona->getId();
+            if($red != NULL)
+                $result[] = array("id" => $id, "nombres"=>$nombres);
+        }
+        $resultado= new JsonResponse(array('aaData' =>$result));
+        return $resultado;
+    }
+    
     public function lista_miembro_init_no_consolidadorAction()
     {
         $em = $this->getDoctrine()->getManager();

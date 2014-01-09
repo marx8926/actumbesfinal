@@ -15,6 +15,12 @@ services_consolidador_red:
   defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidador_red}
   requirements:
     _method: GET
+    
+services_consolidador_red_tabla:
+  pattern: /lista_consolidador_red_tabla/{red}
+  defaults: {_controller: AEServicesBundle:ConsolidarServices:lista_consolidador_red_tabla}
+  requirements:
+    _method: GET
 
 services_miembro_init_no_consolidador:
   pattern: /lista_miembro_init_no_consolidador
