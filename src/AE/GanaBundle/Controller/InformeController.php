@@ -23,8 +23,7 @@ class InformeController extends Controller {
     //put your code here
     
     public function semanalAction()
-    {
-    
+    {    
           // ask the service for a Excel5
        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
 

@@ -1,452 +1,332 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<title>{% block titulo %}{% endblock %}Admin Church</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-
-{% block stylesheets %}
-<link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
-<link rel="stylesheet" href="{{asset('css/bootstrap-responsive.css')}}">
-<link rel="stylesheet" href="{{asset('css/jquery.fancybox.css')}}">
-<link rel="stylesheet" href="{{asset('css/style.css')}}">
-{% endblock %}
-</head>
+    <meta charset="utf-8">
+    <title>{% block titulo %}{% endblock %}Admin Church</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap-responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jquery.fancybox.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">{% endblock %}</head>
 <body>
-<div class="topbar">
-	<div class="container-fluid">
-		<a href="{{path('main')}}" class='company'><img alt="Administración Eclesiástica" src="{{asset('images/ac-logo-horizontal-3.png')}}"></a>
-		<ul class='mini'>
-			<li>
-				<a href="#">
-					<img src="{{asset('img/icons/fugue/help.png')}}" alt="">
-					Ayuda
-				</a>
-			</li>
-			<li>
-				<a href="{{path('fos_user_security_logout')}}">
-					<img src="{{asset('img/icons/fugue/control-power.png')}}" alt="">
-					Cerrar Sesión
-				</a>
-			</li>
-		</ul>
-	</div>
-</div>
-<div class="breadcrumbs">
-	<div class="container-fluid">
-		<ul class="bread pull-left">
-			<li>
-				<a href="{{path('main')}}"><i class="icon-home icon-white"></i></a>
-			</li>
-			
-		</ul>
-
-	</div>
-</div>
-<div class="main">
-	<div class="navi">
-            <ul class='main-nav'>
-			<li class='active'>
-				<a href="{{path('main')}}" class='light'>
-					<div class="ico"><i class="icon-home icon-white"></i></div>
-					Inicio
-				</a>
-			</li>
-                        
-                        
-			<li>
-				<a class='light toggle-collapsed'>
-					Ganar
-					<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-				</a>
-				<ul class='collapsed-nav closed'>
-                                      {% if (is_granted('ROLE_USER')) %}
-					<li>
-						<a href="{{path('ae_gana_view')}}">
-							Registrar
-						</a>
-					</li>
-                                      {% endif %}  
-                                        {% if ( is_granted('ROLE_LIDER_RED') )%}
-                                        <li>
-						<a href="{{path('ae_gana_busqueda')}}">
-							Buscar
-						</a>
-					</li>
-                                       
-                                        
-					<li>
-						<a href="#" class='light toggle-collapsed'>
-							Informes
-							<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-						</a>
-						<ul class='collapsed-nav closed dentro'>
-							
-                                                        
-                                                    <li>
-                                                        <a href="{{path('ae_gana_informe_detallado_view')}}">
-                                                            Informe Semanal detallado de Ganar
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{path('ae_gana_informe_semanal_view')}}">
-                                                            Informe Semana resumido de Ganar
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{path('ae_gana_informe_tri_anual_view')}}">
-                                                            Informe Trimestral / Anual
-                                                        </a>
-                                                    </li>
-						</ul>
-					</li>
-                                        <li>
-                                            <a href="{{path('gana_dashboard_vista')}}">
-                                                Dashboard
-                                            </a>
-                                        </li>
-                                         {% endif %}
-                                        </ul>
-			</li>
-                        <li>
-                            <a class="light toggle-collapsed">
-                                Consolidar
-                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-                            </a>
-                            <ul class="collapsed-nav closed">
-                             {% if ( is_granted('ROLE_CONSOLIDAR') )%}
-
-                                <li>
-                                    <a href="{{path('leche_view')}}">
-                                      Crear Leche Espiritual
-                                    </a>
-                                </li>
-                             
-                                <li>
-                                    <a href="{{path('consolidador_view')}}">
-                                      Administrar Consolidador
-                                    </a>
-                                </li>
-                            {% endif %} 
-                            {% if ( is_granted('ROLE_LIDER_RED') )%}
-                                <li>
-                                    <a href="{{path('asignarconsolidador_view')}}">
-                                      Asignar Consolidador
-                                    </a>
-                                </li>
-                            {% endif %}
-                            {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
-                                <li>
-                                    <a href="{{path('asistencia_leche_view')}}">
-                                        Administrar Consolidados
-                                    </a>
-                                </li>                                
-                            {% endif %}
-                                <li>
-						<a href="#" class='light toggle-collapsed'>
-							Informes
-							<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-						</a>
-						<ul class='collapsed-nav closed dentro'>
-							
-                             {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
-                          
-                                                    <li>
-                                                        <a href="{{path('informe_detallado_view')}}">
-                                                            Informe Semanal detallado
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{path('informe_resumido_view')}}">
-                                                            Informe Semana resumido
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{path('informe_anual_tri_view')}}">
-                                                            Informe Trimestral / Anual
-                                                        </a>
-                                                    </li>
-						</ul>
-					
-                             {% endif %}
-                             </li>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <a class="light toggle-collapsed">
-                                Discipular
-                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-                            </a>
-                            <ul class="collapsed-nav closed">
-                            {% if ( is_granted('ROLE_DISCIPULAR') ) %}
-                                <li>
-                                    <a href="{{path('curso_view')}}">
-                                      Crear Cursos
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{path('docente_view')}}">
-                                        Docentes
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{path('estudiante_view')}}">
-                                        Estudiantes
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{path('aula_view')}}">
-                                        Aulas
-                                    </a>
-                                </li>
-                             
-                                <li>
-                                    <a href="{{path('asignacion_view')}}">
-                                        Asignación Curso / Profesor
-                                    </a>
-                                </li>
-                              {% endif %}  
-                              {% if ( is_granted('ROLE_PROFESOR') ) %}
-
-                                <li>
-                                    <a href="{{path('matricula_view')}}">
-                                        Matricular
-                                    </a>
-                                </li>
-                                 {% endif %} 
-                                  <li>
-						<a href="#" class='light toggle-collapsed'>
-							Informes
-							<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-						</a>
-						<ul class='collapsed-nav closed dentro'>
-							
-                             {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
-                          
-                                                    <li>
-                                                        <a href="{{path('disciplina_informe_semanal_indeli_view')}}">
-                                                            Informe Semanal INDELI
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{path('disciplina_informe_alumnos_indeli_view')}}">
-                                                            Informe Alumnos/Red INDELI
-                                                        </a>
-                                                    </li>
-                                                    
-						</ul>
-					
-                             {% endif %}
-                             </li>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <a class="light toggle-collapsed">
-                                Enviar
-                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-                            </a>
-                            <ul class="collapsed-nav closed">
-                             {% if ( is_granted('ROLE_LIDER') )%}
-
-                                <li>
-                                    <a href="{{path('tema_view')}}">
-                                      Temas de Célula
-                                    </a>
-                                </li>
-                              {% endif %}
-                              {% if (is_granted('ROLE_ENVIAR')) %}
-                                 <li>
-                                    <a href="{{path('celula_view')}}">
-                                             Crear células
-                                    </a>                                            
-                                 </li>
-                              {% endif %}
-                              {% if(is_granted('ROLE_LIDER_RED'))%}
-                                 <li>
-                                     <a href="{{path('admincelula_view')}}">
-                                        Administrar Célula
-                                     </a>
-                                 </li>
-                              {% endif %}
-                              {% if(is_granted('ROLE_ENVIAR'))%}
-                                 <li>
-                                   <a href="{{path('liderazgo_envia_view')}}">
-                                       Administrar Lideres
-                                   </a>
-                                 </li>
-                              {% endif %}   
-                                 <li>
-                                     <a href="{{path('buzon_envia_view')}}">
-                                       Buzon de temas
-                                     </a>
-                                 </li>
-                                   
-					<li>
-						<a href="#" class='light toggle-collapsed'>
-							Informes
-							<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-						</a>
-						<ul class='collapsed-nav closed dentro'>
-							
-                                                        
-                                                   
-                                                    <li>
-                                                        <a href="{{path('informe_semanal_view')}}">
-                                                            Informe Semana resumido
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{path('informe_celulograma_view')}}">
-                                                            Celulograma
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{path('informe_lideres_celula_view')}}">
-                                                            Informe de Células/Lider
-                                                        </a>
-                                                    </li>
-						</ul>
-					</li>
-				
-                            </ul>
-                        </li>
-                        
-			<li>
-				<a class='light toggle-collapsed'>
-					Configurar
-					<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-				</a>
-				<ul class='collapsed-nav closed'>
-                                      {% if (is_granted('ROLE_ADMIN')) %}
-					<li>
-						<a href="{{path('permisos')}}">
-							Registrar
-						</a>
-					</li>
-                                        
-                                       
-                                        
-                                        <li>
-                                            <a href="{{path('red_view')}}">
-                                                
-                                                Administrar redes
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{path('usuarios_view')}}" >
-                                                Administrar Usuarios
-                                            </a>
-                                        </li>
-                                        
-                                        <li>
-                                            <a href="{{path('servicio_view')}}">
-                                                Administrar Servicios
-                                            </a>
-                                        </li>
-                                        
-                                        <li>
-                                            <a href="{{path('permisos')}}">
-                                                Permisos
-                                            </a>
-                                        </li>
-                                        
-                                        <li>
-                                            <a href="{{path('asistencia_view')}}">
-                                                Asistencia
-                                            </a>
-                                        </li>
-                                       {% endif %}
-                                </ul>
-                        </li>
-              
-                        <li>
-                            
-                            <a class="light toggle-collapsed">
-                                Contabilidad
-				<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-                            </a>
-                            
-                            <ul class='collapsed-nav closed'>
-                                      
-					<li>
-						<a href="{{path('ofrenda_view')}}">
-							Ofrenda
-						</a>
-					</li>
-                                        
-                                        <li>
-						<a href="{{path('diezmo_view')}}">
-							Diezmo
-						</a>
-					</li>
-                                        
-                                        <li>
-                                            <a href="{{path('buzon_contabilidad_view')}}">
-                                                Buzon de Contabilidad
-                                            </a>
-                                        </li>
-                                        
-                                        <li>
-                                            <a href="{{path('informe_contabilidad_view')}}">
-                                                Informe
-                                            </a>
-                                        </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="light toggle-collapsed">
-                                Secretaría
-				<img src="{{asset('img/toggle-subnav-down.png')}}" alt="">
-                            </a>
-                            <ul class="collapsed-nav closed">
-                                <li>
-                                    <a href="{{path('membresia_view')}}">
-                                        Membresia
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{path('encuentro_view')}}">
-                                        Encuentro
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{path('bautizo_view')}}">
-                                        Bautizo
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="{{path('informe_secretaria_view')}}">
-                                        Informes
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+    <div class="topbar">
+        <div class="container-fluid">
+            <a href="{{path('main')}}" class='company'>
+                <!--img alt="Administración Eclesiástica" src="{{asset('images/ac-logo-horizontal-3.png')}}"--></a>
+            <ul class='mini'>
+                <li>
+                    <a href="#">
+                        <img src="{{asset('img/icons/fugue/help.png')}}" alt="">Ayuda</a>
+                </li>
+                <li>
+                    <a href="{{path('fos_user_security_logout')}}">
+                        <img src="{{asset('img/icons/fugue/control-power.png')}}" alt="">Cerrar Sesión</a>
+                </li>
             </ul>
-	</div>
-	<div class="container-fluid">
-		<div class="content">
-			{% block content %}
-			
-			{% endblock %}
-		</div>
-	</div>	
-</div>
-<div>
-	<footer>
-		<p align="center">&copy; 2013 por CLM Developers</p>
-		<p align="center">
-			 <!--<a href="http://www.w3.org/html/logo/" target="_blank">
-                           
-            	<img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-semantics.png" width="197" height="64" alt="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics" title="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics">
-                            -->
-            </a> 
+        </div>
+    </div>
+    <div class="breadcrumbs">
+        <div class="container-fluid">
+            <ul class="bread pull-left">
+                <li>
+                    <a href="{{path('main')}}"> <i class="icon-home icon-white"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="main">
+        <div class="navi">
+            <ul class='main-nav'>
+                <li class='active'>
+                    <a href="{{path('main')}}" class='light'>
+                        <div class="ico"> <i class="icon-home icon-white"></i>
+                        </div>
+                        Inicio
+                    </a>
+                </li>
+
+                <li>
+                    <a class='light toggle-collapsed'>
+                        Ganar
+                        <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                    <ul class='collapsed-nav closed'>
+                        {% if (is_granted('ROLE_USER')) %}
+                        <li>
+                            <a href="{{path('ae_gana_view')}}">Registrar</a>
+                        </li>
+                        {% endif %}  
+                                        {% if ( is_granted('ROLE_LIDER_RED') )%}
+                        <li>
+                            <a href="{{path('ae_gana_busqueda')}}">Buscar</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class='light toggle-collapsed'>
+                                Informes
+                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                            <ul class='collapsed-nav closed dentro'>
+
+                                <li>
+                                    <a href="{{path('ae_gana_informe_detallado_view')}}">Informe Semanal detallado de Ganar</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('ae_gana_informe_semanal_view')}}">Informe Semana resumido de Ganar</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('ae_gana_informe_tri_anual_view')}}">Informe Trimestral / Anual</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{{path('gana_dashboard_vista')}}">Dashboard</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </li>
+                <li>
+                    <a class="light toggle-collapsed">
+                        Consolidar
+                        <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                    <ul class="collapsed-nav closed">
+                        {% if ( is_granted('ROLE_CONSOLIDAR') )%}
+                        <li>
+                            <a href="{{path('leche_view')}}">Crear Leche Espiritual</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('consolidador_view')}}">Administrar Consolidador</a>
+                        </li>
+                        {% endif %} 
+                            {% if ( is_granted('ROLE_LIDER_RED') )%}
+                        <li>
+                            <a href="{{path('asignarconsolidador_view')}}">Asignar Consolidador</a>
+                        </li>
+                        {% endif %}
+                            {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
+                        <li>
+                            <a href="{{path('asistencia_leche_view')}}">Administrar Consolidados</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="#" class='light toggle-collapsed'>
+                                Informes
+                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                            <ul class='collapsed-nav closed dentro'>
+                                {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
+                                <li>
+                                    <a href="{{path('informe_detallado_view')}}">Informe Semanal detallado</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('informe_resumido_view')}}">Informe Semana resumido</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('informe_anual_tri_view')}}">Informe Trimestral / Anual</a>
+                                </li>
+                            </ul>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a class="light toggle-collapsed">
+                        Discipular
+                        <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                    <ul class="collapsed-nav closed">
+                        {% if ( is_granted('ROLE_DISCIPULAR') ) %}
+                        <li>
+                            <a href="{{path('curso_view')}}">Crear Cursos</a>
+                        </li>
+                        <li>
+                            <a href="{{path('docente_view')}}">Docentes</a>
+                        </li>
+                        <li>
+                            <a href="{{path('estudiante_view')}}">Estudiantes</a>
+                        </li>
+                        <li>
+                            <a href="{{path('aula_view')}}">Aulas</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('asignacion_view')}}">Asignación Curso / Profesor</a>
+                        </li>
+                        {% endif %}  
+                              {% if ( is_granted('ROLE_PROFESOR') ) %}
+                        <li>
+                            <a href="{{path('matricula_view')}}">Matricular</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="#" class='light toggle-collapsed'>
+                                Informes
+                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                            <ul class='collapsed-nav closed dentro'>
+                                {% if ( is_granted('ROLE_LIDER_RED') or is_granted('ROLE_CONSOLIDADOR') or is_granted('ROLE_CONSOLIDAR') )%}
+                                <li>
+                                    <a href="{{path('disciplina_informe_semanal_indeli_view')}}">Informe Semanal INDELI</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('disciplina_informe_alumnos_indeli_view')}}">Informe Alumnos/Red INDELI</a>
+                                </li>
+
+                            </ul>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a class="light toggle-collapsed">
+                        Enviar
+                        <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                    <ul class="collapsed-nav closed">
+                        {% if ( is_granted('ROLE_LIDER') )%}
+                        <li>
+                            <a href="{{path('tema_view')}}">Temas de Célula</a>
+                        </li>
+                        {% endif %}
+                              {% if (is_granted('ROLE_ENVIAR')) %}
+                        <li>
+                            <a href="{{path('celula_view')}}">Crear células</a>
+                        </li>
+                        {% endif %}
+                              {% if(is_granted('ROLE_LIDER_RED'))%}
+                        <li>
+                            <a href="{{path('admincelula_view')}}">Administrar Célula</a>
+                        </li>
+                        {% endif %}
+                              {% if(is_granted('ROLE_ENVIAR'))%}
+                        <li>
+                            <a href="{{path('liderazgo_envia_view')}}">Administrar Lideres</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{{path('buzon_envia_view')}}">Buzon de temas</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class='light toggle-collapsed'>
+                                Informes
+                                <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                            <ul class='collapsed-nav closed dentro'>
+
+                                <li>
+                                    <a href="{{path('informe_semanal_view')}}">Informe Semana resumido</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('informe_celulograma_view')}}">Celulograma</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('informe_lideres_celula_view')}}">Informe de Células/Lider</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a class='light toggle-collapsed'>
+                        Configurar
+                        <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                    <ul class='collapsed-nav closed'>
+                        {% if (is_granted('ROLE_ADMIN')) %}
+                        <li>
+                            <a href="{{path('permisos')}}">Registrar</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('red_view')}}">Administrar redes</a>
+                        </li>
+                        <li>
+                            <a href="{{path('usuarios_view')}}" >Administrar Usuarios</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('servicio_view')}}">Administrar Servicios</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('permisos')}}">Permisos</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('asistencia_view')}}">Asistencia</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </li>
+
+                <li>
+
+                    <a class="light toggle-collapsed">
+                        Contabilidad
+                        <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+
+                    <ul class='collapsed-nav closed'>
+
+                        <li>
+                            <a href="{{path('ofrenda_view')}}">Ofrenda</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('diezmo_view')}}">Diezmo</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('buzon_contabilidad_view')}}">Buzon de Contabilidad</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('informe_contabilidad_view')}}">Informe</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="light toggle-collapsed">
+                        Secretaría
+                        <img src="{{asset('img/toggle-subnav-down.png')}}" alt=""></a>
+                    <ul class="collapsed-nav closed">
+                        <li>
+                            <a href="{{path('membresia_view')}}">Membresia</a>
+                        </li>
+                        <li>
+                            <a href="{{path('encuentro_view')}}">Encuentro</a>
+                        </li>
+                        <li>
+                            <a href="{{path('bautizo_view')}}">Bautizo</a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('informe_secretaria_view')}}">Informes</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="container-fluid">
+            <div class="content">
+                {% block content %}
+            
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+    <div>
+        <hr>
+        <footer>
+            <p align="center">&copy; 2013 por <a href="http://clmdevelopers.com" target="_blank">CLM Developers</a></p>
+            <p align="center">
+                <!--<a href="http://www.w3.org/html/logo/" target="_blank">
+
+                <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-semantics.png" width="197" height="64" alt="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics" title="HTML5 Powered with CSS3 / Styling, Device Access, and Semantics">--></a>
         </p>
-	</footer>
-</div>	
+    </footer>
+</div>
 {% block javascript %}
 <script src="{{asset('js/jquery.js')}}"></script>
 <script src="{{asset('js/less.js')}}"></script>
