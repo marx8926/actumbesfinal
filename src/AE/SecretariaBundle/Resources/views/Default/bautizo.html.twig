@@ -172,7 +172,7 @@
     var personas = null;
     var personasTabla = null;
     var bautismos = null;       
-    var columnas_lecciones = [
+    var columnas_bautizmo = [
         {"mDataProp": "fecha"},
         {"mDataProp": "hora"},
         {"mDataProp": "pastor"},
@@ -293,7 +293,7 @@
 
         });            
         $("#red_lista").change(persona_cambio_red);
-        bautismos = createDataTable("tabla_bautizo",SourceTServicio,columnas_lecciones,null,null);
+        bautismos = createDataTable("tabla_bautizo",SourceTServicio,columnas_bautizmo,null,null);
     });
 
 </script>

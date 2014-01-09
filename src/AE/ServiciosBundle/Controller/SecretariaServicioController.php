@@ -20,18 +20,5 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
  * @author Marks-Calderon
  */
 class SecretariaServicioController extends Controller{
-    //put your code here
-    public function bautizo_allAction()
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-	
-		$sql = "select * from view_get_all_bautizo";
-	
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
-	
-		$todo = $smt->fetchAll();
-	                
-		return new JsonResponse(array('aaData'=>$todo));
-    }
+
 }

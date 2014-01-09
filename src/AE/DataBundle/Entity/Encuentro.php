@@ -57,6 +57,13 @@ class Encuentro
      */
     private $descripcion;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lugar", type="string", length=200, nullable=true)
+     */
+    private $lugar;
+
 
 
     /**
@@ -182,5 +189,28 @@ class Encuentro
     public function getDescripcion()
     {
         return $this->descripcion;
+    }
+
+    /**
+     * Set lugar
+     *
+     * @param string $lugar
+     * @return Encuentro
+     */
+    public function setLugar($lugar)
+    {
+        $this->lugar = $lugar;
+
+        return $this;
+    }
+
+    /**
+     * Get lugar
+     *
+     * @return string 
+     */
+    public function getLugar()
+    {
+        return $this->lugar;
     }
 }
