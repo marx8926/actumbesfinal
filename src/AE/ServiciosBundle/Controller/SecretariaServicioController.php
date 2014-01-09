@@ -34,4 +34,18 @@ class SecretariaServicioController extends Controller{
 	                
 		return new JsonResponse(array('aaData'=>$todo));
     }
+
+    public function encuentros_allAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "select * from view_get_all_encuentro;";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$todo = $smt->fetchAll();
+	                
+		return new JsonResponse(array('aaData'=>$todo));
+    }
 }
