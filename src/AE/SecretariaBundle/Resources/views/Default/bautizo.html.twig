@@ -1,11 +1,11 @@
 {% extends "::base.html.twig" %}
 {% block stylesheets %}
 <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
-<link href="http://d19k46zntalu3t.cloudfront.net/css/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/bootstrap.datepicker.css">
 
 <link rel="stylesheet" href="http://d19k46zntalu3t.cloudfront.net/css/smooth/jquery-ui-1.8.16.custom.css" >
+<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" >
 
 <!-- Scripts -->
 {% endblock %}
@@ -26,66 +26,57 @@
 
                         </ul>
                     </div>
-                    <div class="box-content">
+                    <div class="box-content box-nomargin">
                         <form action="#" class="form-horizontal" id="form_bautizo" name="form_bautizo" method="POST">
-                            <div class="tab-content">
+                            <div class="tab-content" style="padding-top:15px;">
                                 <div class="tab-pane active" id="basic">
-
-                                    <div class="row">
-
-                                        <div class="span3">
+                                    <fieldset>
+                                        <div class="row-fluid">
+                                            <div class="span3">
+                                                <div class="control-group">
+                                                    <label for="f_inicio" class="control-label">Fecha</label>
+                                                    <div class="controls">
+                                                        <input type="text" class="input-small datepick" id="f_inicio" name="f_inicio" required></div>
+                                                </div>
+                                            </div>
+                                            <div class="span3">
+                                                <div class="control-group">
+                                                    <label for="h_inicio" class="control-label">Hora</label>
+                                                    <div class="controls">
+                                                        <input type="text" class="input-small" id="h_inicio" name="h_inicio" required ></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid">
                                             <div class="control-group">
-                                                <label for="f_inicio" class="control-label">Fecha</label>
+                                                <label for="lugar" class="control-label">Lugar</label>
                                                 <div class="controls">
-                                                    <input type="text" class="input-small datepick" id="f_inicio" name="f_inicio" required></div>
+                                                    <input type="text" id="lugar" name="lugar" class="input-xxlarge" required>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="span3">
+
                                             <div class="control-group">
-                                                <label for="h_inicio" class="control-label">Hora</label>
+                                                <label for="pastor" class="control-label">Pastor</label>
                                                 <div class="controls">
-                                                    <input type="text" class="input-small" id="h_inicio" name="h_inicio" required ></div>
+                                                    <input type='text' id='pastor' name='pastor' required class='input-xxlarge' >
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label for="red_lista" class="control-label">Red</label>
+                                                <div class="controls">
+                                                    <select id="red_lista" name="red_lista"></select>
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">Persona</label>
+                                                <input id="persona_id" name="persona_id" type="hidden">
+                                                <div class="controls">
+                                                    <input id="persona" name="persona" class="input-large" type="text" >
+                                                    <input type="button" class="btn btn-small" value="+" id="add_persona" name="add_persona">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-
-                                        <div class="control-group">
-                                            <label for="lugar" class="control-label">Lugar</label>
-                                            <div class="controls">
-                                                <input type="text" id="lugar" name="lugar" class="input-xxlarge" required></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-
-                                        <div class="control-group">
-                                            <label for="pastor" class="control-label">Pastor</label>
-                                            <div class="controls">
-                                                <input type='text' id='pastor' name='pastor' required class='input-xxlarge' ></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="control-group">
-                                            <label for="red_lista" class="control-label">Red</label>
-                                            <div class="controls">
-                                                <select id="red_lista" name="red_lista"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="control-group">
-                                            <label class="control-label">Persona</label>
-                                            <input id="persona_id" name="persona_id" type="hidden">
-
-                                            <div class="controls">
-                                                <input id="persona" name="persona" class="input-large" type="text" >
-                                                <input type="button" class="btn btn-small" value="+" id="add_persona" name="add_persona"></div>
-                                        </div>
-                                    </div>
-
+                                    </fieldset>
                                 </div>
 
                             </div>
@@ -161,6 +152,7 @@
 
 <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.sparkline.js"></script>
 <script src="http://d19k46zntalu3t.cloudfront.net/js/jquery.dataTables.js"></script>
+<script src="{{asset('js/jquery.dataTables.bootstrap.js')}}"></script>
 <script src="http://d19k46zntalu3t.cloudfront.net/js/custom-tables.js"></script>
 <script src="http://d19k46zntalu3t.cloudfront.net/js/util/datatable_plugins.js"></script>
 <script src="{{asset('js/util/functiongen.js')}}"></script>
