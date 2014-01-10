@@ -160,13 +160,14 @@
                                         </div>
                                 </div>
                             </div>
+                            <div class="form-actions">
+                                    <input type="submit" class='btn btn-primary' value="Guardar" id="btnGuardarCelula" name="btnGuardarCelula">
+                                    <input type="reset" class='btn btn-danger' value="Cancelar">
+                             </div>
                           </div>
                                 
                             </div>
-                                <div class="form-actions">
-                                    <input type="submit" class='btn btn-primary' value="Guardar" id="btnGuardarCelula" name="btnGuardarCelula">
-                                    <input type="reset" class='btn btn-danger' value="Cancelar">
-                                </div>
+                                
                             </form>
                         </div>
                     </div>
@@ -330,12 +331,9 @@
             ubigeos = getAjaxObject("{{asset('js/ubi.json')}}");
             cargarUbigeo(ubigeos, "distrito_lista", "provincia_lista", "departamento_lista");
                  
-            redes = getAjaxObject('{{path('services_red')}}');
-                          
-            cargarSelect(redes, "red_lista", "int_red_id", "id");
-            
+            redes = getAjaxObject('{{path('services_red')}}');                          
+            cargarSelect(redes, "red_lista", "int_red_id", "id");            
             CelulasTable = createDataTable("tabla_celulas", '{{path('services_ultimas_celula_table')}}', FormatoTable, null, null);
-
                      
             $("#form_celula").submit(function(event){
                 

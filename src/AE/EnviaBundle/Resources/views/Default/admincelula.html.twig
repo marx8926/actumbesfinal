@@ -415,7 +415,6 @@
                 else{
                     $("#lider_id").val(lider['lider']);
                     $("#fila_select").css("display","block");
-                    cargar_doce();
                 }
             }
             else
@@ -455,6 +454,8 @@
                  url = url.replace('cell', aData.id);
                  url = url.replace('type','0');
                  nuevas_celulas = getAjaxObject(url);
+                 
+                 console.log(url);
                  
                  cargarSelect(nuevas_celulas,"cambio_celula","id","celula");                 
                 }); 
@@ -579,20 +580,7 @@
             
             $("#guardar_reporte").click(function(event){
                 formulario = $("#form_reporte").serializeObject();
-                /*
-                console.log(formulario);
-                evento = $.ajax({
-                    type: "POST",       
-                    url: "{{path('informe_celulograma_service')}}",
-                    data: {'formulario': formulario }
-                });
-                
-                evento.done(function(data){
-                    //console.log(data);
-                    var win = window.open();
-                    win.document.write(data);
-                });
-                */
+              
                    
                 $.fileDownload("{{path('informe_celulograma_service')}}", {
                     httpMethod: "POST",
