@@ -29,58 +29,69 @@
                     </div>
                     <div class="box-content box-nomargin">
                         <form id="form_reporte" name="form_reporte" method="POST" class="form-horizontal" action="{{path('ae_gana_informe_semanal_service')}}" >
-                            <div class="span12">
-                            <div class="control-group span3">
-                                <label class="control-label">Tipo</label>
-                                <div class="controls">
-                                    <select id="tipo_red" name="tipo_red" required class="input-small">
-                                        <option value="1">Ofrendas</option>
-                                        <option value="2">Diezmos</option>
-                                    </select>
+                            <fieldset>
+                                <div class="row-fluid force-margin">
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label">Tipo</label>
+                                            <div class="controls">
+                                                <select id="tipo_red" name="tipo_red" required class="input-small">
+                                                    <option value="1">Ofrendas</option>
+                                                    <option value="2">Diezmos</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group" id="desde_block" name="desde_block" >
+                                            <label class="control-label" style="width: 100px;">Desde</label>
+                                            <div class="controls" style="margin-left: 120px;">
+                                                <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly"></div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group" id="hasta_block" name="hasta_block">
+                                            <label class="control-label" style="width: 90px;">Hasta</label>
+                                            <div class="controls" style="margin-left: 110px;">
+                                                <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly"></div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label" style="width: 90px;">Filtro</label>
+                                            <div class="controls" style="margin-left: 110px;">
+                                                <select id="tipo_persona" name="tipo_persona" class="input-small">
+                                                    <option value="1">Todos</option>
+                                                    <option value="2">Lideres</option>
+                                                    <option value="3">Persona</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="control-group span3" id="desde_block" name="desde_block" >
-                                <label class="control-label">Desde</label>
-                                <div class="controls">
-                                    <input type="text" class="datepick rango input-small" id="desde" name="desde" required readonly="reandonly"></div>
-                            </div>
-                            <div class="control-group span3" id="hasta_block" name="hasta_block">
-                                <label class="control-label">Hasta</label>
-                                <div class="controls">
-                                    <input type="text" class="datepick rango input-small" id="hasta" name="hasta" required readonly="reandonly"></div>
-                            </div>
-                            <div class="control-group span3">
-                                <label class="control-label">Filtro</label>
-                                <div class="controls">
-                                    <select id="tipo_persona" name="tipo_persona">
-                                        <option value="1">Todos</option>
-                                        <option value="2">Lideres</option>
-                                        <option value="3">Persona</option>
-                                    </select>
+                                <div class="row-fluid">
+                                    <div class="control-group">
+                                        <label for="red_lista" class="control-label">Red</label>
+                                        <div class="controls">
+                                            <select id="red_lista" name="red_lista"></select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Persona</label>
+                                        <input id="persona_id" name="persona_id" type="hidden">
+                                        <div class="controls">
+                                            <input id="persona" name="persona" class="input-large" type="text" >
+                                            <input type="button" class="btn btn-small" value="+" id="add_persona" name="add_persona"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            </div>
-                            <div class="span12">
-                            <div class="control-group">
-                                <label for="red_lista" class="control-label">Red</label>
-                                <div class="controls">
-                                    <select id="red_lista" name="red_lista"></select>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <div class="form-actions">
+                                            <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            </div>
-                            <div class="span12">
-                            <div class="control-group">
-                                <label class="control-label">Persona</label>
-                                <input id="persona_id" name="persona_id" type="hidden">
-                                <div class="controls">
-                                    <input id="persona" name="persona" class="input-large" type="text" >
-                                    <input type="button" class="btn btn-small" value="+" id="add_persona" name="add_persona"></div>
-                            </div>
-                            </div>
-                            <div class="control-group span3">
-                                <div class="controls"  style="width:auto; margin-left: -10px; " >
-                                    <input type="submit" class="btn btn-primary" id="btnGenerar" name="btnGenerar" value="Generar"></div>
-                            </div>
+                            </fieldset>
                         </form>
                     </div>
                 </div>
