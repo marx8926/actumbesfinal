@@ -27,7 +27,7 @@ class DiezmoController extends Controller {
      public function viewAction()
     {
         return $this->render('AEContabilidadBundle:Default:diezmo.html.twig');
-       //  return $this->render('http://d19k46zntalu3t.cloudfront.net/views/diezmo.html.twig');
+       //  return $this->render('http://d2dm6eqgiezevm.cloudfront.net/views/diezmo.html.twig');
        
     }
     public function editAction()
