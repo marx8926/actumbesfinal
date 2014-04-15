@@ -258,13 +258,12 @@ class InformeController extends Controller {
         $em = $this->getDoctrine()->getManager();
                 
         echo getcwd();
-        chdir('report\ganar');
-                echo getcwd();
-
+        chdir('report/ganar');
+        
         if($tipo == 'anual')
-            $path = getcwd()."\informe_anual.xls";
+            $path = getcwd()."/informe_anual.xls";
         else 
-            $path = getcwd()."\informe_semanal.xls";
+            $path = getcwd()."/informe_semanal.xls";
 
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
         $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setAutoSize('true');
