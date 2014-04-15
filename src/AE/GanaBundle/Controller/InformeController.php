@@ -169,7 +169,7 @@ class InformeController extends Controller {
         $hasta = $request->request->get('hasta');
         $em = $this->getDoctrine()->getManager();
         
-       getcwd();
+       echo getcwd();
        chdir('report\ganar');
        $path = getcwd()."\informe_resumen.xls";
        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
@@ -257,9 +257,10 @@ class InformeController extends Controller {
         
         $em = $this->getDoctrine()->getManager();
                 
-        getcwd();
+        echo getcwd();
         chdir('report\ganar');
-        
+                echo getcwd();
+
         if($tipo == 'anual')
             $path = getcwd()."\informe_anual.xls";
         else 
