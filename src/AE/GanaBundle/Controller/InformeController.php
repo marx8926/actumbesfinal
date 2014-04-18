@@ -172,7 +172,7 @@ class InformeController extends Controller {
        echo getcwd();
        chdir('report\ganar');
        $path = getcwd()."\informe_resumen.xls";
-       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+       $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
 
        $todos = array();       
        $fech_b = $desde;
@@ -265,7 +265,7 @@ class InformeController extends Controller {
         else 
             $path = getcwd()."/informe_semanal.xls";
 
-        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
         $phpExcelObject->getActiveSheet()->getColumnDimension('B')->setAutoSize('true');
 
        $todos = array();
